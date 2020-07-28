@@ -29,4 +29,65 @@
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
   </entry>
+  <entry>
+    <title>安装ROS</title>
+    <url>/2020/07/28/%E5%AE%89%E8%A3%85ROS/</url>
+    <content><![CDATA[<p>安装一波三折值得细品</p>
+<h2 id="0-系统"><a href="#0-系统" class="headerlink" title="0.系统"></a>0.系统</h2><p>使用Ubuntu原生系统自然最好；</p>
+<p>退而求其次，可以使用WSL使用ubuntu，也很好用；</p>
+<p>最好还是18.04系统，20.04各种不兼容。</p>
+<h2 id="1-换源"><a href="#1-换源" class="headerlink" title="1. 换源"></a>1. 换源</h2><p>目前看到的最好apt换源是：</p>
+<p><a href="https://www.jianshu.com/p/ad4dc5dbf55e" target="_blank" rel="noopener">简书换阿里源</a></p>
+<p>pip换源：</p>
+<p>[<a href="https://www.cnblogs.com/g15009428458/p/12323137.html" target="_blank" rel="noopener">更换linux系统中的pip源</a>]</p>
+<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><p><a href="https://blog.csdn.net/sinat_38284212/article/details/100884644" target="_blank" rel="noopener">类似这样的文章比比皆是</a></p>
+<p>一定要按部就班地来：</p>
+<p>最容易出现的问题是：unable to load package xxx</p>
+<p>原因：</p>
+<p>（1）换源失败</p>
+<p>（2）版本错误</p>
+<p>（3）没有更新软件和源</p>
+<p>参考网页：<a href="https://blog.csdn.net/sinat_34130812/article/details/81666728" target="_blank" rel="noopener">https://blog.csdn.net/sinat_34130812/article/details/81666728</a></p>
+<ol>
+<li>参考<a href="http://wiki.ros.org/ROS/Installation/UbuntuMirrors" target="_blank" rel="noopener">官网</a></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo sh -c <span class="string">'. /etc/lsb-release &amp;&amp; echo "deb http://mirrors.tuna.tsinghua.edu.cn/ros/ubuntu/ `lsb_release -cs` main" &gt; /etc/apt/sources.list.d/ros-latest.list'</span></span><br></pre></td></tr></table></figure>
+
+<p>获取镜像</p>
+<ol start="2">
+<li>设置密钥</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-key adv --keyserver <span class="string">'hkp://keyserver.ubuntu.com:80'</span> --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654</span><br></pre></td></tr></table></figure>
+
+<p>如果不设置，就会出现问题：<a href="https://blog.csdn.net/wangxue_1231/article/details/92801510" target="_blank" rel="noopener">sudo apt-get update出现W: GPG 错误：http://packages.ros.org/ros/ubuntu xenial InRelease: 由于没有公钥，无法验证下列签名</a></p>
+<ol start="3">
+<li>==重新更新一下==（一定要！）</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>正式安装</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install ros-melodic-desktop-full</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>启动：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo rosdep init</span><br></pre></td></tr></table></figure>
+
+<p>失败！</p>
+<p>类似整个问题：<a href="https://blog.csdn.net/qq_35590091/article/details/100515558" target="_blank" rel="noopener">ubuntu16.04 运行rosdep init 返回ERROR：cannot download default sources list from</a></p>
+<p>上面这个解决方法也不是太好，不妨使用下面方法：</p>
+<p><a href="https://blog.csdn.net/weixin_43288910/article/details/105627358?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43288910/article/details/105627358?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3</a></p>
+<p>就好了</p>
+<p>换成中国科大的源就好了</p>
+]]></content>
+      <categories>
+        <category>ROS</category>
+      </categories>
+      <tags>
+        <tag>ROS</tag>
+        <tag>software</tag>
+      </tags>
+  </entry>
 </search>
