@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    安装ROS |  悦
+    VSCode学习 |  悦
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -48,7 +48,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-安装ROS"
+  id="post-VSCode学习"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -59,26 +59,22 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  安装ROS
+  VSCode学习
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2020/07/28/%E5%AE%89%E8%A3%85ROS/" class="article-date">
-  <time datetime="2020-07-28T02:00:41.000Z" itemprop="datePublished">2020-07-28</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/ROS/">ROS</a>
-  </div>
-  
+      <a href="/2020/07/29/VSCode%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time datetime="2020-07-29T01:15:29.000Z" itemprop="datePublished">2020-07-29</time>
+</a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">366</span>
+            <span class="post-count">129</span>
         </span>
     </span>
 
@@ -102,55 +98,16 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>安装一波三折值得细品</p>
-<h2 id="0-系统"><a href="#0-系统" class="headerlink" title="0.系统"></a>0.系统</h2><p>使用Ubuntu原生系统自然最好；</p>
-<p>退而求其次，可以使用WSL使用ubuntu，也很好用；</p>
-<p>最好还是18.04系统，20.04各种不兼容。</p>
-<h2 id="1-换源"><a href="#1-换源" class="headerlink" title="1. 换源"></a>1. 换源</h2><p>目前看到的最好apt换源是：</p>
-<p><a href="https://www.jianshu.com/p/ad4dc5dbf55e" target="_blank" rel="noopener">简书换阿里源</a></p>
-<p>pip换源：</p>
-<p>[<a href="https://www.cnblogs.com/g15009428458/p/12323137.html" target="_blank" rel="noopener">更换linux系统中的pip源</a>]</p>
-<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><p><a href="https://blog.csdn.net/sinat_38284212/article/details/100884644" target="_blank" rel="noopener">类似这样的文章比比皆是</a></p>
-<p>一定要按部就班地来：</p>
-<p>最容易出现的问题是：unable to load package xxx</p>
-<p>原因：</p>
-<p>（1）换源失败</p>
-<p>（2）版本错误</p>
-<p>（3）没有更新软件和源</p>
-<p>参考网页：<a href="https://blog.csdn.net/sinat_34130812/article/details/81666728" target="_blank" rel="noopener">https://blog.csdn.net/sinat_34130812/article/details/81666728</a></p>
-<ol>
-<li>参考<a href="http://wiki.ros.org/ROS/Installation/UbuntuMirrors" target="_blank" rel="noopener">官网</a></li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sh -c <span class="string">'. /etc/lsb-release &amp;&amp; echo "deb http://mirrors.tuna.tsinghua.edu.cn/ros/ubuntu/ `lsb_release -cs` main" &gt; /etc/apt/sources.list.d/ros-latest.list'</span></span><br></pre></td></tr></table></figure>
-
-<p>获取镜像</p>
-<ol start="2">
-<li>设置密钥</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver <span class="string">'hkp://keyserver.ubuntu.com:80'</span> --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654</span><br></pre></td></tr></table></figure>
-
-<p>如果不设置，就会出现问题：<a href="https://blog.csdn.net/wangxue_1231/article/details/92801510" target="_blank" rel="noopener">sudo apt-get update出现W: GPG 错误：http://packages.ros.org/ros/ubuntu xenial InRelease: 由于没有公钥，无法验证下列签名</a></p>
-<ol start="3">
-<li>重新更新一下（一定要！）</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>正式安装</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ros-melodic-desktop-full</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>启动：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rosdep init</span><br></pre></td></tr></table></figure>
-
-<p>失败！</p>
-<p>类似整个问题：<a href="https://blog.csdn.net/qq_35590091/article/details/100515558" target="_blank" rel="noopener">ubuntu16.04 运行rosdep init 返回ERROR：cannot download default sources list from</a></p>
-<p>上面这个解决方法也不是太好，不妨使用下面方法：</p>
-<p><a href="https://blog.csdn.net/weixin_43288910/article/details/105627358?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43288910/article/details/105627358?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3</a></p>
-<p>就好了</p>
-<p>换成中国科大的源就好了</p>
+  <p>重新认识Vscode</p>
+<h2 id="Anaconda-Prompt"><a href="#Anaconda-Prompt" class="headerlink" title="Anaconda Prompt"></a>Anaconda Prompt</h2><p>在VSCode中使用Anaconda Prompt</p>
+<p>参考:[<a href="https://blog.csdn.net/Add_a_cat/article/details/101051759" target="_blank" rel="noopener">在vscode中打开conda的虚拟终端</a>]</p>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>结合gitlens的使用，比terminal更快一步。</p>
+<h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><p>remote development</p>
+<p><strong>按 ctrl + shift + p 调出上面的命令栏</strong></p>
+<p>然后可以使用remote控制远程桌面，注意第一次启动时需要对user进行一点设置:</p>
+<p>参考:[<a href="https://blog.csdn.net/weixin_40373708/article/details/90376258" target="_blank" rel="noopener">使用remote</a>]</p>
+<p>但是还有一点问题，现在打开文件夹也需要输入密码，确实有点麻烦；</p>
+<p>还可以配置一下ssh-keygen，参考博客[<a href="https://blog.csdn.net/qq_43143808/article/details/106765470?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase" target="_blank" rel="noopener">ssh-keygen</a>]</p>
  
       <!-- reward -->
       
@@ -217,12 +174,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/07/28/%E5%AE%89%E8%A3%85ROS/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/07/29/VSCode%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/" rel="tag">ROS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/software/" rel="tag">software</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/software/" rel="tag">software</a></li></ul>
 
     </footer>
   </div>
@@ -230,19 +187,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2020/07/29/VSCode%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            VSCode学习
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/07/26/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" class="article-nav-link">
+      <a href="/2020/07/28/%E5%AE%89%E8%A3%85ROS/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">我的第一篇博客文章</div>
+        <div class="article-nav-title">安装ROS</div>
       </a>
     
   </nav>
