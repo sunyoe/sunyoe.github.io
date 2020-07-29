@@ -14,6 +14,9 @@
 <p>但是还有一点问题，现在打开文件夹也需要输入密码，确实有点麻烦；</p>
 <p>还可以配置一下ssh-keygen，参考博客[<a href="https://blog.csdn.net/qq_43143808/article/details/106765470?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase" target="_blank" rel="noopener">ssh-keygen</a>]</p>
 ]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
       <tags>
         <tag>software</tag>
       </tags>
