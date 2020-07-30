@@ -100,6 +100,77 @@
     
     
     <article
+  id="post-InfluxDB数据库【基础】"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/07/30/InfluxDB%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%90%E5%9F%BA%E7%A1%80%E3%80%91/"
+    >InfluxDB数据库【基础】</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/07/30/InfluxDB%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%90%E5%9F%BA%E7%A1%80%E3%80%91/" class="article-date">
+  <time datetime="2020-07-30T01:31:44.000Z" itemprop="datePublished">2020-07-30</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Data-Analysis/">Data Analysis</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>系统：ubuntu<br>influx版本：v1.8</p>
+<p>[toc]</p>
+<h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><p>直接按照网站方法即可实现安装：<br><a href="http://docs.influxdata.com/influxdb/v1.8/introduction/install/" target="_blank" rel="noopener">install介绍</a></p>
+<h2 id="2-数据写入"><a href="#2-数据写入" class="headerlink" title="2. 数据写入"></a>2. 数据写入</h2><h3 id="2-1-创建和使用databases"><a href="#2-1-创建和使用databases" class="headerlink" title="2.1 创建和使用databases"></a>2.1 创建和使用databases</h3><figure class="highlight plain"><figcaption><span>create database mydb```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">关键词大小写均可，但是文件上使用的是大写；</span><br><span class="line">&#96;&#96;&#96;&gt; show databases</span><br></pre></td></tr></table></figure>
+<p>可以展示所有数据库；</p>
+<figure class="highlight plain"><figcaption><span>use mydb```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">使用数据库&#96;&#96;&#96;mydb&#96;&#96;&#96;，可以定向使用某个数据库</span><br><span class="line"></span><br><span class="line">### 2.2 写入数据</span><br><span class="line"></span><br><span class="line">&gt;哪些数据可以被写入？</span><br><span class="line"></span><br><span class="line">#### 点的概念 - points</span><br><span class="line"></span><br><span class="line">点由&#96;&#96;&#96;time&#96;&#96;&#96;、&#96;&#96;&#96;measurement&#96;&#96;&#96;、&#96;&#96;&#96;field&#96;&#96;&#96;、&#96;&#96;&#96;tags&#96;&#96;&#96;构成：</span><br><span class="line">其中，&#96;&#96;&#96;measurement&#96;&#96;&#96;视为SQL表，时间是基础索引值（？）  </span><br><span class="line">tags和fields是SQL表中的有效列；  </span><br><span class="line">tags被索引，而fields不被索引；  </span><br><span class="line">**&lt;font color&#x3D;red&gt;使用INSERT进行点数据的输入&lt;&#x2F;font&gt;**</span><br><span class="line">&#96;&#96;&#96;id,tags&#x3D;属性 空格 value&#x3D;数值</span><br></pre></td></tr></table></figure>
+<p>每一部分内部用“，”分割，相互之间用空格分割，例如：</p>
+<figure class="highlight plain"><figcaption><span>insert temperature,machine</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- **时间戳 - time**</span><br><span class="line">  参见v2.0版本的介绍；</span><br><span class="line">  因为本数据库用的是“时间序列”</span><br><span class="line">  timestamp</span><br><span class="line"></span><br><span class="line">- **&#96;&#96;&#96;measurement&#96;&#96;&#96;其实就是&#96;&#96;&#96;id&#96;&#96;&#96;**</span><br><span class="line">  例如&#96;&#96;&#96;cpu_load&#96;&#96;&#96;?</span><br><span class="line">  到底是什么</span><br><span class="line"></span><br><span class="line">- **&#96;&#96;&#96;field&#96;&#96;&#96;**</span><br><span class="line">  要测量的value，比如</span><br><span class="line">  &#96;&#96;&#96;value&#x3D;0.64&#96;&#96;&#96; &#96;&#96;&#96;temperature&#x3D;21.2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong><code>tags</code></strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  例如host、region、dc等，**可是这些都是什么？**</span><br><span class="line"></span><br><span class="line">&gt; **InfluxDB line protocol**</span><br><span class="line">&gt; 需要使用该工具写入InfluxDB</span><br><span class="line">&gt; [参考页面](https:&#x2F;&#x2F;docs.influxdata.com&#x2F;influxdb&#x2F;v1.8&#x2F;write_protocols&#x2F;line_protocol_reference&#x2F;#line-protocol-syntax)</span><br><span class="line"></span><br><span class="line">## 3. 搜索数据 - Query - 询问</span><br><span class="line"></span><br><span class="line">1. 检索指定的数据内容：</span><br><span class="line">   &#96;&#96;&#96;&gt; select &quot;value_or_tag&quot; from  &quot;id&#x2F;measurement&quot;</span><br></pre></td></tr></table></figure>
+ <font color=red>一定要注意<code>from</code>前后都有空格！</font></li>
+</ul>
+<ol start="2">
+<li>检索某个<code>id</code>的所有内容<figure class="highlight plain"><figcaption><span>select * from "id/measurement"```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">   但是文档上说，用这个不是太好，如果信息过多的话可能会有问题。</span><br><span class="line">3. &#96;&#96;&#96;&gt; select * from &#x2F;.*&#x2F; limit 1</span><br></pre></td></tr></table></figure>
+这个没有解释，但从效果来看，是把所有数据库里面的信息都展示出来了。</li>
+<li><code>&gt; select * from &quot;id/measurement&quot; where &quot;value&quot; &gt; 0.9</code><br>添加选择性语句，用于选择满足条件的数据。</li>
+<li>更多的方法<br>参考：<a href="https://docs.influxdata.com/influxdb/v1.8/query_language/spec/" target="_blank" rel="noopener">features and keywords</a></li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/software/" rel="tag">software</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-VSCode学习"
   class="article article-type-post"
   itemscope
