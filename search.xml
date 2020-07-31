@@ -160,14 +160,19 @@
 <p>安装完成后，会显示：</p>
 <p>然后在浏览器中访问<code>localhost:9999</code>即可打开v2.0界面。</p>
 <h2 id="4-服务器安装V2-0"><a href="#4-服务器安装V2-0" class="headerlink" title="4. 服务器安装V2.0"></a>4. 服务器安装V2.0</h2><h3 id="4-1-首先将压缩包上传到服务器"><a href="#4-1-首先将压缩包上传到服务器" class="headerlink" title="4.1 首先将压缩包上传到服务器"></a>4.1 首先将压缩包上传到服务器</h3><p>(1)使用代码，但是不好用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scp -r localfile.txt username@192.168.0.1:&#x2F;home&#x2F;username&#x2F;</span><br><span class="line">​&#96;&#96;&#96;其中，</span><br><span class="line">１）scp是命令，-r是参数</span><br><span class="line">２）localfile.txt 是文件的路径和文件名</span><br><span class="line">３）username是服务器账号</span><br><span class="line">４）192.168.0.1是要上传的服务器ip地址</span><br><span class="line">５）&#x2F;home&#x2F;username&#x2F;是要拷入的文件夹路径</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">（2）直接用filezilla、MobaXterm等工具上传到服务器</span><br><span class="line">### 4.2 安装</span><br><span class="line">输入下列语句，主要是打开压缩包，以及安装。</span><br></pre></td></tr></table></figure>
-<h1 id="Unpackage-contents-to-the-current-working-directory"><a href="#Unpackage-contents-to-the-current-working-directory" class="headerlink" title="Unpackage contents to the current working directory"></a>Unpackage contents to the current working directory</h1><p>tar xvzf path/to/influxdb_2.0.0-beta.10_linux_amd64.tar.gz</p>
-<h1 id="Copy-the-influx-and-influxd-binary-to-your-PATH"><a href="#Copy-the-influx-and-influxd-binary-to-your-PATH" class="headerlink" title="Copy the influx and influxd binary to your $PATH"></a>Copy the influx and influxd binary to your $PATH</h1><p>sudo cp influxdb_2.0.0-beta.10_linux_amd64/{influx,influxd} /usr/local/bin/</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 4.3 运行</span><br><span class="line">理论上输入如下语句即可运行：</span><br></pre></td></tr></table></figure>
-<p>influxd</p>
-<p>```</p>
-<p>但是同样需要访问<code>localhost:9999</code>来访问：<br>（1）首先这里的<code>localhost</code>指的是服务器的地址；<br>（2）服务器（尤其是云服务器）需要注意添加9999安全组的IP路径，否则是无法访问的。<br>修改成功后，登陆<code>ip_of_ECS:9999</code>就可以登陆V2.0界面了！<br><img src="https://upload-images.jianshu.io/upload_images/2099309-0d4d3f19edcb8ce9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="v2.png"><br>Beautiful！<br>最后，提示一下<strong>如果安装了V2.0版本后，原来的V1.8版本的命令就失效了</strong>，以后想使用influxDB仅仅输入<code>influx</code>是不行的了！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scp -r localfile.txt username@192.168.0.1:&#x2F;home&#x2F;username&#x2F;</span><br></pre></td></tr></table></figure>
+<p>其中，<br>１）scp是命令，-r是参数<br>２）localfile.txt 是文件的路径和文件名<br>３）username是服务器账号<br>４）192.168.0.1是要上传的服务器ip地址<br>５）/home/username/是要拷入的文件夹路径</p>
+<p>（2）直接用filezilla、MobaXterm等工具上传到服务器</p>
+<h3 id="4-2-安装"><a href="#4-2-安装" class="headerlink" title="4.2 安装"></a>4.2 安装</h3><p>输入下列语句，主要是打开压缩包，以及安装。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Unpackage contents to the current working directory</span><br><span class="line">tar xvzf path&#x2F;to&#x2F;influxdb_2.0.0-beta.10_linux_amd64.tar.gz</span><br><span class="line"></span><br><span class="line"># Copy the influx and influxd binary to your $PATH</span><br><span class="line">sudo cp influxdb_2.0.0-beta.10_linux_amd64&#x2F;&#123;influx,influxd&#125; &#x2F;usr&#x2F;local&#x2F;bin&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-运行"><a href="#4-3-运行" class="headerlink" title="4.3 运行"></a>4.3 运行</h3><p>理论上输入如下语句即可运行：</p>
+<p><code>influxd</code></p>
+<p>但是同样需要访问<code>localhost:9999</code>来访问：</p>
+<p>（1）首先这里的<code>localhost</code>指的是服务器的地址；</p>
+<p>（2）服务器（尤其是云服务器）需要注意添加9999安全组的IP路径，否则是无法访问的。</p>
+<p>修改成功后，登陆<code>ip_of_ECS:9999</code>就可以登陆V2.0界面了！<br><img src="https://upload-images.jianshu.io/upload_images/2099309-0d4d3f19edcb8ce9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="v2.png"><br>Beautiful！</p>
+<p>最后，提示一下<strong>如果安装了V2.0版本后，原来的V1.8版本的命令就失效了</strong>，以后想使用influxDB仅仅输入<code>influx</code>是不行的了！</p>
 ]]></content>
       <tags>
         <tag>software</tag>
