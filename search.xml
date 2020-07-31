@@ -171,7 +171,7 @@
 <p>但是同样需要访问<code>localhost:9999</code>来访问：</p>
 <p>（1）首先这里的<code>localhost</code>指的是服务器的地址；</p>
 <p>（2）服务器（尤其是云服务器）需要注意添加9999安全组的IP路径，否则是无法访问的。</p>
-<p>修改成功后，登陆<code>ip_of_ECS:9999</code>就可以登陆V2.0界面了！<br><img src="https://upload-images.jianshu.io/upload_images/2099309-0d4d3f19edcb8ce9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="v2.png"><br>Beautiful！</p>
+<p>修改成功后，登陆<code>ip_of_ECS:9999</code>就可以登陆V2.0界面了！<br><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/1240.png" alt="v2.png"><br>Beautiful！</p>
 <p>最后，提示一下<strong>如果安装了V2.0版本后，原来的V1.8版本的命令就失效了</strong>，以后想使用influxDB仅仅输入<code>influx</code>是不行的了！</p>
 ]]></content>
       <tags>
