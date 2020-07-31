@@ -36,6 +36,7 @@
       </categories>
       <tags>
         <tag>software</tag>
+        <tag>influxdb</tag>
       </tags>
   </entry>
   <entry>
@@ -176,6 +177,7 @@
 ]]></content>
       <tags>
         <tag>software</tag>
+        <tag>influxdb</tag>
       </tags>
   </entry>
 </search>
