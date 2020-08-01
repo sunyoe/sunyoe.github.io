@@ -31,39 +31,6 @@
       </tags>
   </entry>
   <entry>
-    <title>VisualStudio Code 使用心得</title>
-    <url>/2020/07/29/VisualStudio%20Code%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<p><strong>重新认识VScode</strong></p>
-<p>小技巧：</p>
-<p><strong>按 ctrl + shift + p 调出上面的命令栏</strong></p>
-<p>VSCode有多个设置页面</p>
-<ul>
-<li>点击左下方设置按钮查询设置内容</li>
-<li>在设置界面中，会有部分设置内容下方 给出 settings.json 文件</li>
-</ul>
-<h2 id="Anaconda-Prompt"><a href="#Anaconda-Prompt" class="headerlink" title="Anaconda Prompt"></a>Anaconda Prompt</h2><p>在VSCode中使用Anaconda Prompt的虚拟终端，能够方便地配置好python调试环境等内容，就可以脱离Anaconda Prompt的束缚。</p>
-<p>主要是修改以下内容：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"python.pythonPath"</span>: <span class="string">"C:\\ProgramData\\Anaconda3\\python.exe"</span>,</span><br><span class="line">    <span class="string">"terminal.integrated.automationShell.windows"</span>: <span class="string">""</span>,</span><br><span class="line">    <span class="string">"terminal.integrated.shell.windows"</span>: <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><em>参考:[<a href="https://blog.csdn.net/Add_a_cat/article/details/101051759" target="_blank" rel="noopener">在vscode中打开conda的虚拟终端</a>]</em></p>
-<p>这是一种相对简单的方法，只需要修改配置，就可以进行使用。</p>
-<p>此外如果能直接将conda命令加入环境变量，并且直接在windows终端中进行调用，也就不用再设置该项内容了；注意在conda官方看来，将conda命令加入环境变量是有风险的。</p>
-<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>结合gitlens的使用，比Git terminal更快一步。</p>
-<p>前提：认真配置好Git环境，可参考菜鸟教程关于Git的介绍。</p>
-<h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><p>推荐插件：<code>remote development</code></p>
-<p>实现对服务器的远程控制，注意第一次启动时需要对用户名等内容进行一点设置。</p>
-<p><em>参考：[<a href="https://blog.csdn.net/weixin_40373708/article/details/90376258" target="_blank" rel="noopener">使用remote</a>]</em></p>
-<p>此外，正常情况下，每次打开新文件夹需要再次输入密码，确实有点麻烦，还可以配置一下ssh-keygen，减少密码输入。</p>
-<p><em>参考：[<a href="https://blog.csdn.net/qq_43143808/article/details/106765470?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase" target="_blank" rel="noopener">ssh-keygen</a>]</em></p>
-]]></content>
-      <categories>
-        <category>Tools</category>
-      </categories>
-      <tags>
-        <tag>software</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>InfluxDB数据库【基础】</title>
     <url>/2020/07/30/InfluxDB%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%90%E5%9F%BA%E7%A1%80%E3%80%91/</url>
     <content><![CDATA[<p>系统：ubuntu<br>influx版本：v1.8</p>
@@ -101,6 +68,24 @@
         <tag>software</tag>
         <tag>influxdb</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/07/26/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>【ROS】安装篇</title>
@@ -175,6 +160,65 @@
       </tags>
   </entry>
   <entry>
+    <title>VisualStudio Code学习</title>
+    <url>/2020/07/29/VisualStudio%20Code%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p><strong>重新认识VScode</strong></p>
+<p>小技巧：</p>
+<p><strong>按 ctrl + shift + p 调出上面的命令栏</strong></p>
+<p>VSCode有多个设置页面</p>
+<ul>
+<li>点击左下方设置按钮查询设置内容</li>
+<li>在设置界面中，会有部分设置内容下方 给出 settings.json 文件</li>
+</ul>
+<p>推荐插件：</p>
+<table>
+<thead>
+<tr>
+<th>插件</th>
+<th align="left">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bracket Pair Colorizer</td>
+<td align="left">让每一对括号有自己的颜色；括号越来越多的时候很有用。</td>
+</tr>
+<tr>
+<td>vscode-icon</td>
+<td align="left">不同文件根据代码加图标；增加一点色彩。</td>
+</tr>
+<tr>
+<td>Visual Studio IntelliCode</td>
+<td align="left">补全代码；非常有用。</td>
+</tr>
+<tr>
+<td>remote development</td>
+<td align="left">远程连接服务器等。</td>
+</tr>
+</tbody></table>
+<p>其他涉及某项语言的插件，可以在用到的时候直接查找即可，甚至微信小程序、VUE、Django、ROS等也有插件可用。</p>
+<h2 id="Anaconda-Prompt"><a href="#Anaconda-Prompt" class="headerlink" title="Anaconda Prompt"></a>Anaconda Prompt</h2><p>在VSCode中使用Anaconda Prompt的虚拟终端，能够方便地配置好python调试环境等内容，就可以脱离Anaconda Prompt的束缚。</p>
+<p>主要是修改以下内容：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"python.pythonPath"</span>: <span class="string">"C:\\ProgramData\\Anaconda3\\python.exe"</span>,</span><br><span class="line">    <span class="string">"terminal.integrated.automationShell.windows"</span>: <span class="string">""</span>,</span><br><span class="line">    <span class="string">"terminal.integrated.shell.windows"</span>: <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em>参考:[<a href="https://blog.csdn.net/Add_a_cat/article/details/101051759" target="_blank" rel="noopener">在vscode中打开conda的虚拟终端</a>]</em></p>
+<p>这是一种相对简单的方法，只需要修改配置，就可以进行使用。</p>
+<p>此外如果能直接将conda命令加入环境变量，并且直接在windows终端中进行调用，也就不用再设置该项内容了；注意在conda官方看来，将conda命令加入环境变量是有风险的。</p>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>结合gitlens的使用，比Git terminal更快一步。</p>
+<p>前提：认真配置好Git环境，可参考菜鸟教程关于Git的介绍。</p>
+<h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><p>推荐插件：<code>remote development</code></p>
+<p>实现对服务器的远程控制，注意第一次启动时需要对用户名等内容进行一点设置。</p>
+<p><em>参考：[<a href="https://blog.csdn.net/weixin_40373708/article/details/90376258" target="_blank" rel="noopener">使用remote</a>]</em></p>
+<p>此外，正常情况下，每次打开新文件夹需要再次输入密码，确实有点麻烦，还可以配置一下ssh-keygen，减少密码输入。</p>
+<p><em>参考：[<a href="https://blog.csdn.net/qq_43143808/article/details/106765470?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase" target="_blank" rel="noopener">ssh-keygen</a>]</em></p>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>software</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>我的第一篇博客文章</title>
     <url>/2020/07/26/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/</url>
     <content><![CDATA[<h1 id="凡是过往，皆为序章"><a href="#凡是过往，皆为序章" class="headerlink" title="凡是过往，皆为序章"></a>凡是过往，皆为序章</h1><h2 id="博客从此开始"><a href="#博客从此开始" class="headerlink" title="博客从此开始"></a>博客从此开始</h2><h2 id="内容规划"><a href="#内容规划" class="headerlink" title="内容规划"></a>内容规划</h2><p>ROS</p>
@@ -184,23 +228,5 @@
 <p>python学习</p>
 <p>嵌入式回顾</p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2>]]></content>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/07/26/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
   </entry>
 </search>
