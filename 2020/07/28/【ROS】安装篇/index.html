@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    安装ROS |  悦
+    【ROS】安装篇 |  悦
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -48,7 +48,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-安装ROS"
+  id="post-【ROS】安装篇"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -59,14 +59,14 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  安装ROS
+  【ROS】安装篇
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2020/07/28/%E5%AE%89%E8%A3%85ROS/" class="article-date">
+      <a href="/2020/07/28/%E3%80%90ROS%E3%80%91%E5%AE%89%E8%A3%85%E7%AF%87/" class="article-date">
   <time datetime="2020-07-28T02:00:41.000Z" itemprop="datePublished">2020-07-28</time>
 </a> 
   <div class="article-category">
@@ -78,7 +78,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">366</span>
+            <span class="post-count">745</span>
         </span>
     </span>
 
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">2 分钟</span>
         </span>
     </span>
 </div>
@@ -104,20 +104,24 @@
        
   <p>安装一波三折值得细品</p>
 <h2 id="0-系统"><a href="#0-系统" class="headerlink" title="0.系统"></a>0.系统</h2><p>使用Ubuntu原生系统自然最好；</p>
-<p>退而求其次，可以使用WSL使用ubuntu，也很好用；</p>
-<p>最好还是18.04系统，20.04各种不兼容。</p>
-<h2 id="1-换源"><a href="#1-换源" class="headerlink" title="1. 换源"></a>1. 换源</h2><p>目前看到的最好apt换源是：</p>
-<p><a href="https://www.jianshu.com/p/ad4dc5dbf55e" target="_blank" rel="noopener">简书换阿里源</a></p>
+<p>退而求其次，可以使用虚拟机的ubuntu系统，也很好用；</p>
+<p>曾尝试在Windows linux subsystem 上安装ubuntu和ROS，可以实现安装，也可以简单使用，但是针对仿真等比较耗内存的应用体验会比较差，而且还需要使用Xserver实现桌面映射。</p>
+<p>当前时间，最好用的是ubuntu 18.04系统，对应ROS-melodic版本，内容相对完善，也比较新；</p>
+<p>ubuntu 20.04系统对应的ROS-Noetic在一些常用包上还是存在缺失问题，后期使用中会出现各种不兼容问题，值得注意。</p>
+<h2 id="1-换源"><a href="#1-换源" class="headerlink" title="1. 换源"></a>1. 换源</h2><p>ROS系统需要的安装包大多来自 ros.org 或 github，建议使用换源以提高安装的成功率和效率；经常下载一小时，报错马上崩，很影响心态。</p>
+<p>亲测比较好用的apt换源有：</p>
+<p>[<a href="https://www.jianshu.com/p/ad4dc5dbf55e" target="_blank" rel="noopener">简书换阿里源</a>]</p>
 <p>pip换源：</p>
 <p>[<a href="https://www.cnblogs.com/g15009428458/p/12323137.html" target="_blank" rel="noopener">更换linux系统中的pip源</a>]</p>
-<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><p><a href="https://blog.csdn.net/sinat_38284212/article/details/100884644" target="_blank" rel="noopener">类似这样的文章比比皆是</a></p>
+<p>以及中科大源，见本文末。</p>
+<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><p>[<a href="https://blog.csdn.net/sinat_38284212/article/details/100884644" target="_blank" rel="noopener">ROS安装文章非常多</a>]，基本步骤相同。</p>
 <p>一定要按部就班地来：</p>
-<p>最容易出现的问题是：unable to load package xxx</p>
+<p>最容易出现的问题是：<code>unable to load package xxx</code></p>
 <p>原因：</p>
 <p>（1）换源失败</p>
 <p>（2）版本错误</p>
 <p>（3）没有更新软件和源</p>
-<p>参考网页：<a href="https://blog.csdn.net/sinat_34130812/article/details/81666728" target="_blank" rel="noopener">https://blog.csdn.net/sinat_34130812/article/details/81666728</a></p>
+<p><em>参考：<a href="https://blog.csdn.net/sinat_34130812/article/details/81666728" target="_blank" rel="noopener">Ubuntu18.04.1安装ROS（’E:无法定位软件包’）</a></em></p>
 <ol>
 <li>参考<a href="http://wiki.ros.org/ROS/Installation/UbuntuMirrors" target="_blank" rel="noopener">官网</a></li>
 </ol>
@@ -146,11 +150,18 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rosdep init</span><br></pre></td></tr></table></figure>
 
 <p>失败！</p>
-<p>类似整个问题：<a href="https://blog.csdn.net/qq_35590091/article/details/100515558" target="_blank" rel="noopener">ubuntu16.04 运行rosdep init 返回ERROR：cannot download default sources list from</a></p>
-<p>上面这个解决方法也不是太好，不妨使用下面方法：</p>
-<p><a href="https://blog.csdn.net/weixin_43288910/article/details/105627358?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43288910/article/details/105627358?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3</a></p>
-<p>就好了</p>
-<p>换成中国科大的源就好了</p>
+<p>最后容易出现的问题类似：</p>
+<p><a href="https://blog.csdn.net/qq_35590091/article/details/100515558" target="_blank" rel="noopener">ubuntu16.04 运行rosdep init 返回ERROR：cannot download default sources list from</a></p>
+<p>其本质原因还是换源没有换好，如果</p>
+<p>上面这个解决方法也不是太好，不妨使用下面文章中方法：</p>
+<p><a href="https://blog.csdn.net/weixin_43288910/article/details/105627358?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3" target="_blank" rel="noopener">ERROR: cannot download default sources list from: https://raw.githubusercontent.com/ros/rosdistro/ma</a></p>
+<p>也就是换成中国科大的源，亲测可用，即可愉快玩耍了！</p>
+<h2 id="rosdep-问题"><a href="#rosdep-问题" class="headerlink" title="rosdep 问题"></a>rosdep 问题</h2><p>rosdep是ROS中推荐的一种安装方法，比如使用开源的机器人包，rosdep可以很方便地将package中需要的依赖找出并全部安装，听起来确实非常棒。</p>
+<p>但是实测会有一些小问题：</p>
+<ul>
+<li>rosdep 无法使用的问题，非常普遍，网上建议一般是没有安装好rosdep，进行安装；</li>
+<li>安装rosdep之后，ros其他命令失效，这个问题实在是遇到了多次（不停地想尝试一下），最终还是选择重装ROS，其实不使用rosdep也不是大问题，在后续使用过程中逐步添加ROS的依赖包，也是可以的。</li>
+</ul>
  
       <!-- reward -->
       
@@ -217,7 +228,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/07/28/%E5%AE%89%E8%A3%85ROS/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/07/28/%E3%80%90ROS%E3%80%91%E5%AE%89%E8%A3%85%E7%AF%87/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -230,11 +241,11 @@
    
   <nav class="article-nav">
     
-      <a href="/2020/07/29/VSCode%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
+      <a href="/2020/07/29/VisualStudio%20Code%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            VSCode学习
+            VisualStudio Code 使用心得
           
         </div>
       </a>

@@ -248,7 +248,7 @@
 
     
     <article
-  id="post-VSCode学习"
+  id="post-VisualStudio Code学习"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -259,15 +259,15 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/07/29/VSCode%E5%AD%A6%E4%B9%A0/"
-    >VSCode学习</a> 
+  <a class="article-title" href="/2020/07/29/VisualStudio%20Code%E5%AD%A6%E4%B9%A0/"
+    >VisualStudio Code 使用心得</a> 
 </h2>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2020/07/29/VSCode%E5%AD%A6%E4%B9%A0/" class="article-date">
+      <a href="/2020/07/29/VisualStudio%20Code%E5%AD%A6%E4%B9%A0/" class="article-date">
   <time datetime="2020-07-29T01:15:29.000Z" itemprop="datePublished">2020-07-29</time>
 </a> 
   <div class="article-category">
@@ -278,16 +278,28 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>重新认识Vscode</p>
-<h2 id="Anaconda-Prompt"><a href="#Anaconda-Prompt" class="headerlink" title="Anaconda Prompt"></a>Anaconda Prompt</h2><p>在VSCode中使用Anaconda Prompt</p>
-<p>参考:[<a href="https://blog.csdn.net/Add_a_cat/article/details/101051759" target="_blank" rel="noopener">在vscode中打开conda的虚拟终端</a>]</p>
-<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>结合gitlens的使用，比terminal更快一步。</p>
-<h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><p>remote development</p>
+  <p><strong>重新认识VScode</strong></p>
+<p>小技巧：</p>
 <p><strong>按 ctrl + shift + p 调出上面的命令栏</strong></p>
-<p>然后可以使用remote控制远程桌面，注意第一次启动时需要对user进行一点设置:</p>
-<p>参考:[<a href="https://blog.csdn.net/weixin_40373708/article/details/90376258" target="_blank" rel="noopener">使用remote</a>]</p>
-<p>但是还有一点问题，现在打开文件夹也需要输入密码，确实有点麻烦；</p>
-<p>还可以配置一下ssh-keygen，参考博客[<a href="https://blog.csdn.net/qq_43143808/article/details/106765470?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase" target="_blank" rel="noopener">ssh-keygen</a>]</p>
+<p>VSCode有多个设置页面</p>
+<ul>
+<li>点击左下方设置按钮查询设置内容</li>
+<li>在设置界面中，会有部分设置内容下方 给出 settings.json 文件</li>
+</ul>
+<h2 id="Anaconda-Prompt"><a href="#Anaconda-Prompt" class="headerlink" title="Anaconda Prompt"></a>Anaconda Prompt</h2><p>在VSCode中使用Anaconda Prompt的虚拟终端，能够方便地配置好python调试环境等内容，就可以脱离Anaconda Prompt的束缚。</p>
+<p>主要是修改以下内容：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"python.pythonPath"</span>: <span class="string">"C:\\ProgramData\\Anaconda3\\python.exe"</span>,</span><br><span class="line">    <span class="string">"terminal.integrated.automationShell.windows"</span>: <span class="string">""</span>,</span><br><span class="line">    <span class="string">"terminal.integrated.shell.windows"</span>: <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em>参考:[<a href="https://blog.csdn.net/Add_a_cat/article/details/101051759" target="_blank" rel="noopener">在vscode中打开conda的虚拟终端</a>]</em></p>
+<p>这是一种相对简单的方法，只需要修改配置，就可以进行使用。</p>
+<p>此外如果能直接将conda命令加入环境变量，并且直接在windows终端中进行调用，也就不用再设置该项内容了；注意在conda官方看来，将conda命令加入环境变量是有风险的。</p>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>结合gitlens的使用，比Git terminal更快一步。</p>
+<p>前提：认真配置好Git环境，可参考菜鸟教程关于Git的介绍。</p>
+<h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><p>推荐插件：<code>remote development</code></p>
+<p>实现对服务器的远程控制，注意第一次启动时需要对用户名等内容进行一点设置。</p>
+<p><em>参考：[<a href="https://blog.csdn.net/weixin_40373708/article/details/90376258" target="_blank" rel="noopener">使用remote</a>]</em></p>
+<p>此外，正常情况下，每次打开新文件夹需要再次输入密码，确实有点麻烦，还可以配置一下ssh-keygen，减少密码输入。</p>
+<p><em>参考：[<a href="https://blog.csdn.net/qq_43143808/article/details/106765470?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase" target="_blank" rel="noopener">ssh-keygen</a>]</em></p>
  
       <!-- reward -->
       
@@ -310,7 +322,7 @@
 
     
     <article
-  id="post-安装ROS"
+  id="post-【ROS】安装篇"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -321,15 +333,15 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/07/28/%E5%AE%89%E8%A3%85ROS/"
-    >安装ROS</a> 
+  <a class="article-title" href="/2020/07/28/%E3%80%90ROS%E3%80%91%E5%AE%89%E8%A3%85%E7%AF%87/"
+    >【ROS】安装篇</a> 
 </h2>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2020/07/28/%E5%AE%89%E8%A3%85ROS/" class="article-date">
+      <a href="/2020/07/28/%E3%80%90ROS%E3%80%91%E5%AE%89%E8%A3%85%E7%AF%87/" class="article-date">
   <time datetime="2020-07-28T02:00:41.000Z" itemprop="datePublished">2020-07-28</time>
 </a> 
   <div class="article-category">
@@ -342,20 +354,24 @@
        
   <p>安装一波三折值得细品</p>
 <h2 id="0-系统"><a href="#0-系统" class="headerlink" title="0.系统"></a>0.系统</h2><p>使用Ubuntu原生系统自然最好；</p>
-<p>退而求其次，可以使用WSL使用ubuntu，也很好用；</p>
-<p>最好还是18.04系统，20.04各种不兼容。</p>
-<h2 id="1-换源"><a href="#1-换源" class="headerlink" title="1. 换源"></a>1. 换源</h2><p>目前看到的最好apt换源是：</p>
-<p><a href="https://www.jianshu.com/p/ad4dc5dbf55e" target="_blank" rel="noopener">简书换阿里源</a></p>
+<p>退而求其次，可以使用虚拟机的ubuntu系统，也很好用；</p>
+<p>曾尝试在Windows linux subsystem 上安装ubuntu和ROS，可以实现安装，也可以简单使用，但是针对仿真等比较耗内存的应用体验会比较差，而且还需要使用Xserver实现桌面映射。</p>
+<p>当前时间，最好用的是ubuntu 18.04系统，对应ROS-melodic版本，内容相对完善，也比较新；</p>
+<p>ubuntu 20.04系统对应的ROS-Noetic在一些常用包上还是存在缺失问题，后期使用中会出现各种不兼容问题，值得注意。</p>
+<h2 id="1-换源"><a href="#1-换源" class="headerlink" title="1. 换源"></a>1. 换源</h2><p>ROS系统需要的安装包大多来自 ros.org 或 github，建议使用换源以提高安装的成功率和效率；经常下载一小时，报错马上崩，很影响心态。</p>
+<p>亲测比较好用的apt换源有：</p>
+<p>[<a href="https://www.jianshu.com/p/ad4dc5dbf55e" target="_blank" rel="noopener">简书换阿里源</a>]</p>
 <p>pip换源：</p>
 <p>[<a href="https://www.cnblogs.com/g15009428458/p/12323137.html" target="_blank" rel="noopener">更换linux系统中的pip源</a>]</p>
-<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><p><a href="https://blog.csdn.net/sinat_38284212/article/details/100884644" target="_blank" rel="noopener">类似这样的文章比比皆是</a></p>
+<p>以及中科大源，见本文末。</p>
+<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><p>[<a href="https://blog.csdn.net/sinat_38284212/article/details/100884644" target="_blank" rel="noopener">ROS安装文章非常多</a>]，基本步骤相同。</p>
 <p>一定要按部就班地来：</p>
-<p>最容易出现的问题是：unable to load package xxx</p>
+<p>最容易出现的问题是：<code>unable to load package xxx</code></p>
 <p>原因：</p>
 <p>（1）换源失败</p>
 <p>（2）版本错误</p>
 <p>（3）没有更新软件和源</p>
-<p>参考网页：<a href="https://blog.csdn.net/sinat_34130812/article/details/81666728" target="_blank" rel="noopener">https://blog.csdn.net/sinat_34130812/article/details/81666728</a></p>
+<p><em>参考：<a href="https://blog.csdn.net/sinat_34130812/article/details/81666728" target="_blank" rel="noopener">Ubuntu18.04.1安装ROS（’E:无法定位软件包’）</a></em></p>
 <ol>
 <li>参考<a href="http://wiki.ros.org/ROS/Installation/UbuntuMirrors" target="_blank" rel="noopener">官网</a></li>
 </ol>
@@ -384,11 +400,18 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rosdep init</span><br></pre></td></tr></table></figure>
 
 <p>失败！</p>
-<p>类似整个问题：<a href="https://blog.csdn.net/qq_35590091/article/details/100515558" target="_blank" rel="noopener">ubuntu16.04 运行rosdep init 返回ERROR：cannot download default sources list from</a></p>
-<p>上面这个解决方法也不是太好，不妨使用下面方法：</p>
-<p><a href="https://blog.csdn.net/weixin_43288910/article/details/105627358?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43288910/article/details/105627358?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3</a></p>
-<p>就好了</p>
-<p>换成中国科大的源就好了</p>
+<p>最后容易出现的问题类似：</p>
+<p><a href="https://blog.csdn.net/qq_35590091/article/details/100515558" target="_blank" rel="noopener">ubuntu16.04 运行rosdep init 返回ERROR：cannot download default sources list from</a></p>
+<p>其本质原因还是换源没有换好，如果</p>
+<p>上面这个解决方法也不是太好，不妨使用下面文章中方法：</p>
+<p><a href="https://blog.csdn.net/weixin_43288910/article/details/105627358?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3" target="_blank" rel="noopener">ERROR: cannot download default sources list from: https://raw.githubusercontent.com/ros/rosdistro/ma</a></p>
+<p>也就是换成中国科大的源，亲测可用，即可愉快玩耍了！</p>
+<h2 id="rosdep-问题"><a href="#rosdep-问题" class="headerlink" title="rosdep 问题"></a>rosdep 问题</h2><p>rosdep是ROS中推荐的一种安装方法，比如使用开源的机器人包，rosdep可以很方便地将package中需要的依赖找出并全部安装，听起来确实非常棒。</p>
+<p>但是实测会有一些小问题：</p>
+<ul>
+<li>rosdep 无法使用的问题，非常普遍，网上建议一般是没有安装好rosdep，进行安装；</li>
+<li>安装rosdep之后，ros其他命令失效，这个问题实在是遇到了多次（不停地想尝试一下），最终还是选择重装ROS，其实不使用rosdep也不是大问题，在后续使用过程中逐步添加ROS的依赖包，也是可以的。</li>
+</ul>
  
       <!-- reward -->
       
