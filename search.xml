@@ -25,6 +25,9 @@
 <p>修改成功后，登陆<code>ip_of_ECS:9999</code>就可以登陆V2.0界面了！<br><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/1240.png" alt="v2.png"><br>Beautiful！</p>
 <p>最后，提示一下<strong>如果安装了V2.0版本后，原来的V1.8版本的命令就失效了</strong>，以后想使用influxDB仅仅输入<code>influx</code>是不行的了！</p>
 ]]></content>
+      <categories>
+        <category>Data Analysis</category>
+      </categories>
       <tags>
         <tag>software</tag>
         <tag>influxdb</tag>
