@@ -1,39 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>InfluxDB数据库【入门】</title>
-    <url>/2020/07/31/InfluxDB%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%90%E5%85%A5%E9%97%A8%E3%80%91/</url>
-    <content><![CDATA[<p>版本：v2.0-beta<br>系统：win+docker / ubuntu服务器</p>
-<h2 id="1-Docker-安装"><a href="#1-Docker-安装" class="headerlink" title="1. Docker 安装"></a>1. Docker 安装</h2><p><a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">Docker-desktop官方下载链接</a><br>安装完成之后，就可以直接在终端运行docker了<br>或者可以在VSCode中使用docker插件</p>
-<h2 id="2-VSCode-中-Docker-插件探索"><a href="#2-VSCode-中-Docker-插件探索" class="headerlink" title="2. VSCode 中 Docker 插件探索"></a>2. VSCode 中 Docker 插件探索</h2><h2 id="3-在Docker中使用influxdb"><a href="#3-在Docker中使用influxdb" class="headerlink" title="3. 在Docker中使用influxdb"></a>3. 在Docker中使用influxdb</h2><p>以下两句代码只需使用任意一句即可。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#下载页面的 docker image</span><br><span class="line">docker pull quay.io&#x2F;influxdb&#x2F;influxdb:2.0.0-beta</span><br><span class="line"></span><br><span class="line">#介绍页面的安装方法</span><br><span class="line">docker run --name influxdb -p 9999:9999 quay.io&#x2F;influxdb&#x2F;influxdb:2.0.0-beta</span><br></pre></td></tr></table></figure>
-
-<p>安装完成后，会显示：</p>
-<p>然后在浏览器中访问<code>localhost:9999</code>即可打开v2.0界面。</p>
-<h2 id="4-服务器安装V2-0"><a href="#4-服务器安装V2-0" class="headerlink" title="4. 服务器安装V2.0"></a>4. 服务器安装V2.0</h2><h3 id="4-1-首先将压缩包上传到服务器"><a href="#4-1-首先将压缩包上传到服务器" class="headerlink" title="4.1 首先将压缩包上传到服务器"></a>4.1 首先将压缩包上传到服务器</h3><p>(1)使用代码，但是不好用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scp -r localfile.txt username@192.168.0.1:&#x2F;home&#x2F;username&#x2F;</span><br></pre></td></tr></table></figure>
-<p>其中，<br>１）scp是命令，-r是参数<br>２）localfile.txt 是文件的路径和文件名<br>３）username是服务器账号<br>４）192.168.0.1是要上传的服务器ip地址<br>５）/home/username/是要拷入的文件夹路径</p>
-<p>（2）直接用filezilla、MobaXterm等工具上传到服务器</p>
-<h3 id="4-2-安装"><a href="#4-2-安装" class="headerlink" title="4.2 安装"></a>4.2 安装</h3><p>输入下列语句，主要是打开压缩包，以及安装。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Unpackage contents to the current working directory</span><br><span class="line">tar xvzf path&#x2F;to&#x2F;influxdb_2.0.0-beta.10_linux_amd64.tar.gz</span><br><span class="line"></span><br><span class="line"># Copy the influx and influxd binary to your $PATH</span><br><span class="line">sudo cp influxdb_2.0.0-beta.10_linux_amd64&#x2F;&#123;influx,influxd&#125; &#x2F;usr&#x2F;local&#x2F;bin&#x2F;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-3-运行"><a href="#4-3-运行" class="headerlink" title="4.3 运行"></a>4.3 运行</h3><p>理论上输入如下语句即可运行：</p>
-<p><code>influxd</code></p>
-<p>但是同样需要访问<code>localhost:9999</code>来访问：</p>
-<p>（1）首先这里的<code>localhost</code>指的是服务器的地址；</p>
-<p>（2）服务器（尤其是云服务器）需要注意添加9999安全组的IP路径，否则是无法访问的。</p>
-<p>修改成功后，登陆<code>ip_of_ECS:9999</code>就可以登陆V2.0界面了！<br><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/1240.png" alt="v2.png"><br>Beautiful！</p>
-<p>最后，提示一下<strong>如果安装了V2.0版本后，原来的V1.8版本的命令就失效了</strong>，以后想使用influxDB仅仅输入<code>influx</code>是不行的了！</p>
-]]></content>
-      <categories>
-        <category>Data Analysis</category>
-      </categories>
-      <tags>
-        <tag>software</tag>
-        <tag>influxdb</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>InfluxDB数据库【基础】</title>
     <url>/2020/07/30/InfluxDB%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%90%E5%9F%BA%E7%A1%80%E3%80%91/</url>
     <content><![CDATA[<p>系统：ubuntu<br>influx版本：v1.8</p>
@@ -70,96 +37,6 @@
       <tags>
         <tag>software</tag>
         <tag>influxdb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/07/26/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>【ROS】安装篇</title>
-    <url>/2020/07/28/%E3%80%90ROS%E3%80%91%E5%AE%89%E8%A3%85%E7%AF%87/</url>
-    <content><![CDATA[<p>安装一波三折值得细品</p>
-<h2 id="0-系统"><a href="#0-系统" class="headerlink" title="0.系统"></a>0.系统</h2><p>使用Ubuntu原生系统自然最好；</p>
-<p>退而求其次，可以使用虚拟机的ubuntu系统，也很好用；</p>
-<p>曾尝试在Windows linux subsystem 上安装ubuntu和ROS，可以实现安装，也可以简单使用，但是针对仿真等比较耗内存的应用体验会比较差，而且还需要使用Xserver实现桌面映射。</p>
-<p>当前时间，最好用的是ubuntu 18.04系统，对应ROS-melodic版本，内容相对完善，也比较新；</p>
-<p>ubuntu 20.04系统对应的ROS-Noetic在一些常用包上还是存在缺失问题，后期使用中会出现各种不兼容问题，值得注意。</p>
-<h2 id="1-换源"><a href="#1-换源" class="headerlink" title="1. 换源"></a>1. 换源</h2><p>ROS系统需要的安装包大多来自 ros.org 或 github，建议使用换源以提高安装的成功率和效率；经常下载一小时，报错马上崩，很影响心态。</p>
-<p>亲测比较好用的apt换源有：</p>
-<p>[<a href="https://www.jianshu.com/p/ad4dc5dbf55e" target="_blank" rel="noopener">简书换阿里源</a>]</p>
-<p>pip换源：</p>
-<p>[<a href="https://www.cnblogs.com/g15009428458/p/12323137.html" target="_blank" rel="noopener">更换linux系统中的pip源</a>]</p>
-<p>以及中科大源，见本文末。</p>
-<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><p>[<a href="https://blog.csdn.net/sinat_38284212/article/details/100884644" target="_blank" rel="noopener">ROS安装文章非常多</a>]，基本步骤相同。</p>
-<p>一定要按部就班地来：</p>
-<p>最容易出现的问题是：<code>unable to load package xxx</code></p>
-<p>原因：</p>
-<p>（1）换源失败</p>
-<p>（2）版本错误</p>
-<p>（3）没有更新软件和源</p>
-<p><em>参考：<a href="https://blog.csdn.net/sinat_34130812/article/details/81666728" target="_blank" rel="noopener">Ubuntu18.04.1安装ROS（’E:无法定位软件包’）</a></em></p>
-<ol>
-<li>参考<a href="http://wiki.ros.org/ROS/Installation/UbuntuMirrors" target="_blank" rel="noopener">官网</a></li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo sh -c <span class="string">'. /etc/lsb-release &amp;&amp; echo "deb http://mirrors.tuna.tsinghua.edu.cn/ros/ubuntu/ `lsb_release -cs` main" &gt; /etc/apt/sources.list.d/ros-latest.list'</span></span><br></pre></td></tr></table></figure>
-
-<p>获取镜像</p>
-<ol start="2">
-<li>设置密钥</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-key adv --keyserver <span class="string">'hkp://keyserver.ubuntu.com:80'</span> --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654</span><br></pre></td></tr></table></figure>
-
-<p>如果不设置，就会出现问题：<a href="https://blog.csdn.net/wangxue_1231/article/details/92801510" target="_blank" rel="noopener">sudo apt-get update出现W: GPG 错误：http://packages.ros.org/ros/ubuntu xenial InRelease: 由于没有公钥，无法验证下列签名</a></p>
-<ol start="3">
-<li>重新更新一下（一定要！）</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>正式安装</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install ros-melodic-desktop-full</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>启动：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo rosdep init</span><br></pre></td></tr></table></figure>
-
-<p>失败！</p>
-<p>最后容易出现的问题类似：</p>
-<p><a href="https://blog.csdn.net/qq_35590091/article/details/100515558" target="_blank" rel="noopener">ubuntu16.04 运行rosdep init 返回ERROR：cannot download default sources list from</a></p>
-<p>其本质原因还是换源没有换好，如果</p>
-<p>上面这个解决方法也不是太好，不妨使用下面文章中方法：</p>
-<p><a href="https://blog.csdn.net/weixin_43288910/article/details/105627358?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3" target="_blank" rel="noopener">ERROR: cannot download default sources list from: https://raw.githubusercontent.com/ros/rosdistro/ma</a></p>
-<p>也就是换成中国科大的源，亲测可用，即可愉快玩耍了！</p>
-<h2 id="rosdep-问题"><a href="#rosdep-问题" class="headerlink" title="rosdep 问题"></a>rosdep 问题</h2><p>rosdep是ROS中推荐的一种安装方法，比如使用开源的机器人包，rosdep可以很方便地将package中需要的依赖找出并全部安装，听起来确实非常棒。</p>
-<p>但是实测会有一些小问题：</p>
-<ul>
-<li>rosdep 无法使用的问题，非常普遍，网上建议一般是没有安装好rosdep，进行安装；</li>
-<li>安装rosdep之后，ros其他命令失效，这个问题实在是遇到了多次（不停地想尝试一下），最终还是选择重装ROS，其实不使用rosdep也不是大问题，在后续使用过程中逐步添加ROS的依赖包，也是可以的。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>ROS</category>
-      </categories>
-      <tags>
-        <tag>software</tag>
-        <tag>ROS</tag>
       </tags>
   </entry>
   <entry>
@@ -222,15 +99,81 @@
       </tags>
   </entry>
   <entry>
-    <title>我的第一篇博客文章</title>
-    <url>/2020/07/26/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/</url>
-    <content><![CDATA[<h1 id="凡是过往，皆为序章"><a href="#凡是过往，皆为序章" class="headerlink" title="凡是过往，皆为序章"></a>凡是过往，皆为序章</h1><h2 id="博客从此开始"><a href="#博客从此开始" class="headerlink" title="博客从此开始"></a>博客从此开始</h2><h2 id="内容规划"><a href="#内容规划" class="headerlink" title="内容规划"></a>内容规划</h2><p>ROS</p>
-<p>视觉</p>
-<p>神经网络</p>
-<p>web开发</p>
-<p>python学习</p>
-<p>嵌入式回顾</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2>]]></content>
+    <title>InfluxDB数据库【入门】</title>
+    <url>/2020/07/31/InfluxDB%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%90%E5%85%A5%E9%97%A8%E3%80%91/</url>
+    <content><![CDATA[<p>版本：v2.0-beta<br>系统：win+docker / ubuntu服务器</p>
+<h2 id="1-Docker-安装"><a href="#1-Docker-安装" class="headerlink" title="1. Docker 安装"></a>1. Docker 安装</h2><p><a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">Docker-desktop官方下载链接</a><br>安装完成之后，就可以直接在终端运行docker了<br>或者可以在VSCode中使用docker插件</p>
+<h2 id="2-VSCode-中-Docker-插件探索"><a href="#2-VSCode-中-Docker-插件探索" class="headerlink" title="2. VSCode 中 Docker 插件探索"></a>2. VSCode 中 Docker 插件探索</h2><h2 id="3-在Docker中使用influxdb"><a href="#3-在Docker中使用influxdb" class="headerlink" title="3. 在Docker中使用influxdb"></a>3. 在Docker中使用influxdb</h2><p>以下两句代码只需使用任意一句即可。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#下载页面的 docker image</span><br><span class="line">docker pull quay.io&#x2F;influxdb&#x2F;influxdb:2.0.0-beta</span><br><span class="line"></span><br><span class="line">#介绍页面的安装方法</span><br><span class="line">docker run --name influxdb -p 9999:9999 quay.io&#x2F;influxdb&#x2F;influxdb:2.0.0-beta</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，会显示：</p>
+<p>然后在浏览器中访问<code>localhost:9999</code>即可打开v2.0界面。</p>
+<h2 id="4-服务器安装V2-0"><a href="#4-服务器安装V2-0" class="headerlink" title="4. 服务器安装V2.0"></a>4. 服务器安装V2.0</h2><h3 id="4-1-首先将压缩包上传到服务器"><a href="#4-1-首先将压缩包上传到服务器" class="headerlink" title="4.1 首先将压缩包上传到服务器"></a>4.1 首先将压缩包上传到服务器</h3><p>(1)使用代码，但是不好用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scp -r localfile.txt username@192.168.0.1:&#x2F;home&#x2F;username&#x2F;</span><br></pre></td></tr></table></figure>
+<p>其中，<br>１）scp是命令，-r是参数<br>２）localfile.txt 是文件的路径和文件名<br>３）username是服务器账号<br>４）192.168.0.1是要上传的服务器ip地址<br>５）/home/username/是要拷入的文件夹路径</p>
+<p>（2）直接用filezilla、MobaXterm等工具上传到服务器</p>
+<h3 id="4-2-安装"><a href="#4-2-安装" class="headerlink" title="4.2 安装"></a>4.2 安装</h3><p>输入下列语句，主要是打开压缩包，以及安装。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Unpackage contents to the current working directory</span><br><span class="line">tar xvzf path&#x2F;to&#x2F;influxdb_2.0.0-beta.10_linux_amd64.tar.gz</span><br><span class="line"></span><br><span class="line"># Copy the influx and influxd binary to your $PATH</span><br><span class="line">sudo cp influxdb_2.0.0-beta.10_linux_amd64&#x2F;&#123;influx,influxd&#125; &#x2F;usr&#x2F;local&#x2F;bin&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-运行"><a href="#4-3-运行" class="headerlink" title="4.3 运行"></a>4.3 运行</h3><p>理论上输入如下语句即可运行：</p>
+<p><code>influxd</code></p>
+<p>但是同样需要访问<code>localhost:9999</code>来访问：</p>
+<p>（1）首先这里的<code>localhost</code>指的是服务器的地址；</p>
+<p>（2）服务器（尤其是云服务器）需要注意添加9999安全组的IP路径，否则是无法访问的。</p>
+<p>修改成功后，登陆<code>ip_of_ECS:9999</code>就可以登陆V2.0界面了！<br><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/1240.png" alt="v2.png"><br>Beautiful！</p>
+<p>最后，提示一下<strong>如果安装了V2.0版本后，原来的V1.8版本的命令就失效了</strong>，以后想使用influxDB仅仅输入<code>influx</code>是不行的了！</p>
+]]></content>
+      <categories>
+        <category>Data Analysis</category>
+      </categories>
+      <tags>
+        <tag>software</tag>
+        <tag>influxdb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【数据】bookmarks的转化</title>
+    <url>/2020/08/08/%E3%80%90%E6%95%B0%E6%8D%AE%E3%80%91bookmarks%E7%9A%84%E8%BD%AC%E5%8C%96/</url>
+    <content><![CDATA[<p>假期归来，想把家里电脑上的收藏夹搬到笔记本电脑上，其实更好的方法是建一个账户同步，但是本着能麻烦绝不方便的原则，试一下另一种方法。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>浏览器导出收藏夹文件：Bookmarks，该文件格式为json</li>
+<li>从Bookmarks中找出网站名和网址，整理成一个表格文件</li>
+<li>对这个表格做一下词云分析，看一下究竟假期看了些什么=》<a href="https://sunyoe.github.io/2020/08/02/[数据]词云分析初探" target="_blank" rel="noopener">【数据】词云分析初探</a></li>
+</ul>
+<h2 id="动手"><a href="#动手" class="headerlink" title="动手"></a>动手</h2><h3 id="整理Bookmarks"><a href="#整理Bookmarks" class="headerlink" title="整理Bookmarks"></a>整理Bookmarks</h3><p>其实已经非常简单了，把握核心就是把 json 看成一个“大”字典。</p>
+<p>看一下原始内容：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">"checksum"</span>: <span class="string">"ca7fb0d38496e7252c02db776f1f634a"</span>,</span><br><span class="line">   <span class="attr">"roots"</span>: &#123;</span><br><span class="line">      <span class="attr">"bookmark_bar"</span>: &#123;</span><br><span class="line">         <span class="attr">"children"</span>: [ &#123;</span><br><span class="line">            <span class="attr">"date_added"</span>: <span class="string">"13199114198683132"</span>,</span><br><span class="line">            <span class="attr">"guid"</span>: <span class="string">"e62ed638-a320-45be-9456-eb3490b55096"</span>,</span><br><span class="line">            <span class="attr">"id"</span>: <span class="string">"5"</span>,</span><br><span class="line">            <span class="attr">"meta_info"</span>: &#123;</span><br><span class="line">               <span class="attr">"last_visited_desktop"</span>: <span class="string">"13206982609994441"</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"百度"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"url"</span>,</span><br><span class="line">            <span class="attr">"url"</span>: <span class="string">"https://www.baidu.com/"</span></span><br><span class="line">         &#125;, &#123;</span><br><span class="line">            <span class="attr">"children"</span>: [ &#123;</span><br><span class="line">               <span class="attr">"children"</span>: [ &#123;</span><br><span class="line">                  <span class="attr">"date_added"</span>: <span class="string">"13228716556104664"</span>,</span><br><span class="line">                  <span class="attr">"guid"</span>: <span class="string">"2011bd3e-d3df-42ae-b9b8-27420da1deb5"</span>,</span><br><span class="line">                  <span class="attr">"id"</span>: <span class="string">"62"</span>,</span><br><span class="line">                  <span class="attr">"name"</span>: <span class="string">"常见问题解答-Covid-19，问题和解答"</span>,</span><br><span class="line">                  <span class="attr">"type"</span>: <span class="string">"url"</span>,</span><br><span class="line">                  <span class="attr">"url"</span>: <span class="string">"http://www.salute.gov.it/portale/nuovocoronavirus/dettaglioFaqNuovoCoronavirus.jsp?lingua=italiano&amp;id=228#11"</span></span><br><span class="line">               &#125;],</span><br><span class="line">               <span class="attr">"date_added"</span>: <span class="string">"13231592490508714"</span>,</span><br><span class="line">               <span class="attr">"date_modified"</span>: <span class="string">"13231599756212563"</span>,</span><br><span class="line">               <span class="attr">"guid"</span>: <span class="string">"5d867818-cf41-45a2-ad6f-25600f590419"</span>,</span><br><span class="line">               <span class="attr">"id"</span>: <span class="string">"105"</span>,</span><br><span class="line">               <span class="attr">"name"</span>: <span class="string">"EBD项目"</span>,</span><br><span class="line">               <span class="attr">"type"</span>: <span class="string">"folder"</span></span><br><span class="line">            &#125;...</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>整体还是非常有规律的，对应到浏览器中就是大的收藏夹套内部分类收藏夹，收藏夹内还有文件夹，从type可以看到哪些是“url”。</p>
+<blockquote>
+<p>这里突然觉得自己的方法可能有点笨，用type的方法去分类也是一个不错的选择</p>
+</blockquote>
+<p>我的方法自然是使用字典+列表的索引来实现了，心得就是：</p>
+<ul>
+<li><p>字典直接根据 “key” 键的名字来索引：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bm_url_data[<span class="string">'children'</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列表则可以根据数字来索引：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bm_url_data[i][<span class="string">'children'</span>]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>这种方法确实是非常的原始，因为Bookmarks中字典列表循环嵌套，要不断来回索引，除了部分文件夹中可以简单用循环来节省一下工作量，其他方面根本就没有省多少事。</p>
+<h3 id="转为excel"><a href="#转为excel" class="headerlink" title="转为excel"></a>转为excel</h3><p>上面最终取出的url和网址分别组成列表，这样就得到了两个列表。</p>
+<p>将两个列表进行关联，并转入excel文件，用pandas实在是再好不过了！</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas.core.frame <span class="keyword">import</span> DataFrame</span><br><span class="line"></span><br><span class="line"><span class="comment"># 先根据两个列表，生成bookmarks的字典</span></span><br><span class="line">bookmarks_dict = &#123;<span class="string">'网站名'</span>: bm_name,</span><br><span class="line">                  <span class="string">'url'</span> : bm_url&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从bookmarks 生成 DataFrame数据</span></span><br><span class="line">bookmarks_fram = DataFrame(bookmarks_dict)</span><br><span class="line">print(bookmarks_fram)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最后直接将DataFrame数据转化到excel中</span></span><br><span class="line">bookmarks_fram.to_excel(<span class="string">'./bookmarks.xlsx'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>得益于完善的封装，以及DataFrame这一数据格式的独特优势，使用这种转换方法绝对是非常简洁。</p>
+<p>此外，还找到xlwt等python包，也可以实现数据写入excel，但是相对就要麻烦很多了。</p>
+]]></content>
+      <categories>
+        <category>Data Analysis</category>
+      </categories>
+      <tags>
+        <tag>json</tag>
+        <tag>pandas</tag>
+        <tag>index</tag>
+      </tags>
   </entry>
   <entry>
     <title>InfluxDB数据库【简单使用】</title>
@@ -356,6 +299,17 @@
       </tags>
   </entry>
   <entry>
+    <title>我的第一篇博客文章</title>
+    <url>/2020/07/26/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/</url>
+    <content><![CDATA[<h1 id="凡是过往，皆为序章"><a href="#凡是过往，皆为序章" class="headerlink" title="凡是过往，皆为序章"></a>凡是过往，皆为序章</h1><h2 id="博客从此开始"><a href="#博客从此开始" class="headerlink" title="博客从此开始"></a>博客从此开始</h2><h2 id="内容规划"><a href="#内容规划" class="headerlink" title="内容规划"></a>内容规划</h2><p>ROS</p>
+<p>视觉</p>
+<p>神经网络</p>
+<p>web开发</p>
+<p>python学习</p>
+<p>嵌入式回顾</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2>]]></content>
+  </entry>
+  <entry>
     <title>【机器学习】常见知识梳理（一）</title>
     <url>/2020/08/03/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%91%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<p>各种包的存在已经使得生成一个机器学习代码十分方便，但是当遇到一个个分厂常见的名词时，可能还是需要从理论上了解一番。</p>
@@ -443,6 +397,96 @@
       </categories>
       <tags>
         <tag>神经网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/07/26/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>【ROS】安装篇</title>
+    <url>/2020/07/28/%E3%80%90ROS%E3%80%91%E5%AE%89%E8%A3%85%E7%AF%87/</url>
+    <content><![CDATA[<p>安装一波三折值得细品</p>
+<h2 id="0-系统"><a href="#0-系统" class="headerlink" title="0.系统"></a>0.系统</h2><p>使用Ubuntu原生系统自然最好；</p>
+<p>退而求其次，可以使用虚拟机的ubuntu系统，也很好用；</p>
+<p>曾尝试在Windows linux subsystem 上安装ubuntu和ROS，可以实现安装，也可以简单使用，但是针对仿真等比较耗内存的应用体验会比较差，而且还需要使用Xserver实现桌面映射。</p>
+<p>当前时间，最好用的是ubuntu 18.04系统，对应ROS-melodic版本，内容相对完善，也比较新；</p>
+<p>ubuntu 20.04系统对应的ROS-Noetic在一些常用包上还是存在缺失问题，后期使用中会出现各种不兼容问题，值得注意。</p>
+<h2 id="1-换源"><a href="#1-换源" class="headerlink" title="1. 换源"></a>1. 换源</h2><p>ROS系统需要的安装包大多来自 ros.org 或 github，建议使用换源以提高安装的成功率和效率；经常下载一小时，报错马上崩，很影响心态。</p>
+<p>亲测比较好用的apt换源有：</p>
+<p>[<a href="https://www.jianshu.com/p/ad4dc5dbf55e" target="_blank" rel="noopener">简书换阿里源</a>]</p>
+<p>pip换源：</p>
+<p>[<a href="https://www.cnblogs.com/g15009428458/p/12323137.html" target="_blank" rel="noopener">更换linux系统中的pip源</a>]</p>
+<p>以及中科大源，见本文末。</p>
+<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><p>[<a href="https://blog.csdn.net/sinat_38284212/article/details/100884644" target="_blank" rel="noopener">ROS安装文章非常多</a>]，基本步骤相同。</p>
+<p>一定要按部就班地来：</p>
+<p>最容易出现的问题是：<code>unable to load package xxx</code></p>
+<p>原因：</p>
+<p>（1）换源失败</p>
+<p>（2）版本错误</p>
+<p>（3）没有更新软件和源</p>
+<p><em>参考：<a href="https://blog.csdn.net/sinat_34130812/article/details/81666728" target="_blank" rel="noopener">Ubuntu18.04.1安装ROS（’E:无法定位软件包’）</a></em></p>
+<ol>
+<li>参考<a href="http://wiki.ros.org/ROS/Installation/UbuntuMirrors" target="_blank" rel="noopener">官网</a></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo sh -c <span class="string">'. /etc/lsb-release &amp;&amp; echo "deb http://mirrors.tuna.tsinghua.edu.cn/ros/ubuntu/ `lsb_release -cs` main" &gt; /etc/apt/sources.list.d/ros-latest.list'</span></span><br></pre></td></tr></table></figure>
+
+<p>获取镜像</p>
+<ol start="2">
+<li>设置密钥</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-key adv --keyserver <span class="string">'hkp://keyserver.ubuntu.com:80'</span> --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654</span><br></pre></td></tr></table></figure>
+
+<p>如果不设置，就会出现问题：<a href="https://blog.csdn.net/wangxue_1231/article/details/92801510" target="_blank" rel="noopener">sudo apt-get update出现W: GPG 错误：http://packages.ros.org/ros/ubuntu xenial InRelease: 由于没有公钥，无法验证下列签名</a></p>
+<ol start="3">
+<li>重新更新一下（一定要！）</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>正式安装</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install ros-melodic-desktop-full</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>启动：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo rosdep init</span><br></pre></td></tr></table></figure>
+
+<p>失败！</p>
+<p>最后容易出现的问题类似：</p>
+<p><a href="https://blog.csdn.net/qq_35590091/article/details/100515558" target="_blank" rel="noopener">ubuntu16.04 运行rosdep init 返回ERROR：cannot download default sources list from</a></p>
+<p>其本质原因还是换源没有换好，如果</p>
+<p>上面这个解决方法也不是太好，不妨使用下面文章中方法：</p>
+<p><a href="https://blog.csdn.net/weixin_43288910/article/details/105627358?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3" target="_blank" rel="noopener">ERROR: cannot download default sources list from: https://raw.githubusercontent.com/ros/rosdistro/ma</a></p>
+<p>也就是换成中国科大的源，亲测可用，即可愉快玩耍了！</p>
+<h2 id="rosdep-问题"><a href="#rosdep-问题" class="headerlink" title="rosdep 问题"></a>rosdep 问题</h2><p>rosdep是ROS中推荐的一种安装方法，比如使用开源的机器人包，rosdep可以很方便地将package中需要的依赖找出并全部安装，听起来确实非常棒。</p>
+<p>但是实测会有一些小问题：</p>
+<ul>
+<li>rosdep 无法使用的问题，非常普遍，网上建议一般是没有安装好rosdep，进行安装；</li>
+<li>安装rosdep之后，ros其他命令失效，这个问题实在是遇到了多次（不停地想尝试一下），最终还是选择重装ROS，其实不使用rosdep也不是大问题，在后续使用过程中逐步添加ROS的依赖包，也是可以的。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>ROS</category>
+      </categories>
+      <tags>
+        <tag>software</tag>
+        <tag>ROS</tag>
       </tags>
   </entry>
 </search>
