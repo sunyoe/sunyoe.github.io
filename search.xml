@@ -1172,7 +1172,7 @@
 <p>k1 是中间左边，k2是中间右边</p>
 <h3 id="17-电话号码的字母组合"><a href="#17-电话号码的字母组合" class="headerlink" title="17. 电话号码的字母组合"></a>17. 电话号码的字母组合</h3><p>九键输入法中，2-9每个数字对应着一些字母</p>
 <p>给定一个仅包含数字2-9的<strong>字符串</strong>，返回所有它能表示的字母组合（顺序可以任意）</p>
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/original_images/17_telephone_keypad.png" alt="例图"></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/17_telephone_keypad.png" alt="例图"></p>
 <p>本来来说，应该要给一个字典存放以下，以便记录每个数字都对应哪些字母</p>
 <p>但是实际上也有一定的规律，大多三个，有两个是四个，而且是连续的</p>
 <p><strong>分析：</strong></p>
