@@ -100,6 +100,54 @@
     
     
     <article
+  id="post-OpenCV常用方法"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/09/26/OpenCV%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/"
+    >OpenCV常用方法</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/09/26/OpenCV%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" class="article-date">
+  <time datetime="2020-09-26T01:36:27.000Z" itemprop="datePublished">2020-09-26</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+   
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCV/" rel="tag">OpenCV</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-LeetCode刷题笔记一"
   class="article article-type-post"
   itemscope
@@ -1637,85 +1685,6 @@
 <p>（2）服务器（尤其是云服务器）需要注意添加9999安全组的IP路径，否则是无法访问的。</p>
 <p>修改成功后，登陆<code>ip_of_ECS:9999</code>就可以登陆V2.0界面了！<br><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/1240.png" alt="v2.png"><br>Beautiful！</p>
 <p>最后，提示一下<strong>如果安装了V2.0版本后，原来的V1.8版本的命令就失效了</strong>，以后想使用influxDB仅仅输入<code>influx</code>是不行的了！</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/influxdb/" rel="tag">influxdb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/software/" rel="tag">software</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-InfluxDB数据库-基础"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/07/30/InfluxDB%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%9F%BA%E7%A1%80/"
-    >【InfluxDB数据库】基础</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/07/30/InfluxDB%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%9F%BA%E7%A1%80/" class="article-date">
-  <time datetime="2020-07-30T01:31:44.000Z" itemprop="datePublished">2020-07-30</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Data-Analysis/">Data Analysis</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>系统：ubuntu<br>influx版本：v1.8</p>
-<h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><p>直接按照网站方法即可实现安装：<br><a href="http://docs.influxdata.com/influxdb/v1.8/introduction/install/" target="_blank" rel="noopener">install介绍</a></p>
-<h2 id="2-数据写入"><a href="#2-数据写入" class="headerlink" title="2. 数据写入"></a>2. 数据写入</h2><h3 id="2-1-创建和使用databases"><a href="#2-1-创建和使用databases" class="headerlink" title="2.1 创建和使用databases"></a>2.1 创建和使用databases</h3><p><code>&gt; create database mydb</code><br>关键词大小写均可，但是文件上使用的是大写；<br><code>&gt; show databases</code><br>可以展示所有数据库；<br><code>&gt; use mydb</code><br>使用数据库<code>mydb</code>，可以定向使用某个数据库</p>
-<h3 id="2-2-写入数据"><a href="#2-2-写入数据" class="headerlink" title="2.2 写入数据"></a>2.2 写入数据</h3><blockquote>
-<p>哪些数据可以被写入？</p>
-</blockquote>
-<h4 id="点的概念-points"><a href="#点的概念-points" class="headerlink" title="点的概念 - points"></a>点的概念 - points</h4><p>点由<code>time</code>、<code>measurement</code>、<code>field</code>、<code>tags</code>构成：<br>其中，<code>measurement</code>视为SQL表，时间是基础索引值（？）<br>tags和fields是SQL表中的有效列；<br>tags被索引，而fields不被索引；<br><strong><font color=red>使用INSERT进行点数据的输入</font></strong><br><code>id,tags=属性 空格 value=数值</code><br>每一部分内部用“，”分割，相互之间用空格分割，例如：<br><code>&gt; insert temperature,machine=unit42,type=assembly external=25,internal=37</code></p>
-<ul>
-<li><p><strong>时间戳 - time</strong><br>参见v2.0版本的介绍；<br>因为本数据库用的是“时间序列”<br>timestamp</p>
-</li>
-<li><p><strong><code>measurement</code>其实就是<code>id</code></strong><br>例如<code>cpu_load</code>?<br>到底是什么</p>
-</li>
-<li><p><strong><code>field</code></strong><br>要测量的value，比如<br><code>value=0.64</code> <code>temperature=21.2</code></p>
-</li>
-<li><p><strong><code>tags</code></strong><br><code>tags</code>是和value有关的所有数据(metadata)<br>例如host、region、dc等，<strong>可是这些都是什么？</strong></p>
-</li>
-</ul>
-<blockquote>
-<p><strong>InfluxDB line protocol</strong><br>需要使用该工具写入InfluxDB<br><a href="https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_reference/#line-protocol-syntax" target="_blank" rel="noopener">参考页面</a></p>
-</blockquote>
-<h2 id="3-搜索数据-Query-询问"><a href="#3-搜索数据-Query-询问" class="headerlink" title="3. 搜索数据 - Query - 询问"></a>3. 搜索数据 - Query - 询问</h2><ol>
-<li>检索指定的数据内容：<br><code>&gt; select &quot;value_or_tag&quot; from  &quot;id/measurement&quot;</code><br><font color=red>一定要注意<code>from</code>前后都有空格！</font></li>
-<li>检索某个<code>id</code>的所有内容<br><code>&gt; select * from &quot;id/measurement&quot;</code><br>但是文档上说，用这个不是太好，如果信息过多的话可能会有问题。</li>
-<li><code>&gt; select * from /.*/ limit 1</code><br>这个没有解释，但从效果来看，是把所有数据库里面的信息都展示出来了。</li>
-<li><code>&gt; select * from &quot;id/measurement&quot; where &quot;value&quot; &gt; 0.9</code><br>添加选择性语句，用于选择满足条件的数据。</li>
-<li>更多的方法<br>参考：<a href="https://docs.influxdata.com/influxdb/v1.8/query_language/spec/" target="_blank" rel="noopener">features and keywords</a></li>
-</ol>
  
       <!-- reward -->
       
