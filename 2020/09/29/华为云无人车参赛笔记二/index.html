@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    华为云无人车参赛笔记一 |  悦
+    华为云无人车参赛笔记二 |  悦
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -48,7 +48,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-华为云无人车参赛笔记一"
+  id="post-华为云无人车参赛笔记二"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -59,18 +59,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  华为云无人车参赛笔记一
+  华为云无人车参赛笔记二
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2020/09/27/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0%E4%B8%80/" class="article-date">
-  <time datetime="2020-09-27T12:59:40.000Z" itemprop="datePublished">2020-09-27</time>
+      <a href="/2020/09/29/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0%E4%BA%8C/" class="article-date">
+  <time datetime="2020-09-29T01:24:30.000Z" itemprop="datePublished">2020-09-29</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89/">机器视觉</a>
+    <a class="article-category-link" href="/categories/ROS/">ROS</a> / <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89/">机器视觉</a>
   </div>
   
 <div class="word_count">
@@ -78,7 +78,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">2.1k</span>
+            <span class="post-count">2.5k</span>
         </span>
     </span>
 
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">7 分钟</span>
+            <span class="post-count">9 分钟</span>
         </span>
     </span>
 </div>
@@ -102,248 +102,220 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>2020年华为无人车比赛，起始于6月底，至8月20日角逐出40支队伍参加半决赛，9月24日角逐出20支队伍参加决赛，26日最终决赛。有幸走到决赛现场，但是没有取得理想成绩，在此整理参赛笔记，希望来年一战！</p>
-<h2 id="分工"><a href="#分工" class="headerlink" title="分工"></a>分工</h2><p>为了实现无人车的运行，本次赛事中本小组分为机器视觉（负责modelarts和hilens）、车道线识别、激光雷达等三个部分，本人负责车道线识别部分。</p>
-<h2 id="车道线的识别"><a href="#车道线的识别" class="headerlink" title="车道线的识别"></a>车道线的识别</h2><h3 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h3><p>使用OpenCV进行视觉识别</p>
-<p>排除斑马线的干扰</p>
-<p>根据识别的车道线计算斜率，控制小车转向角度</p>
-<h3 id="主要技术方法"><a href="#主要技术方法" class="headerlink" title="主要技术方法"></a>主要技术方法</h3><p>首先对图片进行处理：</p>
-<p>转为灰度图 =》 转为二值图像 =》 计算一些最大值，确定两侧车道线的位置</p>
-<p>使用直方图（histogram）方法，主要函数来自OpenCV包。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">img1(gray_img) -- erode --&gt; img2(gray_img)</span><br><span class="line">img2 --&gt; img3(origin_thr)</span><br><span class="line">img3 -- warpPerspective --&gt; array1(binary_warped)</span><br><span class="line">array1 --&gt; x1[histogram_x]</span><br><span class="line">array1 --&gt; x2[histogram_y]</span><br><span class="line">x1 --&gt; lane_base</span><br><span class="line">x2 --&gt; l(lower)</span><br><span class="line">x2 --&gt; r(upper)</span><br><span class="line">l --&gt; ratio(hist_sum_y_ratio)</span><br><span class="line">r --&gt; ratio</span><br></pre></td></tr></table></figure>
-
-<p>然后将窗口分割，从下而上计算车道线所在位置，并计算车道线的斜率。</p>
-<p>车道线斜率的计算主要使用的是纯几何跟踪的方法。</p>
-<h2 id="难点一：斑马线"><a href="#难点一：斑马线" class="headerlink" title="难点一：斑马线"></a>难点一：斑马线</h2><p>由于车道线识别的过程中主要是对图像中的白色像素进行判断，斑马线对车道线的识别有一定的影响。</p>
-<p>如果检测到斑马线呢？看宽度是不是太宽吗？</p>
-<ul>
-<li>当宽度比较宽的时候，可能就是到了斑马线区域</li>
-<li>也有可能是一些反光区域</li>
-<li>这个时候，首先需要保持之前的角度变换值不要随意改变</li>
-<li>另外，降低反光，以及取右侧边缘进行检测</li>
-</ul>
-<p>如果车道线横在了屏幕中间？这个首先需要避免车道线通过了视野的中间吧</p>
-<p>应该将车辆的姿态信息和车道线的信息充分融合进行判断</p>
+  <p>上一篇主要内容是针对本赛事中的重难点进行描述，但是针对实际问题，需要更加细致的调整。</p>
+<p>本文记录实际调试过程中遇到的问题和改善方法。</p>
+<h2 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h2><h3 id="1-首先需要调整透视变换视角"><a href="#1-首先需要调整透视变换视角" class="headerlink" title="1. 首先需要调整透视变换视角"></a>1. 首先需要调整透视变换视角</h3><p>主要是画面范围的调整。</p>
+<p>由于弯道比较多，真实小车的视线中很少能看到两条线；同时，大概是因为选择透视变换的范围比较小，无法覆盖到需要的图像区域。因此需要对画面进行调整。</p>
+<p><strong>直接用openCV添加直线</strong></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200903135454484.png" alt="image-20200903135454484"></p>
 <blockquote>
-<p>参考：<a href="https://www.pythonheidong.com/blog/article/324414/" target="_blank" rel="noopener">python+opencv车道线检测（简易实现）</a></p>
-<p>我觉得这里面给的思路不错，就是看白色像素点所占的比例，来判断是不是斑马线</p>
-<p>然后关于车道线直接绘制、mask掩块也有介绍，可以简单看一看</p>
-<p><a href="https://blog.csdn.net/dawn1227/article/details/64125542" target="_blank" rel="noopener">OpenCV检测斑马线</a></p>
+<p>可能出现的问题：</p>
+<p><code>SystemError: new style getargs format but argument is not a tuple</code></p>
+<p>这个问题应该关键是数据的类型不太对</p>
 </blockquote>
-<p><strong>问题：白色像素点的占比：</strong></p>
-<p>首先二值区域的像素点以及找出来了</p>
-<p>nonzero的大小也是有的</p>
-<p><strong>那么下来就看一下斑马线处nonzero的值是不是过分偏大？</strong></p>
-<p>然后通过这个方法增加一个阈值</p>
-<p>但是似乎并不是真的偏大</p>
-<p>python 获取列表中的最大值：<code>max(list)</code>即可返回列表list中的最大值</p>
-<p>通过最大值判断右边界，仍然不完整，因为有可能右侧出现漏光等现象，那么这些白色像素点就是多余的，而不是所需要的了</p>
-<p>==通过直接检测白色像素点的最大值，需要保证没有任何干扰，需要保证滤波效果==</p>
-<p>对他们进行规避：</p>
+<p>效果如图所示，大概明白如下：前面的区域界定，只是计算转换矩阵，然后使用转换矩阵把整个图片进行转换。</p>
+<p>所以说，<strong>转换矩阵要谨慎一点</strong>，不是随便怎么转换都可以的。</p>
+<p>那么我们应该怎么样转换呢？让比例更加准确一点！</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200904094713780.png" alt="image-20200904094713780"></p>
+<p>这张图应证了我的想法，确实需要<strong>调整好直线道路上的透视变换效果图</strong>。</p>
+<blockquote>
+<p>本赛道转弯比较多</p>
+<p>按道理来说，按照透视的原理，只要将一个水平的梯形区域转换为一个正常的方形区域就可以了</p>
+<p>但是现实是，本赛道弯道多，车身倾角大，导致车的姿态情况不是水平，最好有一点偏角</p>
+<p>应该是左低右高的一个区域就比较好</p>
+</blockquote>
+<p><strong>原始区域：</strong></p>
+<p>变换前：<code>src_points = np.array([[3,570], [387,460], [906,452], [1041,485]], dtype=&quot;float32&quot;)</code></p>
+<p>变换后：<code>[266., 686.], [266., 19.], [931., 20.], [931., 701.]</code></p>
+<p>该区域的问题是，没有线的区域会比较多，或者说覆盖的车道区域有点小</p>
+<p>从形状上来看倒是很符合左低右高的形状</p>
+<p><strong>区域1：</strong></p>
+<p>变换前：<code>src_points = np.array([[3,570], [387,460], [1106,472], [1241,520]], dtype=&quot;float32&quot;)</code></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200903151451012.png" alt="image-20200903151451012"></p>
+<p>其实这个区域还不错</p>
+<p>对中间的纯黑地带过滤也比较到位</p>
+<p>就看实际中的表现如何</p>
+<blockquote>
+<p>不对，这个确实应该动态进行调整</p>
+<p>==车身姿态影响到了拍摄角度==</p>
+<p>左转的时候应该是坐地右高，右转的时候则是要右低左高了，目前这样肯定是不够的</p>
+<p>如果按照IMU的数据去调整呢</p>
+</blockquote>
+<p><strong>区域2</strong>：</p>
+<p>变换前：<code>src_points = np.array([[3,520], [387,470], [1106,472], [1241,520]], dtype=&quot;float32&quot;)</code></p>
+<p>我使用opencv将视频转换为图片，然后用matplotlib展示出图片，然后进行分析</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200904205233116.png" alt="image-20200904205233116"></p>
+<p>目前看完了全部代码之后，就很明朗了</p>
+<p>就是要不断调整透视变换的比例，从而确保在直线道路上，能够调试出满意的透视变换图像</p>
+<hr>
+<p>==观察结果：==</p>
+<p>按照最后的观察结果来看，右转问题有二：</p>
+<p>第一，其视角偏上，那么近一点的区域就会反应过于灵敏</p>
 <ul>
-<li>非全局采样</li>
-<li>这些点是不是集中在某个角落，考虑进行分离<ul>
-<li>例如可以使用黑色遮盖</li>
-<li>或者使用<strong>霍夫变换</strong>进行<strong>识别后分割</strong></li>
+<li>这个调整的是转换前的区域大小，以及转换后的区域的大小</li>
+</ul>
+<p>第二，如果角度变换的速度太慢，就会没有转到有线的位置，从而丢失车道线画面</p>
+<ul>
+<li>这里调节角度变换的速度，一个是调整==计算<code>cmdSteer</code>的系数k==，基准是 -19，<strong>这个数字是什么意思呢？</strong></li>
+<li>这个数字应该是弯道的斜率，不同的弯这个系数确实是不太一样的</li>
+</ul>
+<p><strong>其实比较好奇，什么样的结果算是改动成功？</strong></p>
+<p>结果就是应该准确快速地转弯成功</p>
+<h3 id="2-midPoint"><a href="#2-midPoint" class="headerlink" title="2. midPoint"></a>2. midPoint</h3><p>midpoint理论上是视野的中点，但是程序中是 320，这个是有点奇怪的，偏左了一点点</p>
+<ul>
+<li>回答：程序中有两个midPoint，一个是midPoint_x，这个值是640，已经确定，没有问题</li>
+<li>还有一个是midPoint_y，似乎是用以分隔上下部分，这个值目前定的是320，实际上也可以进行调整，主要还是看车道在画面中所占的位置</li>
+</ul>
+<p>这个值感觉不是特别需要改动</p>
+<p>或者说修改的意义不大</p>
+<h3 id="3-视频录制"><a href="#3-视频录制" class="headerlink" title="3. 视频录制"></a>3. 视频录制</h3><p>使用opencv-python录制视频</p>
+<p>首先使用的代码参考：<a href="https://blog.csdn.net/hhaowang/article/details/88236612" target="_blank" rel="noopener">Python-OpenCV视频录制</a></p>
+<p>但是这个一点都不好用，录制的视频播放速度极快，丢帧也比较严重了</p>
+<p>接下来希望参考：<a href="https://blog.csdn.net/weixin_43635647/article/details/103774559" target="_blank" rel="noopener">Python -opencv 录制视频</a></p>
+<p>这个代码看起来要简洁一点</p>
+<h3 id="4-入弯出弯测试"><a href="#4-入弯出弯测试" class="headerlink" title="4. 入弯出弯测试"></a>4. 入弯出弯测试</h3><p>目前来说，右转入弯要么不够迅速，要么会提前（主要还是看视野内的车道线情况）</p>
+<p>左转入弯有问题，似乎是机械方面的故障，从信号上来说已经是左转了，但是实际转弯情况却是右转的</p>
+<p>目前的参数中：</p>
+<p><strong>转向参数设为 -21</strong></p>
+<p>效果不错，右转弯很合适，左转弯尚有不足</p>
+<p>速度调至10很完美，速度调至15稍有不足（主要是左转弯时会打方向比较急、猛）</p>
+<h3 id="5-斑马线识别"><a href="#5-斑马线识别" class="headerlink" title="5. 斑马线识别"></a>5. 斑马线识别</h3><p>怎么样将最边上的线识别出来呢？</p>
+<p>用了边缘检测，效果尚可，但是怎么样压制其他区域呢？</p>
+<p>首先查看了lanebase点的位置，可以看的出来，在这之前的一小段高曝光中，会对lanebase产生一点影响</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200908221446425.png" alt="image-20200908221446425"></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200908222634494.png" alt="image-20200908222634494"></p>
+<p>此时lanebase做了什么</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200908222912990.png" alt="image-20200908222912990"></p>
+<p>当前使用的解决方法涉及两个参数;</p>
+<ul>
+<li>白色像素占图像的比例：大于0.083</li>
+<li>lane_base中心值只要小于900，就会自动加500，保证向左转弯过车道线</li>
+</ul>
+<blockquote>
+<p>我认为该问题中的关键是lane_base位置的错误，导致了车道曲线的识别问题</p>
+<p>因此我的两种方法：</p>
+<ul>
+<li>根据lanebase的突变情况，使用黑色色块进行掩盖</li>
+<li>根据lanebase的突变情况，对lanebase进行修正<ul>
+<li>其实第二种修正情况，有一定的问题，那就是一刀切全部加了500，这个不是非常合理</li>
+<li>但是我发现nonzerox的值似乎和我设想的不太一样【nonzerox要配合nonzeroy来同时查看，nonzeroy是从0到720，nonzerox则也是要跟着nonzeroy的像素值进行变化】也不对，不需要直接进行索引，直接求最大值也是可以的</li>
 </ul>
 </li>
 </ul>
-<p><strong>突然想到一个问题，我确实可能没有办法识别弯道，但是我可以识别直线的车道线，然后把它盖住</strong></p>
-<p>新方法：使用霍夫变换检测直的车道线，并将其遮盖</p>
-<blockquote>
-<p><a href="https://www.jianshu.com/p/15e3f9d8c121" target="_blank" rel="noopener">简易车道线识别（图像与计算机视觉）</a></p>
-<p>本文思路：</p>
-<ol>
-<li>获取图像</li>
-<li>调整大小</li>
-<li>MySetting类：初始化<ol>
-<li>做了一些画图错做</li>
-<li>高斯滤波</li>
-<li>Canny边缘检测</li>
-<li>roi区域</li>
-<li>open和close</li>
-<li>huogh检测</li>
-</ol>
-</li>
-<li>找出左右车道线，霍夫变换确定直线的斜率，确定直线，画图</li>
-</ol>
-<p>比较感兴趣的是ROI区域的选择，很有意思</p>
-<p><code>ROI_Based_Edge_Filtering()</code></p>
-<p>膨胀和腐蚀基本上是一样的</p>
 </blockquote>
-<h3 id="霍夫变换"><a href="#霍夫变换" class="headerlink" title="霍夫变换"></a>霍夫变换</h3><p><strong>检测直线：</strong></p>
-<p>这个霍夫变换有点意思，就是过每个点的直线的斜率和截距构成一个二维区域，如果某些点的区域刚好重合在这个点，那么这些点就在该点的斜率和截距所代表的直线上</p>
-<p><strong>检测圆：</strong></p>
-<p>三点可以确定一个圆</p>
-<p>以这三点做所有半径的圆则必有一个公共交点，这个交点就是 以此三点为圆的圆心</p>
-<p>霍夫圆检测对噪声比较敏感，首先要对图像做中值滤波</p>
-<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><p>（1）<strong>使用霍夫检测对整体进行了检测</strong></p>
-<p>输出了画有结果直线的图像，但问题是得出的所需要的线不足，尤其是边缘检测出来的线据称情况过于严重</p>
-<p><strong>（2）调整霍夫检测的参数，增加中值滤波</strong></p>
-<p>通过调试，首先找出斑马线上独特的点：</p>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200912212448690.png" alt="image-20200912212448690"></p>
-<p>这里我专门取了斜率为负值的点，从而将他们画出来</p>
-<p>横向斑马线以 -1 为主要斜率</p>
-<p>纵向斑马线的斜率也都主要是 1，这没有办法使用</p>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200912215910447.png" alt="image-20200912215910447"></p>
-<p>但是还有一点问题：</p>
-<ol>
-<li>离群点或者直线的剔除</li>
-<li>横向线好判断，但是竖向的线不好判断</li>
-</ol>
-<p><strong>（3）然后找这些点的包络点</strong></p>
-<p>找四个点：</p>
-<p>x 最大的 - 右上角</p>
-<p>x 最小的 - 左下角</p>
-<p><del><strong>y 最大的 - 右下角 - 这个点可以不要，直接按上面的线向下覆盖到最低端</strong></del></p>
-<p>y 最小的 - 左上角</p>
-<p>注意离的太远的不能要！就是右下角那里</p>
-<p>然后把包络点区域内全部涂黑</p>
-<p>问题是：</p>
+<h4 id="新方法"><a href="#新方法" class="headerlink" title="新方法"></a>新方法</h4><p>使用霍夫变换检测斑马线的两侧横线，然后求凸包的顶点，将凸包内的斑马线直接去除，该方法在视觉效果上还是不错的</p>
+<p><strong>测试参数表：</strong></p>
+<p>各参数含义：</p>
 <ul>
-<li>怎么样找到所需的点？</li>
+<li>rho：</li>
+<li>theta：</li>
+<li>threshold：</li>
+<li>min_line_length：</li>
+<li>max_line_gap：</li>
 </ul>
-<p>np.array 类型的变量 - lines没有index方法， list有index方法</p>
-<p>np.array类型的变量应该使用where方法</p>
-<blockquote>
-<p>参考：<a href="https://www.cnblogs.com/nxf-rabbit75/p/10073916.html" target="_blank" rel="noopener">找出numpy array数组的最值及其索引</a></p>
-<p><a href="https://blog.csdn.net/lcl497049972/article/details/89386293" target="_blank" rel="noopener">查找列表中某个值的位置（python）</a></p>
-<p><a href="https://www.runoob.com/python/func-number-max.html" target="_blank" rel="noopener">使用python中的max函数找到最大值</a></p>
-</blockquote>
-<ul>
-<li>离群点的去除</li>
-</ul>
-<p>可能需要加大阈值，但是说真的没有看到阈值的效果</p>
-<p><strong>最后使用的方法</strong></p>
-<ul>
-<li>将所有检测出的特征点的x和y坐标分别放入列表</li>
-<li>然后按照所需寻找想要的点</li>
-<li>最后根据找出的点进行画图</li>
-</ul>
-<p><strong>问题是感觉计算量一下子大了很多</strong></p>
-<p>比较明显的区域：</p>
-<p>直接可以把斑马线去除，但是这个地方其实不是很影响</p>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200913154825876.png" alt="image-20200913154825876"></p>
-<p>真正比较有影响的是出斑马线的部分，遮盖有效果</p>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200913160049787.png" alt="image-20200913160049787"></p>
-<p>原图 =》 binary_wraped =》 canny边缘检测 =》 霍夫直线检测 =》 黑色覆盖斑马线区域</p>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/%E6%96%91%E9%A9%AC%E7%BA%BF%E8%A6%86%E7%9B%96.png" alt="image-20200913162727339"></p>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200913162918804.png" alt="image-20200913162918804"></p>
-<p><strong>接下来，调整霍夫变换，避免边缘点的检测</strong></p>
-<blockquote>
-<p>本质问题上，车道线的目标是提速，能够提升速度的情况下，仍然能够流畅地运行</p>
-</blockquote>
-<h2 id="难点二：IMU的使用"><a href="#难点二：IMU的使用" class="headerlink" title="难点二：IMU的使用"></a>难点二：IMU的使用</h2><p>IMU - 惯性测量单元</p>
-<p>测量物体三轴姿态角（或角速率）以及加速度的装置，一般来说，IMU安装在被测物体的重心上，用字啊需要进行运动控制的设备上，也用在需要用姿态进行精密位移推算的场合</p>
-<p>在串口节点中发布的有关超声波和IMU消息的主题：</p>
-<p>类型都是 int32 的类型，但是单位也各有不同</p>
 <table>
 <thead>
 <tr>
-<th>话题</th>
-<th>意义</th>
-<th>单位</th>
+<th>rho</th>
+<th>theta</th>
+<th>threshold</th>
+<th>min_line_length</th>
+<th>max_line_gap</th>
+<th>效果</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>/vcu/ActualMotorSpeed</td>
-<td>实际电机转速</td>
-<td>转/s</td>
+<td>1</td>
+<td>np.pi/180</td>
+<td>30</td>
+<td>30</td>
+<td>30</td>
+<td>出现的线条会很少</td>
 </tr>
 <tr>
-<td>/vcu/ActualVechileMode</td>
-<td>实际挡位信号</td>
+<td>1</td>
+<td>np.pi/180</td>
+<td>50</td>
+<td>30</td>
+<td>1</td>
+<td>出现线条多，很多小线条以点的形式出现</td>
+</tr>
+<tr>
 <td></td>
-</tr>
-<tr>
-<td>/vcu/ActualVechileDirection</td>
-<td>实际方向</td>
 <td></td>
-</tr>
-<tr>
-<td>/vcu/SupersonicDistance</td>
-<td>超声波距离</td>
-<td>mm</td>
-</tr>
-<tr>
-<td>/vcu/aX</td>
-<td>IMU加速度X</td>
-<td>g 重力加速度</td>
-</tr>
-<tr>
-<td>/vcu/aY</td>
-<td>IMU加速度Y</td>
-<td>重力加速度</td>
-</tr>
-<tr>
-<td>/vcu/aZ</td>
-<td>IMU加速度Z</td>
-<td>重力加速度</td>
-</tr>
-<tr>
-<td>/vcu/alphaX</td>
-<td>IMU角速度X</td>
-<td>度/秒</td>
-</tr>
-<tr>
-<td>/vcu/alphaY</td>
-<td>IMU角速度Y</td>
-<td>度/秒</td>
-</tr>
-<tr>
-<td>/vcu/alphaZ</td>
-<td>IMU角速度Z</td>
-<td>度/秒</td>
-</tr>
-<tr>
-<td>/vcu/BX</td>
-<td>IMU磁场X</td>
-<td>mGS（毫高斯）</td>
-</tr>
-<tr>
-<td>/vcu/BY</td>
-<td>IMU磁场Y</td>
-<td>mGS</td>
-</tr>
-<tr>
-<td>/vcu/BZ</td>
-<td>IMU磁场Z</td>
-<td>mGS</td>
-</tr>
-<tr>
-<td>/vcu/thetaX</td>
-<td>IMU角度X</td>
-<td>度</td>
-</tr>
-<tr>
-<td>/vcu/thetaY</td>
-<td>IMU角度Y</td>
-<td>度</td>
-</tr>
-<tr>
-<td>/vcu/thetaZ</td>
-<td>IMU角度Z</td>
-<td>度</td>
-</tr>
-<tr>
-<td>/vcu/batteryVoltage</td>
-<td>电池电压</td>
-<td>V</td>
-</tr>
-<tr>
-<td>/vcu/motorTemperature</td>
-<td>电机温度</td>
-<td>摄氏度</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody></table>
-<blockquote>
-<p>参考：</p>
-<p><a href="https://blog.csdn.net/u013468614/article/details/106724804?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-16-106724804.nonecase&utm_term=imu%E9%87%8C%E7%A8%8B%E8%AE%A1" target="_blank" rel="noopener">移动机器人轮式里程计</a></p>
-<p><a href="https://blog.csdn.net/hzwwpgmwy/article/details/85086393?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-1-85086393.nonecase&utm_term=imu%E9%87%8C%E7%A8%8B%E8%AE%A1" target="_blank" rel="noopener">里程计航迹推演与IMU预积分</a></p>
-<p><a href="https://blog.csdn.net/baimei4833953/article/details/80768762" target="_blank" rel="noopener">IMU与里程计融合</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/164778891" target="_blank" rel="noopener">从零手写VIO——（三）基于优化的 IMU 与视觉信息融合（下篇）</a></p>
-<p>VIO相关知识</p>
+<h3 id="6-滑动平均问题"><a href="#6-滑动平均问题" class="headerlink" title="6. 滑动平均问题"></a>6. 滑动平均问题</h3><p>关于servoNode中的滑动平均值，之前确实没有过多考虑，可能还是希望能就原状进行测试，但是忽略了代码间的相互协调能力</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200910135546937.png" alt="image-20200910135546937"></p>
+<p>这个 n 值的设定主要是起到滑动平均的基数的关系</p>
+<p>如果调整n，发布的速度也会比较慢，但是也需要可以起到比较好的光滑的效果（不见得）</p>
+<p>需要尝试一下，目前设想的测试顺序如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>n=</th>
+<th>1</th>
+<th>5</th>
+<th>3</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>抖动比较明显，但是可过弯</td>
+<td>抖动降低，但是人行道不易通过，转角过大</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="7-整体规划首个思路"><a href="#7-整体规划首个思路" class="headerlink" title="7. 整体规划首个思路"></a>7. 整体规划首个思路</h3><p><strong>起步</strong></p>
+<p>由于是绿灯开始后才进行运动，因此可以在运动的开始添加一个延时，在此延时中将无人车的运动方向设置为50，可以稍微加快速度</p>
+<p><strong>左转弯</strong></p>
+<p>使用视觉进行检测，几乎不需要进行干扰</p>
+<p><strong>人行道</strong></p>
+<p>可以通过opencv或者是hilens进行识别</p>
+<ul>
+<li>在此位置需要停车</li>
+</ul>
+<p>可以通过激光雷达检测到右侧的距离，检测行人等障碍物</p>
+<ul>
+<li>此时应该判断是不是处在左转弯的过程中？【或者说怎样让它具有独特性，而不是全赛道通用的】</li>
+<li>需要判断障碍物是不是消失，障碍物的级别最高，高于人行道，高于车道</li>
+<li>检测到障碍物时：方向设置为50，挡位设置为空，避免来回的摆动</li>
+</ul>
+<p><strong>重新启动</strong></p>
+<ul>
+<li>应当保持停车前的运行方向不变</li>
+<li>检测重新启动后的小车运动方向</li>
+<li>重新可以设置方向和挡位（也就是说在斑马线期间视觉确实也是在启动的，只不过不能修改方向值）</li>
+</ul>
+<p><strong>交叉区域</strong></p>
+<p>激光雷达slam，可以在中间交叉区域通过判断两边距离是否一致从而实现</p>
+<p><strong>右转弯</strong></p>
+<p>视觉可以实现比较好的操作</p>
+<p><strong>限速操作</strong></p>
+<p>我们把限制后的速度调整为10，限速前应当能够按照15-20进行运动</p>
+<p>注意限速和转角之间的配合关系，需要进行测试</p>
+<p>这边转弯的过程中限速和转角是不是能很好地进行配合</p>
+<p><strong>停车</strong></p>
+<p>首先识别到黄灯，开始进入停车识别</p>
+<p>然后识别车的位姿，是不是和右侧挡板平行（使用激光雷达）</p>
+<p>满足和右侧挡板平行，或者能够保持一定的距离，进行驶入</p>
+<p>最后当看不到黄灯、或者红灯后，进行延时，从而确保停车完毕</p>
+<ul>
+<li>注意不能压线，不能碰挡板</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">camera --&gt; l(laneDetection)</span><br><span class="line">l --&gt; images</span><br><span class="line">l --&gt; l2(lane_vel:topic)</span><br><span class="line">l2 -.- res1[有效信息只有angle_z]</span><br><span class="line">l2 --&gt; s1((servoNode))</span><br><span class="line"></span><br><span class="line">h[hilens] --&gt; t1(traffic_light)</span><br><span class="line">h --&gt; t2(标识牌信息)</span><br><span class="line">t1 --&gt; s1</span><br><span class="line">t2 --&gt; s1</span><br><span class="line">s1 --&gt; m1(manul)</span><br><span class="line">s1 --&gt; d1(direction)</span><br><span class="line">s1 --&gt; s2(speed)</span><br><span class="line">s1 --&gt; g(gear)</span><br><span class="line"></span><br><span class="line">m1 -.- res2[自动手动]</span><br><span class="line">d1 -.- res3[方向]</span><br><span class="line">s2 -.- res4[速度]</span><br><span class="line">g -.- res5[挡位]</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-scan话题无法读取的问题"><a href="#8-scan话题无法读取的问题" class="headerlink" title="8. /scan话题无法读取的问题"></a>8. /scan话题无法读取的问题</h3><blockquote>
+<p>参考：<a href="https://blog.csdn.net/qq_38441692/article/details/98205852" target="_blank" rel="noopener">ROS多机通讯踩坑，（主机和从机之间可以订阅话题，但是看不到话题消息）</a></p>
+<p><a href="https://answers.ros.org/question/48240/rostopic-list-works-but-rostopic-echo-does-not/" target="_blank" rel="noopener"><strong>rostopic list works but rostopic echo does not</strong></a></p>
 </blockquote>
+<p>该问题已经解决，使用/rosout进行读取</p>
  
       <!-- reward -->
       
@@ -406,7 +378,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/09/27/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0%E4%B8%80/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/09/29/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0%E4%BA%8C/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -419,19 +391,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2020/09/29/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0%E4%BA%8C/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            华为云无人车参赛笔记二
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/09/26/OpenCV%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" class="article-nav-link">
+      <a href="/2020/09/27/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0%E4%B8%80/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">OpenCV常用方法</div>
+        <div class="article-nav-title">华为云无人车参赛笔记一</div>
       </a>
     
   </nav>
