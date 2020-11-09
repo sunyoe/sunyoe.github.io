@@ -485,10 +485,9 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p><strong>重新认识VScode</strong></p>
-<p>小技巧：</p>
-<p><strong>按 ctrl + shift + p 调出上面的命令栏</strong></p>
-<p>VSCode有多个设置页面</p>
+  <p><strong>VScode是强大的代码编辑器</strong>，用一些小技巧重新认识它：</p>
+<h2 id="1-开胃菜"><a href="#1-开胃菜" class="headerlink" title="1. 开胃菜"></a>1. 开胃菜</h2><p>调出命令行：<strong>按 ctrl + shift + p</strong></p>
+<p>设置页面：</p>
 <ul>
 <li>点击左下方设置按钮查询设置内容</li>
 <li>在设置界面中，会有部分设置内容下方 给出 settings.json 文件</li>
@@ -519,21 +518,40 @@
 </tr>
 </tbody></table>
 <p>其他涉及某项语言的插件，可以在用到的时候直接查找即可，甚至微信小程序、VUE、Django、ROS等也有插件可用。</p>
-<h2 id="Anaconda-Prompt"><a href="#Anaconda-Prompt" class="headerlink" title="Anaconda Prompt"></a>Anaconda Prompt</h2><p>在VSCode中使用Anaconda Prompt的虚拟终端，能够方便地配置好python调试环境等内容，就可以脱离Anaconda Prompt的束缚。</p>
-<p>主要是修改以下内容：</p>
+<h2 id="2-协同-Anaconda-Prompt"><a href="#2-协同-Anaconda-Prompt" class="headerlink" title="2. 协同 Anaconda Prompt"></a>2. 协同 Anaconda Prompt</h2><p>在VSCode中使用Anaconda Prompt的虚拟终端，能够方便地配置好python调试环境等内容</p>
+<p>（就可以脱离Anaconda Prompt的束缚了）</p>
+<p>打开设置：</p>
+<h3 id="修改方案一：【勉强实现conda的调用】"><a href="#修改方案一：【勉强实现conda的调用】" class="headerlink" title="修改方案一：【勉强实现conda的调用】"></a>修改方案一：【勉强实现conda的调用】</h3><p>主要是修改以下内容：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"python.pythonPath"</span>: <span class="string">"C:\\ProgramData\\Anaconda3\\python.exe"</span>,</span><br><span class="line">    <span class="string">"terminal.integrated.automationShell.windows"</span>: <span class="string">""</span>,</span><br><span class="line">    <span class="string">"terminal.integrated.shell.windows"</span>: <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><em>参考:[<a href="https://blog.csdn.net/Add_a_cat/article/details/101051759" target="_blank" rel="noopener">在vscode中打开conda的虚拟终端</a>]</em></p>
+<blockquote>
+<p>参考：[<a href="https://blog.csdn.net/Add_a_cat/article/details/101051759" target="_blank" rel="noopener">在vscode中打开conda的虚拟终端</a>]</p>
+</blockquote>
 <p>这是一种相对简单的方法，只需要修改配置，就可以进行使用。</p>
-<p>此外如果能直接将conda命令加入环境变量，并且直接在windows终端中进行调用，也就不用再设置该项内容了；注意在conda官方看来，将conda命令加入环境变量是有风险的。</p>
-<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>结合gitlens的使用，比Git terminal更快一步。</p>
+<p><strong>缺点：</strong>目前发现这样的修改后，conda只能进入base环境，而不能进入其他环境，不利于使用</p>
+<h3 id="修改方案二：【conda完美调用】"><a href="#修改方案二：【conda完美调用】" class="headerlink" title="修改方案二：【conda完美调用】"></a>修改方案二：【conda完美调用】</h3><p>首先，修改环境变量，使得能够直接在windows终端（cmd）中直接调用</p>
+<p>【注意在conda官方看来，将conda命令加入环境变量是有风险的】</p>
+<p>在path（我的电脑-属性-环境变量-系统变量）中，添加anaconda和script的地址，可以打开anaconda prompt输入path直接进行查看</p>
+<blockquote>
+<p>参考：<a href="https://blog.csdn.net/yelly0/article/details/88426076" target="_blank" rel="noopener">综合处理 ‘conda’ 不是内部或外部命令,也不是可运行的程序 或批处理文件。</a></p>
+</blockquote>
+<p>然后，将VSCode的<code>terminal</code>地址改为<code>cmd</code>，这样就可以像在<code>cmd</code>中一样使用<code>conda</code>了</p>
+<p>【注意：不能直接改成anaconda prompt，原因是不支持，或者说anaconda prompt本身的底层就是cmd】</p>
+<p>打开设置，搜索<code>shell</code></p>
+<p>主要修改<code>Terminal&gt;Intergrated&gt;Shell:Windows</code></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20201105093651583.png" alt="image-20201105093651583"></p>
+<p>打开<code>settings.json</code></p>
+<p>修改<code>&quot;terminal.integrated.shell.windows&quot;: &quot;C:\\Windows\\System32\\cmd.exe&quot;,</code></p>
+<p>重新打开vscode，然后再打开终端就可以使用了【如果不重新打开，可能会报一点问题】</p>
+<p>注意不要添加<code>&quot;terminal.integrated.shellArgs.windows&quot;</code>项，该项也有可能对终端产生一定的影响</p>
+<h2 id="3-其他工具"><a href="#3-其他工具" class="headerlink" title="3. 其他工具"></a>3. 其他工具</h2><h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h3><p>结合gitlens的使用，比Git terminal更快一步。</p>
 <p>前提：认真配置好Git环境，可参考菜鸟教程关于Git的介绍。</p>
-<h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><p>推荐插件：<code>remote development</code></p>
+<h3 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h3><p>推荐插件：<code>remote development</code></p>
 <p>实现对服务器的远程控制，注意第一次启动时需要对用户名等内容进行一点设置。</p>
 <p><em>参考：[<a href="https://blog.csdn.net/weixin_40373708/article/details/90376258" target="_blank" rel="noopener">使用remote</a>]</em></p>
 <p>此外，正常情况下，每次打开新文件夹需要再次输入密码，确实有点麻烦，还可以配置一下ssh-keygen，减少密码输入。</p>
 <p><em>参考：[<a href="https://blog.csdn.net/qq_43143808/article/details/106765470?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase" target="_blank" rel="noopener">ssh-keygen</a>]</em></p>
-<h2 id="工作区"><a href="#工作区" class="headerlink" title="工作区"></a>工作区</h2><p>工作区的使用不完全手册</p>
+<h3 id="工作区"><a href="#工作区" class="headerlink" title="工作区"></a>工作区</h3><p>工作区的使用不完全手册</p>
 <p>可以把文件夹添加到工作区</p>
 <p>选择：</p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200812151444206.png" alt="image-20200812151444206"></p>
