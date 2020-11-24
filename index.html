@@ -100,6 +100,137 @@
     
     
     <article
+  id="post-PyTorch学习篇-1"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/11/24/PyTorch%E5%AD%A6%E4%B9%A0%E7%AF%87-1/"
+    >PyTorch-学习篇1</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/11/24/PyTorch%E5%AD%A6%E4%B9%A0%E7%AF%87-1/" class="article-date">
+  <time datetime="2020-11-24T13:38:26.000Z" itemprop="datePublished">2020-11-24</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>本文根据PyTorch官方推荐同名书籍：《Deep learning with pytorch》的个人学习笔记而来。</p>
+</blockquote>
+<h1 id="Deep-learning-with-pytorch"><a href="#Deep-learning-with-pytorch" class="headerlink" title="Deep learning with pytorch"></a>Deep learning with pytorch</h1><p>基于优化任务性能的算法的基础上，自动提取分层特征的算法</p>
+<p>相对于手动选择特征，会有什么样的不同，以及怎么样去实现ta？1.3节涉及</p>
+<p>To train this model, you need a few things (besides the loop itself, which can be a standard Python for loop): a source of training data, an optimizer to adapt the model to<br>the training data, and a way to get the model and data to the hardware that will be performing the calculations needed for training the model.  </p>
+<p>要训练该模型，您需要做一些事情（除了循环本身，它可以是标准的Python for循环）：训练数据的来源，用于使模型适应训练数据的优化器以及获取模型的方法 并将数据发送到硬件，该硬件将执行训练模型所需的计算。</p>
+<h2 id="tensor"><a href="#tensor" class="headerlink" title="tensor"></a>tensor</h2><p>从tensor形式转化为storage形式，需要使用offset、size、stride三个变量</p>
+<p>tensor是一维的</p>
+<p>stride表示的是当tensor的维数+1时，元素必须跳过skip的个数</p>
+<p>在一个二维的tensor中</p>
+<p>$x_{i,j}=storage_offset+stride[0]<em>i+stride[1]</em>j$</p>
+<p>offset一般是 0，如果storage要存储一个很大的tensor的时候，可能offset会是一个正数</p>
+<p><strong>关于tensor，我觉的最关键的就是storage的理解</strong></p>
+<p>pytorch一个强大的地方就是tensor数据的排列和存取方法，当你使用tensor进行存取时，storage就是一个很灵活的仓库</p>
+<p>你可以灵活地调整数据的维数，从而进行数据分析，而且还不会改变storage的分布，这确实是一个不错的创意</p>
+<h2 id="关于训练"><a href="#关于训练" class="headerlink" title="关于训练"></a>关于训练</h2><p>本书的第三章对text、image等多种数据究竟应该如何传入神经网络进行了一点说明，并进行了比较基础的操作，非常具有启发性</p>
+<p>本书的第四章首先展示了一个比较简单的线性回归网络的全部程序，并且使用了反向传播等操作：</p>
+<ul>
+<li>通过不断的演化展示了在torch中可以利用其包含的API实现loss的反向传播和params的自动优化</li>
+<li>关于params的grad优化问题，还对zero-grad和step等常用方法进行了一点介绍</li>
+</ul>
+<p>第四章的后半部分（4.2.2以后）这是对训练过程中的一些细节问题进行讨论</p>
+<p>包括<code>optimizer.zero_grad()</code>，<code>loss.backward()</code>，<code>optimizer.step()</code>以及autograd方法：</p>
+<p><code>params = torch.tensor([1.0, 0.0], requires_grad = True)</code></p>
+<p>参数在定义时就采用了requires_grad，那么就会自动开始autograd跟踪，使用backward时，就会将变量关于参数的导数进行自动计算了</p>
+<h2 id="一些技巧"><a href="#一些技巧" class="headerlink" title="一些技巧"></a>一些技巧</h2><p><strong>首先是认识到过拟合的发生</strong></p>
+<p>解决方法之一是把数据集分割一下，必须要保证在每个部分都具有良好的效果才能说明模型是正确的</p>
+<p>解决方法之二：如果你的training loss没有减小，很有可能是你的模型过于简单了</p>
+<p>还有一种可能：你的数据没有包含足够的能够解释输出的有效信息</p>
+<p>另一条原则：如果训练集loss和测试集loss出现了偏差，那就说明是过拟合了！</p>
+<p>总结就是：</p>
+<ul>
+<li>首先保证有足够的数据</li>
+<li>适合的模型<ul>
+<li>一种方法是增加惩罚机制从而方便地让模型更平滑、变化地更慢一点</li>
+<li>另一种方法是给输入数据增加噪声</li>
+</ul>
+</li>
+<li>最简单的方法可能是让你的模型简单一点（不用拟合所有的点，从它们中穿过就好了）</li>
+</ul>
+<p><strong>选择合适的模型大小size，或者说参数多少的方法：</strong></p>
+<ul>
+<li>首先增加size，直到能够拟合</li>
+<li>然后减小，直到不再过拟合</li>
+</ul>
+<h2 id="开启和关闭autograd"><a href="#开启和关闭autograd" class="headerlink" title="开启和关闭autograd"></a>开启和关闭autograd</h2><p><strong>节省计算和存储</strong></p>
+<p>其实测试集的计算根本不需要反向传播，也不需要计算导数</p>
+<p>但是测试集的计算过程和训练集是一致的，使用了相同的函数和模型</p>
+<p>那么为了节省导数计算和存储，可以使用<code>torch.no_grad</code>方法（训练的函数中使用的是<code>requires_grad</code>的方法，只要使用，意味就会对参数进行跟踪）</p>
+<p>也可以使用<code>torch.set_grad_enabled</code>方法，来达到启用（enable）和关闭（disable）autograd的目的</p>
+<h2 id="使用非线性激活函数"><a href="#使用非线性激活函数" class="headerlink" title="使用非线性激活函数"></a>使用非线性激活函数</h2><p>值得注意的是，<strong>权重 w</strong> 可以是一个数字或者是矩阵（matrix）【这样权重w就可以掌握整个一层layer的神经元neurons】</p>
+<p>而 <strong>输入 x</strong> 与<strong>偏置 b</strong> 必须相匹配，一般是一个数字或一个向量（vector）</p>
+<p>激活函数的一个功能是件输出聚焦到一个指定的范围上</p>
+<ol>
+<li><code>torch.nn.Hardtanh</code>激活函数</li>
+</ol>
+<p>小于0就全部为0，大于10就全部为10，类似这样的逻辑</p>
+<ol start="2">
+<li><p><code>torch.nn.sigmoid</code>激活函数</p>
+</li>
+<li><p><code>torch.tanh</code></p>
+</li>
+</ol>
+<p>这些激活函数，在x逐渐为负值时，渐进地接近0或者-1；而随着x上升，逐渐接近1，但是斜率会逐渐变小</p>
+<h2 id="使用nn-module搭建神经网络"><a href="#使用nn-module搭建神经网络" class="headerlink" title="使用nn module搭建神经网络"></a>使用nn module搭建神经网络</h2><p> 搭建<code>nn.Module</code>的子类，至少需要重新定义一个<code>.forward()</code>函数：</p>
+<p><code>.forward()</code>函数主要作用就是处理输入，变成输出</p>
+<p>所以通常来说，你的整个model会是<code>nn.Module</code>的一个子类，反过来，model也可嗯那个会包含其他的<code>nn.Module</code>的子类</p>
+<p>有三种方式实现相同的网络结构，并且使用的PyTorch功能越来越复杂</p>
+<ul>
+<li>第一种：<code>nn.Sequential</code></li>
+</ul>
+<h2 id="思维导图整理"><a href="#思维导图整理" class="headerlink" title="思维导图整理"></a>思维导图整理</h2><p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20201111104603544.png" alt="image-20201111104603544"></p>
+<p>![Deep Learning with PyTorch](<a href="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/Deep" target="_blank" rel="noopener">https://typoraim.oss-cn-shanghai.aliyuncs.com/image/Deep</a> Learning with PyTorch.png)</p>
+<h2 id="推荐书目"><a href="#推荐书目" class="headerlink" title="推荐书目"></a>推荐书目</h2><ul>
+<li>Grokking Deep Learning, by Andrew W. Traska, is a great resource for developing<br>a strong mental model and intuition on the mechanism underlying deep neural networks.</li>
+<li>For a thorough introduction and reference to the field, we direct you to Deep<br>Learning, by Ian Goodfellow, Yoshua Bengio, and Aaron Courville.b【花书】</li>
+<li>Last but not least, the full version of this book is available in Early Access now, with an estimated print date in late 2019: <a href="https://www.manning.com/books/deeplearning-with-pytorch" target="_blank" rel="noopener">https://www.manning.com/books/deeplearning-with-pytorch</a>.  </li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PyTorch/" rel="tag">PyTorch</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-数据处理体验"
   class="article article-type-post"
   itemscope
@@ -2230,89 +2361,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/databases/" rel="tag">databases</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-数据-bookmarks的转化"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/08/08/%E6%95%B0%E6%8D%AE-bookmarks%E7%9A%84%E8%BD%AC%E5%8C%96/"
-    >【数据】bookmarks的转化</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/08/08/%E6%95%B0%E6%8D%AE-bookmarks%E7%9A%84%E8%BD%AC%E5%8C%96/" class="article-date">
-  <time datetime="2020-08-08T01:41:13.000Z" itemprop="datePublished">2020-08-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Data-Analysis/">Data Analysis</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>假期归来，想把家里电脑上的收藏夹搬到笔记本电脑上，其实更好的方法是建一个账户同步，但是本着能麻烦绝不方便的原则，试一下另一种方法。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
-<li>浏览器导出收藏夹文件：Bookmarks，该文件格式为json</li>
-<li>从Bookmarks中找出网站名和网址，整理成一个表格文件</li>
-<li>对这个表格做一下词云分析，看一下究竟假期看了些什么，详见<a href="https://sunyoe.github.io/2020/08/02/数据-词云分析初探/" target="_blank" rel="noopener">【数据】词云分析初探</a></li>
-</ul>
-<h2 id="动手"><a href="#动手" class="headerlink" title="动手"></a>动手</h2><h3 id="整理Bookmarks"><a href="#整理Bookmarks" class="headerlink" title="整理Bookmarks"></a>整理Bookmarks</h3><p>其实已经非常简单了，把握核心就是把 json 看成一个“大”字典。</p>
-<p>看一下原始内容：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">"checksum"</span>: <span class="string">"ca7fb0d38496e7252c02db776f1f634a"</span>,</span><br><span class="line">   <span class="attr">"roots"</span>: &#123;</span><br><span class="line">      <span class="attr">"bookmark_bar"</span>: &#123;</span><br><span class="line">         <span class="attr">"children"</span>: [ &#123;</span><br><span class="line">            <span class="attr">"date_added"</span>: <span class="string">"13199114198683132"</span>,</span><br><span class="line">            <span class="attr">"guid"</span>: <span class="string">"e62ed638-a320-45be-9456-eb3490b55096"</span>,</span><br><span class="line">            <span class="attr">"id"</span>: <span class="string">"5"</span>,</span><br><span class="line">            <span class="attr">"meta_info"</span>: &#123;</span><br><span class="line">               <span class="attr">"last_visited_desktop"</span>: <span class="string">"13206982609994441"</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"百度"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"url"</span>,</span><br><span class="line">            <span class="attr">"url"</span>: <span class="string">"https://www.baidu.com/"</span></span><br><span class="line">         &#125;, &#123;</span><br><span class="line">            <span class="attr">"children"</span>: [ &#123;</span><br><span class="line">               <span class="attr">"children"</span>: [ &#123;</span><br><span class="line">                  <span class="attr">"date_added"</span>: <span class="string">"13228716556104664"</span>,</span><br><span class="line">                  <span class="attr">"guid"</span>: <span class="string">"2011bd3e-d3df-42ae-b9b8-27420da1deb5"</span>,</span><br><span class="line">                  <span class="attr">"id"</span>: <span class="string">"62"</span>,</span><br><span class="line">                  <span class="attr">"name"</span>: <span class="string">"常见问题解答-Covid-19，问题和解答"</span>,</span><br><span class="line">                  <span class="attr">"type"</span>: <span class="string">"url"</span>,</span><br><span class="line">                  <span class="attr">"url"</span>: <span class="string">"http://www.salute.gov.it/portale/nuovocoronavirus/dettaglioFaqNuovoCoronavirus.jsp?lingua=italiano&amp;id=228#11"</span></span><br><span class="line">               &#125;],</span><br><span class="line">               <span class="attr">"date_added"</span>: <span class="string">"13231592490508714"</span>,</span><br><span class="line">               <span class="attr">"date_modified"</span>: <span class="string">"13231599756212563"</span>,</span><br><span class="line">               <span class="attr">"guid"</span>: <span class="string">"5d867818-cf41-45a2-ad6f-25600f590419"</span>,</span><br><span class="line">               <span class="attr">"id"</span>: <span class="string">"105"</span>,</span><br><span class="line">               <span class="attr">"name"</span>: <span class="string">"EBD项目"</span>,</span><br><span class="line">               <span class="attr">"type"</span>: <span class="string">"folder"</span></span><br><span class="line">            &#125;...</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>整体还是非常有规律的，对应到浏览器中就是大的收藏夹套内部分类收藏夹，收藏夹内还有文件夹，从type可以看到哪些是“url”。</p>
-<blockquote>
-<p>这里突然觉得自己的方法可能有点笨，用type的方法去分类也是一个不错的选择</p>
-</blockquote>
-<p>我的方法自然是使用字典+列表的索引来实现了，心得就是：</p>
-<ul>
-<li><p>字典直接根据 “key” 键的名字来索引：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bm_url_data[<span class="string">'children'</span>]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>列表则可以根据数字来索引：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bm_url_data[i][<span class="string">'children'</span>]</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>这种方法确实是非常的原始，因为Bookmarks中字典列表循环嵌套，要不断来回索引，除了部分文件夹中可以简单用循环来节省一下工作量，其他方面根本就没有省多少事。</p>
-<h3 id="转为excel"><a href="#转为excel" class="headerlink" title="转为excel"></a>转为excel</h3><p>上面最终取出的url和网址分别组成列表，这样就得到了两个列表。</p>
-<p>将两个列表进行关联，并转入excel文件，用pandas实在是再好不过了！</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas.core.frame <span class="keyword">import</span> DataFrame</span><br><span class="line"></span><br><span class="line"><span class="comment"># 先根据两个列表，生成bookmarks的字典</span></span><br><span class="line">bookmarks_dict = &#123;<span class="string">'网站名'</span>: bm_name,</span><br><span class="line">                  <span class="string">'url'</span> : bm_url&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从bookmarks 生成 DataFrame数据</span></span><br><span class="line">bookmarks_fram = DataFrame(bookmarks_dict)</span><br><span class="line">print(bookmarks_fram)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最后直接将DataFrame数据转化到excel中</span></span><br><span class="line">bookmarks_fram.to_excel(<span class="string">'./bookmarks.xlsx'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>得益于完善的封装，以及DataFrame这一数据格式的独特优势，使用这种转换方法绝对是非常简洁。</p>
-<p>此外，还找到xlwt等python包，也可以实现数据写入excel，但是相对就要麻烦很多了。</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/index/" rel="tag">index</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/json/" rel="tag">json</a></li></ul>
 
     </footer>
   </div>
