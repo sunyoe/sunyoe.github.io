@@ -2384,4 +2384,86 @@
         <tag>PyTorch</tag>
       </tags>
   </entry>
+  <entry>
+    <title>PyTorch-学习篇2</title>
+    <url>/2020/11/25/PyTorch-%E5%AD%A6%E4%B9%A0%E7%AF%872/</url>
+    <content><![CDATA[<blockquote>
+<p>本篇主要对学习中常见的torch、tensor方法进行记录，不定期更新。</p>
+</blockquote>
+<hr>
+<h1 id="模块-package"><a href="#模块-package" class="headerlink" title="模块 package"></a>模块 package</h1><p><code>torch.util.data</code>包，参考：<a href="https://blog.csdn.net/tsq292978891/article/details/79414512" target="_blank" rel="noopener">pytorch实现自由的数据读取－torch.utils.data的学习</a></p>
+<ul>
+<li><p><code>Dataset</code></p>
+</li>
+<li><p><code>Dataloader</code></p>
+</li>
+<li><p>用于读取数据集</p>
+</li>
+</ul>
+<p><code>torch.nn.DataParallel</code> 可以使用多个GPU来加速训练</p>
+<p><code>torch.distributed</code>也是一个和分布式训练，多GPU训练有关的包</p>
+<p><code>torch.optim</code>是一个思想了各种优化算法的库，可以用用于构建optimizar，里面有比较熟悉的SGD、Adam等优化器</p>
+<ul>
+<li>包括<code>optimizer.zero_grad()</code>，<code>loss.backward()</code>，<code>optimizer.step()</code></li>
+</ul>
+<hr>
+<h1 id="方法-function"><a href="#方法-function" class="headerlink" title="方法 function"></a>方法 function</h1><p>一维list转化为三维list：<code>mean[:, None, None]</code>（前提是mean的类型是tensor）</p>
+<p>增加维度：<code>image[None]</code>（前提是tensor）</p>
+<p>生成序列：<code>torch.arange(start=1,end=6)</code> 里面会有两个参数，关键词可以不用写</p>
+<ul>
+<li><code>torch.range</code>的结果会包含 end</li>
+<li><code>torch.arange</code>的结果不包含 end</li>
+<li>两者创建的tensor类型也不一样，参考：<a href="https://blog.csdn.net/m0_37586991/article/details/88830026" target="_blank" rel="noopener">pytorch.range() 和 pytorch.arange() 的区别</a></li>
+</ul>
+<p><strong>传入行坐标、列坐标，生成网格行坐标矩阵的列坐标矩阵</strong>：<code>torch.meshgrid</code>【这个真的是有点惊艳】</p>
+<ul>
+<li><code>x1, y1 = torch.meshgrid(x, y)</code></li>
+<li>传入的 x，y 是两个坐标轴</li>
+<li>输出的 x1, y1 是上面的x，y形成的网格的每一个角点的横纵坐标</li>
+</ul>
+<p><strong>拼接：</strong></p>
+<ul>
+<li><code>torch.cat((A, B), 0)</code> 在指定维度(0)进行拼接</li>
+<li><code>torch.stack((T1, T2), 0)</code>会在指定维度位置<strong>新增一个维度</strong>，然后进行拼接<ul>
+<li>该函数要求输入的<strong>两个待拼接序列的shape必须是一样的</strong></li>
+</ul>
+</li>
+</ul>
+<p><code>tensor.detach()</code>准确来说是pytorch中的Variable对象的方法</p>
+<ul>
+<li>官方介绍：Returns a new Tensor, detached from the current graph.<br>The result will never require gradient.</li>
+<li>返回一个新的从当前图中分离的variable，这个返回的variable将不会需要梯度</li>
+<li>参考：<a href="https://www.cnblogs.com/jiangkejie/p/9981707.html" target="_blank" rel="noopener">pytorch中的detach和detach_</a></li>
+</ul>
+<p><code>torch.numel(x)</code>返回数组中元素的数目</p>
+<p><code>torch.unbind(x, dim=1)</code>函数：移除指定维后，返回元组包含沿着指定维切片后的各个切片，参考：<a href="https://blog.csdn.net/dreamhome_s/article/details/106032025" target="_blank" rel="noopener">PyTorch 函数解释：torch.narrow()、torch.unbind()</a></p>
+<p><code>torch.topk</code>沿给定维度返回输入张量input中k个最大值，也可以返回最小的k个值（需要指定largest=False）</p>
+<p><code>tensor.clean</code></p>
+<p>展平，或者说也是一种变形：</p>
+<ul>
+<li><code>tensor.view()</code><ul>
+<li>【只针对连续内存，如果索引顺序变化，自然也就不再连续了】</li>
+</ul>
+</li>
+<li><code>tensor.reshape()</code><ul>
+<li>没有连续内存的限制</li>
+<li>里面如果有 -1，表示这一位会根据其他参数计算而得出来【毕竟总数是知道的，其他维上的数量知道了，这一维也就确定了】</li>
+</ul>
+</li>
+<li><code>flatten</code></li>
+</ul>
+<p><strong>使用tensor可以实现在矩阵中找小于大于某数的数的索引值的比较快的方式</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 蒙版索引</span></span><br><span class="line">between_thresholds=(matched_vals&gt;=self.low_threshold)&amp;(matched_vals&lt;self.high_threshold)</span><br><span class="line"><span class="comment"># 直接使用，从而找出matched_vals中介于满足两个阈值要求的数值</span></span><br><span class="line">matrix[between_thresholds]</span><br></pre></td></tr></table></figure>
+
+<p><code>torch.randperm(n)</code> 把0到n-1这些数随机打乱，得到一个数字序列</p>
+<p><code>torch.clamp(input, min, max)</code> 将输入的input张量的每个元素夹紧到[min,max]区间，返回新张量。也就是说，大于max值的会缩小为max，小于min值得会放大为min值。</p>
+<p><code>torch.nonzero(input)</code> 输入应为tensor类型，输出为两个tensor，记录了input中非零元素的索引位置（用横纵坐标来理解更容易）</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>PyTorch</tag>
+      </tags>
+  </entry>
 </search>
