@@ -2466,4 +2466,540 @@
         <tag>PyTorch</tag>
       </tags>
   </entry>
+  <entry>
+    <title>LeetCode刷题笔记（二）</title>
+    <url>/2020/12/06/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%BA%8C/</url>
+    <content><![CDATA[<p>每期10题，上一期参见<a href="https://sunyoe.github.io/2020/09/03/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%80/" target="_blank" rel="noopener">LeetCode刷题笔记（一）</a>。</p>
+<p>本期内容多以List操作和动态规划为主，同时针对链表内容结合上篇笔记进行了整理。</p>
+<hr>
+<h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><h2 id="147-对【链表】进行插入排序"><a href="#147-对【链表】进行插入排序" class="headerlink" title="147. 对【链表】进行插入排序"></a>147. 对【链表】进行插入排序</h2><p>每次取出一个待排序元素</p>
+<p>然后将它放入已经排好的序列的合适位置【升序排列，可能有负数】</p>
+<p>关键是怎么样进行排序，从动画来看是从末尾开始进行比较，直到当前数的大小合适就可以放入了</p>
+<p>python中的这个链表很有意思，感受一下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 原始定义</span></span><br><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        self.val = x</span><br><span class="line">        self.next = <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<p>假如说一个 链表 <code>head</code></p>
+<p>其内容看似是 <code>[4, 2, 1, 3]</code></p>
+<p>但是实际调用应该是 <code>head.val = 4</code> 头部的第一个数</p>
+<p>那么第二个数就应该是<code>head.next.val = 2</code></p>
+<p>所以就要对 <code>head.next</code>进行迭代，使用的都是同样的方法</p>
+<p>问题：</p>
+<ul>
+<li>那么怎么产生一个ListNode，继承父类吗，<strong>如何进行实例化</strong></li>
+<li>可以向后推演，如何向前呢？就是当前数字的前一个是什么【找不到，因此，要从前往后地找插入点】</li>
+</ul>
+<p>总体推演</p>
+<ul>
+<li>每一个循环应该是head向后移动一位</li>
+<li>此时在新的listnode中也会从头开始进行比较，什么时候停<ul>
+<li>第一是比当前的值大了一点</li>
+<li>第二是个数够了<ul>
+<li>比如当前是第 k 轮，最多只能 k-1 次比较</li>
+<li>那么当比较的次数是 k 时，就要退出比较的部分，还要将 k 归0，以便下一次是从头开始进行比较</li>
+<li>那么下一轮 的轮数也要进行变化，这样就会出现两个参数了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>时间复杂度问题</p>
+<ul>
+<li>只需要更新相邻节点的指针，时间复杂度 O(1)</li>
+<li>但是需要进行遍历链表的节点，时间复杂度 O(n)</li>
+<li>总的时间复杂度就是 $O(n^2)$</li>
+</ul>
+<p>【11月21日】想法</p>
+<p>（1）对比head 和head.next，如果head大，就要交换一下</p>
+<p>（2）移动head【如果<strong>==移动==</strong>的话，是不是还需要一个东西来存储一下】</p>
+<blockquote>
+<p>所以说，应该是在一个链表上，自己和自己进行比较，交换数字容易，但是移动到下一个数字应该怎么做</p>
+<p>还是复制成两个链表进行比较？</p>
+<p>【阅读题解】</p>
+<p>发现不只是两个链表了，而是要新建几个链表用来放置数据</p>
+</blockquote>
+<h4 id="阅读题解"><a href="#阅读题解" class="headerlink" title="阅读题解"></a>阅读题解</h4><p>重点的几个内容：</p>
+<ol>
+<li><strong>链表前的节点</strong> —— 哑节点 —— 便于在head前插入节点<code>zeroHead.next = head</code></li>
+<li>*<em>已排序部分的最后一个节点 *</em> <code>lastSorted = head</code></li>
+<li><strong>待插入元素</strong> <code>current = head.next</code></li>
+<li><strong>插入元素的位置</strong>的前一个节点 <code>prev</code></li>
+</ol>
+<p>然后的思路和上面的分析其实很像</p>
+<p>怎么样将 <code>current</code>插入到链表中呢？</p>
+<p>几种情况</p>
+<ol>
+<li>空的链表</li>
+<li>比较<code>lastSorted.val</code>和<code>current.val</code>的值，发现不用变化</li>
+<li>第2步比较之后发现确实需要进行变化：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lastSorted.next = current.next <span class="comment"># 相当于把 lastSorted 向后移动了一位</span></span><br><span class="line">current.next = prev.next <span class="comment"># 相当于把排序的那个链表断开，从 prev 这里断开</span></span><br><span class="line">prev.next = current	<span class="comment"># 然后把 current放在了 prev 的后面</span></span><br><span class="line"></span><br><span class="line">current = lastSorted.next <span class="comment"># 更新将要插入的值</span></span><br></pre></td></tr></table></figure>
+
+<p>然后是判断的条件：</p>
+<ul>
+<li>计数是不太明智的方法</li>
+<li>其实从上面的分析可以看出，current才是最直接从head复制出来的东西，直接判断current是不是空的，就能终止程序</li>
+</ul>
+<p>可以直接判断链表是不是空的：<code>while curr:</code>如果是空的就会直接跳出</p>
+<blockquote>
+<p><strong>链表的恼火之处在于不断地覆盖</strong></p>
+<ul>
+<li>每次取出来一个值的时候，是ta后面的一长串全部都被取出了</li>
+<li>如果只想改变这一个值，就要精准地覆盖这个值后面的链表，用不同的东西覆盖得到的效果就是不同的</li>
+</ul>
+<p><strong>链表的神奇之处在于消失</strong></p>
+<ul>
+<li>其实你并没有把一个值赋值到链表当中</li>
+<li>而是把它添加到了前一个元素的next中，又把ta的next全部改成了原来的元素，这样，其实你根本没有对这个值进行操作，一个新链表已经形成了，就好像这个元素消失了一样</li>
+</ul>
+<p><strong>几个基本操作：</strong></p>
+<ul>
+<li>把链表自己移动一位：<code>list_node = list_node.next</code></li>
+<li>把链表 head 的头换成另一个数字：<code>head.val = xxx</code> 固然是可以的</li>
+<li>在链表前面添加另一个链表：<code>another_list_node.next = list_node</code></li>
+<li>在链表 head 的头后插入一个新的数字（其格式应该也是链表）：<code>curr.next = head.next; head.next = curr</code>【也就是先要复制后面的内容，然后再把这些内容加到head 的后面】</li>
+<li>遍历链表：<code>while head.next.val &lt;= curr.val: prev = prev.next</code></li>
+</ul>
+<p>链表总是最大限度地发挥next的作用</p>
+</blockquote>
+<hr>
+<h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><h2 id="LCP-19-秋叶收藏集"><a href="#LCP-19-秋叶收藏集" class="headerlink" title="LCP 19. 秋叶收藏集"></a>LCP 19. 秋叶收藏集</h2><p>本题的好处是：替换，而不是交换，这样数学过程会简单一点</p>
+<p>现在主要考虑的就是，黄叶是不是在一起，左右是不是有红叶，感觉是动态规划</p>
+<p>3片叶子：</p>
+<ul>
+<li>找黄色的<ul>
+<li>如果没有，直接换中间的， 换一次</li>
+<li>如果开头，要换两次</li>
+<li>如果结尾，换两次</li>
+<li>如果全是黄叶，换两次</li>
+<li>如果两片黄叶在一块，换一次</li>
+<li>两片黄叶分开，换三次</li>
+</ul>
+</li>
+</ul>
+<p>有很多叶子</p>
+<ul>
+<li>找黄色的，标记为1</li>
+<li>加和？还是找到它的位置？</li>
+<li>看有没有断开？<ul>
+<li>取首项索引，末项索引</li>
+<li>中间各项进行检测</li>
+<li>但是这样不见得是最好的方式</li>
+</ul>
+</li>
+</ul>
+<p><strong>【10月1日思路】按照数量来决定换还是不换</strong></p>
+<p>首先找出黄叶的位置（索引）</p>
+<blockquote>
+<p>python字符串中查找的方法有四种：</p>
+<ul>
+<li>find()，返回找到的第一个字符的索引，找不到返回 -1</li>
+<li>index()，返回找到的第一个字符的索引，找不到报错</li>
+<li>rfind()和rindex()是倒着找</li>
+</ul>
+<p>如果是列表，那么是</p>
+<ul>
+<li>list.index 也是找第一个匹配项的索引</li>
+<li>用enumerate函数</li>
+</ul>
+<p>numpy可以找指定元素的索引</p>
+<ul>
+<li>np.argwhere</li>
+</ul>
+<p><a href="https://blog.csdn.net/Jerry_1126/article/details/88924288?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-1-88924288.nonecase&utm_term=python%20%E6%9F%A5%E6%89%BE%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0%E5%B9%B6%E4%B8%94%E8%BF%94%E5%9B%9E%E7%B4%A2%E5%BC%95&spm=1000.2123.3001.4430" target="_blank" rel="noopener">Python从列表中找出所有元素索引的几种方法</a></p>
+<p><a href="https://blog.csdn.net/Kerrwy/article/details/82419132?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-3-82419132.nonecase&utm_term=python%20%E6%9F%A5%E6%89%BE%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0%E5%B9%B6%E4%B8%94%E8%BF%94%E5%9B%9E%E7%B4%A2%E5%BC%95&spm=1000.2123.3001.4430" target="_blank" rel="noopener">python找出一个列表中相同元素的多个索引</a></p>
+<p><a href="https://blog.csdn.net/chenhequanlalala/article/details/100991793" target="_blank" rel="noopener">Python3 返回字符串中某个给定字符的全部索引</a></p>
+<p>matlab中对矩阵直接判断：A&gt;a，就能得到同样大小的矩阵，但是python似乎不可以</p>
+</blockquote>
+<ul>
+<li>取首末索引，计算中间段数量</li>
+<li>计算出黄叶数量</li>
+</ul>
+<p>中间段有没有红</p>
+<ul>
+<li>有<ul>
+<li>有多少红叶<ul>
+<li>红叶比黄叶多，换黄叶</li>
+<li>红叶比黄叶少，换红叶</li>
+<li>有一些情况，比如<code>yrrrryyyy</code>，这要怎么换，肯定是只换第一个黄叶最好</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>特殊情况</p>
+<ul>
+<li>全是红叶，换一次</li>
+<li>全是黄叶，换两次</li>
+<li>首尾是黄叶，各处要换一次</li>
+</ul>
+<blockquote>
+<p>我做题总有一种被套住的感觉</p>
+<p>被带入到了题目中，而没有跳出来</p>
+<p>这个问题相当于是在分段，把集中的部分放在一起，怎么样来判断集中和零散？</p>
+<ul>
+<li>一种方法是首尾判断，然后确定中间是不是掺杂，掺杂则是零散，不掺杂则是集中</li>
+<li>但是掺多掺少也是问题</li>
+</ul>
+<p>我掌握的计数方法过少了，只有循环计数</p>
+</blockquote>
+<h3 id="阅读题解-1"><a href="#阅读题解-1" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>动态规划</p>
+<p>分为三种状态：然后分析需要将某一片叶子变色时，当前这片叶子和之前的叶子共同作用的情况，而且需要把次数传递下去</p>
+<blockquote>
+<p>python中的<code>float(&quot;inf&quot;)</code>表示正无穷，<code>float(&quot;-inf&quot;)</code>表示负无穷，可以做简单加、乘算术运算，当然结果还是inf</p>
+</blockquote>
+<p>从公式角度来说，如果用$f[i][j]$ 表示对前 i 片叶子进行操作的次数，而且当前的第 i 片叶子处于状态 j。</p>
+<p>j 有三种：0 表示前面的红色，1 表示黄色部分，2表示后面的红色部分</p>
+<ul>
+<li><p>j = 0， 第 i 片叶子需要变成红色时，i 之前的叶子都是 j = 0 的状态</p>
+<p>$f[i][0]=f[i-1][0]+isYellow(i)$</p>
+<p>如果是黄色，才会增加变换的次数</p>
+</li>
+<li><p>j = 1，需要把第 i 片叶子变成黄色，i 之前的叶子可以是 j = 0，也可以是 j = 1</p>
+<p>$f[i][1]=min{f[i-1][0], f[i-1][1]}+isRed(i)$</p>
+<p>如果是红色，才会增加变换的次数</p>
+</li>
+<li><p>j = 2，需要把第 i 片叶子变成红色，i 之前的叶子可以是 j = 1或2</p>
+<p>$f[i][2]=min{f[i-1][1], f[i-1][2]} + isYellow(i)$</p>
+<p>如果是黄色，才会增加变换的次数</p>
+</li>
+</ul>
+<p>但是问题有</p>
+<ul>
+<li>什么时候改变状态呢？<ul>
+<li>从代码来看，其实并没有改变状态</li>
+<li>不同状态的值一直存在，只不过看选用那个状态罢了</li>
+<li>好比说，刚开始是一片红叶，isRed(i) 会是1，这样 $f[i][1]$ 就有值了，但是等到下一次循环时，选择的是最小的那个，也就是 $f[i][0]$，而不会选择有值的这个，所以，并不影响</li>
+<li>直到出现一篇黄叶，局势才会变化</li>
+<li>可以自己做推演，这个方法确实很妙</li>
+</ul>
+</li>
+<li>此外，叶子的数量必须是大于状态数量的，所以像$ f_{01}, f_{02}, f_{12}$ 其实是不存在的</li>
+<li>初始值 $f_{00}$ 也是要考虑一下的</li>
+</ul>
+<blockquote>
+<p>学习：<code>f = [[0, 0, 0] for _ in range(n)]</code></p>
+<p>这句是把 f 变成了一个n行3列的全零数组，便于后面的计算</p>
+</blockquote>
+<p>最后，注意两个问题：</p>
+<ul>
+<li>range(1, n)，必须是从1开始，因为00已经在前面初始化了</li>
+<li>i &gt;= 2，要包括2，不然就会失败了</li>
+</ul>
+<h2 id="70-爬楼梯【经典-amp-基础】"><a href="#70-爬楼梯【经典-amp-基础】" class="headerlink" title="70. 爬楼梯【经典&amp;基础】"></a>70. 爬楼梯【经典&amp;基础】</h2><p>n阶楼梯，每次可以爬1或2级台阶，问：爬完的方法有多少种</p>
+<p>【仅作为<strong>数学问题</strong>】</p>
+<p>n阶台阶，最多n步（1种）</p>
+<p>然后减少步数，少一步=一个2级台阶（n-1步，n-1种）</p>
+<p>少两步=2个二级台阶（n-2步，$C_{n-2}^2$）</p>
+<p>······</p>
+<p>最少也要 n/2 步（1种）</p>
+<ul>
+<li>如果 n 是偶数，最少 n/2</li>
+<li>如果 n 是奇数，最少 n+1/2</li>
+<li>不管 n 是奇数还是偶数，统统加1，然后除以2取整就好了</li>
+</ul>
+<p>次少要加1步（$C_{\frac{n}{2}+1}^1$）</p>
+<p>所以总共就是</p>
+<p>偶数：$S_o(n)=C_n^0+C_{n-1}^1+C_{n-2}^2+···+C_{\frac{n}{2}+1}^1+C_{\frac{n}{2}}^0$【这里面的数字都是整数吗？确实都是吧】</p>
+<p>奇数：$S_j(n)=n+S_o(n-1)$【其实奇数的时候，少不了有1步代替不了，直接拎出来，剩下就是整数问题了】</p>
+<p>下来是计算问题</p>
+<ul>
+<li>传统方法是阶乘，复杂度爆炸了，不可以</li>
+<li>巧妙一点的方法，有没给有简单一点的级数？</li>
+<li>或者能不能进行转化【可能还是要回到动态规划】</li>
+</ul>
+<p>【动态规划怎么做】</p>
+<p>假设已经爬了 k级，i步，还有j=n-k级</p>
+<ul>
+<li>下一步爬1级，k+1级，i+1步，还剩j-1级</li>
+<li>下一步爬2级，k+2级，i+1步，还剩j-2级</li>
+</ul>
+<p>像一个二叉树，但是一直这样开枝散叶下去不是太妙，感觉复杂度会比较高</p>
+<blockquote>
+<p>动态规划问题的基本思路</p>
+</blockquote>
+<p>联系方程：例如本题，$f(x)=f(x-1)+f(x-2)$</p>
+<p>转移方程：</p>
+<p>边界条件：f(0)=0【定义】, f(1)=0【实际】</p>
+<p>…到这里，再看上面的方程，这已经成为一个很基本的数学问题了</p>
+<p>（1）不断进行滑动就可以实现了【不过这样的复杂度为什么是$O(1)$而不是$O(n)$】确实，时间复杂度是O(n)，空间复杂度是O(1)</p>
+<p>（2）使用矩阵的方法</p>
+<p>$\left[\begin{matrix} f(n+1) \f(n)\end{matrix}\right]=\left[\begin{matrix}1 &amp; 1\1 &amp;0\end{matrix}\right]\left[\begin{matrix}f(n)\f(n-1)\end{matrix}\right]$</p>
+<p>那么就是要求矩阵的n次方了</p>
+<p>（3）上面的递归方程其实可以用特征方程的方式求解通项公式，当然这个感觉会稍微有一点难</p>
+<p>总结：</p>
+<p>本题形成的序列是斐波那契数列。！！所以就是求斐波那契数列了！</p>
+<ul>
+<li>n比较小，可以用递归法，不做记忆化操作</li>
+<li>一般情况下用转移方程，递推、递归、滚动数组</li>
+<li>n不断扩大时，需要使用矩阵快速幂的方法</li>
+<li>也可以直接使用斐波那契数列的通项公式计算</li>
+</ul>
+<p>使用python使用方法（1）进行解题</p>
+<p>需要有个东西记录数字</p>
+<p>终止条件是什么？f(n)是要求的数字，n是台阶的数量</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span><span class="params">(self, n: int)</span> -&gt; int:</span> </span><br><span class="line">        a, b = <span class="number">1</span>, <span class="number">1</span> <span class="comment"># f(0), f(1)</span></span><br><span class="line">        c = a + b   <span class="comment"># f(2)</span></span><br><span class="line">        times = <span class="number">2</span>   <span class="comment"># 2</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> times &lt; n:</span><br><span class="line">            a, b = b, c</span><br><span class="line">            c = a + b   <span class="comment"># f(times+1)</span></span><br><span class="line">            times += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> c</span><br></pre></td></tr></table></figure>
+
+<p>这里刚开始用的是for循环，最后改成了while</p>
+<p>for 不能这么用，for的话这是for i in range···</p>
+<h2 id="53-最大子序和"><a href="#53-最大子序和" class="headerlink" title="53. 最大子序和"></a>53. 最大子序和</h2><p>输入：整数数组</p>
+<p>操作：找一个连续子数组（至少一个元素，重点是连续）</p>
+<p>输出：最大和</p>
+<p>从给的例子来看：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: [-2,1,-3,4,-1,2,1,-5,4]</span><br><span class="line">输出: 6</span><br><span class="line">解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</span><br></pre></td></tr></table></figure>
+
+<p><strong>并不是遇到负数就断了</strong></p>
+<p>而是如果负数将这个序列和归0了，甚至是变为负数了，那么这个子序列就中断了</p>
+<p><strong>也不是要从头加到尾</strong></p>
+<p>比如开头的负数就不要了</p>
+<p>几个特例：</p>
+<p>（1）<code>[1]</code></p>
+<p>只有一个元素，而且是正数</p>
+<p>（2）<code>[-1]</code></p>
+<p>只有一个元素，而且是负数</p>
+<p>（3）<code>[-2, -1]</code></p>
+<p>两个都是负数</p>
+<p>我的算法为什么会遇到上述问题：</p>
+<ul>
+<li>首先是起始项，如果选择0，那么会对全负数不友好</li>
+<li>如果选择nums[0]，也就是第一个数</li>
+</ul>
+<p>我其实并没有用动态规划，而是用了一种存储的方法：</p>
+<p>（1）当前值是正还是负，主要看负的情况：</p>
+<p>如果当前是负的，那么比较当前值和过去sum的大小：</p>
+<p>如果当前值稍大，那就记录当前值，如果过去值稍大，那就记录过去值</p>
+<p>（2）如果当前是正的，就要考虑过去值还需不需要了</p>
+<p>如果过去值sum是负的，那就不用加了，直接重新开始</p>
+<p>其他情况，都直接往sum上加就好了</p>
+<blockquote>
+<p>所以：</p>
+<ul>
+<li>更新开头有两种方式<ul>
+<li>sum &lt; 0，i &gt; 0</li>
+<li>sum &lt; i &lt; 0</li>
+<li>总结就是 sum &lt; 0，sum &lt; i</li>
+</ul>
+</li>
+<li>遇到负数也会加，只是要把本次加负数之前的数字保存下来</li>
+</ul>
+</blockquote>
+<h3 id="阅读题解-2"><a href="#阅读题解-2" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>==妙蛙种子吃了妙脆角到了米奇妙妙屋，妙到家了==</p>
+<p>这里讲的第一种方法是动态规划的方法：</p>
+<p>每一步，我们计算到该位置的最大子序和$f(i)=max{f(i-1)+a_i, a_i}$</p>
+<p>站的角度不同，我是考虑“要不要把当前的值加入 过去的序列 sum中”</p>
+<p>而这个方法则是观察每一个位置的最大子序和 ，考虑的是 “前面的子序和对我当前数值有没有用”</p>
+<h2 id="198-打家劫舍"><a href="#198-打家劫舍" class="headerlink" title="198. 打家劫舍"></a>198. 打家劫舍</h2><p>输入：非负整数数组</p>
+<p>输出：从数组中取出最大数字和的子串，要求，数字之间不能相邻</p>
+<p>这个题感觉很有意思啊</p>
+<p>钱的数量：<code>f(n)</code>，应该叫 <strong>到第n个数值，最多的钱数</strong></p>
+<ul>
+<li>n 表示当前字符串的长度</li>
+</ul>
+<p>只有两种可能：没有取当前的数字，那就等于 <code>f(n-1)</code>；如果取了当前的数值，那就等于跳过了一个数值 <code>f(n-2)+i</code>，把这两种情况比较一下，就是当前位置应该的情况</p>
+<p><code>f(n) = max( f(n-2) + i, f(n-1))</code></p>
+<p>初始条件：</p>
+<ul>
+<li><code>f(0)=0</code></li>
+<li><code>f(1)=i</code></li>
+<li><code>f(2)=max(f(0)+i, f(1))</code></li>
+</ul>
+<p>==喜极而泣！！！==</p>
+<p>这是我第一次用动态规划的方法完成了解题！！！</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rob</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> len(nums) &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> sum(nums)</span><br><span class="line">        max_sum = []</span><br><span class="line">        max_sum.append(<span class="number">0</span>)</span><br><span class="line">        max_sum.append(nums[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, len(nums)+<span class="number">1</span>):</span><br><span class="line">            max_sum.append(max(max_sum[i<span class="number">-1</span>], max_sum[i<span class="number">-2</span>] + nums[i<span class="number">-1</span>]))</span><br><span class="line">        <span class="keyword">return</span> max_sum[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+
+<p>非常完美，一次过！</p>
+<hr>
+<h1 id="List操作"><a href="#List操作" class="headerlink" title="List操作"></a>List操作</h1><h2 id="977-有序数组的平方"><a href="#977-有序数组的平方" class="headerlink" title="977. 有序数组的平方"></a>977. 有序数组的平方</h2><p>定性：python排序问题</p>
+<p>给定一个非递减顺序排序的整数数组A，返回每个数字的平方组成的新数组，要求也按非递减顺序排序。</p>
+<p>这个题思考一种方法还是比较简单的：</p>
+<ul>
+<li>看绝对值，绝对值进行排序</li>
+<li>然后平方</li>
+</ul>
+<p>已经是非递减顺序了</p>
+<p>主要问题是有可能出现两个一样的数字</p>
+<p>还有就是绝对值一样的</p>
+<blockquote>
+<p>列表的排序</p>
+<p><code>list.sort()</code> list 本身会被修改</p>
+<p><code>sorted(list)</code> list 本身不会被修改</p>
+</blockquote>
+<p>思考其他的思路：</p>
+<p>如果能找到负数和非负数的分界线</p>
+<p>就可以进行“归并排序”：</p>
+<ul>
+<li>两个指针分别移动，选择小的那个放入其中</li>
+</ul>
+<p>再进一步，我们甚至不需要知道分界点在哪里，就从头和尾两端开始对比，哪个大就放在列表中，是最后一项</p>
+<p>这样也是可以的</p>
+<blockquote>
+<p>list 中进行添加元素</p>
+<ul>
+<li>append 在末尾添加一个</li>
+<li>extend 在列表末尾一次性追加另一个序列中的多个值</li>
+</ul>
+</blockquote>
+<h2 id="463-岛屿的周长"><a href="#463-岛屿的周长" class="headerlink" title="463. 岛屿的周长"></a>463. 岛屿的周长</h2><p>输入：一个矩阵，只由0和1构成，大小不定【宽和高不会超过100】</p>
+<p>计算：0和1的接触称为边界，计算这些边界的总数</p>
+<p>在一行中，当 1 开始，就有 1 个横向边界，也会有一个 横向出的边界，也就是穿越法，穿过几次</p>
+<p>在一列中，从1开始进入边界，然后穿越边界</p>
+<p>所以关键就是检查是不是连续的？这样的计算方法感觉反而要困难一点</p>
+<p>从大的方向来说，分两次进行计算：</p>
+<ol>
+<li>横向遍历一遍</li>
+<li>纵向遍历一遍</li>
+</ol>
+<p>在每一次计算的过程中，进入1则＋1，出1的区域则+1</p>
+<blockquote>
+<p>python中关于二维list的遍历？</p>
+<p>只能使用二维索引？那复杂度有点高了</p>
+</blockquote>
+<p>或者还有一个方法：</p>
+<p>找出所有的1，然后观察周围的元素，如果有0，加个1，那就是计算周围四个元素的和，然后用4减一下，这个方法可以</p>
+<h2 id="349-两个数组的交集"><a href="#349-两个数组的交集" class="headerlink" title="349. 两个数组的交集"></a>349. 两个数组的交集</h2><p>给定两个数组，用函数计算交集</p>
+<p>一个方法：</p>
+<p>先找出比较短的那个数组，</p>
+<p>然后针对该数组中的每一个数字，</p>
+<p>在另一个数组中找一下有没有，</p>
+<p>有的话加入交集数组，</p>
+<p>最后输出交集数组。</p>
+<p>还有更快的方法吗？</p>
+<blockquote>
+<p>有，两个元组可以使用 <code>&amp;</code>直接得到交集</p>
+<p>然后再使用<code>list</code>进行转化</p>
+<p>前面两个之所以为元组，是因为两边都用<code>set</code>进行了去重</p>
+</blockquote>
+<p>这个方法确实是可以的，但是问题在于没有办法去重，</p>
+<p>为了去重，在计算出比较短的那个数组后，需要首先去一下重，可以使用<code>set(list)</code>，该函数会返回去重后的结果，值得注意的是转化为了元组，但是仍然可以使用<code>for</code>循环进行索引</p>
+<h2 id="402-移掉k位数字"><a href="#402-移掉k位数字" class="headerlink" title="402. 移掉k位数字"></a>402. 移掉k位数字</h2><p>给定一个以字符串表示的非负整数num：比如“1432219”</p>
+<p>移除其中的k个数字：比如<code>k=3</code>，可以移除4，3，2</p>
+<p>使得剩下的数字最小：按上面的移除方式，最后剩下的就是1219，最小</p>
+<p>发现：</p>
+<ul>
+<li>仅仅是去除，不改变顺序</li>
+<li>如果用排列的方法，但n比较大或者k比较小的时候是比较难的</li>
+</ul>
+<p>发现规律：</p>
+<ul>
+<li>如果当前数字比左侧的大，就要删去<ul>
+<li>【不对，如果129，k=1，显然删9更小，但很有可能会把2删掉】</li>
+<li>【其二，如果左边的数字大，更应该删除左边的数字，因为它让整个数字更大了】</li>
+<li><strong>所以官方给出的办法是找比左边数字小的数字，然后把左边的数字删掉，单调不降删最后一个就可以了</strong></li>
+</ul>
+</li>
+<li>如果当前数字是0，就要删去左边的数字【此时，索引值要跳到一个不是0的位置，左边的数字也会跳】</li>
+</ul>
+<p>涉及两个步骤：</p>
+<ul>
+<li>第一，找出数字的位置</li>
+<li>第二，把数字去掉【怎么样更快速地去掉那一位上的数字了，而且0也要去掉】</li>
+</ul>
+<p>列表转字符串用join方法：</p>
+<p><code>&quot;&quot;.join(list)</code>也就是使用没有字符的方法合并list中的数值</p>
+<h3 id="阅读题解-3"><a href="#阅读题解-3" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>官方题解的解释我觉得是很不错的</p>
+<p>其主要思路就是：</p>
+<ul>
+<li>如果当前数字比左边的小，那么就要删除左边的数字【这说明，我发现的规律还是不够严谨】</li>
+</ul>
+<p>需要处理的细节问题是：</p>
+<ul>
+<li>如果整列遍历完，单调不降，那么就要删除最后一个</li>
+</ul>
+<p>退出条件：</p>
+<ul>
+<li>整个数列已经是空的了</li>
+<li>新的栈顶元素不大于当前数字【注意这里的栈中，栈顶是队尾，栈底是队首】</li>
+<li>或者已经删除了k个数字</li>
+</ul>
+<p>额外情况：</p>
+<ul>
+<li>如果删除的数量不足，那么就要从最后面开始删</li>
+<li>前导0的问题，要删掉前导0</li>
+<li>如果最终数字序列为空，返回0</li>
+</ul>
+<p><strong>一个高赞题解的思路：</strong></p>
+<p>大致上是一致的，不过又增加了一点东西：</p>
+<p><strong>从丢弃和保留两个方面入手</strong></p>
+<ul>
+<li>也就是说先按照我们的原理丢弃一遍</li>
+<li>然后再把丢弃完毕后的list再保留我们需要的位数</li>
+<li>【这个保留操作确实是一个考验，就是说我们不能直接使用原来的list减去应该去除的数量，而是需要把字符串也给改掉】</li>
+</ul>
+<p>人家的方法确实是不错：</p>
+<ul>
+<li>首先用 for 循环遍历 num 中的每一个数字【我则是用index的方式进行平移】</li>
+<li>然后使用 while 进行判断，也就是实现一个不断进行删除的操作【这样就避免了嵌套或者是递归的问题】</li>
+<li>最后是活用 pop 和 append 的问题【一个减，一个加，来回推拉】</li>
+<li>针对全部都删除的特殊情况，使用一个<code>or</code> 【字符串的<code>or</code>操作？】</li>
+</ul>
+<p><strong>我觉得这个方法里面最好的一点是：</strong></p>
+<ul>
+<li><strong>充分考虑到每一个数字被遍历了【for循环】</strong></li>
+<li><strong>对每一个数字的操作，都操作到底，又兼顾条件【while循环】</strong></li>
+<li><strong>向空列表中推拉数据，形成新的数据</strong></li>
+</ul>
+<blockquote>
+<p>在python中使用栈的结构：</p>
+<ul>
+<li>其实就是list列表</li>
+<li><code>list.pop()</code> 用于移除列表中的一个元素（默认最后一个元素）<ul>
+<li>输入可以是index：<code>list.pop(-1)</code>，可以没有参数</li>
+<li>输出，返回的是该元素的值</li>
+</ul>
+</li>
+<li>再用<code>list.append()</code>向列表中添加元素</li>
+<li>还有<code>str.lstrip(chars)</code>，用于截掉字符串左边的空格或指定字符</li>
+</ul>
+<p>字符串之间使用<code>or</code></p>
+<ul>
+<li>两侧非空则取左</li>
+<li>有非空则取另一侧</li>
+</ul>
+<p>参考：<a href="https://blog.csdn.net/weixin_46274079/article/details/108467544" target="_blank" rel="noopener">字符串的and和or操作</a></p>
+</blockquote>
+<p>我用了一种偷懒的方式，希望把原来的代码稍加修改就能实现新的目标，但是这样是很错误的，例如：<code>1234567890</code>，如果按照我的代码，首先会去除<code>9</code>，然后保留<code>len(num)-k</code>个数字，那就会删除9个数字，最后剩下的是 1 ，而不是 0</p>
+<p>第一版代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 冗长而不能解</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeKdigits</span><span class="params">(self, num: str, k: int)</span> -&gt; str:</span></span><br><span class="line">        left_num_idx = <span class="number">0</span></span><br><span class="line">        index = <span class="number">1</span></span><br><span class="line">        del_num = <span class="number">0</span></span><br><span class="line">        del_num_idx = []</span><br><span class="line">        <span class="comment"># 去除操作</span></span><br><span class="line">        <span class="keyword">while</span> del_num != k <span class="keyword">and</span> index &lt; len(num):</span><br><span class="line">            print(num[index])</span><br><span class="line">            <span class="keyword">if</span> num[index] &lt; num[left_num_idx]:</span><br><span class="line">                del_num += <span class="number">1</span></span><br><span class="line">                del_num_idx.append(left_num_idx)</span><br><span class="line">                left_num_idx = index</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                left_num_idx = index</span><br><span class="line">            index += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        new_num = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(num)):</span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> del_num_idx:</span><br><span class="line">                new_num.append(num[i])</span><br><span class="line">        new_num_str = <span class="string">""</span>.join(new_num)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 保留操作，避免去除的数量不够</span></span><br><span class="line">        new_num_str = new_num_str[:len(num)-k].lstrip(<span class="string">'0'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> len(new_num_str):</span><br><span class="line">            new_num_str = <span class="string">'0'</span></span><br><span class="line">        <span class="keyword">return</span> new_num_str</span><br></pre></td></tr></table></figure>
+
+<p>新的代码思路：</p>
+<ul>
+<li>要删除左侧较大的数字，而且一直要删到小于等于它为止</li>
+<li>能不能首先将数据变成一个可以进行方便删改的数据形式——比如list，按照索引进行删改确实要比str要方便的多</li>
+</ul>
+<p>删除的原则：</p>
+<ul>
+<li>左侧比当前的数字大</li>
+</ul>
+<p>那么以下几个问题：</p>
+<ul>
+<li>左侧没有了</li>
+<li>怎么跳出删除</li>
+</ul>
+<p>新的代码基本是照搬高赞代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeKdigits</span><span class="params">(self, num, k)</span>:</span></span><br><span class="line">        stack = []</span><br><span class="line">        remain = len(num) - k</span><br><span class="line">        <span class="keyword">for</span> digit <span class="keyword">in</span> num:</span><br><span class="line">            <span class="keyword">while</span> k <span class="keyword">and</span> stack <span class="keyword">and</span> stack[<span class="number">-1</span>] &gt; digit:</span><br><span class="line">                stack.pop()</span><br><span class="line">                k -= <span class="number">1</span></span><br><span class="line">            stack.append(digit)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span>.join(stack[:remain]).lstrip(<span class="string">'0'</span>) <span class="keyword">or</span> <span class="string">'0'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="121-买卖股票的最佳时机"><a href="#121-买卖股票的最佳时机" class="headerlink" title="121. 买卖股票的最佳时机"></a>121. 买卖股票的最佳时机</h2><p>输入：一个数组【股票场景，第i个数字表示股票第i天价格】</p>
+<p>输出：数组中后面数字减前面的数字，能减出的最大差值【股票场景，最多一笔交易，计算获取的最大利润】</p>
+<p>给一个位置记录最大值，如果出现更大的最大值，更新记录</p>
+<p>给一个位置记录最小值，如果出现更小的最小值，最小值重新记录，最大值也重新记录？【也不对，万一后面并没有更大值了就不行了】</p>
+<p>给一个位置记录利润，当每次需要更新最小值的时候，就会刷新一下利润；循环结束之后也需要刷新一下利润</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, prices: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> len(prices) &lt;= <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        maxPrice = prices[<span class="number">0</span>]</span><br><span class="line">        minPrice = prices[<span class="number">0</span>]</span><br><span class="line">        profit = []</span><br><span class="line">        profit.append(maxPrice - minPrice)</span><br><span class="line">        n = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> n &lt; len(prices):</span><br><span class="line">            <span class="keyword">if</span> prices[n] &lt; minPrice:</span><br><span class="line">                profit.append(maxPrice - minPrice)</span><br><span class="line">                minPrice = prices[n]</span><br><span class="line">                maxPrice = prices[n]</span><br><span class="line">                <span class="comment"># print(profit)</span></span><br><span class="line">            <span class="keyword">elif</span> prices[n] &gt; maxPrice:</span><br><span class="line">                maxPrice = prices[n]</span><br><span class="line">            n += <span class="number">1</span></span><br><span class="line">        profit.append(maxPrice - minPrice)</span><br><span class="line">        <span class="comment"># print(profit)</span></span><br><span class="line">        <span class="keyword">return</span> max(profit)</span><br></pre></td></tr></table></figure>
+
+<p>看上去这个代码好像是可以了</p>
+<p>但是，题目是真的狠，输入是10000到0倒着数，而且还写了好多0</p>
+<p>最后还是可以通过的，就是不要print！！！</p>
+<h3 id="阅读题解-4"><a href="#阅读题解-4" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>官方题解的第二种理解，文字似乎有点问题，仔细看代码，其实和我的方法几乎是一样的原理</p>
+<p>但是官方题解没有用list去记录，而是巧妙使用max，min进行比较</p>
+<hr>
+<p>OK！本期10题就先到这里了，期待下一个10题快点到来！</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>链表</tag>
+        <tag>List数组操作</tag>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
 </search>
