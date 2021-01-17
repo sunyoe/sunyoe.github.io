@@ -3871,4 +3871,55 @@
         <tag>拓扑排序</tag>
       </tags>
   </entry>
+  <entry>
+    <title>【统计学习方法】1-统计学习与监督学习基础</title>
+    <url>/2021/01/17/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%80/</url>
+    <content><![CDATA[<p><strong>统计学习是什么？</strong></p>
+<p>是一种计算机基于数据构建概率统计模型，也是运用模型对数据进行预测和分析的方法</p>
+<hr>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/%E4%B8%8B%E8%BD%BD.png" alt=""></p>
+<hr>
+<h1 id="统计学习的三种问题"><a href="#统计学习的三种问题" class="headerlink" title="统计学习的三种问题"></a>统计学习的三种问题</h1><table>
+<thead>
+<tr>
+<th align="center">预测任务分类</th>
+<th align="center">回归问题</th>
+<th align="center">分类问题</th>
+<th align="center">标注问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">输入变量类型</td>
+<td align="center">连续变量</td>
+<td align="center"></td>
+<td align="center">变量序列</td>
+</tr>
+<tr>
+<td align="center">输出变量类型</td>
+<td align="center">连续变量</td>
+<td align="center">有限个离散变量</td>
+<td align="center">变量序列</td>
+</tr>
+</tbody></table>
+<h1 id="统计学习的数据"><a href="#统计学习的数据" class="headerlink" title="统计学习的数据"></a>统计学习的数据</h1><p>数据集</p>
+<ul>
+<li>训练数据：用来学习模型</li>
+<li>测试数据：进行预测</li>
+<li>训练数据和测试数据均由输入与输出对（又叫做样本或样本点）构成</li>
+</ul>
+<p>训练集：通常表示为：<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2c71244a34c0f07c638d355e5989ded7&vertAlign=-5px" alt="img">)，<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=91cb2f584d34e33dbd3c6a5cc1c728b3&vertAlign=-5px" alt="img">即样本或样本点。</p>
+<h1 id="统计学习方法三要素"><a href="#统计学习方法三要素" class="headerlink" title="统计学习方法三要素"></a>统计学习方法三要素</h1><p><strong>方法 = 模型 + 策略 + 算法</strong></p>
+<h1 id="基本概率公式"><a href="#基本概率公式" class="headerlink" title="基本概率公式"></a>基本概率公式</h1><ul>
+<li>加法规则：<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=419cd6864959625caf3c7a565b58a9be&vertAlign=-10px" alt="img"></li>
+<li>乘法规则：<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=e35ccea151c0ff64e35fd90eb952918e&vertAlign=-5px" alt="img"></li>
+<li>其中 x 和 y 是随机变量</li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>统计学习方法</tag>
+      </tags>
+  </entry>
 </search>
