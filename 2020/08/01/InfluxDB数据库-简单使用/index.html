@@ -104,8 +104,8 @@
        
   <p>版本：V2.0-Beta</p>
 <h2 id="1-一些概念"><a href="#1-一些概念" class="headerlink" title="1. 一些概念"></a>1. 一些概念</h2><h3 id="Line-protocol"><a href="#Line-protocol" class="headerlink" title="Line protocol"></a>Line protocol</h3><p>influx使用line protocol来写入数据，格式和v1.8没有区别，如下：</p>
+<a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Syntax ，</span><br><span class="line">&lt;measurement&gt;[,&lt;tag_key&gt;&#x3D;&lt;tag_value&gt;[,&lt;tag_key&gt;&#x3D;&lt;tag_value&gt;]] &lt;field_key&gt;&#x3D;&lt;field_value&gt;[,&lt;field_key&gt;&#x3D;&lt;field_value&gt;] [&lt;timestamp&gt;]</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Example</span><br><span class="line">myMeasurement,tag1&#x3D;value1,tag2&#x3D;value2 fieldKey&#x3D;&quot;fieldValue&quot; 1556813561098000000</span><br></pre></td></tr></table></figure>
-
 <p>注意：</p>
 <ul>
 <li>不能使用<code>\n</code>换行</li>

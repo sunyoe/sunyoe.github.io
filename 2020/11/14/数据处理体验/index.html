@@ -107,6 +107,7 @@
 <p><a href="https://www.runoob.com/python/os-file-methods.html" target="_blank" rel="noopener">菜鸟教程-Python OS文件/目录方法</a></p>
 </blockquote>
 <p>其实使用os库的目的就是更方便地遍历文件</p>
+<a id="more"></a>
 <p>那么问题有：</p>
 <p>怎么判断是一个文件还是文件夹？</p>
 <ul>
@@ -128,7 +129,6 @@
 <p><strong>注意：这里我们要返回某个文件的绝对地址时，并不需要root+dir+file，只需要root+file就可以了</strong></p>
 <p>还是有个问题，walk函数中的参数是如何进行设置的</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">os.walk(top, topdown, onerror, followlinks)</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>top：所要遍历的目录的地址，返回一个三元组（root, dirs, files）</li>
 <li>topdown：默认为true——也就是优先遍历top目录，如果设置为false则优先遍历top的子目录</li>

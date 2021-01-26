@@ -111,6 +111,7 @@
 <li>从原始序列到子序列，可以删除部分字符，可以不连续，但是<strong>相对位置</strong>不能变</li>
 <li>两个序列全是英文小写字母</li>
 </ul>
+<a id="more"></a>
 <p>传统方法：</p>
 <ul>
 <li>如果可以不改变顺序地去重，那么就可以直接取筛选了</li>
@@ -129,13 +130,11 @@
 <p><del>（2）长字符和短字符一样长【如果不相等可以直接判断为False了】，那相等直接判定为True【其实这个也不必了】</del></p>
 <p>这个问题最容易出错的地方是list的索引问题，上代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isSubsequence</span><span class="params">(self, s: str, t: str)</span> -&gt; bool:</span></span><br><span class="line">        yes_num = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> len(s):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="comment"># if len(s) == len(t):</span></span><br><span class="line">        <span class="comment">#     return False if s != t else True</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(t)):</span><br><span class="line">            <span class="keyword">if</span> t[i] == s[yes_num]:</span><br><span class="line">                yes_num += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> yes_num == len(s):</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span> <span class="keyword">if</span> yes_num == len(s) <span class="keyword">else</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
 <p>yes_sum 直接代表了 s 中的下一个位置【因为list从0开始】，也表示了 s 已经匹配的字符数量</p>
 <p><strong>所以最后对比yes_num和s的长度就不用长度减一了！！</strong></p>
 <p>所以长字符和短字符一样长的情况也就不再是特殊情况了</p>
 <p>最后，最简化版本，特殊情况不特殊，最后判断也多余：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isSubsequence</span><span class="params">(self, s: str, t: str)</span> -&gt; bool:</span></span><br><span class="line">        yes_num = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> len(s):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(t)):</span><br><span class="line">            <span class="keyword">if</span> t[i] == s[yes_num]:</span><br><span class="line">                yes_num += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> yes_num == len(s):</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="746-使用最小花费爬楼梯-动态规划"><a href="#746-使用最小花费爬楼梯-动态规划" class="headerlink" title="746. 使用最小花费爬楼梯 - 动态规划"></a>746. 使用最小花费爬楼梯 - 动态规划</h2><p>本题确实是一个动态规划方面的问题，但是我得说这个问题的描述有点迷糊</p>
 <p>输入：一个列表，全是数值，长度至少是2</p>
 <p>输出：最小子序列的和</p>
@@ -187,7 +186,6 @@
 </ul>
 <p>因为最后已经增加了判断最后一个数值取舍的步骤，这里的 f(2) 就没有必要多一次判断了</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minCostClimbingStairs</span><span class="params">(self, cost: List[int])</span> -&gt; int:</span></span><br><span class="line">        sum_cost = []</span><br><span class="line">        sum_cost.append(cost[<span class="number">0</span>])</span><br><span class="line">        sum_cost.append(cost[<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">if</span> len(cost) == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> sum_cost[<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, len(cost)):</span><br><span class="line">            sum_cost.append(cost[i] + min(sum_cost[<span class="number">-1</span>], sum_cost[<span class="number">-2</span>]))</span><br><span class="line">        <span class="keyword">return</span> min(sum_cost[<span class="number">-1</span>], sum_cost[<span class="number">-2</span>])</span><br></pre></td></tr></table></figure>
-
 <h2 id="面试题-17-16-按摩师-动态规划"><a href="#面试题-17-16-按摩师-动态规划" class="headerlink" title="面试题 17.16 按摩师 - 动态规划"></a>面试题 17.16 按摩师 - 动态规划</h2><p>输入：一个序列</p>
 <p>输出：子序列的和，最大和</p>
 <p>要求：子序列元素不能相邻</p>
@@ -312,11 +310,10 @@
 </ul>
 <p>以下是我成功的代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myPow</span><span class="params">(self, x: float, n: int)</span> -&gt; float:</span></span><br><span class="line">        <span class="keyword">if</span> x == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> x == <span class="number">1</span> <span class="keyword">or</span> n == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> n &lt; <span class="number">0</span>:</span><br><span class="line">            x, n = <span class="number">1</span>/x, abs(n)</span><br><span class="line">        weight = <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> x &lt; <span class="number">0</span> <span class="keyword">and</span> n % <span class="number">2</span>:</span><br><span class="line">            weight = <span class="number">-1</span></span><br><span class="line">            x = abs(x)</span><br><span class="line">        result = <span class="number">1</span></span><br><span class="line">        res = n</span><br><span class="line">        <span class="keyword">while</span> res:</span><br><span class="line">            this_k, this_pow_2 = self.max_2_pow(res)</span><br><span class="line">            this_x = x</span><br><span class="line">            print(this_k, this_pow_2)</span><br><span class="line">            <span class="keyword">while</span> this_k:</span><br><span class="line">                this_x *= this_x</span><br><span class="line">                this_k -= <span class="number">1</span></span><br><span class="line">            result *= this_x</span><br><span class="line">            res -= this_pow_2</span><br><span class="line">        <span class="keyword">return</span> weight * result</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">max_2_pow</span><span class="params">(self, n: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="comment"># 求不大于 n 的 2 的 k 次幂</span></span><br><span class="line">        pow_2 = <span class="number">1</span></span><br><span class="line">        k = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> n &gt;= pow_2:</span><br><span class="line">            pow_2 *= <span class="number">2</span></span><br><span class="line">            k += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> max(k<span class="number">-1</span>, <span class="number">0</span>), max(<span class="number">1</span>, pow_2 / <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
 <p>其中，多次修改的部分是关于“不大于 n 的 2 的 k 次幂”的求解</p>
 <p>一般情况下，$2^k \leq n &lt; 2^{k+1}$，此时需要输出的是 k，但是因为满足 while 的循环条件，会多计算一层，所以最后的结果又要扒去一层，但是又要考虑 $ n = 1$ 的情况【这里n不可能为0，因为已经被其他的条件约束了】，所以又要防止把 k=0 和 n=1 又给削了</p>
 <blockquote>
-<p><strong>还有一种找 $2^k$ 的方式，是观察余数，如果 $n % 2^k &lt; 2^k$，那么自然是介于$2^k$ 和 $2^{k+1}$之间了</strong> </p>
+<p><strong>还有一种找 $2^k$ 的方式，是观察余数，如果 $n \% 2^k &lt; 2^k$，那么自然是介于$2^k$ 和 $2^{k+1}$之间了</strong> </p>
 </blockquote>
 <h3 id="阅读题解-1"><a href="#阅读题解-1" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>官方题解说的分治思想确实很不错，从 n 开始，从后往前看，每次对指数向下取整，指数为偶数和奇数分两种结果，也很不错，而且优势在于这种方式可以递归！</p>
 <p>第二种方法绝了，如果不是对二进制非常熟悉，恐怕很难发现这种规律。</p>
@@ -370,7 +367,6 @@
 <li>另外：如果出现一个差值为0， 那么不能继续乘以它了，这样后面就无效了</li>
 </ul>
 <!--重要-->
-
 <p>==重新整理思路：==</p>
 <ul>
 <li><p>第一个数，索引0，结果直接加1，不会比1小</p>
@@ -381,8 +377,7 @@
 </li>
 <li><p>所以就是，计算差值</p>
 <ul>
-<li><p>如果差值为0自然是不加不减</p>
-<ul>
+<li>如果差值为0自然是不加不减<ul>
 <li>==而且不能改变前一个趋势值 s1==</li>
 </ul>
 </li>
@@ -398,7 +393,6 @@
 </li>
 </ul>
 <!--重要-->
-
 <p>其实我的方法是<strong>贪心法</strong>的思路！！</p>
 <ul>
 <li>但是问题是我没有很好地==处理 0 的问题==，如果不能用乘法一劳永逸地解决，不妨直接==用不等号进行尝试==！</li>
@@ -434,8 +428,7 @@
 </ul>
 </li>
 </ul>
-<img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20201212135251108.png" alt="image-20201212135251108" style="zoom: 67%;" />
-
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20201212135251108.png" alt="image-20201212135251108" style="zoom: 67%;" /></p>
 <p>最后的答案也是从 up[n-1] 和 down[i-1]中选择比较大的那个</p>
 <h2 id="135-分发糖果-贪心法"><a href="#135-分发糖果-贪心法" class="headerlink" title="135. 分发糖果 - 贪心法"></a>135. 分发糖果 - 贪心法</h2><p>这道题有一点像华为今年的题</p>
 <p>输入：一个整数序列</p>

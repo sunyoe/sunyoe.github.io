@@ -112,8 +112,7 @@
 </li>
 <li><p><code>Dataloader</code></p>
 </li>
-<li><p>用于读取数据集</p>
-</li>
+<li>用于读取数据集</li>
 </ul>
 <p><code>torch.nn.DataParallel</code> 可以使用多个GPU来加速训练</p>
 <p><code>torch.distributed</code>也是一个和分布式训练，多GPU训练有关的包</p>
@@ -121,6 +120,7 @@
 <ul>
 <li>包括<code>optimizer.zero_grad()</code>，<code>loss.backward()</code>，<code>optimizer.step()</code></li>
 </ul>
+<a id="more"></a>
 <hr>
 <h1 id="方法-function"><a href="#方法-function" class="headerlink" title="方法 function"></a>方法 function</h1><p>一维list转化为三维list：<code>mean[:, None, None]</code>（前提是mean的类型是tensor）</p>
 <p>增加维度：<code>image[None]</code>（前提是tensor）</p>
@@ -169,7 +169,6 @@
 </ul>
 <p><strong>使用tensor可以实现在矩阵中找小于大于某数的数的索引值的比较快的方式</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 蒙版索引</span></span><br><span class="line">between_thresholds=(matched_vals&gt;=self.low_threshold)&amp;(matched_vals&lt;self.high_threshold)</span><br><span class="line"><span class="comment"># 直接使用，从而找出matched_vals中介于满足两个阈值要求的数值</span></span><br><span class="line">matrix[between_thresholds]</span><br></pre></td></tr></table></figure>
-
 <p><code>torch.randperm(n)</code> 把0到n-1这些数随机打乱，得到一个数字序列</p>
 <p><code>torch.clamp(input, min, max)</code> 将输入的input张量的每个元素夹紧到[min,max]区间，返回新张量。也就是说，大于max值的会缩小为max，小于min值得会放大为min值。</p>
 <p><code>torch.nonzero(input)</code> 输入应为tensor类型，输出为两个tensor，记录了input中非零元素的索引位置（用横纵坐标来理解更容易）</p>

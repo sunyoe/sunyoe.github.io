@@ -105,6 +105,7 @@
   <h2 id="语言基础"><a href="#语言基础" class="headerlink" title="语言基础"></a>语言基础</h2><p>注释：<code>#</code></p>
 <p>调用某个库：<code>use databases</code></p>
 <p>着重号<code>xxx</code></p>
+<a id="more"></a>
 <h3 id="DQL语言"><a href="#DQL语言" class="headerlink" title="DQL语言"></a>DQL语言</h3><ol>
 <li><p>基础查询</p>
 <p><code>select 查询列表 from 表名；</code></p>
@@ -127,7 +128,7 @@
 <li><p>查询表中的多个字段，用逗号隔开</p>
 <p><code>select last_name,id from employees;</code></p>
 <ul>
-<li>*<em>顺序随意 *</em>- 可以自定义</li>
+<li><strong>顺序随意 </strong>- 可以自定义</li>
 <li>不知道怎么拼，直接在图形化界面点就可以</li>
 <li>按<code>F12</code>就能排列好顺序</li>
 </ul>
@@ -136,15 +137,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from employees</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<ol start="2">
+<ol>
 <li><p>查询常量值</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select 100;</span><br><span class="line"></span><br><span class="line">select &#39;john&#39;;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>查询表达式</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 100*98;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>查询函数</li>
 </ul>
@@ -158,13 +157,11 @@
 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select 100%98 as 结果;</span><br><span class="line"></span><br><span class="line">select last_name as 姓,last_name as 名 from employees;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>方式二：空格</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select last_name 姓,last_name 名 from employees;</span><br></pre></td></tr></table></figure>
-
-<p>*<em>注意别名不能使用特殊符号，如果使用了，请加双引号” “ *</em></p>
+<p><strong>注意别名不能使用特殊符号，如果使用了，请加双引号” “ </strong></p>
 </li>
 <li><p>去重 - distinct</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select distinct id from mydatabase</span><br></pre></td></tr></table></figure>
@@ -183,7 +180,6 @@
 </li>
 <li><p><strong>应当用concat 关键字进行连接</strong>，括号里面使用的是着重符号，而不全是单引号，像逗号才使用单引号</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select CONCAT(&#39;first_name&#39;,&#39;last_name&#39;) as 姓名;</span><br></pre></td></tr></table></figure>
-
 <p>如果想用“，”隔开，那就使用：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select CONCAT(&#39;last_name&#39;,&#39;,&#39;,&#39;first_name&#39;) as out_put;</span><br></pre></td></tr></table></figure>
 </li>
@@ -264,7 +260,6 @@
 <blockquote>
 <p>查询：没有奖金的员工名和奖金率</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select last_name, commission_pct</span><br><span class="line">from employees</span><br><span class="line">where commission_pct IS NULL;</span><br></pre></td></tr></table></figure>
-
 <p>查询：有奖金的？==IS NOT NULL==</p>
 </blockquote>
 </li>

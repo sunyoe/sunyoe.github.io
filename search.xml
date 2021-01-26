@@ -10,38 +10,42 @@
 <li>点击左下方设置按钮查询设置内容</li>
 <li>在设置界面中，会有部分设置内容下方 给出 settings.json 文件</li>
 </ul>
+<a id="more"></a>
 <p>推荐插件：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
 <th>插件</th>
-<th align="left">功能</th>
+<th style="text-align:left">功能</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Bracket Pair Colorizer</td>
-<td align="left">让每一对括号有自己的颜色；括号越来越多的时候很有用。</td>
+<td style="text-align:left">让每一对括号有自己的颜色；括号越来越多的时候很有用。</td>
 </tr>
 <tr>
 <td>vscode-icon</td>
-<td align="left">不同文件根据代码加图标；增加一点色彩。</td>
+<td style="text-align:left">不同文件根据代码加图标；增加一点色彩。</td>
 </tr>
 <tr>
 <td>Visual Studio IntelliCode</td>
-<td align="left">补全代码；非常有用。</td>
+<td style="text-align:left">补全代码；非常有用。</td>
 </tr>
 <tr>
 <td>remote development</td>
-<td align="left">远程连接服务器等。</td>
+<td style="text-align:left">远程连接服务器等。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>其他涉及某项语言的插件，可以在用到的时候直接查找即可，甚至微信小程序、VUE、Django、ROS等也有插件可用。</p>
 <h2 id="2-协同-Anaconda-Prompt"><a href="#2-协同-Anaconda-Prompt" class="headerlink" title="2. 协同 Anaconda Prompt"></a>2. 协同 Anaconda Prompt</h2><p>在VSCode中使用Anaconda Prompt的虚拟终端，能够方便地配置好python调试环境等内容</p>
 <p>（就可以脱离Anaconda Prompt的束缚了）</p>
 <p>打开设置：</p>
 <h3 id="修改方案一：【勉强实现conda的调用】"><a href="#修改方案一：【勉强实现conda的调用】" class="headerlink" title="修改方案一：【勉强实现conda的调用】"></a>修改方案一：【勉强实现conda的调用】</h3><p>主要是修改以下内容：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"python.pythonPath"</span>: <span class="string">"C:\\ProgramData\\Anaconda3\\python.exe"</span>,</span><br><span class="line">    <span class="string">"terminal.integrated.automationShell.windows"</span>: <span class="string">""</span>,</span><br><span class="line">    <span class="string">"terminal.integrated.shell.windows"</span>: <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>参考：[<a href="https://blog.csdn.net/Add_a_cat/article/details/101051759" target="_blank" rel="noopener">在vscode中打开conda的虚拟终端</a>]</p>
 </blockquote>
@@ -68,7 +72,7 @@
 <p>实现对服务器的远程控制，注意第一次启动时需要对用户名等内容进行一点设置。</p>
 <p><em>参考：[<a href="https://blog.csdn.net/weixin_40373708/article/details/90376258" target="_blank" rel="noopener">使用remote</a>]</em></p>
 <p>此外，正常情况下，每次打开新文件夹需要再次输入密码，确实有点麻烦，还可以配置一下ssh-keygen，减少密码输入。</p>
-<p><em>参考：[<a href="https://blog.csdn.net/qq_43143808/article/details/106765470?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase" target="_blank" rel="noopener">ssh-keygen</a>]</em></p>
+<p><em>参考：[<a href="https://blog.csdn.net/qq_43143808/article/details/106765470?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase" target="_blank" rel="noopener">ssh-keygen</a>]</em></p>
 <h3 id="工作区"><a href="#工作区" class="headerlink" title="工作区"></a>工作区</h3><p>工作区的使用不完全手册</p>
 <p>可以把文件夹添加到工作区</p>
 <p>选择：</p>
@@ -85,13 +89,13 @@
   <entry>
     <title>我的第一篇博客文章</title>
     <url>/2020/07/26/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/</url>
-    <content><![CDATA[<h1 id="凡是过往，皆为序章"><a href="#凡是过往，皆为序章" class="headerlink" title="凡是过往，皆为序章"></a>凡是过往，皆为序章</h1><h2 id="博客从此开始"><a href="#博客从此开始" class="headerlink" title="博客从此开始"></a>博客从此开始</h2><h2 id="内容规划"><a href="#内容规划" class="headerlink" title="内容规划"></a>内容规划</h2><p>ROS</p>
-<p>视觉</p>
-<p>神经网络</p>
+    <content><![CDATA[<h1 id="凡是过往，皆为序章，博客从此开始"><a href="#凡是过往，皆为序章，博客从此开始" class="headerlink" title="凡是过往，皆为序章，博客从此开始"></a>凡是过往，皆为序章，博客从此开始</h1><a id="more"></a>
+<h2 id="内容规划"><a href="#内容规划" class="headerlink" title="内容规划"></a>内容规划</h2><p>ROS与机器人</p>
+<p>视觉处理与神经网络</p>
+<p>数据分析</p>
 <p>web开发</p>
 <p>python学习</p>
-<p>嵌入式回顾</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2>]]></content>
+]]></content>
   </entry>
   <entry>
     <title>Hello World</title>
@@ -116,9 +120,9 @@
     <url>/2020/07/31/InfluxDB%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<p>版本：v2.0-beta<br>系统：win+docker / ubuntu服务器</p>
 <h2 id="1-Docker-安装"><a href="#1-Docker-安装" class="headerlink" title="1. Docker 安装"></a>1. Docker 安装</h2><p><a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">Docker-desktop官方下载链接</a><br>安装完成之后，就可以直接在终端运行docker了<br>或者可以在VSCode中使用docker插件</p>
-<h2 id="2-VSCode-中-Docker-插件探索"><a href="#2-VSCode-中-Docker-插件探索" class="headerlink" title="2. VSCode 中 Docker 插件探索"></a>2. VSCode 中 Docker 插件探索</h2><h2 id="3-在Docker中使用influxdb"><a href="#3-在Docker中使用influxdb" class="headerlink" title="3. 在Docker中使用influxdb"></a>3. 在Docker中使用influxdb</h2><p>以下两句代码只需使用任意一句即可。</p>
+<h2 id="2-VSCode-中-Docker-插件探索"><a href="#2-VSCode-中-Docker-插件探索" class="headerlink" title="2. VSCode 中 Docker 插件探索"></a>2. VSCode 中 Docker 插件探索</h2><a id="more"></a>
+<h2 id="3-在Docker中使用influxdb"><a href="#3-在Docker中使用influxdb" class="headerlink" title="3. 在Docker中使用influxdb"></a>3. 在Docker中使用influxdb</h2><p>以下两句代码只需使用任意一句即可。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#下载页面的 docker image</span><br><span class="line">docker pull quay.io&#x2F;influxdb&#x2F;influxdb:2.0.0-beta</span><br><span class="line"></span><br><span class="line">#介绍页面的安装方法</span><br><span class="line">docker run --name influxdb -p 9999:9999 quay.io&#x2F;influxdb&#x2F;influxdb:2.0.0-beta</span><br></pre></td></tr></table></figure>
-
 <p>安装完成后，会显示：</p>
 <p>然后在浏览器中访问<code>localhost:9999</code>即可打开v2.0界面。</p>
 <h2 id="4-服务器安装V2-0"><a href="#4-服务器安装V2-0" class="headerlink" title="4. 服务器安装V2.0"></a>4. 服务器安装V2.0</h2><h3 id="4-1-首先将压缩包上传到服务器"><a href="#4-1-首先将压缩包上传到服务器" class="headerlink" title="4.1 首先将压缩包上传到服务器"></a>4.1 首先将压缩包上传到服务器</h3><p>(1)使用代码，但是不好用</p>
@@ -127,7 +131,6 @@
 <p>（2）直接用filezilla、MobaXterm等工具上传到服务器</p>
 <h3 id="4-2-安装"><a href="#4-2-安装" class="headerlink" title="4.2 安装"></a>4.2 安装</h3><p>输入下列语句，主要是打开压缩包，以及安装。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Unpackage contents to the current working directory</span><br><span class="line">tar xvzf path&#x2F;to&#x2F;influxdb_2.0.0-beta.10_linux_amd64.tar.gz</span><br><span class="line"></span><br><span class="line"># Copy the influx and influxd binary to your $PATH</span><br><span class="line">sudo cp influxdb_2.0.0-beta.10_linux_amd64&#x2F;&#123;influx,influxd&#125; &#x2F;usr&#x2F;local&#x2F;bin&#x2F;</span><br></pre></td></tr></table></figure>
-
 <h3 id="4-3-运行"><a href="#4-3-运行" class="headerlink" title="4.3 运行"></a>4.3 运行</h3><p>理论上输入如下语句即可运行：</p>
 <p><code>influxd</code></p>
 <p>但是同样需要访问<code>localhost:9999</code>来访问：</p>
@@ -149,6 +152,7 @@
     <url>/2020/07/30/InfluxDB%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<p>系统：ubuntu<br>influx版本：v1.8</p>
 <h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><p>直接按照网站方法即可实现安装：<br><a href="http://docs.influxdata.com/influxdb/v1.8/introduction/install/" target="_blank" rel="noopener">install介绍</a></p>
+<a id="more"></a>
 <h2 id="2-数据写入"><a href="#2-数据写入" class="headerlink" title="2. 数据写入"></a>2. 数据写入</h2><h3 id="2-1-创建和使用databases"><a href="#2-1-创建和使用databases" class="headerlink" title="2.1 创建和使用databases"></a>2.1 创建和使用databases</h3><p><code>&gt; create database mydb</code><br>关键词大小写均可，但是文件上使用的是大写；<br><code>&gt; show databases</code><br>可以展示所有数据库；<br><code>&gt; use mydb</code><br>使用数据库<code>mydb</code>，可以定向使用某个数据库</p>
 <h3 id="2-2-写入数据"><a href="#2-2-写入数据" class="headerlink" title="2.2 写入数据"></a>2.2 写入数据</h3><blockquote>
 <p>哪些数据可以被写入？</p>
@@ -168,7 +172,7 @@
 <p><strong>InfluxDB line protocol</strong><br>需要使用该工具写入InfluxDB<br><a href="https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_reference/#line-protocol-syntax" target="_blank" rel="noopener">参考页面</a></p>
 </blockquote>
 <h2 id="3-搜索数据-Query-询问"><a href="#3-搜索数据-Query-询问" class="headerlink" title="3. 搜索数据 - Query - 询问"></a>3. 搜索数据 - Query - 询问</h2><ol>
-<li>检索指定的数据内容：<br><code>&gt; select &quot;value_or_tag&quot; from  &quot;id/measurement&quot;</code><br><font color=red>一定要注意<code>from</code>前后都有空格！</font></li>
+<li>检索指定的数据内容：<br><code>&gt; select &quot;value_or_tag&quot; from  &quot;id/measurement&quot;</code><font color=red>一定要注意`from`前后都有空格！</font></li>
 <li>检索某个<code>id</code>的所有内容<br><code>&gt; select * from &quot;id/measurement&quot;</code><br>但是文档上说，用这个不是太好，如果信息过多的话可能会有问题。</li>
 <li><code>&gt; select * from /.*/ limit 1</code><br>这个没有解释，但从效果来看，是把所有数据库里面的信息都展示出来了。</li>
 <li><code>&gt; select * from &quot;id/measurement&quot; where &quot;value&quot; &gt; 0.9</code><br>添加选择性语句，用于选择满足条件的数据。</li>
@@ -188,8 +192,8 @@
     <url>/2020/08/01/InfluxDB%E6%95%B0%E6%8D%AE%E5%BA%93-%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<p>版本：V2.0-Beta</p>
 <h2 id="1-一些概念"><a href="#1-一些概念" class="headerlink" title="1. 一些概念"></a>1. 一些概念</h2><h3 id="Line-protocol"><a href="#Line-protocol" class="headerlink" title="Line protocol"></a>Line protocol</h3><p>influx使用line protocol来写入数据，格式和v1.8没有区别，如下：</p>
+<a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; Syntax ，</span><br><span class="line">&lt;measurement&gt;[,&lt;tag_key&gt;&#x3D;&lt;tag_value&gt;[,&lt;tag_key&gt;&#x3D;&lt;tag_value&gt;]] &lt;field_key&gt;&#x3D;&lt;field_value&gt;[,&lt;field_key&gt;&#x3D;&lt;field_value&gt;] [&lt;timestamp&gt;]</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Example</span><br><span class="line">myMeasurement,tag1&#x3D;value1,tag2&#x3D;value2 fieldKey&#x3D;&quot;fieldValue&quot; 1556813561098000000</span><br></pre></td></tr></table></figure>
-
 <p>注意：</p>
 <ul>
 <li>不能使用<code>\n</code>换行</li>
@@ -236,6 +240,7 @@
 <p>曾尝试在Windows linux subsystem 上安装ubuntu和ROS，可以实现安装，也可以简单使用，但是针对仿真等比较耗内存的应用体验会比较差，而且还需要使用Xserver实现桌面映射。</p>
 <p>当前时间，最好用的是ubuntu 18.04系统，对应ROS-melodic版本，内容相对完善，也比较新；</p>
 <p>ubuntu 20.04系统对应的ROS-Noetic在一些常用包上还是存在缺失问题，后期使用中会出现各种不兼容问题，值得注意。</p>
+<a id="more"></a>
 <h2 id="1-换源"><a href="#1-换源" class="headerlink" title="1. 换源"></a>1. 换源</h2><p>ROS系统需要的安装包大多来自 ros.org 或 github，建议使用换源以提高安装的成功率和效率；经常下载一小时，报错马上崩，很影响心态。</p>
 <p>亲测比较好用的apt换源有：</p>
 <p>[<a href="https://www.jianshu.com/p/ad4dc5dbf55e" target="_blank" rel="noopener">简书换阿里源</a>]</p>
@@ -254,35 +259,30 @@
 <li>参考<a href="http://wiki.ros.org/ROS/Installation/UbuntuMirrors" target="_blank" rel="noopener">官网</a></li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo sh -c <span class="string">'. /etc/lsb-release &amp;&amp; echo "deb http://mirrors.tuna.tsinghua.edu.cn/ros/ubuntu/ `lsb_release -cs` main" &gt; /etc/apt/sources.list.d/ros-latest.list'</span></span><br></pre></td></tr></table></figure>
-
 <p>获取镜像</p>
-<ol start="2">
+<ol>
 <li>设置密钥</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-key adv --keyserver <span class="string">'hkp://keyserver.ubuntu.com:80'</span> --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654</span><br></pre></td></tr></table></figure>
-
 <p>如果不设置，就会出现问题：<a href="https://blog.csdn.net/wangxue_1231/article/details/92801510" target="_blank" rel="noopener">sudo apt-get update出现W: GPG 错误：http://packages.ros.org/ros/ubuntu xenial InRelease: 由于没有公钥，无法验证下列签名</a></p>
-<ol start="3">
+<ol>
 <li>重新更新一下（一定要！）</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>正式安装</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install ros-melodic-desktop-full</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>启动：</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo rosdep init</span><br></pre></td></tr></table></figure>
-
 <p>失败！</p>
 <p>最后容易出现的问题类似：</p>
 <p><a href="https://blog.csdn.net/qq_35590091/article/details/100515558" target="_blank" rel="noopener">ubuntu16.04 运行rosdep init 返回ERROR：cannot download default sources list from</a></p>
 <p>其本质原因还是换源没有换好，如果</p>
 <p>上面这个解决方法也不是太好，不妨使用下面文章中方法：</p>
-<p><a href="https://blog.csdn.net/weixin_43288910/article/details/105627358?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3" target="_blank" rel="noopener">ERROR: cannot download default sources list from: https://raw.githubusercontent.com/ros/rosdistro/ma</a></p>
+<p><a href="https://blog.csdn.net/weixin_43288910/article/details/105627358?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3" target="_blank" rel="noopener">ERROR: cannot download default sources list from: https://raw.githubusercontent.com/ros/rosdistro/ma</a></p>
 <p>也就是换成中国科大的源，亲测可用，即可愉快玩耍了！</p>
 <h2 id="rosdep-问题"><a href="#rosdep-问题" class="headerlink" title="rosdep 问题"></a>rosdep 问题</h2><p>rosdep是ROS中推荐的一种安装方法，比如使用开源的机器人包，rosdep可以很方便地将package中需要的依赖找出并全部安装，听起来确实非常棒。</p>
 <p>但是实测会有一些小问题：</p>
@@ -305,6 +305,7 @@
     <content><![CDATA[<h2 id="语言基础"><a href="#语言基础" class="headerlink" title="语言基础"></a>语言基础</h2><p>注释：<code>#</code></p>
 <p>调用某个库：<code>use databases</code></p>
 <p>着重号<code>xxx</code></p>
+<a id="more"></a>
 <h3 id="DQL语言"><a href="#DQL语言" class="headerlink" title="DQL语言"></a>DQL语言</h3><ol>
 <li><p>基础查询</p>
 <p><code>select 查询列表 from 表名；</code></p>
@@ -327,7 +328,7 @@
 <li><p>查询表中的多个字段，用逗号隔开</p>
 <p><code>select last_name,id from employees;</code></p>
 <ul>
-<li>*<em>顺序随意 *</em>- 可以自定义</li>
+<li><strong>顺序随意 </strong>- 可以自定义</li>
 <li>不知道怎么拼，直接在图形化界面点就可以</li>
 <li>按<code>F12</code>就能排列好顺序</li>
 </ul>
@@ -336,15 +337,13 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from employees</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<ol start="2">
+<ol>
 <li><p>查询常量值</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select 100;</span><br><span class="line"></span><br><span class="line">select &#39;john&#39;;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>查询表达式</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select 100*98;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>查询函数</li>
 </ul>
@@ -358,13 +357,11 @@
 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select 100%98 as 结果;</span><br><span class="line"></span><br><span class="line">select last_name as 姓,last_name as 名 from employees;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>方式二：空格</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select last_name 姓,last_name 名 from employees;</span><br></pre></td></tr></table></figure>
-
-<p>*<em>注意别名不能使用特殊符号，如果使用了，请加双引号” “ *</em></p>
+<p><strong>注意别名不能使用特殊符号，如果使用了，请加双引号” “ </strong></p>
 </li>
 <li><p>去重 - distinct</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select distinct id from mydatabase</span><br></pre></td></tr></table></figure>
@@ -383,7 +380,6 @@
 </li>
 <li><p><strong>应当用concat 关键字进行连接</strong>，括号里面使用的是着重符号，而不全是单引号，像逗号才使用单引号</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select CONCAT(&#39;first_name&#39;,&#39;last_name&#39;) as 姓名;</span><br></pre></td></tr></table></figure>
-
 <p>如果想用“，”隔开，那就使用：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select CONCAT(&#39;last_name&#39;,&#39;,&#39;,&#39;first_name&#39;) as out_put;</span><br></pre></td></tr></table></figure>
 </li>
@@ -464,7 +460,6 @@
 <blockquote>
 <p>查询：没有奖金的员工名和奖金率</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select last_name, commission_pct</span><br><span class="line">from employees</span><br><span class="line">where commission_pct IS NULL;</span><br></pre></td></tr></table></figure>
-
 <p>查询：有奖金的？==IS NOT NULL==</p>
 </blockquote>
 </li>
@@ -492,10 +487,10 @@
 <li>从Bookmarks中找出网站名和网址，整理成一个表格文件</li>
 <li>对这个表格做一下词云分析，看一下究竟假期看了些什么，详见<a href="https://sunyoe.github.io/2020/08/02/数据-词云分析初探/" target="_blank" rel="noopener">【数据】词云分析初探</a></li>
 </ul>
+<a id="more"></a>
 <h2 id="动手"><a href="#动手" class="headerlink" title="动手"></a>动手</h2><h3 id="整理Bookmarks"><a href="#整理Bookmarks" class="headerlink" title="整理Bookmarks"></a>整理Bookmarks</h3><p>其实已经非常简单了，把握核心就是把 json 看成一个“大”字典。</p>
 <p>看一下原始内容：</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">"checksum"</span>: <span class="string">"ca7fb0d38496e7252c02db776f1f634a"</span>,</span><br><span class="line">   <span class="attr">"roots"</span>: &#123;</span><br><span class="line">      <span class="attr">"bookmark_bar"</span>: &#123;</span><br><span class="line">         <span class="attr">"children"</span>: [ &#123;</span><br><span class="line">            <span class="attr">"date_added"</span>: <span class="string">"13199114198683132"</span>,</span><br><span class="line">            <span class="attr">"guid"</span>: <span class="string">"e62ed638-a320-45be-9456-eb3490b55096"</span>,</span><br><span class="line">            <span class="attr">"id"</span>: <span class="string">"5"</span>,</span><br><span class="line">            <span class="attr">"meta_info"</span>: &#123;</span><br><span class="line">               <span class="attr">"last_visited_desktop"</span>: <span class="string">"13206982609994441"</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"百度"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"url"</span>,</span><br><span class="line">            <span class="attr">"url"</span>: <span class="string">"https://www.baidu.com/"</span></span><br><span class="line">         &#125;, &#123;</span><br><span class="line">            <span class="attr">"children"</span>: [ &#123;</span><br><span class="line">               <span class="attr">"children"</span>: [ &#123;</span><br><span class="line">                  <span class="attr">"date_added"</span>: <span class="string">"13228716556104664"</span>,</span><br><span class="line">                  <span class="attr">"guid"</span>: <span class="string">"2011bd3e-d3df-42ae-b9b8-27420da1deb5"</span>,</span><br><span class="line">                  <span class="attr">"id"</span>: <span class="string">"62"</span>,</span><br><span class="line">                  <span class="attr">"name"</span>: <span class="string">"常见问题解答-Covid-19，问题和解答"</span>,</span><br><span class="line">                  <span class="attr">"type"</span>: <span class="string">"url"</span>,</span><br><span class="line">                  <span class="attr">"url"</span>: <span class="string">"http://www.salute.gov.it/portale/nuovocoronavirus/dettaglioFaqNuovoCoronavirus.jsp?lingua=italiano&amp;id=228#11"</span></span><br><span class="line">               &#125;],</span><br><span class="line">               <span class="attr">"date_added"</span>: <span class="string">"13231592490508714"</span>,</span><br><span class="line">               <span class="attr">"date_modified"</span>: <span class="string">"13231599756212563"</span>,</span><br><span class="line">               <span class="attr">"guid"</span>: <span class="string">"5d867818-cf41-45a2-ad6f-25600f590419"</span>,</span><br><span class="line">               <span class="attr">"id"</span>: <span class="string">"105"</span>,</span><br><span class="line">               <span class="attr">"name"</span>: <span class="string">"EBD项目"</span>,</span><br><span class="line">               <span class="attr">"type"</span>: <span class="string">"folder"</span></span><br><span class="line">            &#125;...</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
 <p>整体还是非常有规律的，对应到浏览器中就是大的收藏夹套内部分类收藏夹，收藏夹内还有文件夹，从type可以看到哪些是“url”。</p>
 <blockquote>
 <p>这里突然觉得自己的方法可能有点笨，用type的方法去分类也是一个不错的选择</p>
@@ -507,14 +502,12 @@
 </li>
 <li><p>列表则可以根据数字来索引：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bm_url_data[i][<span class="string">'children'</span>]</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <p>这种方法确实是非常的原始，因为Bookmarks中字典列表循环嵌套，要不断来回索引，除了部分文件夹中可以简单用循环来节省一下工作量，其他方面根本就没有省多少事。</p>
 <h3 id="转为excel"><a href="#转为excel" class="headerlink" title="转为excel"></a>转为excel</h3><p>上面最终取出的url和网址分别组成列表，这样就得到了两个列表。</p>
 <p>将两个列表进行关联，并转入excel文件，用pandas实在是再好不过了！</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas.core.frame <span class="keyword">import</span> DataFrame</span><br><span class="line"></span><br><span class="line"><span class="comment"># 先根据两个列表，生成bookmarks的字典</span></span><br><span class="line">bookmarks_dict = &#123;<span class="string">'网站名'</span>: bm_name,</span><br><span class="line">                  <span class="string">'url'</span> : bm_url&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从bookmarks 生成 DataFrame数据</span></span><br><span class="line">bookmarks_fram = DataFrame(bookmarks_dict)</span><br><span class="line">print(bookmarks_fram)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最后直接将DataFrame数据转化到excel中</span></span><br><span class="line">bookmarks_fram.to_excel(<span class="string">'./bookmarks.xlsx'</span>)</span><br></pre></td></tr></table></figure>
-
 <p>得益于完善的封装，以及DataFrame这一数据格式的独特优势，使用这种转换方法绝对是非常简洁。</p>
 <p>此外，还找到xlwt等python包，也可以实现数据写入excel，但是相对就要麻烦很多了。</p>
 ]]></content>
@@ -533,6 +526,7 @@
     <content><![CDATA[<p>词云可以对比文件中不同词汇出现的频率。</p>
 <p>就像这样：</p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/WordCloudTest.png" alt="WordCloudTest"></p>
+<a id="more"></a>
 <p>用字体大小代表出现频率高低，非常直观的数据表现形式。</p>
 <blockquote>
 <p>需要的依赖包有：</p>
@@ -571,20 +565,18 @@
 <p>这样就得到了我们想要的字符串数据。</p>
 <h2 id="词云生成"><a href="#词云生成" class="headerlink" title="词云生成"></a>词云生成</h2><p>理论上，使用如下语句：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">mycloud = WordCloud().generate(result)</span><br><span class="line">%matplotlib inline</span><br><span class="line">plt.imshow(mycloud, interpolation = <span class="string">"bilinear"</span>)</span><br><span class="line">plt.axis(<span class="string">"off"</span>)</span><br></pre></td></tr></table></figure>
-
 <p>就可以生成词云，并作图，但是它的结果可能是类似这样的：</p>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/%E4%B8%8B%E8%BD%BD.png" alt="下载"></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/下载.png" alt="下载"></p>
 <p>就是说只能显示英文，而不能显示中文，而且仔细观察还有一些很长串的方框，是因为没有把一句中文长句进行分词。</p>
 <p>因此，对于中文词云的实现，还需要进行分词，可以使用jieba分词：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">words = jieba.cut(result, cut_all = <span class="literal">True</span>)</span><br><span class="line">wc_words = <span class="string">' '</span>.join(words)</span><br></pre></td></tr></table></figure>
-
 <p>首先将原来的字符串进行分词，分词后会成为一个列表，再将列表重新整合为字符串。</p>
 <blockquote>
 <p>参考：</p>
 <ul>
 <li><p><a href="https://blog.csdn.net/itanders/article/details/88858415" target="_blank" rel="noopener">用wordcloud和jieba生成中文词云</a></p>
 </li>
-<li><p><a href="https://blog.csdn.net/qq_26450765/article/details/81362634?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase" target="_blank" rel="noopener">python词云wordcloud+jieba生成中文词云图</a></p>
+<li><p><a href="https://blog.csdn.net/qq_26450765/article/details/81362634?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase" target="_blank" rel="noopener">python词云wordcloud+jieba生成中文词云图</a></p>
 </li>
 </ul>
 </blockquote>
@@ -594,7 +586,6 @@
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/20180806084453906.jpg" alt="20180806084453906"></p>
 <p>针对词云中可能出现的无用的高频词汇，还可以添加列表将其剔除。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">wordCloud = WordCloud(</span><br><span class="line">    background_color = <span class="string">'white'</span>,   	<span class="comment"># 背景颜色</span></span><br><span class="line">    mask = backgroud_Image,			<span class="comment"># 背景图片</span></span><br><span class="line">    font_path = <span class="string">'C:\Windows\Fonts\STZHONGS.TTF'</span>,	<span class="comment"># 中文字体</span></span><br><span class="line">    max_words = <span class="number">1000</span>,				<span class="comment"># 最大词数</span></span><br><span class="line">    stopwords = &#123;<span class="string">'CSDN'</span>,<span class="string">'博客'</span>&#125;,		<span class="comment"># 要剔除的词汇</span></span><br><span class="line">    max_font_size = <span class="number">150</span>,			<span class="comment"># 最大字号</span></span><br><span class="line">    random_state = <span class="number">1</span>,				</span><br><span class="line">    scale = <span class="number">1</span></span><br><span class="line">    )</span><br><span class="line">wordCloud.generate(wc_words)		<span class="comment"># 生成词云</span></span><br><span class="line"></span><br><span class="line">image_colors = ImageColorGenerator(backgroud_Image)		<span class="comment"># 仅使用背景图片的样式生成词云样式</span></span><br><span class="line">plt.imshow(wordCloud.recolor(color_func = image_colors)) <span class="comment"># 再使用背景图片的颜色进行上色</span></span><br><span class="line">plt.axis(<span class="string">"off"</span>)</span><br><span class="line">plt.show()</span><br><span class="line">wordCloud.to_file(savePath)			<span class="comment"># 保存图片</span></span><br></pre></td></tr></table></figure>
-
 <p>这样就得到一开始的词云了，看着这些关键词，不说了，要开始学了！</p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/WordCloudTest.png" alt="WordCloudTest"></p>
 ]]></content>
@@ -611,6 +602,7 @@
     <url>/2020/08/03/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86%E4%B8%80/</url>
     <content><![CDATA[<p>各种包的存在已经使得生成一个机器学习代码十分方便，但是当遇到一个个分厂常见的名词时，可能还是需要从理论上了解一番。</p>
 <p>这里先不指定具体的框架，因为不论是tensorflow、keras、pytorch、caffe、mxnet几乎都会有这些内容，区别可能是名称或者方法的具体路径不同。</p>
+<a id="more"></a>
 <h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="层-layer-积木"><a href="#层-layer-积木" class="headerlink" title="层-layer-积木"></a>层-layer-积木</h3><p><strong>dense层</strong>或fully connect（FC）层</p>
 <ul>
 <li>全连接层</li>
@@ -701,13 +693,14 @@
     <url>/2020/08/15/%E6%80%9D%E7%BB%B4%E5%B7%A5%E5%85%B7-%E5%B9%95%E5%B8%83/</url>
     <content><![CDATA[<p>幕布是我目前使用的最多的思维工具。</p>
 <p>但是当朋友反问我为什么要使用ta的时候，又说不上来ta究竟有何妙处。</p>
-<h3 id="MindJet"><a href="#MindJet" class="headerlink" title="MindJet"></a>MindJet<img src="https://www.mindmanager.com/static/mm/images/mindjet-icon.png" alt="MindJet"></h3><ul>
+<a id="more"></a>
+<h1 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h1><h2 id="MindJet"><a href="#MindJet" class="headerlink" title="MindJet"></a>MindJet<img src="https://www.mindmanager.com/static/mm/images/mindjet-icon.png" alt="MindJet"></h2><ul>
 <li><p>最早接触的思维导图工具是 MindJet，<strong>完全不免费</strong>是废弃的主要原因。</p>
 </li>
 <li><p><strong>思维导图的图形化让整体看上去很漂亮</strong>，但是类似MindJet这样分支需要点击添加，还需要考虑分支的形状，位置，强迫症更是怎么调整都不舒服，渐渐觉得并不是很适合<strong>日常思维整理</strong>，更适合在有知识储备的前提下做整体规划。</p>
 </li>
 </ul>
-<h3 id="XMind"><a href="#XMind" class="headerlink" title="XMind"></a>XMind</h3><p>同样的问题在类似的软件上也会存在，在寻找MindJet替代品的过程中，XMind自然少不了打探一番。</p>
+<h2 id="XMind"><a href="#XMind" class="headerlink" title="XMind"></a>XMind</h2><p>同样的问题在类似的软件上也会存在，在寻找MindJet替代品的过程中，XMind自然少不了打探一番。</p>
 <ul>
 <li>同样是图形化的思维导图构建，XMind界面漂亮了许多，功能也更人性化，看上去确实有一款现代化软件的潜力，短短时间受到了实验室的一致好评。</li>
 </ul>
@@ -718,14 +711,14 @@
 <p>如果只有好看的条目式思维导图，可能新鲜感只有上手的一两天，但是加上鱼骨图、九宫格矩阵等等设计方法中的图形，新鲜感和创造性便直线上升。</p>
 <p>用户会考虑怎么样用某个图能更好地表达我的意思，而这个图又刚好是XMind提供的，甚至软件提供的比原本想的还要好。</p>
 <p><strong>图形化的思维导图巅峰至此，懒人思考重新占领我的头脑。</strong></p>
-<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>普通人的生活不都是项目，思维混乱的时候应该使用什么来<strong>整理思维。</strong></p>
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>普通人的生活不都是项目，思维混乱的时候应该使用什么来<strong>整理思维。</strong></p>
 <ul>
 <li><p>作为一个整理思维的工具，我需要的不是花里胡哨的界面，而是整理过后留下内容与脉络。</p>
 </li>
 <li><p>还有同步，最好这个软件在Windows、安卓、IOS平台都有客户端，无缝衔接。尝试过OneNote之后你会明白这个功能似乎不是很容易，关键是做到轻快流畅。</p>
 </li>
 </ul>
-<h3 id="Mindlen"><a href="#Mindlen" class="headerlink" title="Mindlen"></a>Mindlen<img src="http://www.mindline.cn/res/icon.png" alt="Mindline"></h3><ul>
+<h2 id="Mindlen"><a href="#Mindlen" class="headerlink" title="Mindlen"></a>Mindlen<img src="http://www.mindline.cn/res/icon.png" alt="Mindline"></h2><ul>
 <li><p>在考研的时候，接触到了这款软件，ta能在平板上使用，还可以在手机上看，可以分享链接，在微信的小程序中看。</p>
 </li>
 <li><p>虽然是图形化的思维导图编写，但是ta为用户的操作自由度做了缩减，ta会自动安排某条分支的位置。你可以调整分支的顺序，但是如果想细节上把某条分支移动一点点，抱歉，不可以。</p>
@@ -736,7 +729,7 @@
 <p>没想到的是，我居然真的认真使用了几个月，痛苦的几个月。</p>
 <p>这款软件最大的问题是卡顿。</p>
 <p>不知道是软件优化问题，还是思维导图太大，渲染时间增长，打开写好的思维导图会耗掉你试图新建一个导图的时间。当导图内容逐渐增多，一点拖动就会非常卡顿，实在是很糟糕的体验。</p>
-<h3 id="幕布"><a href="#幕布" class="headerlink" title="幕布"></a>幕布<img src="https://mubu.com/asset/img/logo/logo_full-2738cd893d.png" alt="mubu"></h3><p>我曾两次接触幕布，第一次接触，<strong>简陋的外观，非图形化的思维导图编写</strong>，让我果断删掉了ta。</p>
+<h2 id="幕布"><a href="#幕布" class="headerlink" title="幕布"></a>幕布<img src="https://mubu.com/asset/img/logo/logo_full-2738cd893d.png" alt="mubu"></h2><p>我曾两次接触幕布，第一次接触，<strong>简陋的外观，非图形化的思维导图编写</strong>，让我果断删掉了ta。</p>
 <p>但是朋友圈中出现了一个漂亮、整齐的思维导图的身影，没想到这是幕布做的。</p>
 <p>再次接触，我已经不再依赖图形化的导图编辑界面，幕布的<strong>大纲式编写</strong>充分体现了思维导图的最高境界——<strong>“极简”</strong>。</p>
 <p><img src="https://mubu.com/asset/img/index/img_2-dc9ac451da.png" alt="mubuexample"></p>
@@ -750,7 +743,7 @@
 </li>
 </ul>
 <p>说到底就是<strong>条目的层级</strong>，去掉了图形的形式，你更需要专心于当前编辑的条目，你需要思考哪些内容在当前条目的层级之下。</p>
-<h4 id="圆点-·"><a href="#圆点-·" class="headerlink" title="圆点 ·"></a>圆点 ·</h4><p>每一个接触幕布的人都会注意到<strong>圆点</strong> <strong>·</strong> ，这是幕布的灵魂。</p>
+<h3 id="圆点-·"><a href="#圆点-·" class="headerlink" title="圆点 ·"></a>圆点 ·</h3><p>每一个接触幕布的人都会注意到<strong>圆点</strong> <strong>·</strong> ，这是幕布的灵魂。</p>
 <p>不喜欢，从此离开；喜欢，无比认可。</p>
 <p>非常鲜明的特性。</p>
 <ul>
@@ -765,11 +758,11 @@
 <li><p>等最后完工，点击导图，自然完成。</p>
 </li>
 </ul>
-<h4 id="像是编程"><a href="#像是编程" class="headerlink" title="像是编程"></a>像是编程</h4><p>习惯了python之后，回头来看，这种缩进的风格实在是像极了编程。</p>
+<h3 id="像是编程"><a href="#像是编程" class="headerlink" title="像是编程"></a>像是编程</h3><p>习惯了python之后，回头来看，这种缩进的风格实在是像极了编程。</p>
 <p>很适合训练自己的思考，既天马行空，又条理分明。</p>
-<h4 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h4><p>幕布的同步绝对是我见过最好的。</p>
+<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><p>幕布的同步绝对是我见过最好的。</p>
 <p>得益于轻量化的编写方式，绝大多数情况下内容都是文字，可以添加一些图片，但不会太多，这样的内容不会很大，软件提供了免费的云，每个人可以创建不限量的笔记，即刻保存，就会在所有联网的客户端同步。这个体验比滴答清单的同步还要出色。</p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>幕布确实让我有一种思维整理的感觉，每当思维混乱，来此做一些笔记，至少会明白下一步应该做什么。</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>幕布确实让我有一种思维整理的感觉，每当思维混乱，来此做一些笔记，至少会明白下一步应该做什么。</p>
 <p>幕布让我可以随意书写，不用思考这句话是不是合理、有用，想到什么就可以开始写，ta做到了一个笔记本应该做好的事。</p>
 <p>幕布专注于轻量化，公式仍然免谈，ta不是创作文章的最好工具，但是是思维整理的工具。</p>
 <p>听说 XMind 现在也可以用大纲的模式编写思维导图，感觉又前进了一步。</p>
@@ -806,6 +799,7 @@
 <ul>
 <li>适者生存，不适者淘汰，优中选优</li>
 </ul>
+<a id="more"></a>
 <h2 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h2><p>一种统计学模型，能够不断学习</p>
 <h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><p><strong>神经层</strong></p>
 <ul>
@@ -1096,7 +1090,8 @@
     <url>/2020/09/03/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
     <content><![CDATA[<p>本文按题目排序，每期10题。</p>
 <p>本期内容多以排序为主，出现了滑动窗口等算法，学习到了python对于数组的一些操作。</p>
-<h3 id="2-两数相加"><a href="#2-两数相加" class="headerlink" title="2. 两数相加"></a>2. 两数相加</h3><p><code>next</code>函数：返回迭代器的下一个项目</p>
+<a id="more"></a>
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="2-两数相加"><a href="#2-两数相加" class="headerlink" title="2. 两数相加"></a>2. 两数相加</h2><p><code>next</code>函数：返回迭代器的下一个项目</p>
 <p><code>.next</code>函数：</p>
 <p>python3 中的 <code>-&gt;</code>，出现在函数定义中尤其的多：</p>
 <ul>
@@ -1106,7 +1101,6 @@
 </li>
 <li><p>常常出现在python函数定义的函数名后面，为函数添加元数据，描述函数的返回类型，从而方便开发人员使用：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span> -&gt; int:</span></span><br><span class="line">    <span class="keyword">return</span> x+y</span><br></pre></td></tr></table></figure>
-
 <p>这里面，元数据表明了函数的返回值为int类型</p>
 </li>
 </ul>
@@ -1121,17 +1115,15 @@
 <p>解题思路：<a href="https://leetcode-cn.com/problems/add-two-numbers/solution/zui-zhi-bai-de-xie-fa-by-meng-zhi-hen-n-2/" target="_blank" rel="noopener">leecode第二题python解法</a></p>
 </li>
 </ul>
-<h3 id="3-无重复字符的最长子串"><a href="#3-无重复字符的最长子串" class="headerlink" title="3. 无重复字符的最长子串"></a>3. 无重复字符的最长子串</h3><p>问题1：str变量有索引吗？似乎没有</p>
+<h2 id="3-无重复字符的最长子串"><a href="#3-无重复字符的最长子串" class="headerlink" title="3. 无重复字符的最长子串"></a>3. 无重复字符的最长子串</h2><p>问题1：str变量有索引吗？似乎没有</p>
 <ul>
 <li>subscriptable 可下标的，也就是可索引的</li>
 </ul>
 <p>问题2：如何把字符串转化为列表（有序）</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 字符串用 split() 转化为列表</span></span><br><span class="line">a = <span class="string">'ab,cd,ef'</span></span><br><span class="line">print(a.split(<span class="string">','</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表转化为字符串</span></span><br><span class="line">l = [<span class="string">'a'</span>, <span class="string">'b'</span>]</span><br><span class="line">print(<span class="string">''</span>.join(l))</span><br></pre></td></tr></table></figure>
-
 <p>可是如果没有<code>,&#39; &#39;</code>逗号、空格之类的呢？</p>
 <p>额，醉了</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = <span class="string">'abc'</span></span><br><span class="line">list(s)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</span><br></pre></td></tr></table></figure>
-
 <p>这道题还是有点难度的，并不是说都是从第一位开始来算的</p>
 <p>有可能从中间开始计算，那么这个时候该怎么办呢？</p>
 <p>首先移动到第 i 位，比较 该位之前所有位，是否与它相同</p>
@@ -1166,7 +1158,7 @@
 <p>题解中有用enumerate方法的，还有用C++中的指针方法的</p>
 <p>提到最多的还是“滑动窗口”</p>
 <p>其实倒也没有错，我的方法其实也是为了实现一个<strong>滑动窗口</strong>，并且记录窗口的长度，但是问题是空格该怎么算</p>
-<h3 id="4-寻找两个正序数组的中位数"><a href="#4-寻找两个正序数组的中位数" class="headerlink" title="4. 寻找两个正序数组的中位数"></a>4. 寻找两个正序数组的中位数</h3><p>读题：本题的要求是：</p>
+<h2 id="4-寻找两个正序数组的中位数"><a href="#4-寻找两个正序数组的中位数" class="headerlink" title="4. 寻找两个正序数组的中位数"></a>4. 寻找两个正序数组的中位数</h2><p>读题：本题的要求是：</p>
 <p>给的两个数列（list）顺序是好的</p>
 <p>但是最后要找的，是两个数组合并到一块，然后取中位数</p>
 <p>那么合并后的数组，要进行排序（或者不用排序了，使用一些算法来寻找中位数），这就是问题所在了</p>
@@ -1183,12 +1175,11 @@
 <p>最后把一边消耗完，返回另一边最小的哪个数字</p>
 <p><strong>还有一种很巧妙的计算奇偶两个数列中位数的一个方法</strong></p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">k1 = (len(nums1) + len(nums2) + 1) // 2</span><br><span class="line">k2 = (len(nums1) + len(nums2) + 2) // 2</span><br></pre></td></tr></table></figure>
-
 <p>如果两个数列一奇一偶：</p>
 <p>k1 = k2</p>
 <p>如果两个数列都是奇数，或者都是偶数</p>
 <p>k1 是中间左边，k2是中间右边</p>
-<h3 id="17-电话号码的字母组合"><a href="#17-电话号码的字母组合" class="headerlink" title="17. 电话号码的字母组合"></a>17. 电话号码的字母组合</h3><p>九键输入法中，2-9每个数字对应着一些字母</p>
+<h2 id="17-电话号码的字母组合"><a href="#17-电话号码的字母组合" class="headerlink" title="17. 电话号码的字母组合"></a>17. 电话号码的字母组合</h2><p>九键输入法中，2-9每个数字对应着一些字母</p>
 <p>给定一个仅包含数字2-9的<strong>字符串</strong>，返回所有它能表示的字母组合（顺序可以任意）</p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/17_telephone_keypad.png" alt="例图"></p>
 <p>本来来说，应该要给一个字典存放以下，以便记录每个数字都对应哪些字母</p>
@@ -1210,17 +1201,17 @@
 <p>这个两两组合还是会使用循环</p>
 <p>组合出的是字符串，组合的结果会放在列表里面</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 移动到某一位</span></span><br><span class="line"><span class="comment"># 当前位与之前的字符串进行各种组合</span></span><br><span class="line"><span class="comment"># 把组合出的字符串重新加入字符列表</span></span><br></pre></td></tr></table></figure>
-
 <p>【9月3日】现在的方法是，判断列表是不是空的</p>
 <p>如果是空的，说明是第一个数字，那么此时，就需要填入单个的字符，但是这个字符又不能直接加到最后的内容中</p>
 <p>如果不是空的，这时已经不是第一个数字了</p>
 <p>所以我引入了一个新的列表，是上一个列表的copy</p>
-<h3 id="122-买卖股票的最佳时机-II"><a href="#122-买卖股票的最佳时机-II" class="headerlink" title="122. 买卖股票的最佳时机 II"></a>122. 买卖股票的最佳时机 II</h3><p>给一个数组，第i个元素表示第i天的价格</p>
+<h2 id="122-买卖股票的最佳时机-II"><a href="#122-买卖股票的最佳时机-II" class="headerlink" title="122. 买卖股票的最佳时机 II"></a>122. 买卖股票的最佳时机 II</h2><p>给一个数组，第i个元素表示第i天的价格</p>
 <p>可以多次交易，但是购买前需要出售掉之前的股票，设计算法让利润最大</p>
 <p>（1）利润也就是价差，主要是卖的时候的价差</p>
 <p>（2）最多买i/2次，卖也是</p>
 <p>（3）应该是低价买进，高价卖出，找差价最大的两天？</p>
-<pre><code>所以应该先找最低点，买进，然后找其后的最高点（跌之前卖出）</code></pre><p>跳出股票的场景，其实是在求<strong>数组中数的差值</strong>，上升过程中，找最大差值卖出，跌到最低，应当买入</p>
+<pre><code>     所以应该先找最低点，买进，然后找其后的最高点（跌之前卖出）
+</code></pre><p>跳出股票的场景，其实是在求<strong>数组中数的差值</strong>，上升过程中，找最大差值卖出，跌到最低，应当买入</p>
 <ol>
 <li><p>滑动窗口，移动到当前值，判断大小：</p>
 <p>小于上一个值，小于下一个值，此时应该买进</p>
@@ -1240,7 +1231,6 @@
 <li>价格</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 未完</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, prices: List[int])</span> -&gt; int:</span></span><br><span class="line">        profit = <span class="number">0</span></span><br><span class="line">        stock = <span class="number">0</span></span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; len(prices):</span><br><span class="line">            <span class="keyword">if</span> stock:   <span class="comment"># 手里有股票，应当卖出</span></span><br><span class="line">                <span class="comment"># 观察价格，应当是最高点卖出</span></span><br><span class="line">                <span class="keyword">while</span> prices[i] &lt; prices[i+<span class="number">1</span>] <span class="keyword">and</span> i+<span class="number">1</span> &lt; len(prices):</span><br><span class="line">                    i += <span class="number">1</span></span><br><span class="line">                <span class="comment"># 股票卖出</span></span><br><span class="line">                stock -= <span class="number">1</span></span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>：      <span class="comment"># 手里没有股票，应该买进</span></span><br><span class="line">                <span class="comment"># 观察价格，最低点买入</span></span><br><span class="line">                <span class="keyword">while</span> prices[i] &lt; prices[i<span class="number">-1</span>] <span class="keyword">and</span> i &lt; len(prices):</span><br><span class="line">                    i += <span class="number">1</span></span><br><span class="line">                <span class="comment"># 股票买入</span></span><br><span class="line">                stock += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> profit</span><br></pre></td></tr></table></figure>
-
 <p>我怎么觉得是一个滑动窗口的问题</p>
 <p>试看一个窗口：</p>
 <p>如果手里还没有股票：</p>
@@ -1262,7 +1252,7 @@
 <p>如果是正的，就加上，如果是0或者负的，就跳过</p>
 <p><strong>至于连续上涨交易日，等价于每天都在买卖</strong></p>
 </blockquote>
-<h3 id="136-只出现一次的数字"><a href="#136-只出现一次的数字" class="headerlink" title="136. 只出现一次的数字"></a>136. 只出现一次的数字</h3><p>哈希表问题</p>
+<h2 id="136-只出现一次的数字"><a href="#136-只出现一次的数字" class="headerlink" title="136. 只出现一次的数字"></a>136. 只出现一次的数字</h2><p>哈希表问题</p>
 <p>一个非空整数数组中：</p>
 <ul>
 <li>只有一个元素只出现了一次</li>
@@ -1271,7 +1261,6 @@
 <p>找出这个只出现了一次的元素</p>
 <p>额外要求：线性时间复杂度，不使用额外空间</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在有限能力范围内，我的想法是</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="comment"># 首先给数组去重排序</span></span><br><span class="line">        <span class="comment"># 然后遍历循环，找出数组中数字的索引位置</span></span><br><span class="line">        <span class="comment"># 如果索引位置只有1个，那么就是只出现了一次</span></span><br></pre></td></tr></table></figure>
-
 <p>问题是：我要怎么分析它的时间复杂度是不是线性的，数组去重排序本身所用的时间就比较多，python中仅一句代码</p>
 <p><strong>列表的去重</strong></p>
 <p>（1）set方法，起始时转化成了元组，所以之后需要再转化成list，优点是索引值不变</p>
@@ -1280,7 +1269,6 @@
 <p>（4）添加到新的列表</p>
 <p>（5）列表的sort方法可以做到排序</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 再思考，去重排序其实是多此一举的</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="comment"># 遍历循环</span></span><br><span class="line">        <span class="comment"># 找数组中有没有和它一样的</span></span><br><span class="line">        <span class="comment"># 因为是从前往后的，已经遍历过的不算，已经配好对的也不能再遍历了</span></span><br></pre></td></tr></table></figure>
-
 <p>还是要排一下序，不然不好找</p>
 <p>continue和break</p>
 <p>continue仅停止本次循环</p>
@@ -1295,14 +1283,13 @@
 <p>所以，依次异或就可以，剩下来的一定是只出现一次的数</p>
 <p>（3）还有一种解法是：Collections.Counter() 函数，这是一个计数器</p>
 </blockquote>
-<h3 id="202-快乐数"><a href="#202-快乐数" class="headerlink" title="202.快乐数"></a>202.快乐数</h3><p>一个正整数，每一次将该数替换为它每个位置上的数字的平方和，不断重复这个过程</p>
+<h2 id="202-快乐数"><a href="#202-快乐数" class="headerlink" title="202.快乐数"></a>202.快乐数</h2><p>一个正整数，每一次将该数替换为它每个位置上的数字的平方和，不断重复这个过程</p>
 <p>如果最终能够变成1，那么就是快乐数</p>
 <p>如果不能变成1，那么就不是快乐数</p>
 <blockquote>
 <p>其实变成1，就必须是一个1，和多个0</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 另写一个函数，用来计算平方和</span></span><br><span class="line"><span class="comment"># 其中，首先需要把上一个数字拆成单个数字的组合，把数字变成列表</span></span><br><span class="line"><span class="comment"># 然后计算平方和并相加</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>把数字，拆成一个个单个数字的列表</strong>，可以先转换成字符串，然后再转换为列表</p>
 <p>关键问题是，如何判断它不是快乐数？</p>
 <p>一次循环，不行，两次循环不行，要多少次循环呢？</p>
@@ -1322,7 +1309,12 @@
 <p>就是判断有没有重复，然后再判断是不是1就可以了</p>
 <p>所以，需要一个之来存放已经出现过的值：</p>
 <p>set() 元组，特点是无序不重复，可以进行关系测试，计算交集、差集、并集等等</p>
-<h3 id="204-计数质数"><a href="#204-计数质数" class="headerlink" title="204. 计数质数"></a>204. 计数质数</h3><p>这个题居然难度是简单？</p>
+<h2 id="724-寻找数组的中心索引"><a href="#724-寻找数组的中心索引" class="headerlink" title="724. 寻找数组的中心索引"></a>724. 寻找数组的中心索引</h2><p>如果一个数组（python中是list）中，某个数的左侧数字之和 = 右侧数字之和，那么这个数就是中心数，返回索引值</p>
+<p>我的方法就是，先求出总和</p>
+<p>然后看左边的数字之和，是不是等于（总和-当前数字）/ 2</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pivotIndex</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        list_sum = sum(nums)</span><br><span class="line">        <span class="keyword">while</span> i &lt; len(nums):</span><br><span class="line">            left_sum = sum(nums[<span class="number">0</span>:i])</span><br><span class="line">            <span class="keyword">if</span> (list_sum - nums[i])/<span class="number">2</span> == left_sum:</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<p>一把过。</p>
+<h1 id="筛法"><a href="#筛法" class="headerlink" title="筛法"></a>筛法</h1><h2 id="204-计数质数"><a href="#204-计数质数" class="headerlink" title="204. 计数质数"></a>204. 计数质数</h2><p>这个题居然难度是简单？</p>
 <p>给一个n，统计小于n的质数的数量</p>
 <p>问题1：是不是得计算一下一个数是不是质数？</p>
 <ul>
@@ -1337,7 +1329,6 @@
 <p>最后要的只是数量，而没有要具体是哪些</p>
 <p>其实按照双循环的思路，做出来并不难，难的是速度，一下子就写出了代码，但是总是有<strong>超时问题</strong>，这个问题也很严重了！</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countPrimes</span><span class="params">(self, n: int)</span> -&gt; int:</span></span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="comment"># 判断每个数是不是质数</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; n:</span><br><span class="line">            <span class="keyword">if</span> self.is_primes(i):</span><br><span class="line">                <span class="comment"># 如果是质数，则计数君加1</span></span><br><span class="line">                count += <span class="number">1</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 判断一个数是不是质数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_primes</span><span class="params">(self, num: int)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">elif</span> num == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            k = <span class="number">2</span></span><br><span class="line">            <span class="keyword">while</span> (k * k) &lt;= num:</span><br><span class="line">                <span class="keyword">if</span> num % k == <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    k += <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
-
 <p>理论上，已经除过的数的倍数也不能再作为除数了</p>
 <p>但是这个筛选听起来就很麻烦</p>
 <p>从解答来看</p>
@@ -1373,13 +1364,7 @@
 </ul>
 <p>这要到最后，这个列表中为1的地方就是所有素数的索引位置了！</p>
 <p>纯粹筛法，不用仔细计算！</p>
-<h3 id="724-寻找数组的中心索引"><a href="#724-寻找数组的中心索引" class="headerlink" title="724. 寻找数组的中心索引"></a>724. 寻找数组的中心索引</h3><p>如果一个数组（python中是list）中，某个数的左侧数字之和 = 右侧数字之和，那么这个数就是中心数，返回索引值</p>
-<p>我的方法就是，先求出总和</p>
-<p>然后看左边的数字之和，是不是等于（总和-当前数字）/ 2</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pivotIndex</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        list_sum = sum(nums)</span><br><span class="line">        <span class="keyword">while</span> i &lt; len(nums):</span><br><span class="line">            left_sum = sum(nums[<span class="number">0</span>:i])</span><br><span class="line">            <span class="keyword">if</span> (list_sum - nums[i])/<span class="number">2</span> == left_sum:</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
-
-<p>一把过。</p>
-<h3 id="面试题16-08-整数的英文表示"><a href="#面试题16-08-整数的英文表示" class="headerlink" title="面试题16.08 整数的英文表示"></a>面试题16.08 整数的英文表示</h3><p>有点意思</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="面试题16-08-整数的英文表示"><a href="#面试题16-08-整数的英文表示" class="headerlink" title="面试题16.08 整数的英文表示"></a>面试题16.08 整数的英文表示</h2><p>有点意思</p>
 <p>这个题中：</p>
 <p><strong>首先看数字长度：</strong></p>
 <p>3位：hundred</p>
@@ -1434,13 +1419,12 @@
 <li><a href="https://pypi.org/project/opencv-contrib-python-headless/" target="_blank" rel="noopener">opencv-contrib-python-headless</a>:与opencv-contrib-python相同，但是没有GUI功能。</li>
 </ul>
 <p>推荐在虚拟环境（conda环境）中安装第二种。</p>
+<a id="more"></a>
 <p>此外还有安装方式：</p>
 <p>【conda安装】</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda install -c https://conda.anaconda.org/menpo opencv3 <span class="comment">#安装opencv3</span></span><br><span class="line"><span class="comment">#如果要安装opencv4将opencv3改成如下命令</span></span><br><span class="line">conda install -c https://conda.anaconda.org/menpo opencv <span class="comment">#安装最新版opencv4</span></span><br><span class="line"><span class="comment">#也可通过conda search -c https://conda.anaconda.org/menpo opencv*来搜索所有opencv版本</span></span><br></pre></td></tr></table></figure>
-
 <p>卸载：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda unstall opencv3 <span class="comment">#卸载opencv3</span></span><br><span class="line">conda deactivate <span class="comment">#退出虚拟环境</span></span><br><span class="line">conda remove -n vm --all <span class="comment">#删除虚拟环境conda unstall opencv3 #卸载opencv3</span></span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>参考：<a href="https://blog.csdn.net/u011119817/article/details/100110495" target="_blank" rel="noopener">【opencv】1.opencv安装之使用pip或conda安装opencv</a></p>
 </blockquote>
@@ -1616,7 +1600,6 @@
 <p>参考：<a href="https://blog.csdn.net/wsp_1138886114/article/details/82936218" target="_blank" rel="noopener">OpenCV-Python 霍夫变换 检测直线，圆形</a></p>
 <p>应用案例：<a href="https://www.jianshu.com/p/15e3f9d8c121" target="_blank" rel="noopener">简易车道线识别（图像与计算机视觉）</a></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HoughLinesP</span><span class="params">()</span>:</span></span><br><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">     <span class="comment"># 霍夫</span></span><br><span class="line">     self.rho = <span class="number">1</span>  <span class="comment"># distance resolution in pixels of the Hough grid</span></span><br><span class="line">     self.theta = np.pi / <span class="number">180</span>  <span class="comment"># angular resolution in radians of the Hough grid</span></span><br><span class="line">     self.threshold = <span class="number">30</span>  <span class="comment"># minimum number of votes (intersections in Hough grid cell)</span></span><br><span class="line">     self.min_line_length = <span class="number">30</span>  <span class="comment"># minimum number of pixels making up a line</span></span><br><span class="line">     self.max_line_gap = <span class="number">30</span>  <span class="comment"># maximum gap in pixels between connectable line segments</span></span><br><span class="line">     <span class="comment"># line_image = np.copy(image)*0 # creating a blank to draw lines on</span></span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">houghlinesP</span><span class="params">(self, img)</span>:</span></span><br><span class="line">     <span class="comment"># return (n,4)</span></span><br><span class="line">     <span class="keyword">try</span>:</span><br><span class="line">         <span class="keyword">return</span> cv2.HoughLinesP(img, self.rho, self.theta, self.threshold, np.array([]), self.min_line_length, self.max_line_gap)[:, <span class="number">0</span>, :]</span><br><span class="line">     <span class="keyword">except</span> TypeError:</span><br><span class="line">         <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
-
 <p>从多个使用来看，输出结果似乎是直线的起点和终点，但又好像是直线的斜率和截距</p>
 </blockquote>
 <h3 id="滤波"><a href="#滤波" class="headerlink" title="滤波"></a>滤波</h3><p>阈值与平滑的实现</p>
@@ -1696,6 +1679,7 @@
     <url>/2020/09/27/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
     <content><![CDATA[<p>2020年华为无人车比赛，起始于6月底，至8月20日角逐出40支队伍参加半决赛，9月24日角逐出20支队伍参加决赛，26日最终决赛。有幸走到决赛现场，但是没有取得理想成绩，在此整理参赛笔记，希望来年一战！</p>
 <h2 id="分工"><a href="#分工" class="headerlink" title="分工"></a>分工</h2><p>为了实现无人车的运行，本次赛事中本小组分为机器视觉（负责modelarts和hilens）、车道线识别、激光雷达等三个部分，本人负责车道线识别部分。</p>
+<a id="more"></a>
 <h2 id="车道线的识别"><a href="#车道线的识别" class="headerlink" title="车道线的识别"></a>车道线的识别</h2><h3 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h3><p>使用OpenCV进行视觉识别</p>
 <p>排除斑马线的干扰</p>
 <p>根据识别的车道线计算斜率，控制小车转向角度</p>
@@ -1703,7 +1687,6 @@
 <p>转为灰度图 =》 转为二值图像 =》 计算一些最大值，确定两侧车道线的位置</p>
 <p>使用直方图（histogram）方法，主要函数来自OpenCV包。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph TD</span><br><span class="line">img1(gray_img) -- erode --&gt; img2(gray_img)</span><br><span class="line">img2 --&gt; img3(origin_thr)</span><br><span class="line">img3 -- warpPerspective --&gt; array1(binary_warped)</span><br><span class="line">array1 --&gt; x1[histogram_x]</span><br><span class="line">array1 --&gt; x2[histogram_y]</span><br><span class="line">x1 --&gt; lane_base</span><br><span class="line">x2 --&gt; l(lower)</span><br><span class="line">x2 --&gt; r(upper)</span><br><span class="line">l --&gt; ratio(hist_sum_y_ratio)</span><br><span class="line">r --&gt; ratio</span><br></pre></td></tr></table></figure>
-
 <p>然后将窗口分割，从下而上计算车道线所在位置，并计算车道线的斜率。</p>
 <p>车道线斜率的计算主要使用的是纯几何跟踪的方法。</p>
 <h2 id="难点一：斑马线"><a href="#难点一：斑马线" class="headerlink" title="难点一：斑马线"></a>难点一：斑马线</h2><p>由于车道线识别的过程中主要是对图像中的白色像素进行判断，斑马线对车道线的识别有一定的影响。</p>
@@ -1819,7 +1802,7 @@
 <p>真正比较有影响的是出斑马线的部分，遮盖有效果</p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200913160049787.png" alt="image-20200913160049787"></p>
 <p>原图 =》 binary_wraped =》 canny边缘检测 =》 霍夫直线检测 =》 黑色覆盖斑马线区域</p>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/%E6%96%91%E9%A9%AC%E7%BA%BF%E8%A6%86%E7%9B%96.png" alt="image-20200913162727339"></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/斑马线覆盖.png" alt="image-20200913162727339"></p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200913162918804.png" alt="image-20200913162918804"></p>
 <p><strong>接下来，调整霍夫变换，避免边缘点的检测</strong></p>
 <blockquote>
@@ -1829,6 +1812,7 @@
 <p>测量物体三轴姿态角（或角速率）以及加速度的装置，一般来说，IMU安装在被测物体的重心上，用字啊需要进行运动控制的设备上，也用在需要用姿态进行精密位移推算的场合</p>
 <p>在串口节点中发布的有关超声波和IMU消息的主题：</p>
 <p>类型都是 int32 的类型，但是单位也各有不同</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1837,7 +1821,8 @@
 <th>单位</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>/vcu/ActualMotorSpeed</td>
 <td>实际电机转速</td>
 <td>转/s</td>
@@ -1927,11 +1912,13 @@
 <td>电机温度</td>
 <td>摄氏度</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <blockquote>
 <p>参考：</p>
-<p><a href="https://blog.csdn.net/u013468614/article/details/106724804?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-16-106724804.nonecase&utm_term=imu%E9%87%8C%E7%A8%8B%E8%AE%A1" target="_blank" rel="noopener">移动机器人轮式里程计</a></p>
-<p><a href="https://blog.csdn.net/hzwwpgmwy/article/details/85086393?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-1-85086393.nonecase&utm_term=imu%E9%87%8C%E7%A8%8B%E8%AE%A1" target="_blank" rel="noopener">里程计航迹推演与IMU预积分</a></p>
+<p><a href="https://blog.csdn.net/u013468614/article/details/106724804?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-16-106724804.nonecase&amp;utm_term=imu%E9%87%8C%E7%A8%8B%E8%AE%A1" target="_blank" rel="noopener">移动机器人轮式里程计</a></p>
+<p><a href="https://blog.csdn.net/hzwwpgmwy/article/details/85086393?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-1-85086393.nonecase&amp;utm_term=imu%E9%87%8C%E7%A8%8B%E8%AE%A1" target="_blank" rel="noopener">里程计航迹推演与IMU预积分</a></p>
 <p><a href="https://blog.csdn.net/baimei4833953/article/details/80768762" target="_blank" rel="noopener">IMU与里程计融合</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/164778891" target="_blank" rel="noopener">从零手写VIO——（三）基于优化的 IMU 与视觉信息融合（下篇）</a></p>
 <p>VIO相关知识</p>
@@ -1950,6 +1937,7 @@
     <url>/2020/09/29/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0%E4%BA%8C/</url>
     <content><![CDATA[<p>上一篇主要内容是针对本赛事中的重难点进行描述，但是针对实际问题，需要更加细致的调整。</p>
 <p>本文记录实际调试过程中遇到的问题和改善方法。</p>
+<a id="more"></a>
 <h2 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h2><h3 id="1-首先需要调整透视变换视角"><a href="#1-首先需要调整透视变换视角" class="headerlink" title="1. 首先需要调整透视变换视角"></a>1. 首先需要调整透视变换视角</h3><p>主要是画面范围的调整。</p>
 <p>由于弯道比较多，真实小车的视线中很少能看到两条线；同时，大概是因为选择透视变换的范围比较小，无法覆盖到需要的图像区域。因此需要对画面进行调整。</p>
 <p><strong>直接用openCV添加直线</strong></p>
@@ -2059,6 +2047,7 @@
 <li>min_line_length：</li>
 <li>max_line_gap：</li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -2070,7 +2059,8 @@
 <th>效果</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>1</td>
 <td>np.pi/180</td>
 <td>30</td>
@@ -2092,14 +2082,16 @@
 <td></td>
 <td></td>
 <td></td>
-<td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="6-滑动平均问题"><a href="#6-滑动平均问题" class="headerlink" title="6. 滑动平均问题"></a>6. 滑动平均问题</h3><p>关于servoNode中的滑动平均值，之前确实没有过多考虑，可能还是希望能就原状进行测试，但是忽略了代码间的相互协调能力</p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200910135546937.png" alt="image-20200910135546937"></p>
 <p>这个 n 值的设定主要是起到滑动平均的基数的关系</p>
 <p>如果调整n，发布的速度也会比较慢，但是也需要可以起到比较好的光滑的效果（不见得）</p>
 <p>需要尝试一下，目前设想的测试顺序如下所示：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -2110,14 +2102,16 @@
 <th>10</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td></td>
 <td>抖动比较明显，但是可过弯</td>
 <td>抖动降低，但是人行道不易通过，转角过大</td>
 <td></td>
-<td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="7-整体规划首个思路"><a href="#7-整体规划首个思路" class="headerlink" title="7. 整体规划首个思路"></a>7. 整体规划首个思路</h3><p><strong>起步</strong></p>
 <p>由于是绿灯开始后才进行运动，因此可以在运动的开始添加一个延时，在此延时中将无人车的运动方向设置为50，可以稍微加快速度</p>
 <p><strong>左转弯</strong></p>
@@ -2156,7 +2150,6 @@
 <li>注意不能压线，不能碰挡板</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">camera --&gt; l(laneDetection)</span><br><span class="line">l --&gt; images</span><br><span class="line">l --&gt; l2(lane_vel:topic)</span><br><span class="line">l2 -.- res1[有效信息只有angle_z]</span><br><span class="line">l2 --&gt; s1((servoNode))</span><br><span class="line"></span><br><span class="line">h[hilens] --&gt; t1(traffic_light)</span><br><span class="line">h --&gt; t2(标识牌信息)</span><br><span class="line">t1 --&gt; s1</span><br><span class="line">t2 --&gt; s1</span><br><span class="line">s1 --&gt; m1(manul)</span><br><span class="line">s1 --&gt; d1(direction)</span><br><span class="line">s1 --&gt; s2(speed)</span><br><span class="line">s1 --&gt; g(gear)</span><br><span class="line"></span><br><span class="line">m1 -.- res2[自动手动]</span><br><span class="line">d1 -.- res3[方向]</span><br><span class="line">s2 -.- res4[速度]</span><br><span class="line">g -.- res5[挡位]</span><br></pre></td></tr></table></figure>
-
 <h3 id="8-scan话题无法读取的问题"><a href="#8-scan话题无法读取的问题" class="headerlink" title="8. /scan话题无法读取的问题"></a>8. /scan话题无法读取的问题</h3><blockquote>
 <p>参考：<a href="https://blog.csdn.net/qq_38441692/article/details/98205852" target="_blank" rel="noopener">ROS多机通讯踩坑，（主机和从机之间可以订阅话题，但是看不到话题消息）</a></p>
 <p><a href="https://answers.ros.org/question/48240/rostopic-list-works-but-rostopic-echo-does-not/" target="_blank" rel="noopener"><strong>rostopic list works but rostopic echo does not</strong></a></p>
@@ -2176,6 +2169,7 @@
     <title>华为云无人车参赛笔记三</title>
     <url>/2020/09/30/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0%E4%B8%89/</url>
     <content><![CDATA[<p>关于华为云无人车大赛，第一篇笔记记录主要知识和技术点， 第二篇笔记记录调试思路和过程，本篇主要记录赛后的反思，包括半决赛和决赛。</p>
+<a id="more"></a>
 <h2 id="赛后反思"><a href="#赛后反思" class="headerlink" title="赛后反思"></a>赛后反思</h2><h3 id="半决赛"><a href="#半决赛" class="headerlink" title="半决赛"></a>半决赛</h3><p>半决赛中，博主所在的队伍表现尚可，第一场碰撞两次挡板，但是得以完赛；第二场中无碰撞、无压线，仅超时7s，是博主全部比赛中的最好成绩。</p>
 <p>总结半决赛问题，挡板的碰撞主要都出现在左转弯的半圈，也就是说左转弯的转弯半径调整不到位。</p>
 <p>博主针对转弯半径的调节比较保守，主张在不修改“从像素目标点到真实目标点”的基础上进行修改，主要修改之处有：</p>
@@ -2243,6 +2237,7 @@
 <p><a href="https://www.runoob.com/python/os-file-methods.html" target="_blank" rel="noopener">菜鸟教程-Python OS文件/目录方法</a></p>
 </blockquote>
 <p>其实使用os库的目的就是更方便地遍历文件</p>
+<a id="more"></a>
 <p>那么问题有：</p>
 <p>怎么判断是一个文件还是文件夹？</p>
 <ul>
@@ -2264,7 +2259,6 @@
 <p><strong>注意：这里我们要返回某个文件的绝对地址时，并不需要root+dir+file，只需要root+file就可以了</strong></p>
 <p>还是有个问题，walk函数中的参数是如何进行设置的</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">os.walk(top, topdown, onerror, followlinks)</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>top：所要遍历的目录的地址，返回一个三元组（root, dirs, files）</li>
 <li>topdown：默认为true——也就是优先遍历top目录，如果设置为false则优先遍历top的子目录</li>
@@ -2304,6 +2298,7 @@
 <p>相对于手动选择特征，会有什么样的不同，以及怎么样去实现ta？1.3节涉及</p>
 <p>To train this model, you need a few things (besides the loop itself, which can be a standard Python for loop): a source of training data, an optimizer to adapt the model to<br>the training data, and a way to get the model and data to the hardware that will be performing the calculations needed for training the model.  </p>
 <p>要训练该模型，您需要做一些事情（除了循环本身，它可以是标准的Python for循环）：训练数据的来源，用于使模型适应训练数据的优化器以及获取模型的方法 并将数据发送到硬件，该硬件将执行训练模型所需的计算。</p>
+<a id="more"></a>
 <h2 id="tensor"><a href="#tensor" class="headerlink" title="tensor"></a>tensor</h2><p>从tensor形式转化为storage形式，需要使用offset、size、stride三个变量</p>
 <p>tensor是一维的</p>
 <p>stride表示的是当tensor的维数+1时，元素必须跳过skip的个数</p>
@@ -2355,7 +2350,7 @@
 <li><code>torch.nn.Hardtanh</code>激活函数</li>
 </ol>
 <p>小于0就全部为0，大于10就全部为10，类似这样的逻辑</p>
-<ol start="2">
+<ol>
 <li><p><code>torch.nn.sigmoid</code>激活函数</p>
 </li>
 <li><p><code>torch.tanh</code></p>
@@ -2397,8 +2392,7 @@
 </li>
 <li><p><code>Dataloader</code></p>
 </li>
-<li><p>用于读取数据集</p>
-</li>
+<li>用于读取数据集</li>
 </ul>
 <p><code>torch.nn.DataParallel</code> 可以使用多个GPU来加速训练</p>
 <p><code>torch.distributed</code>也是一个和分布式训练，多GPU训练有关的包</p>
@@ -2406,6 +2400,7 @@
 <ul>
 <li>包括<code>optimizer.zero_grad()</code>，<code>loss.backward()</code>，<code>optimizer.step()</code></li>
 </ul>
+<a id="more"></a>
 <hr>
 <h1 id="方法-function"><a href="#方法-function" class="headerlink" title="方法 function"></a>方法 function</h1><p>一维list转化为三维list：<code>mean[:, None, None]</code>（前提是mean的类型是tensor）</p>
 <p>增加维度：<code>image[None]</code>（前提是tensor）</p>
@@ -2454,7 +2449,6 @@
 </ul>
 <p><strong>使用tensor可以实现在矩阵中找小于大于某数的数的索引值的比较快的方式</strong></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 蒙版索引</span></span><br><span class="line">between_thresholds=(matched_vals&gt;=self.low_threshold)&amp;(matched_vals&lt;self.high_threshold)</span><br><span class="line"><span class="comment"># 直接使用，从而找出matched_vals中介于满足两个阈值要求的数值</span></span><br><span class="line">matrix[between_thresholds]</span><br></pre></td></tr></table></figure>
-
 <p><code>torch.randperm(n)</code> 把0到n-1这些数随机打乱，得到一个数字序列</p>
 <p><code>torch.clamp(input, min, max)</code> 将输入的input张量的每个元素夹紧到[min,max]区间，返回新张量。也就是说，大于max值的会缩小为max，小于min值得会放大为min值。</p>
 <p><code>torch.nonzero(input)</code> 输入应为tensor类型，输出为两个tensor，记录了input中非零元素的索引位置（用横纵坐标来理解更容易）</p>
@@ -2475,9 +2469,9 @@
 <h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><h2 id="147-对【链表】进行插入排序"><a href="#147-对【链表】进行插入排序" class="headerlink" title="147. 对【链表】进行插入排序"></a>147. 对【链表】进行插入排序</h2><p>每次取出一个待排序元素</p>
 <p>然后将它放入已经排好的序列的合适位置【升序排列，可能有负数】</p>
 <p>关键是怎么样进行排序，从动画来看是从末尾开始进行比较，直到当前数的大小合适就可以放入了</p>
+<a id="more"></a>
 <p>python中的这个链表很有意思，感受一下：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 原始定义</span></span><br><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        self.val = x</span><br><span class="line">        self.next = <span class="literal">None</span></span><br></pre></td></tr></table></figure>
-
 <p>假如说一个 链表 <code>head</code></p>
 <p>其内容看似是 <code>[4, 2, 1, 3]</code></p>
 <p>但是实际调用应该是 <code>head.val = 4</code> 头部的第一个数</p>
@@ -2520,7 +2514,7 @@
 <h4 id="阅读题解"><a href="#阅读题解" class="headerlink" title="阅读题解"></a>阅读题解</h4><p>重点的几个内容：</p>
 <ol>
 <li><strong>链表前的节点</strong> —— 哑节点 —— 便于在head前插入节点<code>zeroHead.next = head</code></li>
-<li>*<em>已排序部分的最后一个节点 *</em> <code>lastSorted = head</code></li>
+<li><strong>已排序部分的最后一个节点 </strong> <code>lastSorted = head</code></li>
 <li><strong>待插入元素</strong> <code>current = head.next</code></li>
 <li><strong>插入元素的位置</strong>的前一个节点 <code>prev</code></li>
 </ol>
@@ -2533,7 +2527,6 @@
 <li>第2步比较之后发现确实需要进行变化：</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lastSorted.next = current.next <span class="comment"># 相当于把 lastSorted 向后移动了一位</span></span><br><span class="line">current.next = prev.next <span class="comment"># 相当于把排序的那个链表断开，从 prev 这里断开</span></span><br><span class="line">prev.next = current	<span class="comment"># 然后把 current放在了 prev 的后面</span></span><br><span class="line"></span><br><span class="line">current = lastSorted.next <span class="comment"># 更新将要插入的值</span></span><br></pre></td></tr></table></figure>
-
 <p>然后是判断的条件：</p>
 <ul>
 <li>计数是不太明智的方法</li>
@@ -2605,8 +2598,8 @@
 <ul>
 <li>np.argwhere</li>
 </ul>
-<p><a href="https://blog.csdn.net/Jerry_1126/article/details/88924288?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-1-88924288.nonecase&utm_term=python%20%E6%9F%A5%E6%89%BE%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0%E5%B9%B6%E4%B8%94%E8%BF%94%E5%9B%9E%E7%B4%A2%E5%BC%95&spm=1000.2123.3001.4430" target="_blank" rel="noopener">Python从列表中找出所有元素索引的几种方法</a></p>
-<p><a href="https://blog.csdn.net/Kerrwy/article/details/82419132?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-3-82419132.nonecase&utm_term=python%20%E6%9F%A5%E6%89%BE%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0%E5%B9%B6%E4%B8%94%E8%BF%94%E5%9B%9E%E7%B4%A2%E5%BC%95&spm=1000.2123.3001.4430" target="_blank" rel="noopener">python找出一个列表中相同元素的多个索引</a></p>
+<p><a href="https://blog.csdn.net/Jerry_1126/article/details/88924288?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-1-88924288.nonecase&amp;utm_term=python%20%E6%9F%A5%E6%89%BE%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0%E5%B9%B6%E4%B8%94%E8%BF%94%E5%9B%9E%E7%B4%A2%E5%BC%95&amp;spm=1000.2123.3001.4430" target="_blank" rel="noopener">Python从列表中找出所有元素索引的几种方法</a></p>
+<p><a href="https://blog.csdn.net/Kerrwy/article/details/82419132?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-3-82419132.nonecase&amp;utm_term=python%20%E6%9F%A5%E6%89%BE%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0%E5%B9%B6%E4%B8%94%E8%BF%94%E5%9B%9E%E7%B4%A2%E5%BC%95&amp;spm=1000.2123.3001.4430" target="_blank" rel="noopener">python找出一个列表中相同元素的多个索引</a></p>
 <p><a href="https://blog.csdn.net/chenhequanlalala/article/details/100991793" target="_blank" rel="noopener">Python3 返回字符串中某个给定字符的全部索引</a></p>
 <p>matlab中对矩阵直接判断：A&gt;a，就能得到同样大小的矩阵，但是python似乎不可以</p>
 </blockquote>
@@ -2655,11 +2648,11 @@
 <p>如果是黄色，才会增加变换的次数</p>
 </li>
 <li><p>j = 1，需要把第 i 片叶子变成黄色，i 之前的叶子可以是 j = 0，也可以是 j = 1</p>
-<p>$f[i][1]=min{f[i-1][0], f[i-1][1]}+isRed(i)$</p>
+<p>$f[i][1]=min\{f[i-1][0], f[i-1][1]\}+isRed(i)$</p>
 <p>如果是红色，才会增加变换的次数</p>
 </li>
 <li><p>j = 2，需要把第 i 片叶子变成红色，i 之前的叶子可以是 j = 1或2</p>
-<p>$f[i][2]=min{f[i-1][1], f[i-1][2]} + isYellow(i)$</p>
+<p>$f[i][2]=min\{f[i-1][1], f[i-1][2]\} + isYellow(i)$</p>
 <p>如果是黄色，才会增加变换的次数</p>
 </li>
 </ul>
@@ -2723,7 +2716,7 @@
 <p>…到这里，再看上面的方程，这已经成为一个很基本的数学问题了</p>
 <p>（1）不断进行滑动就可以实现了【不过这样的复杂度为什么是$O(1)$而不是$O(n)$】确实，时间复杂度是O(n)，空间复杂度是O(1)</p>
 <p>（2）使用矩阵的方法</p>
-<p>$\left[\begin{matrix} f(n+1) \f(n)\end{matrix}\right]=\left[\begin{matrix}1 &amp; 1\1 &amp;0\end{matrix}\right]\left[\begin{matrix}f(n)\f(n-1)\end{matrix}\right]$</p>
+<p>$\left[\begin{matrix} f(n+1) \\f(n)\end{matrix}\right]=\left[\begin{matrix}1 &amp; 1\\1 &amp;0\end{matrix}\right]\left[\begin{matrix}f(n)\\f(n-1)\end{matrix}\right]$</p>
 <p>那么就是要求矩阵的n次方了</p>
 <p>（3）上面的递归方程其实可以用特征方程的方式求解通项公式，当然这个感觉会稍微有一点难</p>
 <p>总结：</p>
@@ -2738,7 +2731,6 @@
 <p>需要有个东西记录数字</p>
 <p>终止条件是什么？f(n)是要求的数字，n是台阶的数量</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span><span class="params">(self, n: int)</span> -&gt; int:</span> </span><br><span class="line">        a, b = <span class="number">1</span>, <span class="number">1</span> <span class="comment"># f(0), f(1)</span></span><br><span class="line">        c = a + b   <span class="comment"># f(2)</span></span><br><span class="line">        times = <span class="number">2</span>   <span class="comment"># 2</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> times &lt; n:</span><br><span class="line">            a, b = b, c</span><br><span class="line">            c = a + b   <span class="comment"># f(times+1)</span></span><br><span class="line">            times += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> c</span><br></pre></td></tr></table></figure>
-
 <p>这里刚开始用的是for循环，最后改成了while</p>
 <p>for 不能这么用，for的话这是for i in range···</p>
 <h2 id="53-最大子序和"><a href="#53-最大子序和" class="headerlink" title="53. 最大子序和"></a>53. 最大子序和</h2><p>输入：整数数组</p>
@@ -2746,7 +2738,6 @@
 <p>输出：最大和</p>
 <p>从给的例子来看：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: [-2,1,-3,4,-1,2,1,-5,4]</span><br><span class="line">输出: 6</span><br><span class="line">解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</span><br></pre></td></tr></table></figure>
-
 <p><strong>并不是遇到负数就断了</strong></p>
 <p>而是如果负数将这个序列和归0了，甚至是变为负数了，那么这个子序列就中断了</p>
 <p><strong>也不是要从头加到尾</strong></p>
@@ -2784,7 +2775,7 @@
 </blockquote>
 <h3 id="阅读题解-2"><a href="#阅读题解-2" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>==妙蛙种子吃了妙脆角到了米奇妙妙屋，妙到家了==</p>
 <p>这里讲的第一种方法是动态规划的方法：</p>
-<p>每一步，我们计算到该位置的最大子序和$f(i)=max{f(i-1)+a_i, a_i}$</p>
+<p>每一步，我们计算到该位置的最大子序和$f(i)=max\{f(i-1)+a_i, a_i\}$</p>
 <p>站的角度不同，我是考虑“要不要把当前的值加入 过去的序列 sum中”</p>
 <p>而这个方法则是观察每一个位置的最大子序和 ，考虑的是 “前面的子序和对我当前数值有没有用”</p>
 <h2 id="198-打家劫舍"><a href="#198-打家劫舍" class="headerlink" title="198. 打家劫舍"></a>198. 打家劫舍</h2><p>输入：非负整数数组</p>
@@ -2805,7 +2796,6 @@
 <p>==喜极而泣！！！==</p>
 <p>这是我第一次用动态规划的方法完成了解题！！！</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rob</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> len(nums) &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> sum(nums)</span><br><span class="line">        max_sum = []</span><br><span class="line">        max_sum.append(<span class="number">0</span>)</span><br><span class="line">        max_sum.append(nums[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, len(nums)+<span class="number">1</span>):</span><br><span class="line">            max_sum.append(max(max_sum[i<span class="number">-1</span>], max_sum[i<span class="number">-2</span>] + nums[i<span class="number">-1</span>]))</span><br><span class="line">        <span class="keyword">return</span> max_sum[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
-
 <p>非常完美，一次过！</p>
 <hr>
 <h1 id="List操作"><a href="#List操作" class="headerlink" title="List操作"></a>List操作</h1><h2 id="977-有序数组的平方"><a href="#977-有序数组的平方" class="headerlink" title="977. 有序数组的平方"></a>977. 有序数组的平方</h2><p>定性：python排序问题</p>
@@ -2959,7 +2949,6 @@
 <p>我用了一种偷懒的方式，希望把原来的代码稍加修改就能实现新的目标，但是这样是很错误的，例如：<code>1234567890</code>，如果按照我的代码，首先会去除<code>9</code>，然后保留<code>len(num)-k</code>个数字，那就会删除9个数字，最后剩下的是 1 ，而不是 0</p>
 <p>第一版代码：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 冗长而不能解</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeKdigits</span><span class="params">(self, num: str, k: int)</span> -&gt; str:</span></span><br><span class="line">        left_num_idx = <span class="number">0</span></span><br><span class="line">        index = <span class="number">1</span></span><br><span class="line">        del_num = <span class="number">0</span></span><br><span class="line">        del_num_idx = []</span><br><span class="line">        <span class="comment"># 去除操作</span></span><br><span class="line">        <span class="keyword">while</span> del_num != k <span class="keyword">and</span> index &lt; len(num):</span><br><span class="line">            print(num[index])</span><br><span class="line">            <span class="keyword">if</span> num[index] &lt; num[left_num_idx]:</span><br><span class="line">                del_num += <span class="number">1</span></span><br><span class="line">                del_num_idx.append(left_num_idx)</span><br><span class="line">                left_num_idx = index</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                left_num_idx = index</span><br><span class="line">            index += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        new_num = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(num)):</span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> del_num_idx:</span><br><span class="line">                new_num.append(num[i])</span><br><span class="line">        new_num_str = <span class="string">""</span>.join(new_num)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 保留操作，避免去除的数量不够</span></span><br><span class="line">        new_num_str = new_num_str[:len(num)-k].lstrip(<span class="string">'0'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> len(new_num_str):</span><br><span class="line">            new_num_str = <span class="string">'0'</span></span><br><span class="line">        <span class="keyword">return</span> new_num_str</span><br></pre></td></tr></table></figure>
-
 <p>新的代码思路：</p>
 <ul>
 <li>要删除左侧较大的数字，而且一直要删到小于等于它为止</li>
@@ -2976,14 +2965,12 @@
 </ul>
 <p>新的代码基本是照搬高赞代码：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeKdigits</span><span class="params">(self, num, k)</span>:</span></span><br><span class="line">        stack = []</span><br><span class="line">        remain = len(num) - k</span><br><span class="line">        <span class="keyword">for</span> digit <span class="keyword">in</span> num:</span><br><span class="line">            <span class="keyword">while</span> k <span class="keyword">and</span> stack <span class="keyword">and</span> stack[<span class="number">-1</span>] &gt; digit:</span><br><span class="line">                stack.pop()</span><br><span class="line">                k -= <span class="number">1</span></span><br><span class="line">            stack.append(digit)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span>.join(stack[:remain]).lstrip(<span class="string">'0'</span>) <span class="keyword">or</span> <span class="string">'0'</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="121-买卖股票的最佳时机"><a href="#121-买卖股票的最佳时机" class="headerlink" title="121. 买卖股票的最佳时机"></a>121. 买卖股票的最佳时机</h2><p>输入：一个数组【股票场景，第i个数字表示股票第i天价格】</p>
 <p>输出：数组中后面数字减前面的数字，能减出的最大差值【股票场景，最多一笔交易，计算获取的最大利润】</p>
 <p>给一个位置记录最大值，如果出现更大的最大值，更新记录</p>
 <p>给一个位置记录最小值，如果出现更小的最小值，最小值重新记录，最大值也重新记录？【也不对，万一后面并没有更大值了就不行了】</p>
 <p>给一个位置记录利润，当每次需要更新最小值的时候，就会刷新一下利润；循环结束之后也需要刷新一下利润</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, prices: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> len(prices) &lt;= <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        maxPrice = prices[<span class="number">0</span>]</span><br><span class="line">        minPrice = prices[<span class="number">0</span>]</span><br><span class="line">        profit = []</span><br><span class="line">        profit.append(maxPrice - minPrice)</span><br><span class="line">        n = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> n &lt; len(prices):</span><br><span class="line">            <span class="keyword">if</span> prices[n] &lt; minPrice:</span><br><span class="line">                profit.append(maxPrice - minPrice)</span><br><span class="line">                minPrice = prices[n]</span><br><span class="line">                maxPrice = prices[n]</span><br><span class="line">                <span class="comment"># print(profit)</span></span><br><span class="line">            <span class="keyword">elif</span> prices[n] &gt; maxPrice:</span><br><span class="line">                maxPrice = prices[n]</span><br><span class="line">            n += <span class="number">1</span></span><br><span class="line">        profit.append(maxPrice - minPrice)</span><br><span class="line">        <span class="comment"># print(profit)</span></span><br><span class="line">        <span class="keyword">return</span> max(profit)</span><br></pre></td></tr></table></figure>
-
 <p>看上去这个代码好像是可以了</p>
 <p>但是，题目是真的狠，输入是10000到0倒着数，而且还写了好多0</p>
 <p>最后还是可以通过的，就是不要print！！！</p>
@@ -3014,6 +3001,7 @@
 <li>从原始序列到子序列，可以删除部分字符，可以不连续，但是<strong>相对位置</strong>不能变</li>
 <li>两个序列全是英文小写字母</li>
 </ul>
+<a id="more"></a>
 <p>传统方法：</p>
 <ul>
 <li>如果可以不改变顺序地去重，那么就可以直接取筛选了</li>
@@ -3032,13 +3020,11 @@
 <p><del>（2）长字符和短字符一样长【如果不相等可以直接判断为False了】，那相等直接判定为True【其实这个也不必了】</del></p>
 <p>这个问题最容易出错的地方是list的索引问题，上代码：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isSubsequence</span><span class="params">(self, s: str, t: str)</span> -&gt; bool:</span></span><br><span class="line">        yes_num = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> len(s):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="comment"># if len(s) == len(t):</span></span><br><span class="line">        <span class="comment">#     return False if s != t else True</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(t)):</span><br><span class="line">            <span class="keyword">if</span> t[i] == s[yes_num]:</span><br><span class="line">                yes_num += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> yes_num == len(s):</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span> <span class="keyword">if</span> yes_num == len(s) <span class="keyword">else</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
 <p>yes_sum 直接代表了 s 中的下一个位置【因为list从0开始】，也表示了 s 已经匹配的字符数量</p>
 <p><strong>所以最后对比yes_num和s的长度就不用长度减一了！！</strong></p>
 <p>所以长字符和短字符一样长的情况也就不再是特殊情况了</p>
 <p>最后，最简化版本，特殊情况不特殊，最后判断也多余：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isSubsequence</span><span class="params">(self, s: str, t: str)</span> -&gt; bool:</span></span><br><span class="line">        yes_num = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> len(s):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(t)):</span><br><span class="line">            <span class="keyword">if</span> t[i] == s[yes_num]:</span><br><span class="line">                yes_num += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> yes_num == len(s):</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="746-使用最小花费爬楼梯-动态规划"><a href="#746-使用最小花费爬楼梯-动态规划" class="headerlink" title="746. 使用最小花费爬楼梯 - 动态规划"></a>746. 使用最小花费爬楼梯 - 动态规划</h2><p>本题确实是一个动态规划方面的问题，但是我得说这个问题的描述有点迷糊</p>
 <p>输入：一个列表，全是数值，长度至少是2</p>
 <p>输出：最小子序列的和</p>
@@ -3090,7 +3076,6 @@
 </ul>
 <p>因为最后已经增加了判断最后一个数值取舍的步骤，这里的 f(2) 就没有必要多一次判断了</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minCostClimbingStairs</span><span class="params">(self, cost: List[int])</span> -&gt; int:</span></span><br><span class="line">        sum_cost = []</span><br><span class="line">        sum_cost.append(cost[<span class="number">0</span>])</span><br><span class="line">        sum_cost.append(cost[<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">if</span> len(cost) == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> sum_cost[<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, len(cost)):</span><br><span class="line">            sum_cost.append(cost[i] + min(sum_cost[<span class="number">-1</span>], sum_cost[<span class="number">-2</span>]))</span><br><span class="line">        <span class="keyword">return</span> min(sum_cost[<span class="number">-1</span>], sum_cost[<span class="number">-2</span>])</span><br></pre></td></tr></table></figure>
-
 <h2 id="面试题-17-16-按摩师-动态规划"><a href="#面试题-17-16-按摩师-动态规划" class="headerlink" title="面试题 17.16 按摩师 - 动态规划"></a>面试题 17.16 按摩师 - 动态规划</h2><p>输入：一个序列</p>
 <p>输出：子序列的和，最大和</p>
 <p>要求：子序列元素不能相邻</p>
@@ -3215,11 +3200,10 @@
 </ul>
 <p>以下是我成功的代码：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myPow</span><span class="params">(self, x: float, n: int)</span> -&gt; float:</span></span><br><span class="line">        <span class="keyword">if</span> x == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> x == <span class="number">1</span> <span class="keyword">or</span> n == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> n &lt; <span class="number">0</span>:</span><br><span class="line">            x, n = <span class="number">1</span>/x, abs(n)</span><br><span class="line">        weight = <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> x &lt; <span class="number">0</span> <span class="keyword">and</span> n % <span class="number">2</span>:</span><br><span class="line">            weight = <span class="number">-1</span></span><br><span class="line">            x = abs(x)</span><br><span class="line">        result = <span class="number">1</span></span><br><span class="line">        res = n</span><br><span class="line">        <span class="keyword">while</span> res:</span><br><span class="line">            this_k, this_pow_2 = self.max_2_pow(res)</span><br><span class="line">            this_x = x</span><br><span class="line">            print(this_k, this_pow_2)</span><br><span class="line">            <span class="keyword">while</span> this_k:</span><br><span class="line">                this_x *= this_x</span><br><span class="line">                this_k -= <span class="number">1</span></span><br><span class="line">            result *= this_x</span><br><span class="line">            res -= this_pow_2</span><br><span class="line">        <span class="keyword">return</span> weight * result</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">max_2_pow</span><span class="params">(self, n: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="comment"># 求不大于 n 的 2 的 k 次幂</span></span><br><span class="line">        pow_2 = <span class="number">1</span></span><br><span class="line">        k = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> n &gt;= pow_2:</span><br><span class="line">            pow_2 *= <span class="number">2</span></span><br><span class="line">            k += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> max(k<span class="number">-1</span>, <span class="number">0</span>), max(<span class="number">1</span>, pow_2 / <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
 <p>其中，多次修改的部分是关于“不大于 n 的 2 的 k 次幂”的求解</p>
 <p>一般情况下，$2^k \leq n &lt; 2^{k+1}$，此时需要输出的是 k，但是因为满足 while 的循环条件，会多计算一层，所以最后的结果又要扒去一层，但是又要考虑 $ n = 1$ 的情况【这里n不可能为0，因为已经被其他的条件约束了】，所以又要防止把 k=0 和 n=1 又给削了</p>
 <blockquote>
-<p><strong>还有一种找 $2^k$ 的方式，是观察余数，如果 $n % 2^k &lt; 2^k$，那么自然是介于$2^k$ 和 $2^{k+1}$之间了</strong> </p>
+<p><strong>还有一种找 $2^k$ 的方式，是观察余数，如果 $n \% 2^k &lt; 2^k$，那么自然是介于$2^k$ 和 $2^{k+1}$之间了</strong> </p>
 </blockquote>
 <h3 id="阅读题解-1"><a href="#阅读题解-1" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>官方题解说的分治思想确实很不错，从 n 开始，从后往前看，每次对指数向下取整，指数为偶数和奇数分两种结果，也很不错，而且优势在于这种方式可以递归！</p>
 <p>第二种方法绝了，如果不是对二进制非常熟悉，恐怕很难发现这种规律。</p>
@@ -3273,7 +3257,6 @@
 <li>另外：如果出现一个差值为0， 那么不能继续乘以它了，这样后面就无效了</li>
 </ul>
 <!--重要-->
-
 <p>==重新整理思路：==</p>
 <ul>
 <li><p>第一个数，索引0，结果直接加1，不会比1小</p>
@@ -3284,8 +3267,7 @@
 </li>
 <li><p>所以就是，计算差值</p>
 <ul>
-<li><p>如果差值为0自然是不加不减</p>
-<ul>
+<li>如果差值为0自然是不加不减<ul>
 <li>==而且不能改变前一个趋势值 s1==</li>
 </ul>
 </li>
@@ -3301,7 +3283,6 @@
 </li>
 </ul>
 <!--重要-->
-
 <p>其实我的方法是<strong>贪心法</strong>的思路！！</p>
 <ul>
 <li>但是问题是我没有很好地==处理 0 的问题==，如果不能用乘法一劳永逸地解决，不妨直接==用不等号进行尝试==！</li>
@@ -3337,8 +3318,7 @@
 </ul>
 </li>
 </ul>
-<img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20201212135251108.png" alt="image-20201212135251108" style="zoom: 67%;" />
-
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20201212135251108.png" alt="image-20201212135251108" style="zoom: 67%;" /></p>
 <p>最后的答案也是从 up[n-1] 和 down[i-1]中选择比较大的那个</p>
 <h2 id="135-分发糖果-贪心法"><a href="#135-分发糖果-贪心法" class="headerlink" title="135. 分发糖果 - 贪心法"></a>135. 分发糖果 - 贪心法</h2><p>这道题有一点像华为今年的题</p>
 <p>输入：一个整数序列</p>
@@ -3405,6 +3385,7 @@
 <h1 id="数组和排序"><a href="#数组和排序" class="headerlink" title="数组和排序"></a>数组和排序</h1><h2 id="1046-最后一块石头的重量-排序问题"><a href="#1046-最后一块石头的重量-排序问题" class="headerlink" title="1046. 最后一块石头的重量 - 排序问题"></a>1046. 最后一块石头的重量 - 排序问题</h2><p>输入：整数数组（不会超过30个数字，1到1000之间）</p>
 <p>输出：特定 int 值</p>
 <p>每次运算：选出两个最大数字，返回差值（如果是0就不用返回），直到只剩下0个或1个数值，无法比较，返回该数字</p>
+<a id="more"></a>
 <p>（1）暴力解法</p>
 <p>每次需要找最大的两个数字，这一步的时间和空间复杂度就已经比较高了$O(n^2)$，然后再相减，加入到新的序列中，其实还可以接受</p>
 <blockquote>
@@ -3488,7 +3469,6 @@
 <p>老办法：计算所有数字出现过的次数，然后&gt;2的都可以输出</p>
 <p>代码：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findRepeatNumber</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        sort = [<span class="number">0</span>] * (max(nums)+<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">            sort[i] += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> sort.index(max(sort))</span><br></pre></td></tr></table></figure>
-
 <p>也的确可以通过，但是这种方法不太好</p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20210105161105089.png" alt="image-20210105161105089"></p>
 <p>有没有其他减少复杂度的方法，比如先排个序？不行，并不能保证重复的数字出现在某个位置</p>
@@ -3509,7 +3489,6 @@
 <p>一个特例：就是最后几个字母是一样的，那么就会一直continue，所以到最后再判断一次end和start是不是相等，得出答案</p>
 <p>代码：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">largeGroupPositions</span><span class="params">(self, s: str)</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> len(s):</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        output = []</span><br><span class="line">        start, end = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(s)):</span><br><span class="line">            <span class="keyword">if</span> s[i] == s[i<span class="number">-1</span>]:</span><br><span class="line">                end += <span class="number">1</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">if</span> end - start &gt;= <span class="number">2</span>:</span><br><span class="line">                output.append([start, end])</span><br><span class="line">            start, end = i, i</span><br><span class="line">        <span class="keyword">if</span> end - start &gt;= <span class="number">2</span>:</span><br><span class="line">            output.append([start, end])</span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
-
 <p>可以通过，但是速度和空间都比较糟糕</p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20210105163910474.png" alt="image-20210105163910474"></p>
 <h3 id="阅读题解-2"><a href="#阅读题解-2" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>就是一次遍历的方法，记录当前分组的长度，如果字符不同，那么就说明已经到尾部了</p>
@@ -3626,12 +3605,8 @@
 <blockquote>
 <p>提示1：把数字想象成正负交替的数字序列</p>
 <p>因为实际上不会只包含正序列或者负序列</p>
-</blockquote>
-<blockquote>
 <p>提示2：如果有一个和为负数的数列，那么一定不是一个数列的开始或结束（因为这个数列完全可以去掉）</p>
 <p>如果它们连接了另外两个数列，那么就可以以一个数列的形式出现</p>
-</blockquote>
-<blockquote>
 <p>提示3：从数组的开头开始，当这个子数列增长时，仍然是最佳子数列</p>
 <p>但是一旦变成负数，就没有意义了</p>
 </blockquote>
@@ -3645,8 +3620,7 @@
 </li>
 <li><p>动态规划上，关于连续的特点，要么是接着上一个序列，要么是从头开始：$f(n+1) = max(f(n)+i_{n+1}, i_{n+1})$</p>
 </li>
-<li><p>而间断的特点就是，可以是上一个，或者是上一个加上当前的：$f(n+1) = max(f(n), f(n)+i_{n+1})$</p>
-</li>
+<li>而间断的特点就是，可以是上一个，或者是上一个加上当前的：$f(n+1) = max(f(n), f(n)+i_{n+1})$</li>
 </ul>
 <p>有的题目需要给出连续的个数</p>
 <p>有的题需要给出最后的和，一定要适应一下</p>
@@ -3809,8 +3783,7 @@
 <p>如果双端列表为空，直接返回空数组【双端列表究竟是什么意义】</p>
 <p>接下来是广度优先排序（BFS）</p>
 <ul>
-<li><p>只要双端列表不为空就一直循环</p>
-</li>
+<li>只要双端列表不为空就一直循环</li>
 <li><p>将双端列表的左元素移出，放入输出列表中</p>
 <ul>
 <li>对该元素的邻居进行遍历</li>
@@ -3847,10 +3820,8 @@
 </blockquote>
 <p>==建图的关键是两个列表：入度 和 邻居==</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sortItems</span><span class="params">(self, n: int, m: int, group: List[int], beforeItems: List[List[int]])</span> -&gt; List[int]:</span></span><br><span class="line">        max_group_id = m</span><br><span class="line">        <span class="keyword">for</span> task <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span> group[task] == <span class="number">-1</span>:</span><br><span class="line">                group[task] = max_group_id</span><br><span class="line">                max_group_id += <span class="number">1</span></span><br><span class="line">        <span class="comment"># 到此，共有 max_group_id 个组</span></span><br><span class="line"></span><br><span class="line">        group_indegree = [<span class="number">0</span>] * max_group_id</span><br><span class="line">        task_indegree = [<span class="number">0</span>] * n</span><br><span class="line">        group_neighbours = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> range(max_group_id)]</span><br><span class="line">        task_neighbours = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> range(n)]</span><br><span class="line">        group_to_tasks = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> range(max_group_id)]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> task <span class="keyword">in</span> group:</span><br><span class="line">            group_to_tasks[task].append(task)</span><br><span class="line">        print(group_to_tasks)</span><br></pre></td></tr></table></figure>
-
 <p>上面是我写的一个初步的代码，我们分析一下第 16 行，我希望能够得到 每个组对应的task情况，但是这种遍历方法肯定是不对的，而是应该</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> task <span class="keyword">in</span> range(n):</span><br><span class="line">    group_to_tasks[group[task]].append(task)</span><br></pre></td></tr></table></figure>
-
 <p>这样才可以实现把 task 放到对应的 group 中的想法。</p>
 <p>然后，我根据回忆进行程序的复现过程中，另一个问题是组内排序的方法，应该遍历已经排好序的组的列表</p>
 <p>这样可以获得组号</p>
@@ -3877,37 +3848,42 @@
     <content><![CDATA[<p><strong>统计学习是什么？</strong></p>
 <p>是一种计算机基于数据构建概率统计模型，也是运用模型对数据进行预测和分析的方法</p>
 <hr>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/%E4%B8%8B%E8%BD%BD.png" alt=""></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/下载.png" alt=""></p>
+<a id="more"></a>
 <hr>
-<h1 id="统计学习的三种问题"><a href="#统计学习的三种问题" class="headerlink" title="统计学习的三种问题"></a>统计学习的三种问题</h1><table>
+<h1 id="统计学习的三种问题"><a href="#统计学习的三种问题" class="headerlink" title="统计学习的三种问题"></a>统计学习的三种问题</h1><div class="table-container">
+<table>
 <thead>
 <tr>
-<th align="center">预测任务分类</th>
-<th align="center">回归问题</th>
-<th align="center">分类问题</th>
-<th align="center">标注问题</th>
+<th style="text-align:center">预测任务分类</th>
+<th style="text-align:center">回归问题</th>
+<th style="text-align:center">分类问题</th>
+<th style="text-align:center">标注问题</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">输入变量类型</td>
-<td align="center">连续变量</td>
-<td align="center"></td>
-<td align="center">变量序列</td>
+<tbody>
+<tr>
+<td style="text-align:center">输入变量类型</td>
+<td style="text-align:center">连续变量</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">变量序列</td>
 </tr>
 <tr>
-<td align="center">输出变量类型</td>
-<td align="center">连续变量</td>
-<td align="center">有限个离散变量</td>
-<td align="center">变量序列</td>
+<td style="text-align:center">输出变量类型</td>
+<td style="text-align:center">连续变量</td>
+<td style="text-align:center">有限个离散变量</td>
+<td style="text-align:center">变量序列</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h1 id="统计学习的数据"><a href="#统计学习的数据" class="headerlink" title="统计学习的数据"></a>统计学习的数据</h1><p>数据集</p>
 <ul>
 <li>训练数据：用来学习模型</li>
 <li>测试数据：进行预测</li>
 <li>训练数据和测试数据均由输入与输出对（又叫做样本或样本点）构成</li>
 </ul>
-<p>训练集：通常表示为：$T={(x_1,y_1),(x_2,y_2),…,(x_N,y_N)}$，${x_i,y_i}$即样本或样本点。</p>
+<p>训练集：通常表示为：$T=\{(x_1,y_1),(x_2,y_2),…,(x_N,y_N)\}$，$\{x_i,y_i\}$即样本或样本点。</p>
 <h1 id="统计学习方法三要素"><a href="#统计学习方法三要素" class="headerlink" title="统计学习方法三要素"></a>统计学习方法三要素</h1><p><strong>方法 = 模型 + 策略 + 算法</strong></p>
 <h1 id="基本概率公式"><a href="#基本概率公式" class="headerlink" title="基本概率公式"></a>基本概率公式</h1><ul>
 <li>加法规则：$P(x)=\Sigma_yP(x,y)$</li>
@@ -3933,59 +3909,66 @@
 <li>求出将训练数据进行线性划分的分离超平面</li>
 </ol>
 <p><strong>重要概念表</strong></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">定位</th>
-<th align="left">重要概念</th>
-<th align="left">符号</th>
-<th align="left">公式</th>
-<th align="left">解释</th>
+<th style="text-align:left">定位</th>
+<th style="text-align:left">重要概念</th>
+<th style="text-align:left">符号</th>
+<th style="text-align:left">公式</th>
+<th style="text-align:left">解释</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">2.2节</td>
-<td align="left">误分类点</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left">就是分类错误的点</td>
+<tbody>
+<tr>
+<td style="text-align:left">2.2节</td>
+<td style="text-align:left">误分类点</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">就是分类错误的点</td>
 </tr>
 <tr>
-<td align="left">2.3节</td>
-<td align="left">步长（学习率）</td>
-<td align="left">$\eta$</td>
-<td align="left"></td>
-<td align="left">用于更新权值$w$和偏置$b$</td>
+<td style="text-align:left">2.3节</td>
+<td style="text-align:left">步长（学习率）</td>
+<td style="text-align:left">$\eta$</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">用于更新权值$w$和偏置$b$</td>
 </tr>
 <tr>
-<td align="left">2.2节</td>
-<td align="left">$L_2$范数</td>
-<td align="left">$</td>
-<td align="left"></td>
-<td align="left">w</td>
+<td style="text-align:left">2.2节</td>
+<td style="text-align:left">$L_2$范数</td>
+<td style="text-align:left">$</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">w</td>
+<td></td>
+<td>$</td>
+<td></td>
+<td>表示$w$的$L_2$范数</td>
 </tr>
 <tr>
-<td align="left">2.1节</td>
-<td align="left">权值</td>
-<td align="left">$w$</td>
-<td align="left">$f(x)=sign(w\cdot x+b)$</td>
-<td align="left">超平面的法向量</td>
+<td style="text-align:left">2.1节</td>
+<td style="text-align:left">权值</td>
+<td style="text-align:left">$w$</td>
+<td style="text-align:left">$f(x)=sign(w\cdot x+b)$</td>
+<td style="text-align:left">超平面的法向量</td>
 </tr>
 <tr>
-<td align="left">偏置</td>
-<td align="left">$b$</td>
-<td align="left">超平面的截距</td>
-<td align="left"></td>
-<td align="left"></td>
+<td style="text-align:left">偏置</td>
+<td style="text-align:left">$b$</td>
+<td style="text-align:left">超平面的截距</td>
+<td style="text-align:left"></td>
 </tr>
-</tbody></table>
-<hr>
+</tbody>
+</table>
+</div>
+<a id="more"></a>
 <h1 id="2-1-感知机模型"><a href="#2-1-感知机模型" class="headerlink" title="2.1 感知机模型"></a>2.1 感知机模型</h1><p>感知机通过函数：</p>
 <p>$f(x)=sign(w\cdot x+b)$</p>
 <p>来表示输入$x$到输出$f(x)$的关系。</p>
 <p>其中：</p>
 <p>1.符号函数：</p>
-<p>$sign=\left { \begin{aligned} +1,x\ge 0 \ -1,x&lt;0 \end{aligned} \right.$</p>
+<p>$sign=\left \{ \begin{aligned} +1,x\ge 0 \\ -1,x&lt;0 \end{aligned} \right.$</p>
 <p>2.w和x是内积，b是偏置</p>
 <p>因此，感知机的意义是，输入一个 x ，通过感知机就能得到它的结果是 -1 或 1，很明显可以用于分类。</p>
 <p>补充：</p>
@@ -4010,7 +3993,7 @@
 <p>【简单分析一下这个损失函数的功效】</p>
 <p>如果一个点 x 被误分类，就两种情况：</p>
 <p>$w\cdot x_i+b&gt;0$，但是$y_i&lt;0$</p>
-<p>$w\cdot x_i+b&lt;0$，但是$y_i&gt;0$</p>
+<p>$w\cdot x_i+b<0$，但是$y_i>0$</p>
 <p>那么这些点都满足$-y_i(w\cdot x_i+b)&gt;0$，<strong>多一个误分类点，上面公式中的总和就会大一点，少一个误分类点，总和就会小一点</strong>。</p>
 <hr>
 <h1 id="2-3-感知机学习算法"><a href="#2-3-感知机学习算法" class="headerlink" title="2.3 感知机学习算法"></a>2.3 感知机学习算法</h1><p>求解损失函数的最优化问题——<strong>随机梯度下降法（SGD：stochastic gradient descent）</strong></p>
@@ -4023,7 +4006,7 @@
 <p>也就是用梯度下降法不断地极小化目标函数（注意：一次只是随机地选取一个误分类点使其梯度下降）</p>
 <p>这里面的核心，解决一个问题，【<strong>怎么样调整权值和偏置？</strong>】</p>
 <p>首先，我们要了解<strong>损失函数的极小化和损失函数的梯度</strong>：</p>
-<p>$min_{w,b} L(w,b)=-\Sigma_{(x_i\in M)} {y_i (w\cdot x+b)}\Longrightarrow \begin{cases} \Delta_w L(w,b)=-\Sigma_{(x_i\in M)} y_i x_i \ \Delta_b L(w,b)= -\Sigma_{(x_i\in M)}y_i \end{cases}$</p>
+<p>$min_{w,b} L(w,b)=-\Sigma_{(x_i\in M)} {y_i (w\cdot x+b)}\Longrightarrow \begin{cases} \Delta_w L(w,b)=-\Sigma_{(x_i\in M)} y_i x_i \\ \Delta_b L(w,b)= -\Sigma_{(x_i\in M)}y_i \end{cases}$</p>
 <p>我们希望的就是损失函数小，那么<strong>损失函数的梯度</strong>就可以用来调整<strong>权值和偏置</strong>了：</p>
 <p>$w+\eta y_ix_i \to w$</p>
 <p>$b+\eta y_i \to b$</p>

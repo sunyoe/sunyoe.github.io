@@ -107,6 +107,7 @@
 <h1 id="数组和排序"><a href="#数组和排序" class="headerlink" title="数组和排序"></a>数组和排序</h1><h2 id="1046-最后一块石头的重量-排序问题"><a href="#1046-最后一块石头的重量-排序问题" class="headerlink" title="1046. 最后一块石头的重量 - 排序问题"></a>1046. 最后一块石头的重量 - 排序问题</h2><p>输入：整数数组（不会超过30个数字，1到1000之间）</p>
 <p>输出：特定 int 值</p>
 <p>每次运算：选出两个最大数字，返回差值（如果是0就不用返回），直到只剩下0个或1个数值，无法比较，返回该数字</p>
+<a id="more"></a>
 <p>（1）暴力解法</p>
 <p>每次需要找最大的两个数字，这一步的时间和空间复杂度就已经比较高了$O(n^2)$，然后再相减，加入到新的序列中，其实还可以接受</p>
 <blockquote>
@@ -190,7 +191,6 @@
 <p>老办法：计算所有数字出现过的次数，然后&gt;2的都可以输出</p>
 <p>代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findRepeatNumber</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        sort = [<span class="number">0</span>] * (max(nums)+<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">            sort[i] += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> sort.index(max(sort))</span><br></pre></td></tr></table></figure>
-
 <p>也的确可以通过，但是这种方法不太好</p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20210105161105089.png" alt="image-20210105161105089"></p>
 <p>有没有其他减少复杂度的方法，比如先排个序？不行，并不能保证重复的数字出现在某个位置</p>
@@ -211,7 +211,6 @@
 <p>一个特例：就是最后几个字母是一样的，那么就会一直continue，所以到最后再判断一次end和start是不是相等，得出答案</p>
 <p>代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">largeGroupPositions</span><span class="params">(self, s: str)</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> len(s):</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        output = []</span><br><span class="line">        start, end = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(s)):</span><br><span class="line">            <span class="keyword">if</span> s[i] == s[i<span class="number">-1</span>]:</span><br><span class="line">                end += <span class="number">1</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">if</span> end - start &gt;= <span class="number">2</span>:</span><br><span class="line">                output.append([start, end])</span><br><span class="line">            start, end = i, i</span><br><span class="line">        <span class="keyword">if</span> end - start &gt;= <span class="number">2</span>:</span><br><span class="line">            output.append([start, end])</span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
-
 <p>可以通过，但是速度和空间都比较糟糕</p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20210105163910474.png" alt="image-20210105163910474"></p>
 <h3 id="阅读题解-2"><a href="#阅读题解-2" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>就是一次遍历的方法，记录当前分组的长度，如果字符不同，那么就说明已经到尾部了</p>
@@ -328,12 +327,8 @@
 <blockquote>
 <p>提示1：把数字想象成正负交替的数字序列</p>
 <p>因为实际上不会只包含正序列或者负序列</p>
-</blockquote>
-<blockquote>
 <p>提示2：如果有一个和为负数的数列，那么一定不是一个数列的开始或结束（因为这个数列完全可以去掉）</p>
 <p>如果它们连接了另外两个数列，那么就可以以一个数列的形式出现</p>
-</blockquote>
-<blockquote>
 <p>提示3：从数组的开头开始，当这个子数列增长时，仍然是最佳子数列</p>
 <p>但是一旦变成负数，就没有意义了</p>
 </blockquote>
@@ -347,8 +342,7 @@
 </li>
 <li><p>动态规划上，关于连续的特点，要么是接着上一个序列，要么是从头开始：$f(n+1) = max(f(n)+i_{n+1}, i_{n+1})$</p>
 </li>
-<li><p>而间断的特点就是，可以是上一个，或者是上一个加上当前的：$f(n+1) = max(f(n), f(n)+i_{n+1})$</p>
-</li>
+<li>而间断的特点就是，可以是上一个，或者是上一个加上当前的：$f(n+1) = max(f(n), f(n)+i_{n+1})$</li>
 </ul>
 <p>有的题目需要给出连续的个数</p>
 <p>有的题需要给出最后的和，一定要适应一下</p>
@@ -511,8 +505,7 @@
 <p>如果双端列表为空，直接返回空数组【双端列表究竟是什么意义】</p>
 <p>接下来是广度优先排序（BFS）</p>
 <ul>
-<li><p>只要双端列表不为空就一直循环</p>
-</li>
+<li>只要双端列表不为空就一直循环</li>
 <li><p>将双端列表的左元素移出，放入输出列表中</p>
 <ul>
 <li>对该元素的邻居进行遍历</li>
@@ -549,10 +542,8 @@
 </blockquote>
 <p>==建图的关键是两个列表：入度 和 邻居==</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sortItems</span><span class="params">(self, n: int, m: int, group: List[int], beforeItems: List[List[int]])</span> -&gt; List[int]:</span></span><br><span class="line">        max_group_id = m</span><br><span class="line">        <span class="keyword">for</span> task <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span> group[task] == <span class="number">-1</span>:</span><br><span class="line">                group[task] = max_group_id</span><br><span class="line">                max_group_id += <span class="number">1</span></span><br><span class="line">        <span class="comment"># 到此，共有 max_group_id 个组</span></span><br><span class="line"></span><br><span class="line">        group_indegree = [<span class="number">0</span>] * max_group_id</span><br><span class="line">        task_indegree = [<span class="number">0</span>] * n</span><br><span class="line">        group_neighbours = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> range(max_group_id)]</span><br><span class="line">        task_neighbours = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> range(n)]</span><br><span class="line">        group_to_tasks = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> range(max_group_id)]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> task <span class="keyword">in</span> group:</span><br><span class="line">            group_to_tasks[task].append(task)</span><br><span class="line">        print(group_to_tasks)</span><br></pre></td></tr></table></figure>
-
 <p>上面是我写的一个初步的代码，我们分析一下第 16 行，我希望能够得到 每个组对应的task情况，但是这种遍历方法肯定是不对的，而是应该</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> task <span class="keyword">in</span> range(n):</span><br><span class="line">    group_to_tasks[group[task]].append(task)</span><br></pre></td></tr></table></figure>
-
 <p>这样才可以实现把 task 放到对应的 group 中的想法。</p>
 <p>然后，我根据回忆进行程序的复现过程中，另一个问题是组内排序的方法，应该遍历已经排好序的组的列表</p>
 <p>这样可以获得组号</p>

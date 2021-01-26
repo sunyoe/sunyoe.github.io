@@ -108,9 +108,9 @@
 <h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><h2 id="147-对【链表】进行插入排序"><a href="#147-对【链表】进行插入排序" class="headerlink" title="147. 对【链表】进行插入排序"></a>147. 对【链表】进行插入排序</h2><p>每次取出一个待排序元素</p>
 <p>然后将它放入已经排好的序列的合适位置【升序排列，可能有负数】</p>
 <p>关键是怎么样进行排序，从动画来看是从末尾开始进行比较，直到当前数的大小合适就可以放入了</p>
+<a id="more"></a>
 <p>python中的这个链表很有意思，感受一下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 原始定义</span></span><br><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        self.val = x</span><br><span class="line">        self.next = <span class="literal">None</span></span><br></pre></td></tr></table></figure>
-
 <p>假如说一个 链表 <code>head</code></p>
 <p>其内容看似是 <code>[4, 2, 1, 3]</code></p>
 <p>但是实际调用应该是 <code>head.val = 4</code> 头部的第一个数</p>
@@ -153,7 +153,7 @@
 <h4 id="阅读题解"><a href="#阅读题解" class="headerlink" title="阅读题解"></a>阅读题解</h4><p>重点的几个内容：</p>
 <ol>
 <li><strong>链表前的节点</strong> —— 哑节点 —— 便于在head前插入节点<code>zeroHead.next = head</code></li>
-<li>*<em>已排序部分的最后一个节点 *</em> <code>lastSorted = head</code></li>
+<li><strong>已排序部分的最后一个节点 </strong> <code>lastSorted = head</code></li>
 <li><strong>待插入元素</strong> <code>current = head.next</code></li>
 <li><strong>插入元素的位置</strong>的前一个节点 <code>prev</code></li>
 </ol>
@@ -166,7 +166,6 @@
 <li>第2步比较之后发现确实需要进行变化：</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lastSorted.next = current.next <span class="comment"># 相当于把 lastSorted 向后移动了一位</span></span><br><span class="line">current.next = prev.next <span class="comment"># 相当于把排序的那个链表断开，从 prev 这里断开</span></span><br><span class="line">prev.next = current	<span class="comment"># 然后把 current放在了 prev 的后面</span></span><br><span class="line"></span><br><span class="line">current = lastSorted.next <span class="comment"># 更新将要插入的值</span></span><br></pre></td></tr></table></figure>
-
 <p>然后是判断的条件：</p>
 <ul>
 <li>计数是不太明智的方法</li>
@@ -238,8 +237,8 @@
 <ul>
 <li>np.argwhere</li>
 </ul>
-<p><a href="https://blog.csdn.net/Jerry_1126/article/details/88924288?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-1-88924288.nonecase&utm_term=python%20%E6%9F%A5%E6%89%BE%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0%E5%B9%B6%E4%B8%94%E8%BF%94%E5%9B%9E%E7%B4%A2%E5%BC%95&spm=1000.2123.3001.4430" target="_blank" rel="noopener">Python从列表中找出所有元素索引的几种方法</a></p>
-<p><a href="https://blog.csdn.net/Kerrwy/article/details/82419132?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-3-82419132.nonecase&utm_term=python%20%E6%9F%A5%E6%89%BE%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0%E5%B9%B6%E4%B8%94%E8%BF%94%E5%9B%9E%E7%B4%A2%E5%BC%95&spm=1000.2123.3001.4430" target="_blank" rel="noopener">python找出一个列表中相同元素的多个索引</a></p>
+<p><a href="https://blog.csdn.net/Jerry_1126/article/details/88924288?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-1-88924288.nonecase&amp;utm_term=python%20%E6%9F%A5%E6%89%BE%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0%E5%B9%B6%E4%B8%94%E8%BF%94%E5%9B%9E%E7%B4%A2%E5%BC%95&amp;spm=1000.2123.3001.4430" target="_blank" rel="noopener">Python从列表中找出所有元素索引的几种方法</a></p>
+<p><a href="https://blog.csdn.net/Kerrwy/article/details/82419132?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-3-82419132.nonecase&amp;utm_term=python%20%E6%9F%A5%E6%89%BE%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0%E5%B9%B6%E4%B8%94%E8%BF%94%E5%9B%9E%E7%B4%A2%E5%BC%95&amp;spm=1000.2123.3001.4430" target="_blank" rel="noopener">python找出一个列表中相同元素的多个索引</a></p>
 <p><a href="https://blog.csdn.net/chenhequanlalala/article/details/100991793" target="_blank" rel="noopener">Python3 返回字符串中某个给定字符的全部索引</a></p>
 <p>matlab中对矩阵直接判断：A&gt;a，就能得到同样大小的矩阵，但是python似乎不可以</p>
 </blockquote>
@@ -288,11 +287,11 @@
 <p>如果是黄色，才会增加变换的次数</p>
 </li>
 <li><p>j = 1，需要把第 i 片叶子变成黄色，i 之前的叶子可以是 j = 0，也可以是 j = 1</p>
-<p>$f[i][1]=min{f[i-1][0], f[i-1][1]}+isRed(i)$</p>
+<p>$f[i][1]=min\{f[i-1][0], f[i-1][1]\}+isRed(i)$</p>
 <p>如果是红色，才会增加变换的次数</p>
 </li>
 <li><p>j = 2，需要把第 i 片叶子变成红色，i 之前的叶子可以是 j = 1或2</p>
-<p>$f[i][2]=min{f[i-1][1], f[i-1][2]} + isYellow(i)$</p>
+<p>$f[i][2]=min\{f[i-1][1], f[i-1][2]\} + isYellow(i)$</p>
 <p>如果是黄色，才会增加变换的次数</p>
 </li>
 </ul>
@@ -356,7 +355,7 @@
 <p>…到这里，再看上面的方程，这已经成为一个很基本的数学问题了</p>
 <p>（1）不断进行滑动就可以实现了【不过这样的复杂度为什么是$O(1)$而不是$O(n)$】确实，时间复杂度是O(n)，空间复杂度是O(1)</p>
 <p>（2）使用矩阵的方法</p>
-<p>$\left[\begin{matrix} f(n+1) \f(n)\end{matrix}\right]=\left[\begin{matrix}1 &amp; 1\1 &amp;0\end{matrix}\right]\left[\begin{matrix}f(n)\f(n-1)\end{matrix}\right]$</p>
+<p>$\left[\begin{matrix} f(n+1) \\f(n)\end{matrix}\right]=\left[\begin{matrix}1 &amp; 1\\1 &amp;0\end{matrix}\right]\left[\begin{matrix}f(n)\\f(n-1)\end{matrix}\right]$</p>
 <p>那么就是要求矩阵的n次方了</p>
 <p>（3）上面的递归方程其实可以用特征方程的方式求解通项公式，当然这个感觉会稍微有一点难</p>
 <p>总结：</p>
@@ -371,7 +370,6 @@
 <p>需要有个东西记录数字</p>
 <p>终止条件是什么？f(n)是要求的数字，n是台阶的数量</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span><span class="params">(self, n: int)</span> -&gt; int:</span> </span><br><span class="line">        a, b = <span class="number">1</span>, <span class="number">1</span> <span class="comment"># f(0), f(1)</span></span><br><span class="line">        c = a + b   <span class="comment"># f(2)</span></span><br><span class="line">        times = <span class="number">2</span>   <span class="comment"># 2</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> times &lt; n:</span><br><span class="line">            a, b = b, c</span><br><span class="line">            c = a + b   <span class="comment"># f(times+1)</span></span><br><span class="line">            times += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> c</span><br></pre></td></tr></table></figure>
-
 <p>这里刚开始用的是for循环，最后改成了while</p>
 <p>for 不能这么用，for的话这是for i in range···</p>
 <h2 id="53-最大子序和"><a href="#53-最大子序和" class="headerlink" title="53. 最大子序和"></a>53. 最大子序和</h2><p>输入：整数数组</p>
@@ -379,7 +377,6 @@
 <p>输出：最大和</p>
 <p>从给的例子来看：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [-2,1,-3,4,-1,2,1,-5,4]</span><br><span class="line">输出: 6</span><br><span class="line">解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</span><br></pre></td></tr></table></figure>
-
 <p><strong>并不是遇到负数就断了</strong></p>
 <p>而是如果负数将这个序列和归0了，甚至是变为负数了，那么这个子序列就中断了</p>
 <p><strong>也不是要从头加到尾</strong></p>
@@ -417,7 +414,7 @@
 </blockquote>
 <h3 id="阅读题解-2"><a href="#阅读题解-2" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>==妙蛙种子吃了妙脆角到了米奇妙妙屋，妙到家了==</p>
 <p>这里讲的第一种方法是动态规划的方法：</p>
-<p>每一步，我们计算到该位置的最大子序和$f(i)=max{f(i-1)+a_i, a_i}$</p>
+<p>每一步，我们计算到该位置的最大子序和$f(i)=max\{f(i-1)+a_i, a_i\}$</p>
 <p>站的角度不同，我是考虑“要不要把当前的值加入 过去的序列 sum中”</p>
 <p>而这个方法则是观察每一个位置的最大子序和 ，考虑的是 “前面的子序和对我当前数值有没有用”</p>
 <h2 id="198-打家劫舍"><a href="#198-打家劫舍" class="headerlink" title="198. 打家劫舍"></a>198. 打家劫舍</h2><p>输入：非负整数数组</p>
@@ -438,7 +435,6 @@
 <p>==喜极而泣！！！==</p>
 <p>这是我第一次用动态规划的方法完成了解题！！！</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rob</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> len(nums) &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> sum(nums)</span><br><span class="line">        max_sum = []</span><br><span class="line">        max_sum.append(<span class="number">0</span>)</span><br><span class="line">        max_sum.append(nums[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, len(nums)+<span class="number">1</span>):</span><br><span class="line">            max_sum.append(max(max_sum[i<span class="number">-1</span>], max_sum[i<span class="number">-2</span>] + nums[i<span class="number">-1</span>]))</span><br><span class="line">        <span class="keyword">return</span> max_sum[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
-
 <p>非常完美，一次过！</p>
 <hr>
 <h1 id="List操作"><a href="#List操作" class="headerlink" title="List操作"></a>List操作</h1><h2 id="977-有序数组的平方"><a href="#977-有序数组的平方" class="headerlink" title="977. 有序数组的平方"></a>977. 有序数组的平方</h2><p>定性：python排序问题</p>
@@ -592,7 +588,6 @@
 <p>我用了一种偷懒的方式，希望把原来的代码稍加修改就能实现新的目标，但是这样是很错误的，例如：<code>1234567890</code>，如果按照我的代码，首先会去除<code>9</code>，然后保留<code>len(num)-k</code>个数字，那就会删除9个数字，最后剩下的是 1 ，而不是 0</p>
 <p>第一版代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 冗长而不能解</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeKdigits</span><span class="params">(self, num: str, k: int)</span> -&gt; str:</span></span><br><span class="line">        left_num_idx = <span class="number">0</span></span><br><span class="line">        index = <span class="number">1</span></span><br><span class="line">        del_num = <span class="number">0</span></span><br><span class="line">        del_num_idx = []</span><br><span class="line">        <span class="comment"># 去除操作</span></span><br><span class="line">        <span class="keyword">while</span> del_num != k <span class="keyword">and</span> index &lt; len(num):</span><br><span class="line">            print(num[index])</span><br><span class="line">            <span class="keyword">if</span> num[index] &lt; num[left_num_idx]:</span><br><span class="line">                del_num += <span class="number">1</span></span><br><span class="line">                del_num_idx.append(left_num_idx)</span><br><span class="line">                left_num_idx = index</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                left_num_idx = index</span><br><span class="line">            index += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        new_num = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(num)):</span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> del_num_idx:</span><br><span class="line">                new_num.append(num[i])</span><br><span class="line">        new_num_str = <span class="string">""</span>.join(new_num)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 保留操作，避免去除的数量不够</span></span><br><span class="line">        new_num_str = new_num_str[:len(num)-k].lstrip(<span class="string">'0'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> len(new_num_str):</span><br><span class="line">            new_num_str = <span class="string">'0'</span></span><br><span class="line">        <span class="keyword">return</span> new_num_str</span><br></pre></td></tr></table></figure>
-
 <p>新的代码思路：</p>
 <ul>
 <li>要删除左侧较大的数字，而且一直要删到小于等于它为止</li>
@@ -609,14 +604,12 @@
 </ul>
 <p>新的代码基本是照搬高赞代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeKdigits</span><span class="params">(self, num, k)</span>:</span></span><br><span class="line">        stack = []</span><br><span class="line">        remain = len(num) - k</span><br><span class="line">        <span class="keyword">for</span> digit <span class="keyword">in</span> num:</span><br><span class="line">            <span class="keyword">while</span> k <span class="keyword">and</span> stack <span class="keyword">and</span> stack[<span class="number">-1</span>] &gt; digit:</span><br><span class="line">                stack.pop()</span><br><span class="line">                k -= <span class="number">1</span></span><br><span class="line">            stack.append(digit)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span>.join(stack[:remain]).lstrip(<span class="string">'0'</span>) <span class="keyword">or</span> <span class="string">'0'</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="121-买卖股票的最佳时机"><a href="#121-买卖股票的最佳时机" class="headerlink" title="121. 买卖股票的最佳时机"></a>121. 买卖股票的最佳时机</h2><p>输入：一个数组【股票场景，第i个数字表示股票第i天价格】</p>
 <p>输出：数组中后面数字减前面的数字，能减出的最大差值【股票场景，最多一笔交易，计算获取的最大利润】</p>
 <p>给一个位置记录最大值，如果出现更大的最大值，更新记录</p>
 <p>给一个位置记录最小值，如果出现更小的最小值，最小值重新记录，最大值也重新记录？【也不对，万一后面并没有更大值了就不行了】</p>
 <p>给一个位置记录利润，当每次需要更新最小值的时候，就会刷新一下利润；循环结束之后也需要刷新一下利润</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, prices: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> len(prices) &lt;= <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        maxPrice = prices[<span class="number">0</span>]</span><br><span class="line">        minPrice = prices[<span class="number">0</span>]</span><br><span class="line">        profit = []</span><br><span class="line">        profit.append(maxPrice - minPrice)</span><br><span class="line">        n = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> n &lt; len(prices):</span><br><span class="line">            <span class="keyword">if</span> prices[n] &lt; minPrice:</span><br><span class="line">                profit.append(maxPrice - minPrice)</span><br><span class="line">                minPrice = prices[n]</span><br><span class="line">                maxPrice = prices[n]</span><br><span class="line">                <span class="comment"># print(profit)</span></span><br><span class="line">            <span class="keyword">elif</span> prices[n] &gt; maxPrice:</span><br><span class="line">                maxPrice = prices[n]</span><br><span class="line">            n += <span class="number">1</span></span><br><span class="line">        profit.append(maxPrice - minPrice)</span><br><span class="line">        <span class="comment"># print(profit)</span></span><br><span class="line">        <span class="keyword">return</span> max(profit)</span><br></pre></td></tr></table></figure>
-
 <p>看上去这个代码好像是可以了</p>
 <p>但是，题目是真的狠，输入是10000到0倒着数，而且还写了好多0</p>
 <p>最后还是可以通过的，就是不要print！！！</p>

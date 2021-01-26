@@ -104,6 +104,7 @@
        
   <p>上一篇主要内容是针对本赛事中的重难点进行描述，但是针对实际问题，需要更加细致的调整。</p>
 <p>本文记录实际调试过程中遇到的问题和改善方法。</p>
+<a id="more"></a>
 <h2 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h2><h3 id="1-首先需要调整透视变换视角"><a href="#1-首先需要调整透视变换视角" class="headerlink" title="1. 首先需要调整透视变换视角"></a>1. 首先需要调整透视变换视角</h3><p>主要是画面范围的调整。</p>
 <p>由于弯道比较多，真实小车的视线中很少能看到两条线；同时，大概是因为选择透视变换的范围比较小，无法覆盖到需要的图像区域。因此需要对画面进行调整。</p>
 <p><strong>直接用openCV添加直线</strong></p>
@@ -213,6 +214,7 @@
 <li>min_line_length：</li>
 <li>max_line_gap：</li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -224,7 +226,8 @@
 <th>效果</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>1</td>
 <td>np.pi/180</td>
 <td>30</td>
@@ -246,14 +249,16 @@
 <td></td>
 <td></td>
 <td></td>
-<td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="6-滑动平均问题"><a href="#6-滑动平均问题" class="headerlink" title="6. 滑动平均问题"></a>6. 滑动平均问题</h3><p>关于servoNode中的滑动平均值，之前确实没有过多考虑，可能还是希望能就原状进行测试，但是忽略了代码间的相互协调能力</p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200910135546937.png" alt="image-20200910135546937"></p>
 <p>这个 n 值的设定主要是起到滑动平均的基数的关系</p>
 <p>如果调整n，发布的速度也会比较慢，但是也需要可以起到比较好的光滑的效果（不见得）</p>
 <p>需要尝试一下，目前设想的测试顺序如下所示：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -264,14 +269,16 @@
 <th>10</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td></td>
 <td>抖动比较明显，但是可过弯</td>
 <td>抖动降低，但是人行道不易通过，转角过大</td>
 <td></td>
-<td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="7-整体规划首个思路"><a href="#7-整体规划首个思路" class="headerlink" title="7. 整体规划首个思路"></a>7. 整体规划首个思路</h3><p><strong>起步</strong></p>
 <p>由于是绿灯开始后才进行运动，因此可以在运动的开始添加一个延时，在此延时中将无人车的运动方向设置为50，可以稍微加快速度</p>
 <p><strong>左转弯</strong></p>
@@ -310,7 +317,6 @@
 <li>注意不能压线，不能碰挡板</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">camera --&gt; l(laneDetection)</span><br><span class="line">l --&gt; images</span><br><span class="line">l --&gt; l2(lane_vel:topic)</span><br><span class="line">l2 -.- res1[有效信息只有angle_z]</span><br><span class="line">l2 --&gt; s1((servoNode))</span><br><span class="line"></span><br><span class="line">h[hilens] --&gt; t1(traffic_light)</span><br><span class="line">h --&gt; t2(标识牌信息)</span><br><span class="line">t1 --&gt; s1</span><br><span class="line">t2 --&gt; s1</span><br><span class="line">s1 --&gt; m1(manul)</span><br><span class="line">s1 --&gt; d1(direction)</span><br><span class="line">s1 --&gt; s2(speed)</span><br><span class="line">s1 --&gt; g(gear)</span><br><span class="line"></span><br><span class="line">m1 -.- res2[自动手动]</span><br><span class="line">d1 -.- res3[方向]</span><br><span class="line">s2 -.- res4[速度]</span><br><span class="line">g -.- res5[挡位]</span><br></pre></td></tr></table></figure>
-
 <h3 id="8-scan话题无法读取的问题"><a href="#8-scan话题无法读取的问题" class="headerlink" title="8. /scan话题无法读取的问题"></a>8. /scan话题无法读取的问题</h3><blockquote>
 <p>参考：<a href="https://blog.csdn.net/qq_38441692/article/details/98205852" target="_blank" rel="noopener">ROS多机通讯踩坑，（主机和从机之间可以订阅话题，但是看不到话题消息）</a></p>
 <p><a href="https://answers.ros.org/question/48240/rostopic-list-works-but-rostopic-echo-does-not/" target="_blank" rel="noopener"><strong>rostopic list works but rostopic echo does not</strong></a></p>

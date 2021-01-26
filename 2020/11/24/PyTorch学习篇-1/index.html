@@ -109,6 +109,7 @@
 <p>相对于手动选择特征，会有什么样的不同，以及怎么样去实现ta？1.3节涉及</p>
 <p>To train this model, you need a few things (besides the loop itself, which can be a standard Python for loop): a source of training data, an optimizer to adapt the model to<br>the training data, and a way to get the model and data to the hardware that will be performing the calculations needed for training the model.  </p>
 <p>要训练该模型，您需要做一些事情（除了循环本身，它可以是标准的Python for循环）：训练数据的来源，用于使模型适应训练数据的优化器以及获取模型的方法 并将数据发送到硬件，该硬件将执行训练模型所需的计算。</p>
+<a id="more"></a>
 <h2 id="tensor"><a href="#tensor" class="headerlink" title="tensor"></a>tensor</h2><p>从tensor形式转化为storage形式，需要使用offset、size、stride三个变量</p>
 <p>tensor是一维的</p>
 <p>stride表示的是当tensor的维数+1时，元素必须跳过skip的个数</p>
@@ -160,7 +161,7 @@
 <li><code>torch.nn.Hardtanh</code>激活函数</li>
 </ol>
 <p>小于0就全部为0，大于10就全部为10，类似这样的逻辑</p>
-<ol start="2">
+<ol>
 <li><p><code>torch.nn.sigmoid</code>激活函数</p>
 </li>
 <li><p><code>torch.tanh</code></p>

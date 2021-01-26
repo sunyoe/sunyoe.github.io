@@ -110,59 +110,66 @@
 <li>求出将训练数据进行线性划分的分离超平面</li>
 </ol>
 <p><strong>重要概念表</strong></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">定位</th>
-<th align="left">重要概念</th>
-<th align="left">符号</th>
-<th align="left">公式</th>
-<th align="left">解释</th>
+<th style="text-align:left">定位</th>
+<th style="text-align:left">重要概念</th>
+<th style="text-align:left">符号</th>
+<th style="text-align:left">公式</th>
+<th style="text-align:left">解释</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">2.2节</td>
-<td align="left">误分类点</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left">就是分类错误的点</td>
+<tbody>
+<tr>
+<td style="text-align:left">2.2节</td>
+<td style="text-align:left">误分类点</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">就是分类错误的点</td>
 </tr>
 <tr>
-<td align="left">2.3节</td>
-<td align="left">步长（学习率）</td>
-<td align="left">$\eta$</td>
-<td align="left"></td>
-<td align="left">用于更新权值$w$和偏置$b$</td>
+<td style="text-align:left">2.3节</td>
+<td style="text-align:left">步长（学习率）</td>
+<td style="text-align:left">$\eta$</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">用于更新权值$w$和偏置$b$</td>
 </tr>
 <tr>
-<td align="left">2.2节</td>
-<td align="left">$L_2$范数</td>
-<td align="left">$</td>
-<td align="left"></td>
-<td align="left">w</td>
+<td style="text-align:left">2.2节</td>
+<td style="text-align:left">$L_2$范数</td>
+<td style="text-align:left">$</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">w</td>
+<td></td>
+<td>$</td>
+<td></td>
+<td>表示$w$的$L_2$范数</td>
 </tr>
 <tr>
-<td align="left">2.1节</td>
-<td align="left">权值</td>
-<td align="left">$w$</td>
-<td align="left">$f(x)=sign(w\cdot x+b)$</td>
-<td align="left">超平面的法向量</td>
+<td style="text-align:left">2.1节</td>
+<td style="text-align:left">权值</td>
+<td style="text-align:left">$w$</td>
+<td style="text-align:left">$f(x)=sign(w\cdot x+b)$</td>
+<td style="text-align:left">超平面的法向量</td>
 </tr>
 <tr>
-<td align="left">偏置</td>
-<td align="left">$b$</td>
-<td align="left">超平面的截距</td>
-<td align="left"></td>
-<td align="left"></td>
+<td style="text-align:left">偏置</td>
+<td style="text-align:left">$b$</td>
+<td style="text-align:left">超平面的截距</td>
+<td style="text-align:left"></td>
 </tr>
-</tbody></table>
-<hr>
+</tbody>
+</table>
+</div>
+<a id="more"></a>
 <h1 id="2-1-感知机模型"><a href="#2-1-感知机模型" class="headerlink" title="2.1 感知机模型"></a>2.1 感知机模型</h1><p>感知机通过函数：</p>
 <p>$f(x)=sign(w\cdot x+b)$</p>
 <p>来表示输入$x$到输出$f(x)$的关系。</p>
 <p>其中：</p>
 <p>1.符号函数：</p>
-<p>$sign=\left { \begin{aligned} +1,x\ge 0 \ -1,x&lt;0 \end{aligned} \right.$</p>
+<p>$sign=\left \{ \begin{aligned} +1,x\ge 0 \\ -1,x&lt;0 \end{aligned} \right.$</p>
 <p>2.w和x是内积，b是偏置</p>
 <p>因此，感知机的意义是，输入一个 x ，通过感知机就能得到它的结果是 -1 或 1，很明显可以用于分类。</p>
 <p>补充：</p>
@@ -187,7 +194,7 @@
 <p>【简单分析一下这个损失函数的功效】</p>
 <p>如果一个点 x 被误分类，就两种情况：</p>
 <p>$w\cdot x_i+b&gt;0$，但是$y_i&lt;0$</p>
-<p>$w\cdot x_i+b&lt;0$，但是$y_i&gt;0$</p>
+<p>$w\cdot x_i+b<0$，但是$y_i>0$</p>
 <p>那么这些点都满足$-y_i(w\cdot x_i+b)&gt;0$，<strong>多一个误分类点，上面公式中的总和就会大一点，少一个误分类点，总和就会小一点</strong>。</p>
 <hr>
 <h1 id="2-3-感知机学习算法"><a href="#2-3-感知机学习算法" class="headerlink" title="2.3 感知机学习算法"></a>2.3 感知机学习算法</h1><p>求解损失函数的最优化问题——<strong>随机梯度下降法（SGD：stochastic gradient descent）</strong></p>
@@ -200,7 +207,7 @@
 <p>也就是用梯度下降法不断地极小化目标函数（注意：一次只是随机地选取一个误分类点使其梯度下降）</p>
 <p>这里面的核心，解决一个问题，【<strong>怎么样调整权值和偏置？</strong>】</p>
 <p>首先，我们要了解<strong>损失函数的极小化和损失函数的梯度</strong>：</p>
-<p>$min_{w,b} L(w,b)=-\Sigma_{(x_i\in M)} {y_i (w\cdot x+b)}\Longrightarrow \begin{cases} \Delta_w L(w,b)=-\Sigma_{(x_i\in M)} y_i x_i \ \Delta_b L(w,b)= -\Sigma_{(x_i\in M)}y_i \end{cases}$</p>
+<p>$min_{w,b} L(w,b)=-\Sigma_{(x_i\in M)} {y_i (w\cdot x+b)}\Longrightarrow \begin{cases} \Delta_w L(w,b)=-\Sigma_{(x_i\in M)} y_i x_i \\ \Delta_b L(w,b)= -\Sigma_{(x_i\in M)}y_i \end{cases}$</p>
 <p>我们希望的就是损失函数小，那么<strong>损失函数的梯度</strong>就可以用来调整<strong>权值和偏置</strong>了：</p>
 <p>$w+\eta y_ix_i \to w$</p>
 <p>$b+\eta y_i \to b$</p>

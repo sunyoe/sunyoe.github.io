@@ -104,7 +104,8 @@
        
   <p>本文按题目排序，每期10题。</p>
 <p>本期内容多以排序为主，出现了滑动窗口等算法，学习到了python对于数组的一些操作。</p>
-<h3 id="2-两数相加"><a href="#2-两数相加" class="headerlink" title="2. 两数相加"></a>2. 两数相加</h3><p><code>next</code>函数：返回迭代器的下一个项目</p>
+<a id="more"></a>
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="2-两数相加"><a href="#2-两数相加" class="headerlink" title="2. 两数相加"></a>2. 两数相加</h2><p><code>next</code>函数：返回迭代器的下一个项目</p>
 <p><code>.next</code>函数：</p>
 <p>python3 中的 <code>-&gt;</code>，出现在函数定义中尤其的多：</p>
 <ul>
@@ -114,7 +115,6 @@
 </li>
 <li><p>常常出现在python函数定义的函数名后面，为函数添加元数据，描述函数的返回类型，从而方便开发人员使用：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span> -&gt; int:</span></span><br><span class="line">    <span class="keyword">return</span> x+y</span><br></pre></td></tr></table></figure>
-
 <p>这里面，元数据表明了函数的返回值为int类型</p>
 </li>
 </ul>
@@ -129,17 +129,15 @@
 <p>解题思路：<a href="https://leetcode-cn.com/problems/add-two-numbers/solution/zui-zhi-bai-de-xie-fa-by-meng-zhi-hen-n-2/" target="_blank" rel="noopener">leecode第二题python解法</a></p>
 </li>
 </ul>
-<h3 id="3-无重复字符的最长子串"><a href="#3-无重复字符的最长子串" class="headerlink" title="3. 无重复字符的最长子串"></a>3. 无重复字符的最长子串</h3><p>问题1：str变量有索引吗？似乎没有</p>
+<h2 id="3-无重复字符的最长子串"><a href="#3-无重复字符的最长子串" class="headerlink" title="3. 无重复字符的最长子串"></a>3. 无重复字符的最长子串</h2><p>问题1：str变量有索引吗？似乎没有</p>
 <ul>
 <li>subscriptable 可下标的，也就是可索引的</li>
 </ul>
 <p>问题2：如何把字符串转化为列表（有序）</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字符串用 split() 转化为列表</span></span><br><span class="line">a = <span class="string">'ab,cd,ef'</span></span><br><span class="line">print(a.split(<span class="string">','</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表转化为字符串</span></span><br><span class="line">l = [<span class="string">'a'</span>, <span class="string">'b'</span>]</span><br><span class="line">print(<span class="string">''</span>.join(l))</span><br></pre></td></tr></table></figure>
-
 <p>可是如果没有<code>,&#39; &#39;</code>逗号、空格之类的呢？</p>
 <p>额，醉了</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'abc'</span></span><br><span class="line">list(s)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</span><br></pre></td></tr></table></figure>
-
 <p>这道题还是有点难度的，并不是说都是从第一位开始来算的</p>
 <p>有可能从中间开始计算，那么这个时候该怎么办呢？</p>
 <p>首先移动到第 i 位，比较 该位之前所有位，是否与它相同</p>
@@ -174,7 +172,7 @@
 <p>题解中有用enumerate方法的，还有用C++中的指针方法的</p>
 <p>提到最多的还是“滑动窗口”</p>
 <p>其实倒也没有错，我的方法其实也是为了实现一个<strong>滑动窗口</strong>，并且记录窗口的长度，但是问题是空格该怎么算</p>
-<h3 id="4-寻找两个正序数组的中位数"><a href="#4-寻找两个正序数组的中位数" class="headerlink" title="4. 寻找两个正序数组的中位数"></a>4. 寻找两个正序数组的中位数</h3><p>读题：本题的要求是：</p>
+<h2 id="4-寻找两个正序数组的中位数"><a href="#4-寻找两个正序数组的中位数" class="headerlink" title="4. 寻找两个正序数组的中位数"></a>4. 寻找两个正序数组的中位数</h2><p>读题：本题的要求是：</p>
 <p>给的两个数列（list）顺序是好的</p>
 <p>但是最后要找的，是两个数组合并到一块，然后取中位数</p>
 <p>那么合并后的数组，要进行排序（或者不用排序了，使用一些算法来寻找中位数），这就是问题所在了</p>
@@ -191,12 +189,11 @@
 <p>最后把一边消耗完，返回另一边最小的哪个数字</p>
 <p><strong>还有一种很巧妙的计算奇偶两个数列中位数的一个方法</strong></p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">k1 = (len(nums1) + len(nums2) + 1) // 2</span><br><span class="line">k2 = (len(nums1) + len(nums2) + 2) // 2</span><br></pre></td></tr></table></figure>
-
 <p>如果两个数列一奇一偶：</p>
 <p>k1 = k2</p>
 <p>如果两个数列都是奇数，或者都是偶数</p>
 <p>k1 是中间左边，k2是中间右边</p>
-<h3 id="17-电话号码的字母组合"><a href="#17-电话号码的字母组合" class="headerlink" title="17. 电话号码的字母组合"></a>17. 电话号码的字母组合</h3><p>九键输入法中，2-9每个数字对应着一些字母</p>
+<h2 id="17-电话号码的字母组合"><a href="#17-电话号码的字母组合" class="headerlink" title="17. 电话号码的字母组合"></a>17. 电话号码的字母组合</h2><p>九键输入法中，2-9每个数字对应着一些字母</p>
 <p>给定一个仅包含数字2-9的<strong>字符串</strong>，返回所有它能表示的字母组合（顺序可以任意）</p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/17_telephone_keypad.png" alt="例图"></p>
 <p>本来来说，应该要给一个字典存放以下，以便记录每个数字都对应哪些字母</p>
@@ -218,17 +215,17 @@
 <p>这个两两组合还是会使用循环</p>
 <p>组合出的是字符串，组合的结果会放在列表里面</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 移动到某一位</span></span><br><span class="line"><span class="comment"># 当前位与之前的字符串进行各种组合</span></span><br><span class="line"><span class="comment"># 把组合出的字符串重新加入字符列表</span></span><br></pre></td></tr></table></figure>
-
 <p>【9月3日】现在的方法是，判断列表是不是空的</p>
 <p>如果是空的，说明是第一个数字，那么此时，就需要填入单个的字符，但是这个字符又不能直接加到最后的内容中</p>
 <p>如果不是空的，这时已经不是第一个数字了</p>
 <p>所以我引入了一个新的列表，是上一个列表的copy</p>
-<h3 id="122-买卖股票的最佳时机-II"><a href="#122-买卖股票的最佳时机-II" class="headerlink" title="122. 买卖股票的最佳时机 II"></a>122. 买卖股票的最佳时机 II</h3><p>给一个数组，第i个元素表示第i天的价格</p>
+<h2 id="122-买卖股票的最佳时机-II"><a href="#122-买卖股票的最佳时机-II" class="headerlink" title="122. 买卖股票的最佳时机 II"></a>122. 买卖股票的最佳时机 II</h2><p>给一个数组，第i个元素表示第i天的价格</p>
 <p>可以多次交易，但是购买前需要出售掉之前的股票，设计算法让利润最大</p>
 <p>（1）利润也就是价差，主要是卖的时候的价差</p>
 <p>（2）最多买i/2次，卖也是</p>
 <p>（3）应该是低价买进，高价卖出，找差价最大的两天？</p>
-<pre><code>所以应该先找最低点，买进，然后找其后的最高点（跌之前卖出）</code></pre><p>跳出股票的场景，其实是在求<strong>数组中数的差值</strong>，上升过程中，找最大差值卖出，跌到最低，应当买入</p>
+<pre><code>     所以应该先找最低点，买进，然后找其后的最高点（跌之前卖出）
+</code></pre><p>跳出股票的场景，其实是在求<strong>数组中数的差值</strong>，上升过程中，找最大差值卖出，跌到最低，应当买入</p>
 <ol>
 <li><p>滑动窗口，移动到当前值，判断大小：</p>
 <p>小于上一个值，小于下一个值，此时应该买进</p>
@@ -248,7 +245,6 @@
 <li>价格</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 未完</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, prices: List[int])</span> -&gt; int:</span></span><br><span class="line">        profit = <span class="number">0</span></span><br><span class="line">        stock = <span class="number">0</span></span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; len(prices):</span><br><span class="line">            <span class="keyword">if</span> stock:   <span class="comment"># 手里有股票，应当卖出</span></span><br><span class="line">                <span class="comment"># 观察价格，应当是最高点卖出</span></span><br><span class="line">                <span class="keyword">while</span> prices[i] &lt; prices[i+<span class="number">1</span>] <span class="keyword">and</span> i+<span class="number">1</span> &lt; len(prices):</span><br><span class="line">                    i += <span class="number">1</span></span><br><span class="line">                <span class="comment"># 股票卖出</span></span><br><span class="line">                stock -= <span class="number">1</span></span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>：      <span class="comment"># 手里没有股票，应该买进</span></span><br><span class="line">                <span class="comment"># 观察价格，最低点买入</span></span><br><span class="line">                <span class="keyword">while</span> prices[i] &lt; prices[i<span class="number">-1</span>] <span class="keyword">and</span> i &lt; len(prices):</span><br><span class="line">                    i += <span class="number">1</span></span><br><span class="line">                <span class="comment"># 股票买入</span></span><br><span class="line">                stock += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> profit</span><br></pre></td></tr></table></figure>
-
 <p>我怎么觉得是一个滑动窗口的问题</p>
 <p>试看一个窗口：</p>
 <p>如果手里还没有股票：</p>
@@ -270,7 +266,7 @@
 <p>如果是正的，就加上，如果是0或者负的，就跳过</p>
 <p><strong>至于连续上涨交易日，等价于每天都在买卖</strong></p>
 </blockquote>
-<h3 id="136-只出现一次的数字"><a href="#136-只出现一次的数字" class="headerlink" title="136. 只出现一次的数字"></a>136. 只出现一次的数字</h3><p>哈希表问题</p>
+<h2 id="136-只出现一次的数字"><a href="#136-只出现一次的数字" class="headerlink" title="136. 只出现一次的数字"></a>136. 只出现一次的数字</h2><p>哈希表问题</p>
 <p>一个非空整数数组中：</p>
 <ul>
 <li>只有一个元素只出现了一次</li>
@@ -279,7 +275,6 @@
 <p>找出这个只出现了一次的元素</p>
 <p>额外要求：线性时间复杂度，不使用额外空间</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在有限能力范围内，我的想法是</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="comment"># 首先给数组去重排序</span></span><br><span class="line">        <span class="comment"># 然后遍历循环，找出数组中数字的索引位置</span></span><br><span class="line">        <span class="comment"># 如果索引位置只有1个，那么就是只出现了一次</span></span><br></pre></td></tr></table></figure>
-
 <p>问题是：我要怎么分析它的时间复杂度是不是线性的，数组去重排序本身所用的时间就比较多，python中仅一句代码</p>
 <p><strong>列表的去重</strong></p>
 <p>（1）set方法，起始时转化成了元组，所以之后需要再转化成list，优点是索引值不变</p>
@@ -288,7 +283,6 @@
 <p>（4）添加到新的列表</p>
 <p>（5）列表的sort方法可以做到排序</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 再思考，去重排序其实是多此一举的</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="comment"># 遍历循环</span></span><br><span class="line">        <span class="comment"># 找数组中有没有和它一样的</span></span><br><span class="line">        <span class="comment"># 因为是从前往后的，已经遍历过的不算，已经配好对的也不能再遍历了</span></span><br></pre></td></tr></table></figure>
-
 <p>还是要排一下序，不然不好找</p>
 <p>continue和break</p>
 <p>continue仅停止本次循环</p>
@@ -303,14 +297,13 @@
 <p>所以，依次异或就可以，剩下来的一定是只出现一次的数</p>
 <p>（3）还有一种解法是：Collections.Counter() 函数，这是一个计数器</p>
 </blockquote>
-<h3 id="202-快乐数"><a href="#202-快乐数" class="headerlink" title="202.快乐数"></a>202.快乐数</h3><p>一个正整数，每一次将该数替换为它每个位置上的数字的平方和，不断重复这个过程</p>
+<h2 id="202-快乐数"><a href="#202-快乐数" class="headerlink" title="202.快乐数"></a>202.快乐数</h2><p>一个正整数，每一次将该数替换为它每个位置上的数字的平方和，不断重复这个过程</p>
 <p>如果最终能够变成1，那么就是快乐数</p>
 <p>如果不能变成1，那么就不是快乐数</p>
 <blockquote>
 <p>其实变成1，就必须是一个1，和多个0</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 另写一个函数，用来计算平方和</span></span><br><span class="line"><span class="comment"># 其中，首先需要把上一个数字拆成单个数字的组合，把数字变成列表</span></span><br><span class="line"><span class="comment"># 然后计算平方和并相加</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>把数字，拆成一个个单个数字的列表</strong>，可以先转换成字符串，然后再转换为列表</p>
 <p>关键问题是，如何判断它不是快乐数？</p>
 <p>一次循环，不行，两次循环不行，要多少次循环呢？</p>
@@ -330,7 +323,12 @@
 <p>就是判断有没有重复，然后再判断是不是1就可以了</p>
 <p>所以，需要一个之来存放已经出现过的值：</p>
 <p>set() 元组，特点是无序不重复，可以进行关系测试，计算交集、差集、并集等等</p>
-<h3 id="204-计数质数"><a href="#204-计数质数" class="headerlink" title="204. 计数质数"></a>204. 计数质数</h3><p>这个题居然难度是简单？</p>
+<h2 id="724-寻找数组的中心索引"><a href="#724-寻找数组的中心索引" class="headerlink" title="724. 寻找数组的中心索引"></a>724. 寻找数组的中心索引</h2><p>如果一个数组（python中是list）中，某个数的左侧数字之和 = 右侧数字之和，那么这个数就是中心数，返回索引值</p>
+<p>我的方法就是，先求出总和</p>
+<p>然后看左边的数字之和，是不是等于（总和-当前数字）/ 2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pivotIndex</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        list_sum = sum(nums)</span><br><span class="line">        <span class="keyword">while</span> i &lt; len(nums):</span><br><span class="line">            left_sum = sum(nums[<span class="number">0</span>:i])</span><br><span class="line">            <span class="keyword">if</span> (list_sum - nums[i])/<span class="number">2</span> == left_sum:</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<p>一把过。</p>
+<h1 id="筛法"><a href="#筛法" class="headerlink" title="筛法"></a>筛法</h1><h2 id="204-计数质数"><a href="#204-计数质数" class="headerlink" title="204. 计数质数"></a>204. 计数质数</h2><p>这个题居然难度是简单？</p>
 <p>给一个n，统计小于n的质数的数量</p>
 <p>问题1：是不是得计算一下一个数是不是质数？</p>
 <ul>
@@ -345,7 +343,6 @@
 <p>最后要的只是数量，而没有要具体是哪些</p>
 <p>其实按照双循环的思路，做出来并不难，难的是速度，一下子就写出了代码，但是总是有<strong>超时问题</strong>，这个问题也很严重了！</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countPrimes</span><span class="params">(self, n: int)</span> -&gt; int:</span></span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="comment"># 判断每个数是不是质数</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; n:</span><br><span class="line">            <span class="keyword">if</span> self.is_primes(i):</span><br><span class="line">                <span class="comment"># 如果是质数，则计数君加1</span></span><br><span class="line">                count += <span class="number">1</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 判断一个数是不是质数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_primes</span><span class="params">(self, num: int)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">elif</span> num == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            k = <span class="number">2</span></span><br><span class="line">            <span class="keyword">while</span> (k * k) &lt;= num:</span><br><span class="line">                <span class="keyword">if</span> num % k == <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    k += <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
-
 <p>理论上，已经除过的数的倍数也不能再作为除数了</p>
 <p>但是这个筛选听起来就很麻烦</p>
 <p>从解答来看</p>
@@ -381,13 +378,7 @@
 </ul>
 <p>这要到最后，这个列表中为1的地方就是所有素数的索引位置了！</p>
 <p>纯粹筛法，不用仔细计算！</p>
-<h3 id="724-寻找数组的中心索引"><a href="#724-寻找数组的中心索引" class="headerlink" title="724. 寻找数组的中心索引"></a>724. 寻找数组的中心索引</h3><p>如果一个数组（python中是list）中，某个数的左侧数字之和 = 右侧数字之和，那么这个数就是中心数，返回索引值</p>
-<p>我的方法就是，先求出总和</p>
-<p>然后看左边的数字之和，是不是等于（总和-当前数字）/ 2</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pivotIndex</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        list_sum = sum(nums)</span><br><span class="line">        <span class="keyword">while</span> i &lt; len(nums):</span><br><span class="line">            left_sum = sum(nums[<span class="number">0</span>:i])</span><br><span class="line">            <span class="keyword">if</span> (list_sum - nums[i])/<span class="number">2</span> == left_sum:</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
-
-<p>一把过。</p>
-<h3 id="面试题16-08-整数的英文表示"><a href="#面试题16-08-整数的英文表示" class="headerlink" title="面试题16.08 整数的英文表示"></a>面试题16.08 整数的英文表示</h3><p>有点意思</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="面试题16-08-整数的英文表示"><a href="#面试题16-08-整数的英文表示" class="headerlink" title="面试题16.08 整数的英文表示"></a>面试题16.08 整数的英文表示</h2><p>有点意思</p>
 <p>这个题中：</p>
 <p><strong>首先看数字长度：</strong></p>
 <p>3位：hundred</p>

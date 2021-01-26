@@ -104,6 +104,7 @@
        
   <p>2020年华为无人车比赛，起始于6月底，至8月20日角逐出40支队伍参加半决赛，9月24日角逐出20支队伍参加决赛，26日最终决赛。有幸走到决赛现场，但是没有取得理想成绩，在此整理参赛笔记，希望来年一战！</p>
 <h2 id="分工"><a href="#分工" class="headerlink" title="分工"></a>分工</h2><p>为了实现无人车的运行，本次赛事中本小组分为机器视觉（负责modelarts和hilens）、车道线识别、激光雷达等三个部分，本人负责车道线识别部分。</p>
+<a id="more"></a>
 <h2 id="车道线的识别"><a href="#车道线的识别" class="headerlink" title="车道线的识别"></a>车道线的识别</h2><h3 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h3><p>使用OpenCV进行视觉识别</p>
 <p>排除斑马线的干扰</p>
 <p>根据识别的车道线计算斜率，控制小车转向角度</p>
@@ -111,7 +112,6 @@
 <p>转为灰度图 =》 转为二值图像 =》 计算一些最大值，确定两侧车道线的位置</p>
 <p>使用直方图（histogram）方法，主要函数来自OpenCV包。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">img1(gray_img) -- erode --&gt; img2(gray_img)</span><br><span class="line">img2 --&gt; img3(origin_thr)</span><br><span class="line">img3 -- warpPerspective --&gt; array1(binary_warped)</span><br><span class="line">array1 --&gt; x1[histogram_x]</span><br><span class="line">array1 --&gt; x2[histogram_y]</span><br><span class="line">x1 --&gt; lane_base</span><br><span class="line">x2 --&gt; l(lower)</span><br><span class="line">x2 --&gt; r(upper)</span><br><span class="line">l --&gt; ratio(hist_sum_y_ratio)</span><br><span class="line">r --&gt; ratio</span><br></pre></td></tr></table></figure>
-
 <p>然后将窗口分割，从下而上计算车道线所在位置，并计算车道线的斜率。</p>
 <p>车道线斜率的计算主要使用的是纯几何跟踪的方法。</p>
 <h2 id="难点一：斑马线"><a href="#难点一：斑马线" class="headerlink" title="难点一：斑马线"></a>难点一：斑马线</h2><p>由于车道线识别的过程中主要是对图像中的白色像素进行判断，斑马线对车道线的识别有一定的影响。</p>
@@ -227,7 +227,7 @@
 <p>真正比较有影响的是出斑马线的部分，遮盖有效果</p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200913160049787.png" alt="image-20200913160049787"></p>
 <p>原图 =》 binary_wraped =》 canny边缘检测 =》 霍夫直线检测 =》 黑色覆盖斑马线区域</p>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/%E6%96%91%E9%A9%AC%E7%BA%BF%E8%A6%86%E7%9B%96.png" alt="image-20200913162727339"></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/斑马线覆盖.png" alt="image-20200913162727339"></p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200913162918804.png" alt="image-20200913162918804"></p>
 <p><strong>接下来，调整霍夫变换，避免边缘点的检测</strong></p>
 <blockquote>
@@ -237,6 +237,7 @@
 <p>测量物体三轴姿态角（或角速率）以及加速度的装置，一般来说，IMU安装在被测物体的重心上，用字啊需要进行运动控制的设备上，也用在需要用姿态进行精密位移推算的场合</p>
 <p>在串口节点中发布的有关超声波和IMU消息的主题：</p>
 <p>类型都是 int32 的类型，但是单位也各有不同</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -245,7 +246,8 @@
 <th>单位</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>/vcu/ActualMotorSpeed</td>
 <td>实际电机转速</td>
 <td>转/s</td>
@@ -335,11 +337,13 @@
 <td>电机温度</td>
 <td>摄氏度</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <blockquote>
 <p>参考：</p>
-<p><a href="https://blog.csdn.net/u013468614/article/details/106724804?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-16-106724804.nonecase&utm_term=imu%E9%87%8C%E7%A8%8B%E8%AE%A1" target="_blank" rel="noopener">移动机器人轮式里程计</a></p>
-<p><a href="https://blog.csdn.net/hzwwpgmwy/article/details/85086393?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-1-85086393.nonecase&utm_term=imu%E9%87%8C%E7%A8%8B%E8%AE%A1" target="_blank" rel="noopener">里程计航迹推演与IMU预积分</a></p>
+<p><a href="https://blog.csdn.net/u013468614/article/details/106724804?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-16-106724804.nonecase&amp;utm_term=imu%E9%87%8C%E7%A8%8B%E8%AE%A1" target="_blank" rel="noopener">移动机器人轮式里程计</a></p>
+<p><a href="https://blog.csdn.net/hzwwpgmwy/article/details/85086393?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-1-85086393.nonecase&amp;utm_term=imu%E9%87%8C%E7%A8%8B%E8%AE%A1" target="_blank" rel="noopener">里程计航迹推演与IMU预积分</a></p>
 <p><a href="https://blog.csdn.net/baimei4833953/article/details/80768762" target="_blank" rel="noopener">IMU与里程计融合</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/164778891" target="_blank" rel="noopener">从零手写VIO——（三）基于优化的 IMU 与视觉信息融合（下篇）</a></p>
 <p>VIO相关知识</p>
