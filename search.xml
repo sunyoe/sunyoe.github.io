@@ -3908,6 +3908,7 @@
 <li>利用梯度下降法对损失函数进行极小化</li>
 <li>求出将训练数据进行线性划分的分离超平面</li>
 </ol>
+<a id="more"></a>
 <p><strong>重要概念表</strong></p>
 <div class="table-container">
 <table>
@@ -3962,7 +3963,6 @@
 </tbody>
 </table>
 </div>
-<a id="more"></a>
 <h1 id="2-1-感知机模型"><a href="#2-1-感知机模型" class="headerlink" title="2.1 感知机模型"></a>2.1 感知机模型</h1><p>感知机通过函数：</p>
 <p>$f(x)=sign(w\cdot x+b)$</p>
 <p>来表示输入$x$到输出$f(x)$的关系。</p>
