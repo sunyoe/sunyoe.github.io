@@ -100,6 +100,90 @@
     
     
     <article
+  id="post-InfluxDB数据库-简单使用"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/08/01/InfluxDB%E6%95%B0%E6%8D%AE%E5%BA%93-%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"
+    >【InfluxDB数据库】简单使用</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/08/01/InfluxDB%E6%95%B0%E6%8D%AE%E5%BA%93-%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time datetime="2020-08-01T01:26:34.000Z" itemprop="datePublished">2020-08-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Data-Analysis/">Data Analysis</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>版本：V2.0-Beta</p>
+<h2 id="1-一些概念"><a href="#1-一些概念" class="headerlink" title="1. 一些概念"></a>1. 一些概念</h2><h3 id="Line-protocol"><a href="#Line-protocol" class="headerlink" title="Line protocol"></a>Line protocol</h3><p>influx使用line protocol来写入数据，格式和v1.8没有区别，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Syntax ，</span><br><span class="line">&lt;measurement&gt;[,&lt;tag_key&gt;&#x3D;&lt;tag_value&gt;[,&lt;tag_key&gt;&#x3D;&lt;tag_value&gt;]] &lt;field_key&gt;&#x3D;&lt;field_value&gt;[,&lt;field_key&gt;&#x3D;&lt;field_value&gt;] [&lt;timestamp&gt;]</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Example</span><br><span class="line">myMeasurement,tag1&#x3D;value1,tag2&#x3D;value2 fieldKey&#x3D;&quot;fieldValue&quot; 1556813561098000000</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>不能使用<code>\n</code>换行</li>
+<li>浮点数可以使用科学计数法</li>
+<li>整数结尾要加一个<code>i</code></li>
+<li>无符号整数结尾加一个<code>u</code></li>
+<li>字符串长度限制在 64KB</li>
+<li>一般情况下使用的是unix时间戳</li>
+<li>需要转义的字符不多：空格，逗号，等号，引号，反斜杠等，使用<code>\</code>进行转义</li>
+<li>注释：<code>#</code></li>
+<li>命名不能以<code>_</code>开头</li>
+</ul>
+<h3 id="带有注释的CSV"><a href="#带有注释的CSV" class="headerlink" title="带有注释的CSV"></a>带有注释的CSV</h3><p>文件<code>data.csv</code></p>
+<h2 id="2-写入数据的方法"><a href="#2-写入数据的方法" class="headerlink" title="2. 写入数据的方法"></a>2. 写入数据的方法</h2><h3 id="从用户界面写入【最直观】"><a href="#从用户界面写入【最直观】" class="headerlink" title="从用户界面写入【最直观】"></a>从用户界面写入【最直观】</h3><ol>
+<li>influxDB 2.0 OSS界面中，选择<strong>Data(load Data) &gt; Buckets</strong></li>
+<li>在希望写入数据的Bucket下选择<strong>+Add Data</strong></li>
+<li>然后会给三个方法：<br>（1）使用line protocol，上传文件（文件格式应为.line），或者手动输入；<br>  （2）<strong>爬虫方法——Scrape Metrics</strong>，但是这个爬虫/刮板方法似乎很鸡肋，其爬取后的数据到底表示什么？可以点击<strong>Explore &gt; submit</strong>查看数据情况，但是数据表示什么仍然不确定。<br>其格式为Prometheus，值得研究一下。<br>  （3）<strong>Telegraf</strong>插件。</li>
+</ol>
+<h3 id="CLI写入"><a href="#CLI写入" class="headerlink" title="CLI写入"></a>CLI写入</h3><p>用命令行方法，但是实现效果不佳</p>
+<p>使用命令<code>influx write -o -b -p -t -f</code><br>分别是org，bucket，precision，token，file</p>
+<ul>
+<li>可以用<code>\</code>换行书写</li>
+<li>可以不用上传file的方式，直接写数据</li>
+</ul>
+<h3 id="使用InfluxDB-API写入【curl-http】"><a href="#使用InfluxDB-API写入【curl-http】" class="headerlink" title="使用InfluxDB API写入【curl http】"></a>使用InfluxDB API写入【curl http】</h3><ul>
+<li>为什么要用这个写，主要是通过http方式将数据写入。</li>
+<li>写入数据压缩或者不压缩在代码上是有区别的。</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/influxdb/" rel="tag">influxdb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/software/" rel="tag">software</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-InfluxDB数据库-入门"
   class="article article-type-post"
   itemscope
@@ -707,10 +791,6 @@
         <i class="ri-search-line"></i>
       </a>
       
-      
-      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-        <i class="ri-rss-line"></i>
-      </a>
       
     </li>
   </ul>
