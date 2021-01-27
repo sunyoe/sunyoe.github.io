@@ -4092,4 +4092,143 @@
         <tag>统计学习方法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>【统计学习方法】4-朴素贝叶斯法分类</title>
+    <url>/2021/01/27/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%9B%9B/</url>
+    <content><![CDATA[<p>一句话介绍：对给定的输入x，结合贝叶斯概率理论，通过学习到的模型，将<strong>后验概率最大的类</strong>作为x的类输出。</p>
+<hr>
+<p>最好学习过贝叶斯估计方法。</p>
+<p>在本科阶段的<strong>概率论</strong>或研究生阶段的<strong>数理统计</strong>中，都有对贝叶斯估计方法的介绍，与其他估计方法的最大不同是——加入了<strong>先验估计</strong>概念。</p>
+<p>部分公式：</p>
+<ul>
+<li><strong>先验概率分布<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=aa56ce32bc7e79abed4df7c6d4da5f02&amp;vertAlign=-5px" alt="img"></strong></li>
+<li><strong>条件概率分布</strong><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=08e64496cd31461ff6c94396aca3ccff&amp;vertAlign=-5px" alt="img"></li>
+<li><strong>后验概率分布（贝叶斯定理）<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=38aa8a3acc9721c6a5dfe48d3c294a15&amp;vertAlign=-11px" alt="img"></strong></li>
+</ul>
+<p><strong>补充一个忽略了很久的知识点：</strong></p>
+<p><strong>arg max(f(x)) 函数：</strong>得到的结果是使得 f(x)取得最大值所对应的变量点x(或x的集合)。arg即argument，自变量。</p>
+<a id="more"></a>
+<p>首先有一个<strong>训练数据集</strong><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2c71244a34c0f07c638d355e5989ded7&amp;vertAlign=-5px" alt="img">，是由<strong>X</strong>和<strong>Y</strong>的联合概率分布<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=ba2035e8f680414e7669713ff2543531&amp;vertAlign=-5px" alt="img">独立同分布产生。</p>
+<p>   【需要注意的是，这个<strong>联合概率分布</strong>是用<strong>朴素贝叶斯法</strong>训练出来的】</p>
+<p>在朴素贝叶斯法中，对条件概率分布做了<strong>条件独立性的假设：</strong></p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=5e927ec1f212824fad826d95ac4c1952&amp;vertAlign=-10px" alt="img"></p>
+<p>那么，朴素贝叶斯法分类的基本公式就是</p>
+<p>​    <strong><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=d761a42b0c80616abc37371e0ff4def6&amp;vertAlign=-16px" alt="img"></strong></p>
+<p><strong>分母都是相同的，只考虑分子即可，</strong>选择分子最大的那个就是概率最大的，也就是后验概率最大的类了：</p>
+<p>​    <strong><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=8f17f8e89e1afc2ac07402cec0f5cea8&amp;vertAlign=-10px" alt="img"></strong></p>
+<hr>
+<p>以上内容确实就是<strong>朴素贝叶斯学习和分类算法</strong>的全部了，但是想必还是不太好理解。</p>
+<p>一方面，<strong>先验分布和条件分布假设</strong>可能需要使用极大似然估计的方法求取，或者使用贝叶斯估计的方法求取，这又是好几个公式。</p>
+<p>另一方面，还不如直接看一个例子！</p>
+<hr>
+<p><strong>举个栗子：</strong></p>
+<p>我们有一个训练数据集：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left">1</th>
+<th style="text-align:left">2</th>
+<th style="text-align:left">3</th>
+<th style="text-align:left">4</th>
+<th style="text-align:left">5</th>
+<th style="text-align:left">6</th>
+<th style="text-align:left">7</th>
+<th style="text-align:left">8</th>
+<th style="text-align:left">9</th>
+<th style="text-align:left">10</th>
+<th style="text-align:left">11</th>
+<th style="text-align:left">12</th>
+<th style="text-align:left">13</th>
+<th style="text-align:left">14</th>
+<th style="text-align:left">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=cb7aeaea3fbddbd9658aa80803a03872&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">3</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2f934f17dc35c718b89a1151b130b2b3&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=bbf123f617acf92073517a02211c6690&amp;vertAlign=-2px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=636127f00d53316128a2202a15d99d01&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=636127f00d53316128a2202a15d99d01&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=bbf123f617acf92073517a02211c6690&amp;vertAlign=-2px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=bbf123f617acf92073517a02211c6690&amp;vertAlign=-2px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=bbf123f617acf92073517a02211c6690&amp;vertAlign=-2px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=636127f00d53316128a2202a15d99d01&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=636127f00d53316128a2202a15d99d01&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2439f08513277830c4bb03dfcbb1c31d&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2439f08513277830c4bb03dfcbb1c31d&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2439f08513277830c4bb03dfcbb1c31d&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=636127f00d53316128a2202a15d99d01&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=636127f00d53316128a2202a15d99d01&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2439f08513277830c4bb03dfcbb1c31d&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2439f08513277830c4bb03dfcbb1c31d&amp;vertAlign=-1px" alt="img"></td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=ceea6ef8abb8dca1835efcdebe047d18&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">-1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这个数据集是什么意思呢？</p>
+<p><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=cb7aeaea3fbddbd9658aa80803a03872&amp;vertAlign=-1px" alt="img">和<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2f934f17dc35c718b89a1151b130b2b3&amp;vertAlign=-1px" alt="img">是特征。</p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=cb7aeaea3fbddbd9658aa80803a03872&amp;vertAlign=-1px" alt="img">取值集合是<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=bbe2ae8ef7fab621b701829b7f96ff02&amp;vertAlign=-5px" alt="img"></p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2f934f17dc35c718b89a1151b130b2b3&amp;vertAlign=-1px" alt="img">取值集合是<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=1298d8d1f0a48f175fb8c6108f4f1107&amp;vertAlign=-5px" alt="img"></p>
+<p><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=ceea6ef8abb8dca1835efcdebe047d18&amp;vertAlign=-1px" alt="img">就是类标记了，两个类，1和-1.</p>
+<p><strong>现在的目的是，学习一个朴素贝叶斯分类器，并且确定 <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=6279a8aab646fe31d3f8b4ec7b8aef10&amp;vertAlign=-5px" alt="img"> 的类标记 <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=94667290c5b0c50e09f6c0c35c2d6c0c&amp;vertAlign=-5px" alt="img"> 是多少？</strong></p>
+<p>开始计算一堆概率：</p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=508fae071834fd358411f20896c4a7a3&amp;vertAlign=-9px" alt="img"></p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=76e2a551092e43f1501a589563541a39&amp;vertAlign=-9px" alt="img"></p>
+<p>其实还是挺好算的，就是有点多，要把先验概率和条件概率全部算完：</p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=f59f9133de7a13acb95270282d48a1c4&amp;vertAlign=-9px" alt="img"></p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=c7f70446d567da1311b61b5d5fff86d5&amp;vertAlign=-9px" alt="img"></p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=ea8fb1d9e9d74a8e312d95161d0cc49e&amp;vertAlign=-9px" alt="img"></p>
+<p>那么接下来根据<strong>朴素贝叶斯分类</strong>的<strong>基本公式</strong>，我们就是要看<strong><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=6279a8aab646fe31d3f8b4ec7b8aef10&amp;vertAlign=-5px" alt="img">的后验概率在哪一类（y=1还是-1）的条件下更大，</strong>我们<strong>只计算分子即可：</strong></p>
+<p><strong>这里很明显，目标的特征是：<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=acedafb8116986bcf367f8e2966078f4&amp;vertAlign=-4px" alt="img"></strong></p>
+<p>​    <strong><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=f988d1bba36286379b8a989a58909a18&amp;vertAlign=-9px" alt="img"></strong></p>
+<p>​    <strong><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=87d00391926e2a8ba081e20fd452a823&amp;vertAlign=-9px" alt="img"></strong></p>
+<p><strong>经过计算，Y=-1的情况概率更大，所以y=-1.</strong></p>
+<p>非常典型的贝叶斯概率估计。</p>
+<p>这一页的公式确实打的很费劲。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>统计学习方法</tag>
+      </tags>
+  </entry>
 </search>

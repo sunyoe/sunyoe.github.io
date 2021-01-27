@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    【统计学习方法】3-k近邻算法 |  悦
+    【统计学习方法】4-朴素贝叶斯法分类 |  悦
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -48,7 +48,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-统计学习方法三"
+  id="post-统计学习方法四"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -59,15 +59,15 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  【统计学习方法】3-k近邻算法
+  【统计学习方法】4-朴素贝叶斯法分类
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2021/01/26/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%89/" class="article-date">
-  <time datetime="2021-01-26T02:42:00.000Z" itemprop="datePublished">2021-01-26</time>
+      <a href="/2021/01/27/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%9B%9B/" class="article-date">
+  <time datetime="2021-01-27T02:26:35.000Z" itemprop="datePublished">2021-01-27</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
@@ -78,7 +78,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">748</span>
+            <span class="post-count">701</span>
         </span>
     </span>
 
@@ -94,70 +94,140 @@
  
     </div>
       
-    <div class="tocbot"></div>
-
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>一句话解释：在大样本中，找距离目标点最近的k个点。</p>
+  <p>一句话介绍：对给定的输入x，结合贝叶斯概率理论，通过学习到的模型，将<strong>后验概率最大的类</strong>作为x的类输出。</p>
 <hr>
-<h1 id="什么是K近邻算法"><a href="#什么是K近邻算法" class="headerlink" title="什么是K近邻算法"></a>什么是K近邻算法</h1><h2 id="对两个实例点之间的距离进行度量"><a href="#对两个实例点之间的距离进行度量" class="headerlink" title="对两个实例点之间的距离进行度量"></a>对两个实例点之间的距离进行度量</h2><ol>
-<li>其实就是使用了范数，不同范数对应的距离度量下的最近邻点不同</li>
-<li>可以简单理解为计算两个点之间的距离</li>
-</ol>
+<p>最好学习过贝叶斯估计方法。</p>
+<p>在本科阶段的<strong>概率论</strong>或研究生阶段的<strong>数理统计</strong>中，都有对贝叶斯估计方法的介绍，与其他估计方法的最大不同是——加入了<strong>先验估计</strong>概念。</p>
+<p>部分公式：</p>
+<ul>
+<li><strong>先验概率分布<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=aa56ce32bc7e79abed4df7c6d4da5f02&amp;vertAlign=-5px" alt="img"></strong></li>
+<li><strong>条件概率分布</strong><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=08e64496cd31461ff6c94396aca3ccff&amp;vertAlign=-5px" alt="img"></li>
+<li><strong>后验概率分布（贝叶斯定理）<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=38aa8a3acc9721c6a5dfe48d3c294a15&amp;vertAlign=-11px" alt="img"></strong></li>
+</ul>
+<p><strong>补充一个忽略了很久的知识点：</strong></p>
+<p><strong>arg max(f(x)) 函数：</strong>得到的结果是使得 f(x)取得最大值所对应的变量点x(或x的集合)。arg即argument，自变量。</p>
 <a id="more"></a>
-<h2 id="K值是什么"><a href="#K值是什么" class="headerlink" title="K值是什么"></a>K值是什么</h2><ol>
-<li><p>在训练集T中找到与目标点 x 最邻近的 k 个点</p>
-<ol>
-<li>k越小，模型复杂度越高，容易过拟合（因为一个点很有可能是噪声）</li>
-</ol>
-</li>
-<li><p>k越大，可以减少学习的估计误差，但是也会导致学习的近似误差增大，本来不相似的东西也会被认为属于比较邻近的集合</p>
-</li>
-<li><p>一般来说，k值是一个比较小的数值</p>
-</li>
-<li><p>采用交叉验证法来选择最优的k值</p>
-</li>
-</ol>
-<h2 id="分类决策规则"><a href="#分类决策规则" class="headerlink" title="分类决策规则"></a>分类决策规则</h2><ol>
-<li>多数表决规则<ol>
-<li>由k个最邻近的点中的多数来决定该点所属的类</li>
-</ol>
-</li>
-<li>衡量分的对不对？<ol>
-<li>误分类概念，要使误分类概率最小</li>
-</ol>
-</li>
-</ol>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/微信图片_20200303164303.jpg" alt="微信图片_20200303164303"></p>
-<h1 id="怎么实现这个算法呢？"><a href="#怎么实现这个算法呢？" class="headerlink" title="怎么实现这个算法呢？"></a>怎么实现这个算法呢？</h1><ol>
-<li>老老实实计算<strong>每一个点与目标点之间的距离</strong>？<br>那要是训练集非常大，岂不是非常<strong>耗时费力</strong>？</li>
-<li>所以要使用<strong>kd树方法——对k维空间中的点进行存储以便对其进行快速检索的树形数据结构。</strong></li>
-</ol>
-<h2 id="kd树方法"><a href="#kd树方法" class="headerlink" title="kd树方法"></a>kd树方法</h2><p><strong>关键两点，一个是构造，另一个是搜索</strong></p>
-<ol>
-<li>树方法实质<ol>
-<li>管他什么树方法，说白了就是<strong>不断分割；</strong></li>
-<li>刚开始整个区域，包含全部点，分一下，各区域点就少了很多，分啊分，最后的小区域点就非常少了，这样搜索效率会提高很多；</li>
-<li>实施起来可能和这个简单的说法略有不同，用到了坐标的中位数，形成的树中存储的是点的坐标。</li>
-</ol>
-</li>
-<li>如何理解这个树形结构<ol>
-<li>要注意，这个树不是说每个实例点是一个树枝，而是数据集划分空间才是树枝；</li>
-<li>也就是说刚才是整个数据集——这就是根结点，然后这个数据集分了两部分，就是两个子区域，分别是一个节点……分啊分，某个小区域里面没有实例点了，这个小区域就是树的末端了（叶结点）。</li>
-</ol>
-</li>
-<li>搜索方法<ol>
-<li>先从叶结点开始检查，然后回退检查父结点和父结点的其他子结点；</li>
-<li>我们假设一下，有个叶结点比较近，那这个叶结点肯定是目标结点的一个近邻了，然后看一下父结点，结果发现比它还近，然后再回退父结点和父结点的其他子结点，找啊找，直到检索到根结点，就找到了最近的点。要是父结点并不近，那么肯定，这个点就算是最近的了。</li>
-</ol>
-</li>
-</ol>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/微信图片_20200303164339.jpg" alt="微信图片_20200303164338"></p>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/微信图片_20200303164418.jpg" alt="微信图片_20200303164418"></p>
+<p>首先有一个<strong>训练数据集</strong><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2c71244a34c0f07c638d355e5989ded7&amp;vertAlign=-5px" alt="img">，是由<strong>X</strong>和<strong>Y</strong>的联合概率分布<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=ba2035e8f680414e7669713ff2543531&amp;vertAlign=-5px" alt="img">独立同分布产生。</p>
+<p>   【需要注意的是，这个<strong>联合概率分布</strong>是用<strong>朴素贝叶斯法</strong>训练出来的】</p>
+<p>在朴素贝叶斯法中，对条件概率分布做了<strong>条件独立性的假设：</strong></p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=5e927ec1f212824fad826d95ac4c1952&amp;vertAlign=-10px" alt="img"></p>
+<p>那么，朴素贝叶斯法分类的基本公式就是</p>
+<p>​    <strong><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=d761a42b0c80616abc37371e0ff4def6&amp;vertAlign=-16px" alt="img"></strong></p>
+<p><strong>分母都是相同的，只考虑分子即可，</strong>选择分子最大的那个就是概率最大的，也就是后验概率最大的类了：</p>
+<p>​    <strong><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=8f17f8e89e1afc2ac07402cec0f5cea8&amp;vertAlign=-10px" alt="img"></strong></p>
+<hr>
+<p>以上内容确实就是<strong>朴素贝叶斯学习和分类算法</strong>的全部了，但是想必还是不太好理解。</p>
+<p>一方面，<strong>先验分布和条件分布假设</strong>可能需要使用极大似然估计的方法求取，或者使用贝叶斯估计的方法求取，这又是好几个公式。</p>
+<p>另一方面，还不如直接看一个例子！</p>
+<hr>
+<p><strong>举个栗子：</strong></p>
+<p>我们有一个训练数据集：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left">1</th>
+<th style="text-align:left">2</th>
+<th style="text-align:left">3</th>
+<th style="text-align:left">4</th>
+<th style="text-align:left">5</th>
+<th style="text-align:left">6</th>
+<th style="text-align:left">7</th>
+<th style="text-align:left">8</th>
+<th style="text-align:left">9</th>
+<th style="text-align:left">10</th>
+<th style="text-align:left">11</th>
+<th style="text-align:left">12</th>
+<th style="text-align:left">13</th>
+<th style="text-align:left">14</th>
+<th style="text-align:left">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=cb7aeaea3fbddbd9658aa80803a03872&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">3</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2f934f17dc35c718b89a1151b130b2b3&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=bbf123f617acf92073517a02211c6690&amp;vertAlign=-2px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=636127f00d53316128a2202a15d99d01&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=636127f00d53316128a2202a15d99d01&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=bbf123f617acf92073517a02211c6690&amp;vertAlign=-2px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=bbf123f617acf92073517a02211c6690&amp;vertAlign=-2px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=bbf123f617acf92073517a02211c6690&amp;vertAlign=-2px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=636127f00d53316128a2202a15d99d01&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=636127f00d53316128a2202a15d99d01&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2439f08513277830c4bb03dfcbb1c31d&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2439f08513277830c4bb03dfcbb1c31d&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2439f08513277830c4bb03dfcbb1c31d&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=636127f00d53316128a2202a15d99d01&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=636127f00d53316128a2202a15d99d01&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2439f08513277830c4bb03dfcbb1c31d&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2439f08513277830c4bb03dfcbb1c31d&amp;vertAlign=-1px" alt="img"></td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=ceea6ef8abb8dca1835efcdebe047d18&amp;vertAlign=-1px" alt="img"></td>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">-1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这个数据集是什么意思呢？</p>
+<p><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=cb7aeaea3fbddbd9658aa80803a03872&amp;vertAlign=-1px" alt="img">和<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2f934f17dc35c718b89a1151b130b2b3&amp;vertAlign=-1px" alt="img">是特征。</p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=cb7aeaea3fbddbd9658aa80803a03872&amp;vertAlign=-1px" alt="img">取值集合是<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=bbe2ae8ef7fab621b701829b7f96ff02&amp;vertAlign=-5px" alt="img"></p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2f934f17dc35c718b89a1151b130b2b3&amp;vertAlign=-1px" alt="img">取值集合是<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=1298d8d1f0a48f175fb8c6108f4f1107&amp;vertAlign=-5px" alt="img"></p>
+<p><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=ceea6ef8abb8dca1835efcdebe047d18&amp;vertAlign=-1px" alt="img">就是类标记了，两个类，1和-1.</p>
+<p><strong>现在的目的是，学习一个朴素贝叶斯分类器，并且确定 <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=6279a8aab646fe31d3f8b4ec7b8aef10&amp;vertAlign=-5px" alt="img"> 的类标记 <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=94667290c5b0c50e09f6c0c35c2d6c0c&amp;vertAlign=-5px" alt="img"> 是多少？</strong></p>
+<p>开始计算一堆概率：</p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=508fae071834fd358411f20896c4a7a3&amp;vertAlign=-9px" alt="img"></p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=76e2a551092e43f1501a589563541a39&amp;vertAlign=-9px" alt="img"></p>
+<p>其实还是挺好算的，就是有点多，要把先验概率和条件概率全部算完：</p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=f59f9133de7a13acb95270282d48a1c4&amp;vertAlign=-9px" alt="img"></p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=c7f70446d567da1311b61b5d5fff86d5&amp;vertAlign=-9px" alt="img"></p>
+<p>​    <img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=ea8fb1d9e9d74a8e312d95161d0cc49e&amp;vertAlign=-9px" alt="img"></p>
+<p>那么接下来根据<strong>朴素贝叶斯分类</strong>的<strong>基本公式</strong>，我们就是要看<strong><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=6279a8aab646fe31d3f8b4ec7b8aef10&amp;vertAlign=-5px" alt="img">的后验概率在哪一类（y=1还是-1）的条件下更大，</strong>我们<strong>只计算分子即可：</strong></p>
+<p><strong>这里很明显，目标的特征是：<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=acedafb8116986bcf367f8e2966078f4&amp;vertAlign=-4px" alt="img"></strong></p>
+<p>​    <strong><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=f988d1bba36286379b8a989a58909a18&amp;vertAlign=-9px" alt="img"></strong></p>
+<p>​    <strong><img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=87d00391926e2a8ba081e20fd452a823&amp;vertAlign=-9px" alt="img"></strong></p>
+<p><strong>经过计算，Y=-1的情况概率更大，所以y=-1.</strong></p>
+<p>非常典型的贝叶斯概率估计。</p>
+<p>这一页的公式确实打的很费劲。</p>
  
       <!-- reward -->
       
@@ -220,7 +290,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2021/01/26/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%89/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2021/01/27/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%9B%9B/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -233,19 +303,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2021/01/27/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%9B%9B/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            【统计学习方法】4-朴素贝叶斯法分类
-          
-        </div>
-      </a>
     
-    
-      <a href="/2021/01/23/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%BA%8C/" class="article-nav-link">
+      <a href="/2021/01/26/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%89/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">【统计学习方法】2-感知机</div>
+        <div class="article-nav-title">【统计学习方法】3-k近邻算法</div>
       </a>
     
   </nav>
