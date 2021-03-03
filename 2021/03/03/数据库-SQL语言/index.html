@@ -111,6 +111,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">load data infile &#39;F:&#x2F;MySqlData&#x2F;test1.csv&#39; -- CSV文件存放路径</span><br><span class="line">into table student -- 要将数据导入的表名</span><br><span class="line">fields terminated by &#39;列的分隔符&#39; optionally enclosed by &#39;&quot;&#39; escaped by &#39;&quot;&#39;</span><br><span class="line">lines terminated by &#39;\r\n&#39; -- 回车换行符;</span><br></pre></td></tr></table></figure>
 <p>如果是linux下生成的文件，就是 <code>\n</code> 结尾</p>
 <p>注意：这个东西很有可能会出现各种的报错，需要修改配置文件等内容</p>
+<a id="more"></a>
 <blockquote>
 <p>参考：<a href="https://www.cnblogs.com/yoyotl/p/9858587.html" target="_blank" rel="noopener">将csv的数据导入mysql</a></p>
 </blockquote>
