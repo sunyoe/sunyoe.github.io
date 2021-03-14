@@ -100,6 +100,180 @@
     
     
     <article
+  id="post-春招-字节笔试"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/03/14/%E6%98%A5%E6%8B%9B-%E5%AD%97%E8%8A%82%E7%AC%94%E8%AF%95/"
+    >春招-字节笔试</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/03/14/%E6%98%A5%E6%8B%9B-%E5%AD%97%E8%8A%82%E7%AC%94%E8%AF%95/" class="article-date">
+  <time datetime="2021-03-14T13:36:38.000Z" itemprop="datePublished">2021-03-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>平台：牛客网</p>
+<p>体验：</p>
+<ol>
+<li>标准 sys 输入和输出，给输入和输出的范例，主要是多行输入和单行输出</li>
+<li>可以自测，可以print</li>
+</ol>
+<p>题目：</p>
+<h2 id="1）环形数组-找座位问题"><a href="#1）环形数组-找座位问题" class="headerlink" title="1）环形数组 - 找座位问题"></a>1）环形数组 - 找座位问题</h2><p>给出一个环形数组，其中全部为 0 或 1</p>
+<p>请找到一个 0，它距离两侧的 1 应该最远</p>
+<p>比如：</p>
+<p>【0 0 0 0 0 1 0 0】</p>
+<p>那么 应该是在索引2的位置放1，距离最远，最远距离为 4</p>
+<p>分析：</p>
+<p>其实就是找两个 1 之间最大距离，或者说 连续 0 的最多数量</p>
+<p>我的方法就是找 两个 1 之间的最大距离</p>
+<p>而且，为了满足环形要求，直接在现在的数组后面续上一个数组</p>
+<p>这样遍历一遍，就能解决问题了</p>
+<p>【本题全部测试用例通过，10分】</p>
+<h2 id="2）多叉树寻根问题"><a href="#2）多叉树寻根问题" class="headerlink" title="2）多叉树寻根问题"></a>2）多叉树寻根问题</h2><p>问题描述：</p>
+<p>一个初代病毒 T 可以分裂出多个子代病毒</p>
+<p>子代病毒还可以继续分裂</p>
+<p>原病毒是无致命性的，但是分裂和遗传的过程中可能会有致命性</p>
+<p>如果已知某几个病毒是有致命性的，请找出它们的最近的共同根节点</p>
+<p>输入的写法【多行输入】：</p>
+<p>N 个病毒，R 条分裂</p>
+<p>M个致病：编号依次是</p>
+<p>分裂关系1：亲代、子代数量、子代编号</p>
+<p>分裂关系2：亲代、子代数量、子代编号</p>
+<p>分析：</p>
+<p>其实本题充分描绘了一颗多叉树的全貌，但是问题是：</p>
+<p>（1）如何进行还原</p>
+<p>（2）怎么样找最近的</p>
+<p>我首先想到的就是 Union-find 并查集的方法，一个建图的问题</p>
+<p>复习一下：并查集问题涉及以下几个步骤：</p>
+<p>union - 建图</p>
+<p>connected - 判断是不是连通</p>
+<p>count - 用于计数（对于岛屿问题可以使用）</p>
+<p>在建图和判断连通的过程中，会使用 find 函数寻找根节点</p>
+<p>那么本题中虽然有非常明确的多叉树结构，但是还不需要把全图建好，重要的是根据 find 函数寻找到根节点</p>
+<p>所以我的方法就是根据所给树的信息建立 parents 的表单</p>
+<blockquote>
+<p>因为输入信息中 父 - 子 节点的关系十分明确，可以直接对子节点存储 parent 的情况</p>
+</blockquote>
+<p>然后就是比较 各致命病毒 的父节点，什么是否是一样的？</p>
+<ul>
+<li>这个问题有点难，我想的可能不够完整</li>
+</ul>
+<p>我的想法是：</p>
+<p>由于该树中，其实大小是有一定的顺序的，是一颗二叉搜索树</p>
+<p>致命病毒id 也是有顺序的，可以根据最小的节点为标准</p>
+<p>如果别的病毒的父节点 id &gt; 该节点的父节点 id，那么其他病毒就找父节点，然后再比较父节点</p>
+<p>只有 别的病毒的父节点 id &lt; 该节点的父节点 id 时，才会找该节点的父节点 id</p>
+<hr>
+<p>几点说明：</p>
+<p>共同父节点是一定存在的，怎么说 0 也是共节点</p>
+<p>但是要找的是最近的</p>
+<p>【结果，本题通过了 70% 的测试用例， 本题30分】</p>
+<h2 id="3）破解机关问题-环形数组"><a href="#3）破解机关问题-环形数组" class="headerlink" title="3）破解机关问题 - 环形数组"></a>3）破解机关问题 - 环形数组</h2><p>这个问题很有意思，我也想问</p>
+<p>比如原神中有多个火柱子，初始状态有亮 - 1，有灭 - 0</p>
+<p>请问怎么样用最少的次数将所有的火柱子都点亮，如果不能全部点亮，就返回 -1</p>
+<p>举例：</p>
+<p>10</p>
+<p>0 1 1 0 0 0 1 0 0 1</p>
+<p>最后应该是 4次就可以将所有火柱子点亮</p>
+<p>分析：</p>
+<p>我的方法应该是贪心算法</p>
+<p>只要遇到0，那么下一个柱子就点亮，这样会同时影响 i, i+1, i+2三个柱子的值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> f[i] == <span class="number">0</span>:</span><br><span class="line">    f[i] = <span class="number">1</span></span><br><span class="line">    f[i+<span class="number">1</span>] = int(f[i+<span class="number">1</span>]==<span class="number">0</span>)</span><br><span class="line">    f[i+<span class="number">2</span>] = int(f[i+<span class="number">2</span>]==<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>个人觉得这个地方的逻辑判断做的还可以：</p>
+<p>如果 <code>f[i+1]=1</code>，那么，就会变成 false - 0</p>
+<p>如果 <code>f[i+1]=0</code>，那么，就会变成 true - 1</p>
+<p>相当于是与 0 异或</p>
+<p>按照这种方法前面都好说，但是当 i = n - 2的时候， i + 2 = n，会超出索引</p>
+<p>由于这是一个环形，所以需要把第一个柱子续在后面，一个即可【应该吧】</p>
+<p>我当时的判断条件是：当 i = n - 1时，如果 f[i] = 0，那么就判断 false</p>
+<p>但是现在看来还是不太对</p>
+<p>因为 i = n - 2的时候， i + 2 = n，会改掉第一个柱子的值，这样还是不太对</p>
+<p>应该是 i = n - 2 的时候，如果 f [i] = 0，那么其实就是 false 了</p>
+<p>【本题最好的通过情况是 37.5% ， 本题30分】</p>
+<hr>
+<p>而且这个方法对很多问题的算法并不是最佳的，比如：</p>
+<p>4</p>
+<p>0 0 1 0</p>
+<p>很显然一次就够了，但是按算法，会是 false</p>
+<h2 id="4）棋盘游戏问题"><a href="#4）棋盘游戏问题" class="headerlink" title="4）棋盘游戏问题"></a>4）棋盘游戏问题</h2><p>这类几何拓扑的问题，一看到就想放弃，确实不擅长做，主要是觉得二维进行遍历和存储的时候很麻烦</p>
+<p>问题描述：</p>
+<p>给一个 n * m 的棋盘，以及棋盘的状态（有的位置是空的<code>·</code>，有的非空 <code>#</code>）</p>
+<p>有若干 1 * 2 的棋子可以进行填充</p>
+<p>问是不是可以用棋子将棋盘填满，<strong>而且填法唯一</strong>，返回唯一填法</p>
+<p>如果不是，就返回 -1</p>
+<hr>
+<p>其实如果是唯一 填法，那么填起来应该也不会太难</p>
+<p>我们可以看几个案例：</p>
+<p>（1）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">· ·</span><br><span class="line"></span><br><span class="line">· ·</span><br></pre></td></tr></table></figure>
+<p>这是 2x2 的棋盘，有两种方式可以填满，所以不是唯一的</p>
+<p>那么是不是说只要有这样的位置，就可以断定填不满了呢？不是</p>
+<p>（2）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">· · <span class="comment">#</span></span><br><span class="line">· · ·</span><br><span class="line">· <span class="comment"># #</span></span><br></pre></td></tr></table></figure>
+<p>这是有唯一解的，唯一解为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt; &gt; <span class="comment">#</span></span><br><span class="line">^ &lt; &gt;</span><br><span class="line">v <span class="comment"># #</span></span><br></pre></td></tr></table></figure>
+<p>其中 <code>&lt; &gt;</code> 表示横着放的棋子，<code>^ v</code> 表示竖着放的棋子</p>
+<p>经过和同学的讨论，大家认为是这样，可以从头开始遍历，但是需要深度优先</p>
+<p>比如从左上角开始遍历：</p>
+<ul>
+<li>可能有两种放置方法，可以任选一种【任选也说明了多叉树的分支，这肯定要用回溯算法进行回调的，复杂度比较高】<ul>
+<li>但是最好有顺序，比如优先 横放，次之 竖放</li>
+</ul>
+</li>
+<li>然后选择没有被占领的一个空格，看是不是可以放下棋子<ul>
+<li>如果放不下，这条路肯定走不通了，就要返回了</li>
+<li>如果可以放下，那么继续选择旁边没有被占领的空格，遍历</li>
+</ul>
+</li>
+<li>如果没有上面说的空格，那么就按照竖列，遍历到底<ul>
+<li>如果没有返回 false，肯定需要遍历完整个棋盘</li>
+</ul>
+</li>
+</ul>
+<p>这个问题里面，如果有很多种解法，那么至少需要找到两组成功的解法，才能说明 false</p>
+<p>否则需要一直找下去，找不到成功解法才 false</p>
+<p>还是应该找一种能判断 false 的方法</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bytedance/" rel="tag">bytedance</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AF%95/" rel="tag">笔试</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-数据库-SQL语言"
   class="article article-type-post"
   itemscope
@@ -644,67 +818,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E6%B2%BB%E6%B3%95/" rel="tag">分治法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B4%AA%E5%BF%83%E6%B3%95/" rel="tag">贪心法</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-LeetCode刷题笔记二"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/12/06/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%BA%8C/"
-    >LeetCode刷题笔记（二）</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/12/06/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%BA%8C/" class="article-date">
-  <time datetime="2020-12-06T02:53:41.000Z" itemprop="datePublished">2020-12-06</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>每期10题，上一期参见<a href="https://sunyoe.github.io/2020/09/03/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%80/" target="_blank" rel="noopener">LeetCode刷题笔记（一）</a>。</p>
-<p>本期内容多以List操作和动态规划为主，同时针对链表内容结合上篇笔记进行了整理。</p>
-<hr>
-<h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><h2 id="147-对【链表】进行插入排序"><a href="#147-对【链表】进行插入排序" class="headerlink" title="147. 对【链表】进行插入排序"></a>147. 对【链表】进行插入排序</h2><p>每次取出一个待排序元素</p>
-<p>然后将它放入已经排好的序列的合适位置【升序排列，可能有负数】</p>
-<p>关键是怎么样进行排序，从动画来看是从末尾开始进行比较，直到当前数的大小合适就可以放入了</p> 
-      <a class="article-more-link" href="/2020/12/06/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%BA%8C/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/List%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C/" rel="tag">List数组操作</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li></ul>
 
     </footer>
   </div>
