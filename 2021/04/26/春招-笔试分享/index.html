@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    【统计学习方法】7-SVM支持向量机 |  悦
+    春招-笔试分享 |  悦
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -48,7 +48,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-统计学习方法七"
+  id="post-春招-笔试分享"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -59,18 +59,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  【统计学习方法】7-SVM支持向量机
+  春招-笔试分享
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2021/04/24/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%83/" class="article-date">
-  <time datetime="2021-04-24T02:08:14.000Z" itemprop="datePublished">2021-04-24</time>
+      <a href="/2021/04/26/%E6%98%A5%E6%8B%9B-%E7%AC%94%E8%AF%95%E5%88%86%E4%BA%AB/" class="article-date">
+  <time datetime="2021-04-26T02:42:49.000Z" itemprop="datePublished">2021-04-26</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
   </div>
   
 <div class="word_count">
@@ -78,7 +78,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.7k</span>
+            <span class="post-count">2.1k</span>
         </span>
     </span>
 
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">5 分钟</span>
+            <span class="post-count">7 分钟</span>
         </span>
     </span>
 </div>
@@ -102,79 +102,97 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p><strong>一句话介绍</strong></p>
-<p>支持向量机是一种分类模型，求解能够正确划分训练数据集并且几何间隔最大的分离超平面。</p>
+  <p>字节跳动的笔试记录是最详细的，但是也是唯一一个没有成功的。</p>
+<p>今天带来的一手笔试题目难度各异，分别来自美团、阿里和华为。总体来说，阿里的题目数据量大、用时紧张，很难完整得出结果；美团的题目较多，但上手也比较容易；华为题目虽然相对简单，但是输入输出的数据格式非常糟糕。</p>
+<p>下面对部分留下记录的题目进行简单分析：</p>
+<h1 id="1-阿里笔试"><a href="#1-阿里笔试" class="headerlink" title="1. 阿里笔试"></a>1. 阿里笔试</h1><p>比较难，关键感受：测试用例非常完整，很难通过用例，一个测试用例都没有过。</p>
+<h2 id="1）牌游戏问题"><a href="#1）牌游戏问题" class="headerlink" title="1）牌游戏问题"></a>1）牌游戏问题</h2><p>题目描述：n副牌，每副有m张（就是1到m），每副牌中抽1张，问相加之和为k的抽取方案有多少种？</p>
+<p>给出的测试例会有T组，需要一下子给出他们的结果。</p>
+<p>这道题似乎在Leetcode上找到了近似的题目，ta的解决方法是<strong>概率</strong>的方法</p>
+<h2 id="2）-零件优化问题"><a href="#2）-零件优化问题" class="headerlink" title="2） 零件优化问题"></a>2） 零件优化问题</h2><p>题目描述：n个零件，对每个零件进行一次空间 或 时间优化（二选一，且必选），每种优化带来的不稳定值不同</p>
+<p>这些零件中，有的零件之间会有冲突，总计 m 条冲突，冲突零件不可组合</p>
+<p>请找到最佳组合方案，要求不稳定值最小。</p>
+<p>思路：这道题相比1）题其实可解性稍高，比如可以使用并查集的方式建立零件之间的联系（两种联系，一是冲突问题，二是不稳定值之和），然后寻找最小的不稳定值。</p>
+<h2 id="其他笔试"><a href="#其他笔试" class="headerlink" title="其他笔试"></a>其他笔试</h2><p>在早期的阿里云笔试中，题目是二叉树的中序遍历问题</p>
+<p>在一棵二叉搜索树中，找到第 k 小的数字</p>
+<h1 id="2-美团笔试"><a href="#2-美团笔试" class="headerlink" title="2. 美团笔试"></a>2. 美团笔试</h1><p>一共5道题，难度适中，可解性比较高。</p>
+<h2 id="1）积木问题"><a href="#1）积木问题" class="headerlink" title="1）积木问题"></a>1）积木问题</h2><p>题目描述：</p>
+<p>共有n块积木，每个积木上写了一个数字（0-9之间的数字）。</p>
+<p>可以任一将其中一块积木换成其他数字，希望更换后的数字串特点是：</p>
+<p>1）回文最好</p>
+<p>2）越小越好</p>
+<p>不能回文，就越小越好。</p>
+<p>输出：最佳的积木更换方案后的情况。</p>
+<p>思路：</p>
+<p>1）首先需要检查是不是回文，用双指针前后移动，观察到某一位是不是相同，如果不同，试图更换积木，看更换后是不是回文，仍然不是，那么特点1）无望，就换成更小的积木</p>
+<p>2）直接从最高位开始，不是0的那一位换成0，就是最小的</p>
+<p>现在看来，当时的解法有瑕疵，回文的检查做了两次，其实只需要一次就可以了，更换数字放在中间，然后继续检查就可以了</p>
+<p>这道题过了72%的样子。</p>
+<h2 id="2）打龙技能问题"><a href="#2）打龙技能问题" class="headerlink" title="2）打龙技能问题"></a>2）打龙技能问题</h2><p>题目描述：</p>
+<p>在一个游戏中要打龙，有两种技能 1和2，分别需要消耗 c1 和 c2 点体力，使用任意一种技能都可以打败龙。</p>
+<p>赢得游戏的要求是，不能连续输3局。</p>
+<p>现在给出一串字符串，T和F，表示不用技能的情况下每局的输赢情况。</p>
+<p>现在问，最少需要多少点体力，才能赢得游戏？</p>
+<p>思路：</p>
+<p>这道题的难度应该说很低了，贪心法。</p>
+<p>就是从头开始遍历，输的次数累计到3，自然就要用一次技能，计算需要使用技能的最少数量；</p>
+<p>两种技能中选择消耗体力比较少的那一种，就可以了。</p>
+<p>这道题似乎是全过了。</p>
+<h2 id="3）爬树问题"><a href="#3）爬树问题" class="headerlink" title="3）爬树问题"></a>3）爬树问题</h2><p>题目：有n棵树，高度分别为 $h_i$</p>
+<p>现在要选择一棵树，作为分界点：</p>
+<ul>
+<li>所有奇数树给一队</li>
+<li>所有偶数树给另一队</li>
+</ul>
+<p>注意：奇偶数是在去除选择的这棵树之后的顺序来计算的！！</p>
+<p>要求：找到合适的位置，使得两队的高度应该一致，无法一致就返回false</p>
+<p>思路：</p>
+<p>这道题我用了前缀和的方法，首先遍历一遍所有树，记录到每一棵树的位置，前面的所有树中奇数和偶数树的高度。</p>
+<p>然后遍历位置，以每个位置分界</p>
+<p>所有奇数树：该位置前的奇数树+该位置后的偶数树</p>
+<p>所有偶数树：该位置前的偶数树+该位置后的奇数树</p>
+<p>这个题就是这个索引比较头大，最后似乎通过了82%</p>
 <hr>
-<h1 id="0-支持向量"><a href="#0-支持向量" class="headerlink" title="0.支持向量"></a>0.支持向量</h1><p>要理解什么是支持向量（support vector），首先需要理解以下几个概念：</p>
-<p>如果我们有一堆数据（二维），在二维平面上分布如下图所示：</p>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/微信图片_20210424102729.jpg" alt="微信图片_20210424102729"></p>
-<p>我们可以用一条直线将这堆数据分成两个部分：</p>
-<p>【当这堆数据维数是<strong>3维</strong>，这条直线就成了<strong>平面</strong>；当数据<strong>维数更高</strong>，这条分隔线就成了<strong>超平面</strong>】以下统称超平面，数学表达为：</p>
-<p>$w^<em>\cdot x + b^</em>=0$</p>
-<p>要说明的是，仅仅把这堆数据分离开，也许有无数个超平面可以做到；</p>
-<p>我们做一些规范，最大几何间隔的分离超平面，是唯一且存在的。</p>
-<p>很明显，分隔之后，有的点离这个超平面近，有的远，最近点到超平面的距离，称为<strong>间隔</strong>，这个最近的样本点的实例就被称为支持向量【本定义适用于线性可分情况下】。</p>
-<p>支持向量在确定分离超平面中起决定性作用（不移动支持向量，分离超平面就不会变化），所以把这种分类模型称为支持向量机。</p>
-<a id="more"></a>
-<p>相关重要概念：</p>
-<p><strong>类标记</strong>概念：可以理解为因变量，但是这个量更准确地说是观测值、实际值，而不是由函数计算出来的</p>
-<p><strong>函数间隔</strong>：该点的类标记和超平面函数值的乘积$\hat \gamma_i=y_i(w\cdot x_i+b)$【表示分类预测的正确性和确信度】</p>
-<p><strong>几何间隔</strong>：规定$L||w||=1$（L2范数）情况下的函数间隔$\gamma_i=y_i(\frac{w}{||w||}\cdot x_i+\frac{b}{||w||})$【实例点到超平面的带符号的距离】</p>
-<p><strong>硬间隔最大化</strong>：线性可分的训练数据集——线性可分支持向量机</p>
-<p><strong>软间隔最大化</strong>：训练数据集近似线性可分——线性支持向量机</p>
-<h1 id="1-线性可分支持向量机"><a href="#1-线性可分支持向量机" class="headerlink" title="1.线性可分支持向量机"></a>1.线性可分支持向量机</h1><p>找<strong>最大间隔分离超平面</strong>：该超平面对训练数据集的几何间隔至少应大于某个值；</p>
-<p>凸优化问题 P116 与凸二次规划问题</p>
-<h2 id="最大间隔法"><a href="#最大间隔法" class="headerlink" title="最大间隔法"></a>最大间隔法</h2><p>in：可分训练数据集，x 和对应的类标记 y</p>
-<p>out：最大间隔分离超平面（参数 w 和 b），分类决策函数（$sign$函数）</p>
-<h3 id="间隔边界"><a href="#间隔边界" class="headerlink" title="间隔边界"></a>间隔边界</h3><p>与最大间隔分离超平面相平行的平面中，有两个超平面 H1 和 H2 之间没有任何实例点，这两个超平面就是间隔边界，中间的距离就是间隔。</p>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/IMG_20201117_105233.jpg" alt="IMG_20201117_105233"></p>
-<h3 id="线性可分支持向量机的对偶算法"><a href="#线性可分支持向量机的对偶算法" class="headerlink" title="线性可分支持向量机的对偶算法"></a>线性可分支持向量机的对偶算法</h3><p>使用拉格朗日乘子法进行问题的转化，注意我们的目标：要使间隔最大——也就是<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2f22ec97a5d006440605bddabf953edc&amp;vertAlign=-5px" alt="img">尽可能小</p>
-<p>分类决策函数：$f(x)=sign(\Sigma_{i=1}^N\alpha_i^<em>y_i(x\cdot x_i)+b^</em>)$只依赖于输入x和训练样本输入的内积</p>
-<p>本方法中，将训练数据中对应于$\alpha^*_i&gt;0$的样本点称为支持向量【这里的是$\alpha_i$拉格朗日乘子】</p>
-<blockquote>
-<p>本方法核心思想是拉格朗日乘子法，在使用的过程中，将约束条件从几何间隔转化为了$\alpha_i$的约束</p>
-</blockquote>
-<h1 id="2-线性支持向量机"><a href="#2-线性支持向量机" class="headerlink" title="2.线性支持向量机"></a>2.线性支持向量机</h1><h2 id="训练样本线性不可分——软间隔最大化"><a href="#训练样本线性不可分——软间隔最大化" class="headerlink" title="训练样本线性不可分——软间隔最大化"></a>训练样本线性不可分——软间隔最大化</h2><p>其实主要是有少量的“特异点”（outlier），将这些点去除之后，剩下的样本就线性可分了。</p>
-<p>我们并不能直接去除这些特异点，但是可以放宽标准，增加一个松弛变量，一来放宽限制，二来在目标函数中进行惩罚，确保误分类的样本尽量少。</p>
-<blockquote>
-<p>线性支持向量机包含线性可分支持向量机</p>
-</blockquote>
-<p>如果假设此处的分离超平面是$w^<em>\cdot x+b^</em>=0$，那么 w 的解是唯一的，但是 b 的解可能不唯一，而是存在一个区间</p>
-<p>下图表示软间隔的支持向量：</p>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/软间隔的支持向量.jpg" alt="软间隔的支持向量"></p>
-<h2 id="合页损失函数"><a href="#合页损失函数" class="headerlink" title="合页损失函数"></a>合页损失函数</h2><p>在本问题中，还有一种以合页损失函数表示的目标函数：</p>
-<p>$\Sigma_{i=1}^N[1-y_i(w\cdot x_i+b)]_++\lambda||w||^2$</p>
-<p>其中前半部分称为合页损失函数(hinge loss function)：$L(y(w\cdot x+b))=[1-y(w\cdot x+b)]_+$</p>
-<p>其中$[z]_+=\left \{ \begin{aligned} z , z&gt;0 \\ 0, z \leq 0\end{aligned} \right.$</p>
-<p>该函数特性就是</p>
-<ul>
-<li>如果样本点被正确分类且函数间隔大于1，那么损失是0</li>
-<li>其他情况下，损失是$1-y_i(w\cdot x_i+b)$</li>
-</ul>
-<p>下图中：</p>
-<ul>
-<li>左侧水平线是 0-1损失 的一部分【真正的二类分类问题】</li>
-<li>虚线斜线是合页损失函数（不带1时）</li>
-<li>实现是完整的合页损失函数，只有当确信度足够高时，损失才是0，要求更高</li>
-</ul>
-<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/合页损失函数.jpg" alt="合页损失函数"></p>
-<h1 id="3-非线性支持向量机与核函数"><a href="#3-非线性支持向量机与核函数" class="headerlink" title="3.非线性支持向量机与核函数"></a>3.非线性支持向量机与核函数</h1><p>非线性可分问题：如果能用一个超曲面将正负类正确分开，则称非线性可分问题</p>
-<p>求解思路：进行非线性变换，将非线性问题变换为线性问题然后进行求解</p>
-<h2 id="核技巧"><a href="#核技巧" class="headerlink" title="核技巧"></a>核技巧</h2><p>基本想法</p>
-<ul>
-<li>通过一个非线性变换将输入空间（欧式空间或者离散空间）对应于一个特征空间（希尔伯特空间）<br>使得输入空间中的超曲面模型对应于特征空间中的超平面模型</li>
-<li>在特征空间中求解线性支持向量机</li>
-</ul>
-<h2 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h2><p>从输入空间 X 到 特征空间 H 的映射关系为$\phi(x)$</p>
-<p>则输入空间中的两个量的核函数值应该是映射函数的内积$K(x,z)=\phi(x)\cdot \phi(z)$，K 是核函数</p>
-<p>给定核函数，特征空间和映射关系的取法不唯一</p>
-<h2 id="非线性支持向量机"><a href="#非线性支持向量机" class="headerlink" title="非线性支持向量机"></a>非线性支持向量机</h2><p>只需要将线性支持向量机对偶形式中的内积换成核函数即可，当然实际计算过程过程麻烦了很多</p>
-<h1 id="4-序列最小最优化方法"><a href="#4-序列最小最优化方法" class="headerlink" title="4.序列最小最优化方法"></a>4.序列最小最优化方法</h1><p>支持向量机的学习问题可以转化为求解凸二次规划问题，但样本容量较大时，算法会变得低效；</p>
-<p>支持向量及的高效实现方法之一：<strong>序列最小最优化 SMO 算法</strong></p>
-<p>分两步：</p>
-<p>（1）选择变量的启发式方法，将原问题不断分解为子问题 </p>
-<p>（2）求解两个变量二次规划的解析方法</p>
-<p>直到所有变量满足KKT条件为止</p>
+<p>还有两道题，题目已经不太记得了，通过率均为18%，进入面试环节。</p>
+<h2 id="面试题目-大数加减法"><a href="#面试题目-大数加减法" class="headerlink" title="面试题目 - 大数加减法"></a>面试题目 - 大数加减法</h2><p>也就是计算器算法的实现</p>
+<h1 id="3-华为笔试"><a href="#3-华为笔试" class="headerlink" title="3. 华为笔试"></a>3. 华为笔试</h1><h2 id="1）-球赛积分问题"><a href="#1）-球赛积分问题" class="headerlink" title="1） 球赛积分问题"></a>1） 球赛积分问题</h2><p>足球小组赛中，通常是两两进行两次比赛，分别当一次主场，然后赢方积3分，平则各积1分</p>
+<p>给出一组比赛结果，记录了所有场次比赛的信息</p>
+<p>其中球队名称为 a-z 的字母，不会超过26支球队</p>
+<p>然后后面跟上比赛结果</p>
+<p>输出要求：按照积分高低输出球队名，同积分则按照字母顺序</p>
+<p>我的思路：</p>
+<ol>
+<li>本题用一个哈希表，或者字典就能很好解决积分计算的问题</li>
+<li>最关键的算法是字典的排序，要按照value大小进行排序</li>
+</ol>
+<p>问题：</p>
+<ol>
+<li>本题在牛客网上进行时，还有一个问题是输入输出的格式问题，不是很规范，需要进行很多转换</li>
+<li>字典的键的排序比较糟糕</li>
+</ol>
+<p>本题通过70%</p>
+<h2 id="2）帽子问题"><a href="#2）帽子问题" class="headerlink" title="2）帽子问题"></a>2）帽子问题</h2><p>每个人知道自己的帽子颜色，和在场所有人的帽子颜色</p>
+<p>现在给出一个数组，里面记录了部分人报告的数据，该数据表示在场人中帽子颜色和他相同的人的数量</p>
+<p>比如在场有4个人戴了蓝色帽子，那么其中任一人被问时，回答都会是 3：表示还有3个人的帽子和自己颜色相同。</p>
+<p>问：根据这个数组，在场最少有多少人。</p>
+<p>这个逻辑问题的关键是：比如两个颜色的帽子数量是相同的，那么这两个群体中所有人回答的数量都是一样的，如果这两个群体中的人并没有被全部提问，那么我们就可以少算几个人了！</p>
+<p>比如<code>2 2</code></p>
+<p>有可能是 两个人颜色并不一样，但我们完全可以认为他们是一样的，这样全场最少就是3个人。</p>
+<p>因此，本题的算法应该可以认为是贪心法，用数学方法解决：</p>
+<p>用一个哈希表记录相同数字的数量，比如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>: <span class="number">2</span>	<span class="comment"># 2个人答1</span></span><br><span class="line"><span class="number">2</span>: <span class="number">2</span>	<span class="comment"># 2个人答2</span></span><br><span class="line"><span class="number">3</span>: <span class="number">5</span>	<span class="comment"># 5个人答3</span></span><br></pre></td></tr></table></figure>
+<p>那么，相当于：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span>: <span class="number">2</span>	<span class="comment"># 二人同色，2人</span></span><br><span class="line"><span class="number">3</span>: <span class="number">2</span>	<span class="comment"># 三人同色，2人</span></span><br><span class="line"><span class="number">4</span>: <span class="number">5</span>	<span class="comment"># 四人同色，5人</span></span><br></pre></td></tr></table></figure>
+<p>最少的情况就是：</p>
+<p>$[\frac{记录数量}{同色人数}]_{取整}*同色人数$</p>
+<p>比如：$[\frac{5}{4}]_{取整}<em>4=2</em>4=8$，这里取整要向上取整</p>
+<p>本题全过。</p>
+<h2 id="3）最少步数找到字符串"><a href="#3）最少步数找到字符串" class="headerlink" title="3）最少步数找到字符串"></a>3）最少步数找到字符串</h2><p>给出：一个长字符串、一个短字符串、在长字符串中的起始位置</p>
+<p>要求：在长字符串的起始位置开始，可以向左或者向右开始找短字符串的头一个字符，然后按照顺序找下一个短字符串中的字符，找出总步数最少的那一种情况输出。</p>
+<p>本题还是有一点难度的，就是说我应该怎么找最短的路径，而且本题中的长字符串是可以循环的。</p>
+<p>结果：本题通过30%</p>
+<h2 id="面试题目"><a href="#面试题目" class="headerlink" title="面试题目"></a>面试题目</h2><p>LeetCode - 11 装水的最大容器问题</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>本文主要是作者个人知识积累和记录，以便后续查看，如果能够帮助其他同学，将不胜荣幸。希望能够继续努力，夯实基础，在职业生涯大放异彩！</p>
  
       <!-- reward -->
       
@@ -237,12 +255,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2021/04/24/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%83/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2021/04/26/%E6%98%A5%E6%8B%9B-%E7%AC%94%E8%AF%95%E5%88%86%E4%BA%AB/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" rel="tag">统计学习方法</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AF%95/" rel="tag">笔试</a></li></ul>
 
     </footer>
   </div>
@@ -250,19 +268,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2021/04/26/%E6%98%A5%E6%8B%9B-%E7%AC%94%E8%AF%95%E5%88%86%E4%BA%AB/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            春招-笔试分享
-          
-        </div>
-      </a>
     
-    
-      <a href="/2021/04/17/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%85%AD/" class="article-nav-link">
+      <a href="/2021/04/24/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%83/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">【统计学习方法】6-回归和最大熵</div>
+        <div class="article-nav-title">【统计学习方法】7-SVM支持向量机</div>
       </a>
     
   </nav>
