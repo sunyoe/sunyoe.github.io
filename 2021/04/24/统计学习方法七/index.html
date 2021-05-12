@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">5 分钟</span>
+            <span class="post-count">6 分钟</span>
         </span>
     </span>
 </div>
@@ -128,7 +128,7 @@
 <p>out：最大间隔分离超平面（参数 w 和 b），分类决策函数（$sign$函数）</p>
 <h3 id="间隔边界"><a href="#间隔边界" class="headerlink" title="间隔边界"></a>间隔边界</h3><p>与最大间隔分离超平面相平行的平面中，有两个超平面 H1 和 H2 之间没有任何实例点，这两个超平面就是间隔边界，中间的距离就是间隔。</p>
 <p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/IMG_20201117_105233.jpg" alt="IMG_20201117_105233"></p>
-<h3 id="线性可分支持向量机的对偶算法"><a href="#线性可分支持向量机的对偶算法" class="headerlink" title="线性可分支持向量机的对偶算法"></a>线性可分支持向量机的对偶算法</h3><p>使用拉格朗日乘子法进行问题的转化，注意我们的目标：要使间隔最大——也就是<img src="http://101.133.159.251:6001/plugins/servlet/latexmath/placeholder?key=2f22ec97a5d006440605bddabf953edc&amp;vertAlign=-5px" alt="img">尽可能小</p>
+<h3 id="线性可分支持向量机的对偶算法"><a href="#线性可分支持向量机的对偶算法" class="headerlink" title="线性可分支持向量机的对偶算法"></a>线性可分支持向量机的对偶算法</h3><p>使用拉格朗日乘子法进行问题的转化，注意我们的目标：要使间隔最大——也就是$||w||^2$尽可能小</p>
 <p>分类决策函数：$f(x)=sign(\Sigma_{i=1}^N\alpha_i^<em>y_i(x\cdot x_i)+b^</em>)$只依赖于输入x和训练样本输入的内积</p>
 <p>本方法中，将训练数据中对应于$\alpha^*_i&gt;0$的样本点称为支持向量【这里的是$\alpha_i$拉格朗日乘子】</p>
 <blockquote>
