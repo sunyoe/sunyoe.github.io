@@ -6457,7 +6457,7 @@
       </tags>
   </entry>
   <entry>
-    <title>【统计学习方法】八-提升方法</title>
+    <title>【统计学习方法】8-提升方法</title>
     <url>/2021/05/12/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%85%AB/</url>
     <content><![CDATA[<p>一句话介绍：对加法模型，使用前向分布算法实现从弱分类器到强分类器的提升。</p>
 <hr>
@@ -6519,6 +6519,66 @@
 </ul>
 <h2 id="梯度提升"><a href="#梯度提升" class="headerlink" title="梯度提升"></a>梯度提升</h2><p>是针对一般损失函数的优化方法，利用了最速下降法</p>
 <p><strong>关键</strong>：利用<strong>损失函数的负梯度在当前模型中的值</strong>，作为回归问题提升树算法中的<strong>残差</strong>的近似值，拟合回归树。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>统计学习方法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【统计学习方法】9-EM算法及其推广</title>
+    <url>/2021/06/19/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B9%9D/</url>
+    <content><![CDATA[<p>一句话介绍：用于<strong>含有隐变量的概率模型参数的极大似然估计</strong>，是一种<strong>迭代算法</strong>，每次迭代有E步和M步两步，又称期望极大算法。</p>
+<hr>
+<p><strong>E：</strong>expectation</p>
+<p><strong>M</strong>：maximization</p>
+<p><strong>EM算法</strong>：用于<strong>含有隐变量的概率模型参数的极大似然估计</strong>，是一种<strong>迭代算法</strong>，每次迭代有E步和M步两步，又称期望极大算法。</p>
+<a id="more"></a>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><ul>
+<li>观测变量 observable variable</li>
+<li>隐变量 hidden variable</li>
+<li>潜在变量 latent variable</li>
+</ul>
+<p>如果概率模型的变量全部是观测变量，可以使用给定数据，用极大似然估计，或者贝叶斯估计法估计模型参数；</p>
+<p>如果概率模型的变量含有隐变量，则不能简单使用上述方法，EM方法为此而生。</p>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><ul>
+<li>观测随机变量的数据（不完全数据）</li>
+<li>隐随机变量的数据</li>
+</ul>
+<p>两者连在一起称为完全数据。</p>
+<h1 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h1><p><strong>体会</strong>一下什么样的问题可以使用EM方法：</p>
+<p>一个掷硬币游戏，有A、B、C三枚硬币。先掷A，根据A的情况选择B或C；再掷选出的硬币，本次硬币的正反面决定结果（1或0）。</p>
+<p>如果在整个过程中，我们能够观察最后的结果是1还是0，但是不能观察这个结果到底是B还是C掷出的，那么这里的B或C就是一个隐变量。</p>
+<p>如果需要根据观测结果估计三个硬币正面出现的概率（也就是硬币模型参数），就可以使用EM方法。</p>
+<h2 id="方法简述"><a href="#方法简述" class="headerlink" title="方法简述"></a>方法简述</h2><p>基础：模型参数的极大似然估计</p>
+<p>首先，选取参数初值；（模型参数在这里就可以理解为硬币正面出现的概率）</p>
+<p>然后，迭代计算参数估计值（这里的迭代，可以理解为通过上面的估计值，结合观测参数的计算，重新估计模型参数），直到收敛。</p>
+<p><strong>【EM算法与初值的选择有关，不同初值可能得到不同的参数估计值】</strong></p>
+<h2 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h2><p><strong>EM算法的核心</strong>是Q函数：$Q(\theta,\theta^{(i)})=E_Z[\log P(Y, Z|\theta)|Y, \theta^{(i)}]$</p>
+<p>是在迭代步骤中出现的，是<strong>对数似然函数</strong> $\log P(Y,Z|\theta)$ 在给定<strong>观测数据 Y</strong> 和<strong>估计参数</strong> $\theta^{(i)}$ 下对<strong>未测量数据 Z</strong> 的<strong>条件概率分布</strong>的<strong>期望</strong>。</p>
+<p><strong>【EM算法不能保证找到全局最优值】</strong></p>
+<h1 id="EM算法的收敛性"><a href="#EM算法的收敛性" class="headerlink" title="EM算法的收敛性"></a>EM算法的收敛性</h1><p>一方面，EM算法关于对数似然函数序列是收敛的；</p>
+<p>另一方面，EM算法关于参数估计序列是收敛的；</p>
+<p><strong>可以保证参数估计序列收敛到对数似然函数序列的稳定点，但不能保证收敛到极大值点。</strong></p>
+<p>常用方法是：选取不同初值尝试，对估计值比较选择最好的。</p>
+<h1 id="EM算法在高斯混合模型学习中的应用"><a href="#EM算法在高斯混合模型学习中的应用" class="headerlink" title="EM算法在高斯混合模型学习中的应用"></a>EM算法在高斯混合模型学习中的应用</h1><p>高斯混合模型，可以理解为高斯分布的概率分布模型（在概统中，我们一般用 $\Phi(x)$ 代替了，查表解决问题，其实是有公式的，这里用的是公式)</p>
+<p>总的来说，有以下几个步骤：</p>
+<ul>
+<li>确定隐变量，写出完全数据的对数似然函数</li>
+<li>确定Q函数，开始迭代中的E步骤，计算期望</li>
+<li>M步，求Q函数关于模型参数的极大值，求得新一轮迭代的模型参数【基本方法是求偏导数并令其为0】</li>
+</ul>
+<h1 id="EM算法的推广"><a href="#EM算法的推广" class="headerlink" title="EM算法的推广"></a>EM算法的推广</h1><p>F函数：$F(\tilde P,\theta)=E_{\tilde P}[\log P(Y, Z|\theta)]+H(\tilde P)$</p>
+<p>其中，$\tilde P(Z)$ 是Z的概率分布，H 是分布的熵</p>
+<p>F函数的极大-极大算法，同EM算法是一致的。</p>
+<p>GEM算法：大致来看和EM算法没有本质区别，但是在迭代过程中：</p>
+<ul>
+<li>EM算法希望直接找极大值</li>
+<li>GEM算法2可以不直接找极大值，而是找相对大一点的值，不停迭代</li>
+<li>GEM算法3则是采用条件极大化，固定某些条件，微调参数向量的一个分量，实现极大</li>
+</ul>
 ]]></content>
       <categories>
         <category>机器学习</category>
