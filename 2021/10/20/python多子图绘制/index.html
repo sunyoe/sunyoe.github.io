@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+  
+
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="思考，学习，生活" />
+       
+      <meta name="description" content="SJTU 研究僧" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>python多子图绘制 |  悦</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="悦" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-python多子图绘制"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  python多子图绘制
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/10/20/python%E5%A4%9A%E5%AD%90%E5%9B%BE%E7%BB%98%E5%88%B6/" class="article-date">
+  <time datetime="2021-10-20T08:09:33.000Z" itemprop="datePublished">2021-10-20</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Data-Analysis/">Data Analysis</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">7 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>一张图往往不能容纳所有，多子图绘制是数据展示中非常重要的方法，网上资料零零散散，查阅起来不方便也不过瘾，现将所学整理成文档，力求简单易懂易上手。</p>
+<p>Matplotlib 汲取了 MATLAB 和 R 语言中的绘图特点和方法，在多子图绘制方面有强大的功能，本文使用该库作多子图绘制方面的介绍。</p>
+<span id="more"></span>
+
+<h1 id="绘图思想"><a href="#绘图思想" class="headerlink" title="绘图思想"></a>绘图思想</h1><p>首先需要对 matplotlib 中的绘图思想作着重了解，否则会在绘图的过程中逐渐忘了自己在干什么。</p>
+<p>我们经常会见到例如 <code>fig, ax = plt.subplots()</code> 的语句，不知道 fig、ax到底是什么，嫌麻烦直接 <code>plt.plot(data)</code> 了事，但是当想要调整坐标轴、调整数据、添加子图时才会发现，这种方法过于草率，学习一下游戏规则还是很有必要。</p>
+<h2 id="基本观点"><a href="#基本观点" class="headerlink" title="基本观点"></a>基本观点</h2><p>从英文来看：</p>
+<ul>
+<li><p>FigureCanvas 画布，Figure 图</p>
+</li>
+<li><p>Axes 坐标轴系？</p>
+</li>
+</ul>
+<p>按照官方的介绍，大概分别代表了图中的下面区域：</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/fig_map.webp" alt="fig_map"></p>
+<p>因此可以理解为：</p>
+<ul>
+<li>画图，需要一张画布，这个画布就是 fig</li>
+<li>在画布上任你画什么，都在 Axes 下，这个单词究竟该怎么翻译，体现了不同人的观点，有两种观点：<ul>
+<li>从模糊的角度说，不管 Axes 是什么意思，这里就是画图的地方（可能是名字起得不好）</li>
+<li>另一种角度认为，画图时，实际上是有多个维度、多个坐标系的，最后呈现在一张图中，需要一个统一的维度，也就是 Axes 将多维度、多坐标系统一在了一张图中（听起来很有道理）</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心结构"><a href="#核心结构" class="headerlink" title="核心结构"></a>核心结构</h2><p>个人觉得 fig、ax 的结构才是考验功底的地方。</p>
+<p>目前看到比较浅显易懂的是：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/93423829">matplotlib：先搞明白plt. &#x2F;ax.&#x2F; fig再画</a></p>
+<p>文中表明：</p>
+<ol>
+<li>造成困惑的最大问题是，pyplot 可以使用多种方式实现同一种绘图，对小白来说很不友好</li>
+<li>plt 画图简单但是草率，<strong>ax 画图才是进阶与核心</strong></li>
+<li>figure、axes、axis 的三级框架是 pyplot 画图必须掌握的结构，在 axes 层级绘图是比较专业的做法，很多操作，plt 和 ax 各自有实现的方法，优先采用 axes 的方法，主要都是在 plt 方法前加上了 set_ 的前缀</li>
+</ol>
+<p>ax 几乎可以填改各种图像中的内容，比如 <code>ax.legend() </code>可以添加子图的图例等等。</p>
+<h1 id="子图绘制方法"><a href="#子图绘制方法" class="headerlink" title="子图绘制方法"></a>子图绘制方法</h1><p>有了上面的思想作为铺垫，接触下面的子图绘制方法将不再困难和枯燥。</p>
+<p>总体来说就是：</p>
+<ul>
+<li>建立一张画布，顺便建立一个或者多个 axes 轴系</li>
+<li>每个 axes 轴系上就是一个子图了，随便折腾</li>
+</ul>
+<p>细究起来，Matplotlib 提供了 subplot、subplots、add_subplot、add_axes 等五花八门的子图绘制方法，它们是有区别的，尤其是需要面向对象画图的时候，<strong>区别很大：直观来说，如果前缀是 <code>plt.</code> 那么就是普通的方法，如果前缀是 <code>fig.</code> 或者 <code>ax.</code> ，那么这个方法是面向对象的方法。</strong></p>
+<h2 id="subplot-x-y-i"><a href="#subplot-x-y-i" class="headerlink" title="subplot(x, y, i)"></a>subplot(x, y, i)</h2><p><strong>定位：基本作图，不用面向对象。</strong></p>
+<p><strong>作用：把一个绘图区域（可以认为是画布）分成多个小区域，用来绘制多个子图。</strong></p>
+<p>多子图的产生方法：</p>
+<p><code>subplot(222)</code> - 表示把画布分成（2*2&#x3D;4）个小区域，并将本图绘制在第2个子区域（也就是右上角位置），可以加逗号：<code>plt.subplot(2,2,2)</code></p>
+<ul>
+<li>第一个参数是&#x3D;&#x3D;行数&#x3D;&#x3D;</li>
+<li>第二个参数是&#x3D;&#x3D;列数&#x3D;&#x3D;</li>
+<li>第三个参数是当前图片的&#x3D;&#x3D;位置&#x3D;&#x3D;，是&#x3D;&#x3D;先行后列&#x3D;&#x3D;的！而且这里的索引是从 1 开始的！</li>
+</ul>
+<p>比如<code>1,3</code>，那么最终会得到3个图<strong>横向排列</strong>，如果是<code>3,1</code>，那么将会是3个图<strong>纵向排列</strong>。</p>
+<h2 id="fig-add-subplot"><a href="#fig-add-subplot" class="headerlink" title="fig.add_subplot()"></a>fig.add_subplot()</h2><p><strong>定位：面向对象的方法！前缀是 fig</strong></p>
+<p><strong>作用：先向 Figure 实例中添加 Axes实例，然后在Axes实例中绘制图片</strong></p>
+<p>其实 <code>plt.subplot()</code> 和 <code>add_subplot()</code> 参数和含义都相同。</p>
+<h2 id="plt-subplots"><a href="#plt-subplots" class="headerlink" title="plt.subplots()"></a>plt.subplots()</h2><p>定位：普通方法，可以不面向对象，也可以面向对象，例如  <code>fig.subplots()</code>  调用</p>
+<p>作用：产生子图，会返回 fig 和 ax，如果是多子图场景，那么返回值 ax 将会是一个 list，包含所有轴系！</p>
+<p>个人觉得这一套多子图绘制思路科学合理，很好用，很适合用于多子图的构建。</p>
+<p>常用流程如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fig, ax = plt.subplots(<span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">ax[<span class="number">0</span>].plot()</span><br><span class="line">ax[<span class="number">1</span>].plot()</span><br></pre></td></tr></table></figure>
+
+<p>其中， ax 是包含多个子图轴系的列表，使用索引调取子图，直接绘制，非常好用。</p>
+<h3 id="值得注意的索引问题"><a href="#值得注意的索引问题" class="headerlink" title="值得注意的索引问题"></a>值得注意的索引问题</h3><p>（1）由于现在是多行了，所以索引本来也是要以 list 形式的，例如 [0, 0] 就表示第一行，第一列的位置</p>
+<p>（这里的索引从0开始！）。</p>
+<p>为了更加方便索引，也可以先展平，然后再绘图，比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fig, ax = plt.subplots(<span class="number">2</span>, <span class="number">5</span>, figsize=(<span class="number">25</span>,<span class="number">10</span>))</span><br><span class="line">ax = ax.flatten()</span><br><span class="line">ax[i].plot(xxx)</span><br></pre></td></tr></table></figure>
+
+<p>此时索引就不需要再以 list 形式了，就可以直接用从0开始的数字索引了。</p>
+<p>（2）另外，还要注意，索引代表的图像应该是先行后列的</p>
+<h2 id="axes-与-add-axes"><a href="#axes-与-add-axes" class="headerlink" title="axes() 与 .add_axes()"></a>axes() 与 .add_axes()</h2><p><strong>定位：前者是普通方法，后者是面向对象的方法</strong></p>
+<p><strong>作用：用于手绘子图</strong></p>
+<p>举例：</p>
+<p><code>plt.axes([0.65, 0.65, 0.2, 0.2])</code></p>
+<p>其中：</p>
+<ul>
+<li>参数1：子图的位置 x（均为百分数，0-1之间）</li>
+<li>参数2：子图的位置 y</li>
+<li>参数3：子图的宽度 w</li>
+<li>参数4：子图的高度 h</li>
+</ul>
+<p>以上参数全部使用百分数，0-1之间，一般来说，取0.1-0.9之间比较好</p>
+<p>就像下图所示：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-02270b127046bd91b81c35390456750e_720w.jpg" alt="img"></p>
+<blockquote>
+<p>个人理解，在plt中画图时，应该是按照&#x3D;&#x3D;左下角为坐标原点&#x3D;&#x3D;来进行绘制的！</p>
+</blockquote>
+<p>面向对象时，可以如下使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fig = plt.figure()</span><br><span class="line">ax1 = fig.add_axes([<span class="number">0.65</span>, <span class="number">0.65</span>, <span class="number">0.2</span>, <span class="number">0.2</span>])</span><br></pre></td></tr></table></figure>
+
+<h2 id="子图间隔调整"><a href="#子图间隔调整" class="headerlink" title="子图间隔调整"></a>子图间隔调整</h2><h3 id="tight-layout"><a href="#tight-layout" class="headerlink" title="tight_layout()"></a>tight_layout()</h3><p>根据默认的子图排列，可能会导致子图出现标题重叠的现象，比如：</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/20181116151125160.png" alt="img"></p>
+<p>为了避免这种情况，可以使用 <code>plt.tight_layout()</code> 自动调整子图，使之填充图像区域，避免重叠：</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/20181116151140910.png" alt="img"></p>
+<p>该函数有一个参数有意思，就是 pad，但是目前来看效果不明显，这个pad 似乎是根据字的大小来设置的一个相对数字。</p>
+<blockquote>
+<p>参考：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Du_Shuang/article/details/84139716">plt.tight_layout()</a></li>
+<li>官方：<a target="_blank" rel="noopener" href="https://www.osgeo.cn/matplotlib/api/_as_gen/matplotlib.pyplot.tight_layout.html">matplotlib.pyplot.tight_layout</a></li>
+<li>此外，还有多种方法可以实现比较紧密的布局，参考: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/91eb0d616adb">Matplotlib 中文用户指南 3.4 密致布局指南</a></li>
+</ol>
+</blockquote>
+<h3 id="subplots-adjust"><a href="#subplots-adjust" class="headerlink" title="subplots_adjust()"></a>subplots_adjust()</h3><p>还可以使用 <code>plt.subplots_adjust()</code> 可用于调整这些图之间的间隔</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fig = plt.figure()</span><br><span class="line">fig.subplots_adjust(hspace=<span class="number">0.4</span>, wspace=<span class="number">0.4</span>)</span><br></pre></td></tr></table></figure>
+
+<p>要注意的是：hspace 和 wspace 表示的是占<strong>子图</strong>高度和宽度的百分比！所以介于0和1之间。</p>
+<h2 id="GridSpec-弹性绘图"><a href="#GridSpec-弹性绘图" class="headerlink" title="GridSpec 弹性绘图"></a>GridSpec 弹性绘图</h2><p><code>plt.GridSpec(2, 3, wspace=0.4, hspace=0.3)</code></p>
+<p>在该方法下，可以使用 切片的方法指定子图的位置和范围（仍然是先行，后列，左包，右不包）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plt.subplot(grid[<span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line">plt.subplot(grid[<span class="number">0</span>, <span class="number">1</span>:])</span><br><span class="line">plt.subplot(grid[<span class="number">1</span>, :<span class="number">2</span>])</span><br><span class="line">plt.subplot(grid[<span class="number">1</span>, <span class="number">2</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/v2-c1ce13c65ac11d2428650625acf239cd_720w.jpg" alt="img"></p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/75276939">Matplotlib 多子图绘制</a></p>
+</blockquote>
+<h2 id="多子图标题"><a href="#多子图标题" class="headerlink" title="多子图标题"></a>多子图标题</h2><p>多子图情况下，如果需要添加总图标题，可以使用：</p>
+<p><code>plt.suptitle(&quot;title&quot;)</code> 的方式添加总图的标题</p>
+<p>还可以调整 suptitle 的位置：</p>
+<p><code>plt.suptitle(&quot;title&quot;, y=0.98)</code></p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/55767312/how-to-position-suptitle">How to position suptitle?</a></p>
+</blockquote>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>有一些本身就高定制化的图片，例如 seaborn 中的 jointplot 等图，就不太容易放置在子图中，如有需要，可以参考 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/35042255/how-to-plot-multiple-seaborn-jointplot-in-subplot">How to plot multiple Seaborn Jointplot in Subplot</a> 进行绘制，不过似乎是需要添加一些自定义的文件。</p>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><ol>
+<li><code>plt.subplot(x,x,x)</code> 表示当前对该子图绘画</li>
+<li><code>plt.plot()</code> 绘制曲线，也可以<strong>绘制直线</strong></li>
+<li><code>plt.title(&quot;&quot;)</code> 起标题</li>
+<li><code>plt.xlabel(&quot;&quot;)</code> 横轴意义</li>
+<li><code>plt.ylabel(&quot;&quot;)</code> 纵轴意义</li>
+<li><code>plt.xlim([start, end])</code> 横轴范围</li>
+<li><code>plt.imshow(img)</code> 将图片放入子图（主要加载图片应该在其他画线操作都结束之后，否则图片加载不出来）</li>
+<li><code>plt.show()</code> 最后把整个图进行展示</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2021/10/20/python%E5%A4%9A%E5%AD%90%E5%9B%BE%E7%BB%98%E5%88%B6/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag">数据分析</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/10/24/%E4%BD%BF%E7%94%A8seaborn%E7%BB%98%E5%88%B6%E6%95%B0%E6%8D%AE%E5%9B%BE/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            使用seaborn绘制数据图
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/10/19/%E4%BD%BF%E7%94%A8python%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E6%BB%A4%E6%B3%A2/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">使用python实现数据滤波</div>
+      </a>
+    
+  </nav>
+
+  
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2022
+        <i class="ri-heart-fill heart_icon"></i> Sun Yue
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="悦"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/246643413">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about-me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

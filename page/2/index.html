@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+  
+
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="思考，学习，生活" />
+       
+      <meta name="description" content="SJTU 研究僧" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title> 悦</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="悦" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      
+<section class="cover">
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="/images/cover2.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">悦</a></h1>
+      <div id="subtitle-box">
+        
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+
+
+<script src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js"></script>
+
+
+<!-- Subtitle -->
+
+  <script>
+    try {
+      var typed = new Typed("#subtitle", {
+        strings: ['凡是过往，皆为序章', '逆流而上，悦我生涯', '不宣言，不预告'],
+        startDelay: 0,
+        typeSpeed: 200,
+        loop: true,
+        backSpeed: 100,
+        showCursor: true
+      });
+    } catch (err) {
+      console.log(err)
+    }
+  </script>
+  
+<div id="main">
+  <section class="outer">
+  
+  
+  <article class="articles">
+    
+    
+    
+    
+    <article
+  id="post-统计学习方法七"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/04/24/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%83/"
+    >【统计学习方法】7-SVM支持向量机</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/04/24/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%83/" class="article-date">
+  <time datetime="2021-04-24T02:08:14.000Z" itemprop="datePublished">2021-04-24</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><strong>一句话介绍</strong></p>
+<p>支持向量机是一种分类模型，求解能够正确划分训练数据集并且几何间隔最大的分离超平面。</p>
+<hr>
+<h1 id="0-支持向量"><a href="#0-支持向量" class="headerlink" title="0.支持向量"></a>0.支持向量</h1><p>要理解什么是支持向量（support vector），首先需要理解以下几个概念：</p>
+<p>如果我们有一堆数据（二维），在二维平面上分布如下图所示：</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20210424102729.jpg" alt="微信图片_20210424102729"></p>
+<p>我们可以用一条直线将这堆数据分成两个部分：</p>
+<p>【当这堆数据维数是<strong>3维</strong>，这条直线就成了<strong>平面</strong>；当数据<strong>维数更高</strong>，这条分隔线就成了<strong>超平面</strong>】以下统称超平面，数学表达为：</p>
+<p>$w^<em>\cdot x + b^</em>&#x3D;0$</p>
+<p>要说明的是，仅仅把这堆数据分离开，也许有无数个超平面可以做到；</p>
+<p>我们做一些规范，最大几何间隔的分离超平面，是唯一且存在的。</p>
+<p>很明显，分隔之后，有的点离这个超平面近，有的远，最近点到超平面的距离，称为<strong>间隔</strong>，这个最近的样本点的实例就被称为支持向量【本定义适用于线性可分情况下】。</p>
+<p>支持向量在确定分离超平面中起决定性作用（不移动支持向量，分离超平面就不会变化），所以把这种分类模型称为支持向量机。</p> 
+      <a class="article-more-link" href="/2021/04/24/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%83/"
+        >进入文章，更多精彩...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" rel="tag">统计学习方法</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-统计学习方法六"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/04/17/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%85%AD/"
+    >【统计学习方法】6-回归和最大熵</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/04/17/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%85%AD/" class="article-date">
+  <time datetime="2021-04-17T01:36:13.000Z" itemprop="datePublished">2021-04-17</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>一句话：本章提到两种应用了概率知识和最优化方法的对数线性数学模型。</p>
+<hr>
+<p>首先对本章知识进行<strong>定位</strong>：</p>
+<ol>
+<li>本章知识和前后联系都不是很大，但是 logistic 回归（sigmoid函数）确实十分常用的一个理论知识。</li>
+<li>最大熵模型更是宏观地把回归和分类问题转换成最优化问题的数学模型。</li>
+</ol>
+<p><strong>本章公式极多，多为推导，在此大多数将不会列出，如果有兴趣，非常建议阅读原书。</strong></p> 
+      <a class="article-more-link" href="/2021/04/17/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%85%AD/"
+        >进入文章，更多精彩...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" rel="tag">统计学习方法</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-LeetCode刷题笔记七"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/03/29/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%83/"
+    >LeetCode刷题笔记（七）</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/03/29/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%83/" class="article-date">
+  <time datetime="2021-03-29T08:46:05.000Z" itemprop="datePublished">2021-03-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id=""><a href="#" class="headerlink" title=""></a><!-- 链表 --></h1><h2 id="206-反转链表"><a href="#206-反转链表" class="headerlink" title="206. 反转链表"></a>206. 反转链表</h2><p>这个题其实已经做过多次了，这次总结一下：</p>
+<p>题目要求：给出一个链表的头节点，请反转整个链表，并且返回反转后的链表的头节点。</p>
+<p>这个题用递归的方法简直是非常之妙，而且十分经典。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val=<span class="number">0</span>, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.val = val</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverse</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNone:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> head <span class="keyword">or</span> <span class="keyword">not</span> head.<span class="built_in">next</span>: <span class="keyword">return</span> head</span><br><span class="line">        last = self.reverse(head.<span class="built_in">next</span>)</span><br><span class="line">        head.<span class="built_in">next</span>.<span class="built_in">next</span> = head</span><br><span class="line">        head.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">return</span> last</span><br></pre></td></tr></table></figure>
+
+<p>这个做法简直非常精妙，充分体现了递归方法中的关键：</p>
+<p>1）找一个最简问题，解决它</p>
+<p>2）充分理解并相信函数能解决你的问题</p> 
+      <a class="article-more-link" href="/2021/03/29/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%83/"
+        >进入文章，更多精彩...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ascii/" rel="tag">ascii</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hot100/" rel="tag">hot100</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" rel="tag">单调栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag">哈希表</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-LeetCode刷题笔记六"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/03/18/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E5%85%AD/"
+    >LeetCode刷题笔记（六）</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/03/18/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E5%85%AD/" class="article-date">
+  <time datetime="2021-03-18T01:47:17.000Z" itemprop="datePublished">2021-03-18</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id=""><a href="#" class="headerlink" title=""></a><!-- 双指针 --></h1><h2 id="424-替换后的最长重复字符"><a href="#424-替换后的最长重复字符" class="headerlink" title="424. 替换后的最长重复字符"></a>424. 替换后的最长重复字符</h2><p>输入：字符串 s，全部是大写字母； 整数 k</p>
+<p>要求：最多可以将字符串s中的任意 k 个字符进行替换</p>
+<p>输出：最长重复字符的数量</p>
+<hr>
+<h3 id="官方题解"><a href="#官方题解" class="headerlink" title="官方题解"></a>官方题解</h3><p>官方题解的方法确实很妙：</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20210202103753750.png" alt="image-20210202103753750"></p>
+<p>如果该数值大于 k ，自然是不符合题意，那么右指针移动，左指针也移动：</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20210202103935966.png" alt="image-20210202103935966"></p>
+<p>如果数值小于等于 k，那么说明符合题意，右指针移动，左指针不用移动：</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20210202104027261.png" alt="image-20210202104027261"></p>
+<p>右指针 - 左指针 就是最长重复子字符串的长度</p>
+<p><strong>问题在于，怎么计算区间内非重复字符的数量？</strong></p> 
+      <a class="article-more-link" href="/2021/03/18/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E5%85%AD/"
+        >进入文章，更多精彩...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">双指针</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%80%92%E5%BD%92/" rel="tag">递归</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-春招-字节笔试"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/03/14/%E6%98%A5%E6%8B%9B-%E5%AD%97%E8%8A%82%E7%AC%94%E8%AF%95/"
+    >春招-字节笔试</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/03/14/%E6%98%A5%E6%8B%9B-%E5%AD%97%E8%8A%82%E7%AC%94%E8%AF%95/" class="article-date">
+  <time datetime="2021-03-14T13:36:38.000Z" itemprop="datePublished">2021-03-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h1><p>平台：牛客网</p>
+<p>特点：</p>
+<ol>
+<li>标准 sys 输入和输出，给输入和输出的范例，主要是多行输入和单行输出</li>
+<li>可以自测，可以print</li>
+</ol>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>总共有四道题目</p>
+<h2 id="1）环形数组-找座位问题"><a href="#1）环形数组-找座位问题" class="headerlink" title="1）环形数组 - 找座位问题"></a>1）环形数组 - 找座位问题</h2><p>给出一个环形数组，其中全部为 0 或 1</p>
+<p>请找到一个 0，它距离两侧的 1 应该最远</p> 
+      <a class="article-more-link" href="/2021/03/14/%E6%98%A5%E6%8B%9B-%E5%AD%97%E8%8A%82%E7%AC%94%E8%AF%95/"
+        >进入文章，更多精彩...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bytedance/" rel="tag">bytedance</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AF%95/" rel="tag">笔试</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-数据库-SQL语言"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/03/03/%E6%95%B0%E6%8D%AE%E5%BA%93-SQL%E8%AF%AD%E8%A8%80/"
+    >数据库-SQL语言</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/03/03/%E6%95%B0%E6%8D%AE%E5%BA%93-SQL%E8%AF%AD%E8%A8%80/" class="article-date">
+  <time datetime="2021-03-03T08:33:27.000Z" itemprop="datePublished">2021-03-03</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Data-Analysis/">Data Analysis</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>怎么样建立起一个数据仓库的</p>
+<ul>
+<li>肯定不是说把 csv 数据导入 mysql 这么简单，确实就像 布迩 说的，我这个算是别人建好的数据仓库</li>
+<li>那么究竟怎样才是自己建立数据仓库呢？</li>
+</ul>
+<p>csv 文件导入 MySQL：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">load data infile &#x27;F:/MySqlData/test1.csv&#x27; -- CSV文件存放路径</span><br><span class="line">into table student -- 要将数据导入的表名</span><br><span class="line">fields terminated by &#x27;列的分隔符&#x27; optionally enclosed by &#x27;&quot;&#x27; escaped by &#x27;&quot;&#x27;</span><br><span class="line">lines terminated by &#x27;\r\n&#x27; -- 回车换行符;</span><br></pre></td></tr></table></figure>
+
+<p>如果是linux下生成的文件，就是 <code>\n</code> 结尾</p>
+<p>注意：这个东西很有可能会出现各种的报错，需要修改配置文件等内容</p> 
+      <a class="article-more-link" href="/2021/03/03/%E6%95%B0%E6%8D%AE%E5%BA%93-SQL%E8%AF%AD%E8%A8%80/"
+        >进入文章，更多精彩...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataBases/" rel="tag">DataBases</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-LeetCode刷题笔记五"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/02/02/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%BA%94/"
+    >LeetCode刷题笔记（五）</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/02/02/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%BA%94/" class="article-date">
+  <time datetime="2021-02-02T03:58:49.000Z" itemprop="datePublished">2021-02-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>每期10题，上一期参见<a target="_blank" rel="noopener" href="https://sunyoe.github.io/2021/01/12/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E5%9B%9B/">LeetCode刷题笔记（四）</a>。</p>
+<p>本期内容紧贴2021年1月leetcode每日一题，本月主要内容是并查集（包括深度优先或广度优先）及双指针，包括在周赛中也遇到双指针题目，需要重点考虑。</p>
+<h2 id="1018-可被5整除的二进制前缀"><a href="#1018-可被5整除的二进制前缀" class="headerlink" title="1018. 可被5整除的二进制前缀"></a>1018. 可被5整除的二进制前缀</h2><p>输入：整数列表 - 只有 0 和 1</p>
+<p>输出：布尔列表 - 只有 false 和 true</p>
+<p>要求：依次选择整数列表中 从 第0位到第i位的所有数字，这是一个二进制数字，如果可以被5整除，那么布尔列表的第 i 位为true，否则为false。</p> 
+      <a class="article-more-link" href="/2021/02/02/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%BA%94/"
+        >进入文章，更多精彩...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">双指针</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-统计学习方法五"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/01/28/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%BA%94/"
+    >【统计学习方法】5-决策树</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/28/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%BA%94/" class="article-date">
+  <time datetime="2021-01-28T06:45:45.000Z" itemprop="datePublished">2021-01-28</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>一句话解释：主要针对分类问题，对已有数据，根据各个特征的表现情况进行二分类（或多分类），从而形成一个像树一样的分类结构。</p>
+<hr>
+<p>这一部分公式比较多，配合例题进行理解。</p> 
+      <a class="article-more-link" href="/2021/01/28/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%BA%94/"
+        >进入文章，更多精彩...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" rel="tag">统计学习方法</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-统计学习方法四"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/01/27/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%9B%9B/"
+    >【统计学习方法】4-朴素贝叶斯法分类</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/27/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%9B%9B/" class="article-date">
+  <time datetime="2021-01-27T02:26:35.000Z" itemprop="datePublished">2021-01-27</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>一句话介绍：对给定的输入x，结合贝叶斯概率理论，通过学习到的模型，将<strong>后验概率最大的类</strong>作为x的类输出。</p>
+<hr>
+<p>最好学习过贝叶斯估计方法。</p>
+<p>在本科阶段的<strong>概率论</strong>或研究生阶段的<strong>数理统计</strong>中，都有对贝叶斯估计方法的介绍，与其他估计方法的最大不同是——加入了<strong>先验估计</strong>概念。</p>
+<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p>部分公式：</p>
+<ul>
+<li><strong>先验概率分布$P(Y&#x3D;c_k),k&#x3D;1,2,…,K$</strong></li>
+<li><strong>条件概率分布</strong>$P(X&#x3D;x|Y&#x3D;c_k)&#x3D;P(X^{(1)}&#x3D;x^{(1)},…,X^{(n)}&#x3D;x^{(n)}|Y&#x3D;c_k),k&#x3D;1,2,…,K$</li>
+<li><strong>后验概率分布（贝叶斯定理）$P(Y&#x3D;c_k|X&#x3D;x)&#x3D;\frac{P(X&#x3D;x|Y&#x3D;c_k)P(Y&#x3D;c_k)}{\Sigma_k P(X&#x3D;x|Y&#x3D;c_k)P(Y&#x3D;c_k)}$</strong></li>
+</ul>
+<p><strong>补充一个忽略了很久的知识点：</strong></p>
+<p><strong>arg max(f(x)) 函数：</strong>得到的结果是使得 f(x)取得最大值所对应的变量点x(或x的集合)。arg即argument，自变量。</p> 
+      <a class="article-more-link" href="/2021/01/27/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%9B%9B/"
+        >进入文章，更多精彩...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" rel="tag">统计学习方法</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-统计学习方法三"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/01/26/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%89/"
+    >【统计学习方法】3-k近邻算法</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/26/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%89/" class="article-date">
+  <time datetime="2021-01-26T02:42:00.000Z" itemprop="datePublished">2021-01-26</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>一句话解释：在大样本中，找距离目标点最近的k个点。</p>
+<hr>
+<h1 id="什么是K近邻算法"><a href="#什么是K近邻算法" class="headerlink" title="什么是K近邻算法"></a>什么是K近邻算法</h1><h2 id="对两个实例点之间的距离进行度量"><a href="#对两个实例点之间的距离进行度量" class="headerlink" title="对两个实例点之间的距离进行度量"></a>对两个实例点之间的距离进行度量</h2><ol>
+<li>其实就是使用了范数，不同范数对应的距离度量下的最近邻点不同</li>
+<li>可以简单理解为计算两个点之间的距离</li>
+</ol> 
+      <a class="article-more-link" href="/2021/01/26/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%89/"
+        >进入文章，更多精彩...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" rel="tag">统计学习方法</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
+  </nav>
+  
+</section>
+</div>
+
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2022
+        <i class="ri-heart-fill heart_icon"></i> Sun Yue
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="悦"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/246643413">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about-me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+  
+
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="思考，学习，生活" />
+       
+      <meta name="description" content="SJTU 研究僧" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>春招-字节笔试 |  悦</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="悦" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-春招-字节笔试"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  春招-字节笔试
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/03/14/%E6%98%A5%E6%8B%9B-%E5%AD%97%E8%8A%82%E7%AC%94%E8%AF%95/" class="article-date">
+  <time datetime="2021-03-14T13:36:38.000Z" itemprop="datePublished">2021-03-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.8k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">6 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h1><p>平台：牛客网</p>
+<p>特点：</p>
+<ol>
+<li>标准 sys 输入和输出，给输入和输出的范例，主要是多行输入和单行输出</li>
+<li>可以自测，可以print</li>
+</ol>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>总共有四道题目</p>
+<h2 id="1）环形数组-找座位问题"><a href="#1）环形数组-找座位问题" class="headerlink" title="1）环形数组 - 找座位问题"></a>1）环形数组 - 找座位问题</h2><p>给出一个环形数组，其中全部为 0 或 1</p>
+<p>请找到一个 0，它距离两侧的 1 应该最远</p>
+<span id="more"></span>
+
+<p>比如：</p>
+<p>【0 0 0 0 0 1 0 0】</p>
+<p>那么 应该是在索引2的位置放1，距离最远，最远距离为 4</p>
+<p>分析：</p>
+<p>其实就是找两个 1 之间最大距离，或者说 连续 0 的最多数量</p>
+<p>我的方法就是找 两个 1 之间的最大距离</p>
+<p>而且，为了满足环形要求，直接在现在的数组后面续上一个数组</p>
+<p>这样遍历一遍，就能解决问题了</p>
+<p>【本题全部测试用例通过，10分】</p>
+<h2 id="2）多叉树寻根问题"><a href="#2）多叉树寻根问题" class="headerlink" title="2）多叉树寻根问题"></a>2）多叉树寻根问题</h2><p>问题描述：</p>
+<p>一个初代病毒 T 可以分裂出多个子代病毒</p>
+<p>子代病毒还可以继续分裂</p>
+<p>原病毒是无致命性的，但是分裂和遗传的过程中可能会有致命性</p>
+<p>如果已知某几个病毒是有致命性的，请找出它们的最近的共同根节点</p>
+<p>输入的写法【多行输入】：</p>
+<p>N 个病毒，R 条分裂</p>
+<p>M个致病：编号依次是</p>
+<p>分裂关系1：亲代、子代数量、子代编号</p>
+<p>分裂关系2：亲代、子代数量、子代编号</p>
+<p>分析：</p>
+<p>其实本题充分描绘了一颗多叉树的全貌，但是问题是：</p>
+<p>（1）如何进行还原</p>
+<p>（2）怎么样找最近的</p>
+<p>我首先想到的就是 Union-find 并查集的方法，一个建图的问题</p>
+<p>复习一下：并查集问题涉及以下几个步骤：</p>
+<p>union - 建图</p>
+<p>connected - 判断是不是连通</p>
+<p>count - 用于计数（对于岛屿问题可以使用）</p>
+<p>在建图和判断连通的过程中，会使用 find 函数寻找根节点</p>
+<p>那么本题中虽然有非常明确的多叉树结构，但是还不需要把全图建好，重要的是根据 find 函数寻找到根节点</p>
+<p>所以我的方法就是根据所给树的信息建立 parents 的表单</p>
+<blockquote>
+<p>因为输入信息中 父 - 子 节点的关系十分明确，可以直接对子节点存储 parent 的情况</p>
+</blockquote>
+<p>然后就是比较 各致命病毒 的父节点，什么是否是一样的？</p>
+<ul>
+<li>这个问题有点难，我想的可能不够完整</li>
+</ul>
+<p>我的想法是：</p>
+<p>由于该树中，其实大小是有一定的顺序的，是一颗二叉搜索树</p>
+<p>致命病毒id 也是有顺序的，可以根据最小的节点为标准</p>
+<p>如果别的病毒的父节点 id &gt; 该节点的父节点 id，那么其他病毒就找父节点，然后再比较父节点</p>
+<p>只有 别的病毒的父节点 id &lt; 该节点的父节点 id 时，才会找该节点的父节点 id</p>
+<hr>
+<p>几点说明：</p>
+<p>共同父节点是一定存在的，怎么说 0 也是共节点</p>
+<p>但是要找的是最近的</p>
+<p>【结果，本题通过了 70% 的测试用例， 本题30分】</p>
+<h2 id="3）破解机关问题-环形数组"><a href="#3）破解机关问题-环形数组" class="headerlink" title="3）破解机关问题 - 环形数组"></a>3）破解机关问题 - 环形数组</h2><p>这个问题很有意思，我也想问</p>
+<p>比如原神中有多个火柱子，初始状态有亮 - 1，有灭 - 0</p>
+<p>请问怎么样用最少的次数将所有的火柱子都点亮，如果不能全部点亮，就返回 -1</p>
+<p>举例：</p>
+<p>10</p>
+<p>0 1 1 0 0 0 1 0 0 1</p>
+<p>最后应该是 4次就可以将所有火柱子点亮</p>
+<p>分析：</p>
+<p>我的方法应该是贪心算法</p>
+<p>只要遇到0，那么下一个柱子就点亮，这样会同时影响 i, i+1, i+2三个柱子的值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> f[i] == <span class="number">0</span>:</span><br><span class="line">    f[i] = <span class="number">1</span></span><br><span class="line">    f[i+<span class="number">1</span>] = <span class="built_in">int</span>(f[i+<span class="number">1</span>]==<span class="number">0</span>)</span><br><span class="line">    f[i+<span class="number">2</span>] = <span class="built_in">int</span>(f[i+<span class="number">2</span>]==<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p>个人觉得这个地方的逻辑判断做的还可以：</p>
+<p>如果 <code>f[i+1]=1</code>，那么，就会变成 false - 0</p>
+<p>如果 <code>f[i+1]=0</code>，那么，就会变成 true - 1</p>
+<p>相当于是与 0 异或</p>
+<p>按照这种方法前面都好说，但是当 i &#x3D; n - 2的时候， i + 2 &#x3D; n，会超出索引</p>
+<p>由于这是一个环形，所以需要把第一个柱子续在后面，一个即可【应该吧】</p>
+<p>我当时的判断条件是：当 i &#x3D; n - 1时，如果 f[i] &#x3D; 0，那么就判断 false</p>
+<p>但是现在看来还是不太对</p>
+<p>因为 i &#x3D; n - 2的时候， i + 2 &#x3D; n，会改掉第一个柱子的值，这样还是不太对</p>
+<p>应该是 i &#x3D; n - 2 的时候，如果 f [i] &#x3D; 0，那么其实就是 false 了</p>
+<p>【本题最好的通过情况是 37.5% ， 本题30分】</p>
+<hr>
+<p>而且这个方法对很多问题的算法并不是最佳的，比如：</p>
+<p>4</p>
+<p>0 0 1 0</p>
+<p>很显然一次就够了，但是按算法，会是 false</p>
+<h2 id="4）棋盘游戏问题"><a href="#4）棋盘游戏问题" class="headerlink" title="4）棋盘游戏问题"></a>4）棋盘游戏问题</h2><p>这类几何拓扑的问题，一看到就想放弃，确实不擅长做，主要是觉得二维进行遍历和存储的时候很麻烦</p>
+<p>问题描述：</p>
+<p>给一个 n * m 的棋盘，以及棋盘的状态（有的位置是空的<code>·</code>，有的非空 <code>#</code>）</p>
+<p>有若干 1 * 2 的棋子可以进行填充</p>
+<p>问是不是可以用棋子将棋盘填满，<strong>而且填法唯一</strong>，返回唯一填法</p>
+<p>如果不是，就返回 -1</p>
+<hr>
+<p>其实如果是唯一 填法，那么填起来应该也不会太难</p>
+<p>我们可以看几个案例：</p>
+<p>（1）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">· ·</span><br><span class="line"></span><br><span class="line">· ·</span><br></pre></td></tr></table></figure>
+
+<p>这是 2x2 的棋盘，有两种方式可以填满，所以不是唯一的</p>
+<p>那么是不是说只要有这样的位置，就可以断定填不满了呢？不是</p>
+<p>（2）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">· · <span class="comment">#</span></span><br><span class="line">· · ·</span><br><span class="line">· <span class="comment"># #</span></span><br></pre></td></tr></table></figure>
+
+<p>这是有唯一解的，唯一解为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt; &gt; <span class="comment">#</span></span><br><span class="line">^ &lt; &gt;</span><br><span class="line">v <span class="comment"># #</span></span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>&lt; &gt;</code> 表示横着放的棋子，<code>^ v</code> 表示竖着放的棋子</p>
+<p>经过和同学的讨论，大家认为是这样，可以从头开始遍历，但是需要深度优先</p>
+<p>比如从左上角开始遍历：</p>
+<ul>
+<li>可能有两种放置方法，可以任选一种【任选也说明了多叉树的分支，这肯定要用回溯算法进行回调的，复杂度比较高】<ul>
+<li>但是最好有顺序，比如优先 横放，次之 竖放</li>
+</ul>
+</li>
+<li>然后选择没有被占领的一个空格，看是不是可以放下棋子<ul>
+<li>如果放不下，这条路肯定走不通了，就要返回了</li>
+<li>如果可以放下，那么继续选择旁边没有被占领的空格，遍历</li>
+</ul>
+</li>
+<li>如果没有上面说的空格，那么就按照竖列，遍历到底<ul>
+<li>如果没有返回 false，肯定需要遍历完整个棋盘</li>
+</ul>
+</li>
+</ul>
+<p>这个问题里面，如果有很多种解法，那么至少需要找到两组成功的解法，才能说明 false</p>
+<p>否则需要一直找下去，找不到成功解法才 false</p>
+<p>还是应该找一种能判断 false 的方法</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2021/03/14/%E6%98%A5%E6%8B%9B-%E5%AD%97%E8%8A%82%E7%AC%94%E8%AF%95/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bytedance/" rel="tag">bytedance</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AF%95/" rel="tag">笔试</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/03/18/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E5%85%AD/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            LeetCode刷题笔记（六）
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/03/03/%E6%95%B0%E6%8D%AE%E5%BA%93-SQL%E8%AF%AD%E8%A8%80/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">数据库-SQL语言</div>
+      </a>
+    
+  </nav>
+
+  
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2022
+        <i class="ri-heart-fill heart_icon"></i> Sun Yue
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="悦"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/246643413">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about-me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+  
+
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="思考，学习，生活" />
+       
+      <meta name="description" content="SJTU 研究僧" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>LeetCode刷题笔记（四） |  悦</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="悦" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-LeetCode刷题笔记四"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  LeetCode刷题笔记（四）
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/12/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E5%9B%9B/" class="article-date">
+  <time datetime="2021-01-12T13:48:50.000Z" itemprop="datePublished">2021-01-12</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">6.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">25 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>每期10题，上一期参见<a target="_blank" rel="noopener" href="https://sunyoe.github.io/2020/12/29/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%89/">LeetCode刷题笔记（三）</a>。</p>
+<p>本期内容动态规划内容出现复习情况，数组内容略有新意，图理论和拓扑排列初步入门。</p>
+<h1 id="数组和排序"><a href="#数组和排序" class="headerlink" title="数组和排序"></a>数组和排序</h1><h2 id="1046-最后一块石头的重量-排序问题"><a href="#1046-最后一块石头的重量-排序问题" class="headerlink" title="1046. 最后一块石头的重量 - 排序问题"></a>1046. 最后一块石头的重量 - 排序问题</h2><p>输入：整数数组（不会超过30个数字，1到1000之间）</p>
+<p>输出：特定 int 值</p>
+<p>每次运算：选出两个最大数字，返回差值（如果是0就不用返回），直到只剩下0个或1个数值，无法比较，返回该数字</p>
+<span id="more"></span>
+
+<p>（1）暴力解法</p>
+<p>每次需要找最大的两个数字，这一步的时间和空间复杂度就已经比较高了$O(n^2)$，然后再相减，加入到新的序列中，其实还可以接受</p>
+<blockquote>
+<p>对呀，这个问题：怎么给一个list排序（如果不使用现成的库）</p>
+<p>首先：需要对比所有数字，确定是最大的，第二大那就排除第一个再对比一遍，做差</p>
+<p>然后：把差值和所有数字对比，放在合适的位置（重排位置确实是用链表更好一点，但是如果执意要用列表呢，就需要拆一下再合并了）</p>
+<p>这个方法确实是过于复杂</p>
+</blockquote>
+<p>（2）差值，有什么规律？</p>
+<p>简单一点，如果是1-10递增，那么每次相减都是1，连续四次之后，多了4个1，还剩1和2，然后5个1，可以预见最后有个1</p>
+<p>如果2，4，6，8，那么2，4，2，然后2，2，然后0</p>
+<p>这题好像确实也没有什么太多的方法就是按方法排好序就好了！</p>
+<p>相当于本题的核心目的就是实现排序！！</p>
+<p>排序的关键是找到数字在列表中的位置。</p>
+<blockquote>
+<p>如果需要排列一个从大到小的数列，那么就应该比较当前数字是不是比已有序列中的数字大</p>
+</blockquote>
+<p>所以我最后的步骤是：</p>
+<p>（1）先写一个独立函数，在已经排好顺序的序列中找到当前元素应该放置的位置，放进去</p>
+<p>（2）对原始序列进行一次排序（分两步）</p>
+<ul>
+<li>遍历原序列，移位</li>
+<li>把原序列中的当前数值放到新序列该放的位置上</li>
+</ul>
+<p>（3）不停做差值，把差值放到序列中</p>
+<blockquote>
+<p>看题解，很多用了sort</p>
+<p>我没有用sort，除了一些list的用法，几乎是完全自主的</p>
+</blockquote>
+<h2 id="605-种花问题"><a href="#605-种花问题" class="headerlink" title="605. 种花问题"></a>605. 种花问题</h2><p>输入：整数数组 flowered（只有0和1），整数 n</p>
+<p>输入：布尔量</p>
+<p>功能：向数组中添加n个1，要求这些1不能相邻，如果能做到，返回true，做不到，返回false</p>
+<p>限制：数组长度在1到20000之间，n非负，不会超过数组大小；按照题目的意思来看，已经是1的位置应该是不能被替换</p>
+<p>思路：</p>
+<p>这首先是回答能不能，而不是回答怎么做，所以更像一个数学问题：</p>
+<p>如果当前数组中全部是在奇数位置，那么非常简单，计算有多少个奇数位置</p>
+<p>比较糟糕的是有的在奇数位置，有的在偶数位置，这样在非常紧密地排列时少不了要相遇，会少一</p>
+<p>怎么检查现有数值的位置？</p>
+<p>另一个思路：</p>
+<p>两个1之间有多少个0：</p>
+<p>（1）奇数个0，直接减1除以2</p>
+<p>（2）偶数个0，直接减2除以2</p>
+<p>特殊情况，头部为0，偶数不用减2</p>
+<p>尾部为0，偶数不用减2</p>
+<blockquote>
+<p>头部的确需要考虑，那么当遇到1了，就直接表示头部过了就可以了</p>
+<p>但是尾部其实不用考虑，会跳出的</p>
+</blockquote>
+<p>现在遇到一个问题：[0] 的情况，那么这个应该是可以种植1个，但是按之前的计数方法是不可以的</p>
+<p>所以最终方法是：</p>
+<p>（1）全0的数组，直接加1除以2，比较就好了</p>
+<p>（2）开头为0，设置一个start的flag，遇到1就会转换，并计算开头情况</p>
+<p>（3）逐步前进，遇到1重置，计算中间的数量</p>
+<p>（4）来到末尾，根据最后一个数值是1还是0做最后叠加</p>
+<p>（5）最后判断输出即可</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20210101123109261.png" alt="image-20210101123109261"></p>
+<p>这个用时非常Amazing！</p>
+<h2 id="303-区域和检索-数组不可变"><a href="#303-区域和检索-数组不可变" class="headerlink" title="303 区域和检索 - 数组不可变"></a>303 区域和检索 - 数组不可变</h2><p>这道题我一开始有点懵逼</p>
+<p>题目的意思是完成一个class的编写，该类的初始函数需要完成的是实例化类（传递列表）</p>
+<p>另一个函数则是用来计算该数列第i个到第j个的总和</p>
+<p>那么我直接用sum就计算好了</p>
+<p>确实就这么完成了，但是问题当然是：这样相当于比如要计算多个总和的时候，就要一个一个计算了，是不是显得有一点冗余？</p>
+<p>那还应该怎么做？</p>
+<h3 id="阅读题解"><a href="#阅读题解" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>其实关键问题就是上面说的，每次计算一次总和，肯定是重复了，这样是不好的</p>
+<p>比较省心的方法就是：</p>
+<p>计算到第i步的总和$f_i$，第j步的总和$f_j$，最后结果等于$f_j-f_i$</p>
+<p>而且$f_{i+1}&#x3D;f_i+x_{i+1}$，这样的话就能避免循环，节省时间，确实是一种好方法</p>
+<p>但是我写完之后遇到一些小问题：</p>
+<p>（1）如果是从0到2的序列，那么$f_0$应该是0的，但是按以往的方法却不是的</p>
+<ul>
+<li>看到题解中有一种巧妙的方法：sums &#x3D; [0, ]</li>
+<li>然后把每次计算好的 新的sums值 append 在后面：<code>nums.append(self.num_sum[i]+nums[i])</code></li>
+</ul>
+<p>（2）关于 <strong>序列为空</strong>（NoneArray）的问题，如果是空的序列，<strong>计算长度 len 函数</strong>（<code>n = len(nums)</code>）是会出问题的！【我刚才的问题可能是返回了0，而没有返回None】</p>
+<ul>
+<li>但是奇怪的是，在 for 循环中使用 <code>for i in range(len(nums))</code> 即使nums是空的也没有问题</li>
+</ul>
+<h2 id="剑指offer-03-数组中重复的数值"><a href="#剑指offer-03-数组中重复的数值" class="headerlink" title="剑指offer 03. 数组中重复的数值"></a>剑指offer 03. 数组中重复的数值</h2><p>输入：整数数组</p>
+<p>输出：数组中的某个数值</p>
+<p>要求：该数值一定是在数组中重复出现过的</p>
+<p>老办法：计算所有数字出现过的次数，然后&gt;2的都可以输出</p>
+<p>代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findRepeatNumber</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        sort = [<span class="number">0</span>] * (<span class="built_in">max</span>(nums)+<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">            sort[i] += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> sort.index(<span class="built_in">max</span>(sort))</span><br></pre></td></tr></table></figure>
+
+<p>也的确可以通过，但是这种方法不太好</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20210105161105089.png" alt="image-20210105161105089"></p>
+<p>有没有其他减少复杂度的方法，比如先排个序？不行，并不能保证重复的数字出现在某个位置</p>
+<h3 id="阅读题解-1"><a href="#阅读题解-1" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>（1）遍历数组</p>
+<p>这个方法告诉我们，根本就不用遍历完，只需要遇到重复的数字立马返回</p>
+<p>当然新的数字需要加入到一个新的集合中，然后判断下一个数字是新数字还是已经遇到的数字</p>
+<p>（2）原地交换</p>
+<p>本题中有一个条件：数组长度为n，而且所有数字小于 n</p>
+<p>那么可以让元素的索引和值一一对应</p>
+<p>第一次遇到，交换索引</p>
+<p>第二次遇到，直接能够判断$nums[x] &#x3D; x$，所以就得到了重复的数字</p>
+<h2 id="830-较大分组的位置"><a href="#830-较大分组的位置" class="headerlink" title="830. 较大分组的位置"></a>830. 较大分组的位置</h2><p>输入：字符串s，全是小写字母</p>
+<p>输出：二维数组，每个元素是一个还有两个整数的数组</p>
+<p>条件：较大分组指的是连续三个字符及以上的分组，两个整数分别是起始坐标和终止坐标</p>
+<p>这个简单啊，直接遍历不就好了，如果不相等直接重置</p>
+<p>相等累计，直到结尾</p>
+<p>然后把数组汇总一下就可以了</p>
+<p>一个特例：就是最后几个字母是一样的，那么就会一直continue，所以到最后再判断一次end和start是不是相等，得出答案</p>
+<p>代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">largeGroupPositions</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">len</span>(s):</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        output = []</span><br><span class="line">        start, end = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(s)):</span><br><span class="line">            <span class="keyword">if</span> s[i] == s[i-<span class="number">1</span>]:</span><br><span class="line">                end += <span class="number">1</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">if</span> end - start &gt;= <span class="number">2</span>:</span><br><span class="line">                output.append([start, end])</span><br><span class="line">            start, end = i, i</span><br><span class="line">        <span class="keyword">if</span> end - start &gt;= <span class="number">2</span>:</span><br><span class="line">            output.append([start, end])</span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
+
+<p>可以通过，但是速度和空间都比较糟糕</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20210105163910474.png" alt="image-20210105163910474"></p>
+<h3 id="阅读题解-2"><a href="#阅读题解-2" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>就是一次遍历的方法，记录当前分组的长度，如果字符不同，那么就说明已经到尾部了</p>
+<p>但是为什么我的这个代码这么慢呢？</p>
+<p>（1）其实不用同时更新start和end，其实可以只记录start，因为end会直接由 i 来确定</p>
+<p>减少一个变量之后，确实减少了部分用时，但是内存还是比较大</p>
+<h2 id="189-旋转数组-数组"><a href="#189-旋转数组-数组" class="headerlink" title="189. 旋转数组 - 数组"></a>189. 旋转数组 - 数组</h2><p>输入：整数数组nums，非负数 k</p>
+<p>输出：没有输出，不要输出，直接对原数组进行调整即可</p>
+<p>功能：间数组中的元素向右移动 k 个位置</p>
+<hr>
+<p>题目中说至少有三种方法可以解决该问题，而且要求空间复杂度 O(1) - 原地算法</p>
+<hr>
+<p>从示例观察来看，直接把数组中 -k到最后一个数字整体搬到最前面就好了，但是如果 k 比数组长度还要大呢？</p>
+<p>问题是，没有输出，那我怎么输出呢</p>
+<p>我这种方法就是使用呢额外的数组，需要注意的是，必须要使用调整nums的方法，而不是生成nums的方法</p>
+<p>&#x3D;&#x3D;这个方法的本质是把原数组中下标为 $i$ 的元素，放在了新数组的 $(i+k)\mod n$的位置&#x3D;&#x3D;</p>
+<hr>
+<p>所给提示：</p>
+<p>（1）最简单的方法需要增加存储空间</p>
+<p>（2）比较困难的就是再不添加任何空间的情况下解决问题，这意味着需要使用某种方法在原始数组的基础上移动相关的元素</p>
+<p>（3）一种方法是 reversing the array（or part of it），翻转？</p>
+<hr>
+<h3 id="阅读题解-3"><a href="#阅读题解-3" class="headerlink" title="阅读题解"></a>阅读题解</h3><p><strong>环状替换</strong></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20210108104525947.png" alt="image-20210108104525947"></p>
+<ul>
+<li>比如从 0 &#x3D;》 到 $(0+k)\mod n$，然后从 $(0+k)\mod n$ 到$(0+2k)\mod n$，一直到回到 0 位置，这个过程一定是走了整数个圈数</li>
+<li>比如 a 圈，总共遍历了 b 个元素</li>
+<li>那么 $ an &#x3D; bk$ 总的元素数量是相等的，所以 an 一定是 n 和 k 的公倍数（不能重复，所以是最小公倍数 $lcm (n,k)$)</li>
+<li>b 也就是这个最小公倍数 除以 k ，$lcm(n,k)&#x2F;k$</li>
+<li>每次遍历会 访问 b 个元素，所以最后应该遍历 $n&#x2F;b$ 次</li>
+<li>由于 b，n，k之间的关系</li>
+</ul>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20210108105810711.png" alt="image-20210108105810711"></p>
+<p>所以最后需要遍历 n 和 k 的最大公约数次</p>
+<p>应该说，这个方法看起来的可行性高，而且也不难</p>
+<p><strong>数组翻转</strong></p>
+<p>基于事实：将数组元素向右移动k次，尾部 k mod n 个元素会移动至数组头部，其余元素向后移动 k mod n 个位置</p>
+<p>所以就可以先把所有元素翻转，这样尾部的 k mod n 个元素被移至头部</p>
+<p>然后再翻转前后两个区间，以 k mod n -1 为界，就得到了最后的大浪</p>
+<p>这里的示例中写了一个翻转的函数，简单来说就是用 一个调换数组元素的方法 实现 整个数组的翻转</p>
+<p>（1）指定 start 和end结点</p>
+<p>（2）判断 start 和end 的关系，然后将两个数字对应的数组中的数字互换</p>
+<p>（3）start +1，end -1</p>
+<p>然后循环，这个方法很不错</p>
+<blockquote>
+<p>问：python中对数组的操作都有哪些？</p>
+<p>list.reverse() 就是对列表进行反向</p>
+<p>list.sort() 对原列表进行排序</p>
+</blockquote>
+<p>但是截取一段，然后进行翻转的方法是不可以的，这样其实还是相当于增加了空</p>
+<h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><h2 id="面试题08-01-三步问题"><a href="#面试题08-01-三步问题" class="headerlink" title="面试题08.01 三步问题"></a>面试题08.01 三步问题</h2><p>输入：int 类型数值 n</p>
+<p>输出：int 类型数值</p>
+<p>功能：从0开始，每次可以增加1，2或3，直到数值加到n，求所有到达 n 的种类</p>
+<p>本题是可以通过暴力方法进行求解的，那么就是排序种类问题</p>
+<p>如果使用动态规划的方法呢？</p>
+<p>其实到达从上一步到达下一步的方法只有3种路径</p>
+<blockquote>
+<p>提示1：自上而下处理问题，先从最后一步开始</p>
+</blockquote>
+<p>最后一步有三种方法</p>
+<p>但是从 i 到 i+3 不止一种走法</p>
+<blockquote>
+<p>提示2：如果直到跳到第100级台阶之前的每一级台阶的跳法数量，可以计算第100级台阶的跳法数量吗？</p>
+</blockquote>
+<p>这个提示实在是太妙了</p>
+<p>那肯定是 【99级的跳法数量 + 98级跳法数量 + 97级跳法数量】</p>
+<p>虽然有以下几种情况：</p>
+<p>99级中有两种情况：</p>
+<ul>
+<li>98级 + 1级</li>
+<li>97级 + 2级</li>
+</ul>
+<p>98级一种情况：</p>
+<ul>
+<li>97级 + 1级</li>
+</ul>
+<p>但是这些情况并不影响各自到100级台阶的情况</p>
+<p>所以这是在提醒我，$sum_n &#x3D; sum_{n-1}+sum_{n-2}+sum_{n-3}$</p>
+<blockquote>
+<p>提示3和提示4是在强调：相加还是相乘</p>
+<p>提示4：</p>
+<p>当我们先做什么再做什么，需要相乘</p>
+<p>当我们这样做或那样做，需要相加</p>
+</blockquote>
+<p>初始条件：</p>
+<p>sum_0 &#x3D; 0</p>
+<p>sum_1 &#x3D; 1</p>
+<p>sum_2 &#x3D; 2</p>
+<p>sum_3 &#x3D; 4</p>
+<p>sum_4 &#x3D; 7 …</p>
+<p>这么说这就是一个数列啊，直接按照数列的方法也是可以进行求解的！</p>
+<p>也就是说本题是在求解一个数列，不过这个数列的项不少，要找一个通项公式可能比较困难</p>
+<blockquote>
+<p>提示5，6是关于优化的，计算时间复杂度</p>
+<p>制表法是什么，怎么样进行优化</p>
+</blockquote>
+<p>时间复杂度在哪，显然是在重复计算上，要不停变换三个加数，但是实际上加数是在不断交替的，而并非真的是在重新计算，但现在的情况是每个加数都进行了重新计算</p>
+<p>还有一个问题，是不是可以通过除以3来把这个过程优化一下？</p>
+<h3 id="阅读题解-4"><a href="#阅读题解-4" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>题解中讲到的方法是使用矩阵实现快速计算</p>
+<p>但是实际上使用递推的方法就是可以实现的，问题是中间的数也会比较大，所以只在最后一步取模会导致空间和用时都比较高，可以考虑每一步都给 几个数值取模，这样的话不影响结果，还能保证时间和空间复杂度</p>
+<h2 id="509-斐波那契数"><a href="#509-斐波那契数" class="headerlink" title="509. 斐波那契数"></a>509. 斐波那契数</h2><p>输入：n</p>
+<p>输出：f(n)表示斐波那契数列的第n个数字</p>
+<p>注意：f(0) &#x3D; 0, f(1)&#x3D;1</p>
+<p>斐波那契数列的问题其实之前遇到过，确实有一些比较好的方法可以借鉴，很经典</p>
+<h2 id="面试题16-17-连续数列"><a href="#面试题16-17-连续数列" class="headerlink" title="面试题16.17. 连续数列"></a>面试题16.17. 连续数列</h2><p>输入： 整数数组</p>
+<p>输出：子数组和</p>
+<p>要求：该子数组连续，且该子数组的和再所有子数组最大</p>
+<blockquote>
+<p>本题和53题，和offer42题为同一个问题</p>
+</blockquote>
+<p>f(n) 表示以n结尾的最大和的连续子数组的和</p>
+<p>那么$f(n+1) &#x3D; max(f(n), f(n)+i_{n+1})$是吗？显然不一定，要让这个成立，只需要 $i_{n+1}$是正数就可以了【错了！！！】</p>
+<p>是$f(n+1) &#x3D; max(f(n)+i_{n+1}, i_{n+1})$，其实也还是重置的方法</p>
+<blockquote>
+<p>提示1：把数字想象成正负交替的数字序列</p>
+<p>因为实际上不会只包含正序列或者负序列</p>
+</blockquote>
+<blockquote>
+<p>提示2：如果有一个和为负数的数列，那么一定不是一个数列的开始或结束（因为这个数列完全可以去掉）</p>
+<p>如果它们连接了另外两个数列，那么就可以以一个数列的形式出现</p>
+</blockquote>
+<blockquote>
+<p>提示3：从数组的开头开始，当这个子数列增长时，仍然是最佳子数列</p>
+<p>但是一旦变成负数，就没有意义了</p>
+</blockquote>
+<p>这让我想起以前做过的一道题，就是把类似的数列的和存储了下来</p>
+<p>只要是负的就重置，并把变负之前的和记录下来</p>
+<p>相当于是在计算以每一个数字开头的数组的最大连续正数和</p>
+<blockquote>
+<p>总结一下，这类题已经做了三遍了：</p>
+<ul>
+<li><p>刚开始还愿意仔细分析序列的正负特点，到后来只愿意使用动态规划来做了</p>
+</li>
+<li><p>动态规划上，关于连续的特点，要么是接着上一个序列，要么是从头开始：$f(n+1) &#x3D; max(f(n)+i_{n+1}, i_{n+1})$</p>
+</li>
+<li><p>而间断的特点就是，可以是上一个，或者是上一个加上当前的：$f(n+1) &#x3D; max(f(n), f(n)+i_{n+1})$</p>
+</li>
+</ul>
+<p>有的题目需要给出连续的个数</p>
+<p>有的题需要给出最后的和，一定要适应一下</p>
+</blockquote>
+<h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><h2 id="1203-项目管理-图，拓扑排序"><a href="#1203-项目管理-图，拓扑排序" class="headerlink" title="1203. 项目管理 - 图，拓扑排序"></a>1203. 项目管理 - 图，拓扑排序</h2><p>输入： n - 项目数量， m - 小组数，group - 每个项目对应的小组，beforeItems - 每个项目的先决项目</p>
+<p>输出：列表 - 项目排序</p>
+<p>要求：</p>
+<ul>
+<li>每个项目对应的小组写在 group中，最多一个小组负责，全程不需要修改，只需要判断，-1表示没有小组接手，但是仍然需要进行排序</li>
+<li>同小组的项目需要相邻</li>
+<li>要先完成先决项目，才能完成后续项目</li>
+<li>小组和项目都是从0开始排序</li>
+</ul>
+<hr>
+<p>从示例来看，首先需要把先决项目完成</p>
+<p>然后可以根据项目组进行排序</p>
+<blockquote>
+<p>感觉是使用树结构的方法会比较好</p>
+<p>从before开始查找整个树</p>
+<p>官方标签：深度优先搜索，图，拓扑排序</p>
+</blockquote>
+<hr>
+<p>三个提示：</p>
+<ul>
+<li>图问题</li>
+<li>在 dependency graph 的基础上找一个拓扑排序的方法</li>
+<li>建立两个图，一个基于小组，一个基于项目</li>
+</ul>
+<hr>
+<p>在本问题中，我需要知道的是：</p>
+<p>（1）我应该怎么样构建一个图？</p>
+<p>（2）怎样使用图进行排序</p>
+<blockquote>
+<p>拓扑排序</p>
+<p>有向图G，将G的n个点排列成一组序列，任意一对顶点（u -&gt; v）之间判断边</p>
+<p>如果存在有向边 u -&gt; v，那么 u 在序列中需要出现在 v 的前面</p>
+</blockquote>
+<p>本题中</p>
+<p>（1）把项目 items 抽象成点，项目间的依赖关系抽象成边，依赖条件就是有向边，进行拓扑排序</p>
+<p>（2）&#x3D;&#x3D;【同组项目要彼此相邻】&#x3D;&#x3D; &#x3D; 组与组之间也存在依赖关系，所以要解决组之间的拓扑排序</p>
+<p>所以，本题分两步</p>
+<p>（1）首先解决组与组之间的依赖关系，组抽象成点，组与组的关系抽象成边，建图判断是否存在拓扑排序（groupTopSort，以组为先）</p>
+<p>（2）存在拓扑关系（groupTopSort），再确定组内依赖关系，遍历拓扑序，对于任意 组 g，对所有属于组 g 的点再进行拓扑排序，最后把组内拓扑排序按顺序放入答案数组</p>
+<p>细节</p>
+<p>（1）部分项目无人接手，groupId &#x3D; -1，不利于编码，可以重新编号，但又不能与真实的小组编号冲突，可以从 m 开始正序编号【真实小组编号在0到m-1之间】</p>
+<p>（2）将拓扑排序抽象成一个函数进行复用，函数定义 <code>topSort(deg, graph, items)</code>表示：</p>
+<ul>
+<li>待排序点集 items</li>
+<li>点的入度数组 deg</li>
+<li>点的连边关系 graph，graph[i] 表示点 i 连出点组成的集合</li>
+</ul>
+<p>（3）建图过程中，如果发现两个项目属于不同的项目组，组间关系图添加相应边，否则在组内关系图中添加相应边</p>
+<hr>
+<h3 id="阅读题解-5"><a href="#阅读题解-5" class="headerlink" title="阅读题解"></a>阅读题解</h3><blockquote>
+<p>参考一个题解说明：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sort-items-by-groups-respecting-dependencies/solution/python-liang-ci-tuo-bu-pai-xu-100-by-mil-rtwg/">[Python] 两次拓扑排序100%</a></p>
+<p>入度：</p>
+<p>有向图G中，对于节点 v，从节点 n1，n2，…，nm出发都可以一步到达 v，那么节点 v 的入度就是 m（是说v的来源有m条吗？）</p>
+<p>拓扑排序</p>
+<p>图中节点与节点之间的访问顺序，可用拓扑排序方法生成一个可行的访问序列</p>
+<p>（1）建图</p>
+<p>（2）统计图中所有节点的入度</p>
+<p>（3）BFS 方法获得访问序列</p>
+<ul>
+<li>将入度为0的节点添加到队列中</li>
+<li>遍历队列<ul>
+<li>得到队首节点并出队</li>
+<li>将当前节点添加到访问序列中</li>
+<li>将当前节点所有邻居节点的入度 -1</li>
+<li>如果邻居节点的入度变为0，将邻居节点入队</li>
+</ul>
+</li>
+</ul>
+<p>【？？？】确实没看懂</p>
+</blockquote>
+<p>方法：</p>
+<p>两次嵌套拓扑排序</p>
+<p>思路：</p>
+<ol>
+<li>建图</li>
+<li>对小组进行拓扑排序，获得访问小组的顺序</li>
+<li>遍历小组的访问顺序<ol>
+<li>得到该组的项目顺序</li>
+<li>将项目顺序添加到答案中</li>
+</ol>
+</li>
+</ol>
+<p>建图：</p>
+<ul>
+<li>无组项目给全新组号</li>
+<li>小组建图计算组入度</li>
+<li>统计各组有哪些项目</li>
+<li>组内建图算项目入度</li>
+</ul>
+<p><strong>返回空列表的条件：</strong></p>
+<ul>
+<li>小组不在得到的访问顺序中</li>
+<li>项目不在得到的该组项目的访问顺序中</li>
+</ul>
+<blockquote>
+<p><code>queue = collections.deque()</code></p>
+<p>deque 是一个<strong>双端队列</strong>，可以从两端进行 append 的数据结构【不过从左端加入使用的是 <code>queue.appendleft()</code>】</p>
+<p>还可以从两端出队列 <code>queue.pop()</code> 和 <code>queue.popleft()</code></p>
+<p>一般需要提前 <code>from collections import deque</code></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u010339879/article/details/80767293">collections中 deque的使用</a></p>
+</blockquote>
+<h3 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h3><p>组数 m 也就是 group_id 的最大值</p>
+<p>遍历 n 个项目，给没有组接手的项目重新标记组号 m, m+1, …</p>
+<p>初始化几个列表：【列表的初始化建议】</p>
+<ul>
+<li>项目入度列表 - n个0 <code>[0]*n</code></li>
+<li>小组入度列表</li>
+<li>项目邻居列表 - n个子列表 <code>[[] for _ in range(n)]</code></li>
+<li>小组邻居列表</li>
+<li>group_to_tasks 【这个列表用来做什么？】</li>
+</ul>
+<p>遍历任务&#x3D;&#x3D;【组间排序】&#x3D;&#x3D;</p>
+<ul>
+<li><p>按照各项目所属的小组号，在 group_to_tasks的相应位置，添加任务号</p>
+<ul>
+<li>也就是说，这个数组存放的是 各组对应的任务数</li>
+</ul>
+</li>
+<li><p>遍历先决任务的list</p>
+<ul>
+<li>这个list 的id是当前任务，value 是先决任务</li>
+<li>可以判断两个任务的是不是同组 <code>group[id] 和 group[value]</code><ul>
+<li>不同组，那么该小组的入度 +1，先决组的邻居加上当前组【组间建图】</li>
+<li>同组，那么任务的入度 +1，先决任务的邻居加上当前任务【组内建图】</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>接下来获得小组的访问顺序</p>
+<ul>
+<li>使用自定义函数 <code>self.topological_sort</code>，输入是 任务或者小组，入度，邻居三个内容【具体分析见下一个部分】</li>
+<li>首先对小组间进行排序，输入小组号的列表，所有小组的入度列表，所有小组的邻居列表</li>
+</ul>
+<p>做一个判断：如果<strong>组外排序</strong>数组数量【排的是小组的访问顺序】，不等于所有组的数量，那么就直接返回空列表【为什么】</p>
+<p>最后遍历小组号，注意小组号超过 m 的就不用了&#x3D;&#x3D;【组内排序】&#x3D;&#x3D;【排的是组间的排序】</p>
+<ul>
+<li>对组内根据任务进行拓扑排序<ul>
+<li>输入：group_to_tasks[group_id]，任务入度，任务邻居</li>
+</ul>
+</li>
+<li>做一个判断，如果任务排序后的长度不等于每组对应的任务数，那么就返回空</li>
+<li>把排序号的任务列表添加到最后输出列表中</li>
+</ul>
+<p>把最终排序列表输出</p>
+<hr>
+<p>其实这里面自定义的函数&#x3D;&#x3D;拓扑排序函数&#x3D;&#x3D;才是关键</p>
+<p>自定义函数的具体内容：</p>
+<p>输入：待排序数组，对应入度，对应邻居列表</p>
+<p>初始化双端队列和输出列表</p>
+<p>遍历待排序列表，item</p>
+<ul>
+<li>如果 item 对应入度为0，直接将 item 加入双端列表</li>
+<li><u>【入度为0表示这就是最底层的节点了，如果不是0，那么就是说还有子节点，不饿能直接进行排序？】</u></li>
+</ul>
+<p>如果双端列表为空，直接返回空数组【双端列表究竟是什么意义】</p>
+<p>接下来是广度优先排序（BFS）</p>
+<ul>
+<li><p>只要双端列表不为空就一直循环</p>
+</li>
+<li><p>将双端列表的左元素移出，放入输出列表中</p>
+<ul>
+<li>对该元素的邻居进行遍历</li>
+<li>各邻居的入度 -1</li>
+<li>如果有邻居的入度为0，那么也将这个邻居加入双端列表</li>
+</ul>
+</li>
+<li><p>直到双端列表为空</p>
+</li>
+</ul>
+<p>最后输出输出列表</p>
+<hr>
+<p>仔细体会各步骤的用意</p>
+<ol>
+<li>找到了每一个组对应的所有任务</li>
+<li>避免无人认领项目的影响【至少不能认为他们是同组的】</li>
+<li>两步排序的方法分了组间排序和组内排序，分别考虑组要靠在一起，其次是组内顺序也要考虑</li>
+<li>首先考虑的是任务的先后关系<ol>
+<li>先后任务在同组，那么任务入度不同</li>
+<li>先后任务在不同组，那么小组入度不同【小组的入度 &#x3D; 先决组的数量，先决组是小组的邻居】，至于说各任务在组内入度就要看是不是还和组内任务有先后关系</li>
+<li>如果&#x3D;&#x3D;任务的先决任务列表&#x3D;&#x3D;恰好为空，那刚好，对该任务的入度和邻居都不影响【那么直接排顺序就好了，这是最简单的情况】</li>
+</ol>
+</li>
+<li>&#x3D;&#x3D;【入度本身是强调先后顺序，有入度，那么该小组或者该项目就应该往后排】&#x3D;&#x3D;<ol>
+<li>入度越小的项目或者小组，就越应该往前排</li>
+<li>全都有入度，那么这个任务或者小组根本就不可行</li>
+</ol>
+</li>
+<li>组间排序考虑各小组的入度，组内排序考虑各项目的入度</li>
+<li>拓扑排序的方法，就是从入度来判断一个值能不能进行排序，然后对该值的邻居排序，未排序的内容入度就应该减小，相当于在剩下的内容中进行排序</li>
+</ol>
+<blockquote>
+<p>这样通过遍历任务，获得了小组的入度和项目的入度，邻居则是同时获得的【左邻居还是右邻居并不重要，重要的是邻居都要包含在列表里面】【一个小组或者一个项目的邻居有上限吗，有什么样的意义】</p>
+</blockquote>
+<p>&#x3D;&#x3D;建图的关键是两个列表：入度 和 邻居&#x3D;&#x3D;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sortItems</span>(<span class="params">self, n: <span class="built_in">int</span>, m: <span class="built_in">int</span>, group: <span class="type">List</span>[<span class="built_in">int</span>], beforeItems: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span></span><br><span class="line">        max_group_id = m</span><br><span class="line">        <span class="keyword">for</span> task <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            <span class="keyword">if</span> group[task] == -<span class="number">1</span>:</span><br><span class="line">                group[task] = max_group_id</span><br><span class="line">                max_group_id += <span class="number">1</span></span><br><span class="line">        <span class="comment"># 到此，共有 max_group_id 个组</span></span><br><span class="line"></span><br><span class="line">        group_indegree = [<span class="number">0</span>] * max_group_id</span><br><span class="line">        task_indegree = [<span class="number">0</span>] * n</span><br><span class="line">        group_neighbours = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(max_group_id)]</span><br><span class="line">        task_neighbours = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">        group_to_tasks = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(max_group_id)]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> task <span class="keyword">in</span> group:</span><br><span class="line">            group_to_tasks[task].append(task)</span><br><span class="line">        <span class="built_in">print</span>(group_to_tasks)</span><br></pre></td></tr></table></figure>
+
+<p>上面是我写的一个初步的代码，我们分析一下第 16 行，我希望能够得到 每个组对应的task情况，但是这种遍历方法肯定是不对的，而是应该</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> task <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    group_to_tasks[group[task]].append(task)</span><br></pre></td></tr></table></figure>
+
+<p>这样才可以实现把 task 放到对应的 group 中的想法。</p>
+<p>然后，我根据回忆进行程序的复现过程中，另一个问题是组内排序的方法，应该遍历已经排好序的组的列表</p>
+<p>这样可以获得组号</p>
+<p>然后根据组号去查找每组里面的任务</p>
+<p>对任务进行排序</p>
+<p>最后把排好序的任务放到最终输出的列表就完成了！</p>
+<hr>
+<p>OK，本期的解题就是这些，总体来说，简单题虽然能够尝试，但是限制了对真正算法的现象和理解，还是需要多对其他难度和其他类型的题进行尝试，从而获得更好的学习效果！</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2021/01/12/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E5%9B%9B/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE/" rel="tag">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" rel="tag">拓扑排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/01/17/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%80/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            【统计学习方法】1-统计学习与监督学习基础
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/12/29/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%89/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">LeetCode刷题笔记（三）</div>
+      </a>
+    
+  </nav>
+
+  
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2022
+        <i class="ri-heart-fill heart_icon"></i> Sun Yue
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="悦"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/246643413">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about-me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

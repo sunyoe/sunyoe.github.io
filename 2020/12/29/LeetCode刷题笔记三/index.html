@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+  
+
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="思考，学习，生活" />
+       
+      <meta name="description" content="SJTU 研究僧" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>LeetCode刷题笔记（三） |  悦</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="悦" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-LeetCode刷题笔记三"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  LeetCode刷题笔记（三）
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/12/29/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%89/" class="article-date">
+  <time datetime="2020-12-29T12:46:39.000Z" itemprop="datePublished">2020-12-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">5.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">21 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>每期10题，上一期参见<a target="_blank" rel="noopener" href="https://sunyoe.github.io/2020/12/06/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%BA%8C/">LeetCode刷题笔记（二）</a>。</p>
+<p>本期内容多以动态规划为主。</p>
+<h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><h2 id="392-判断子序列-动态规划"><a href="#392-判断子序列-动态规划" class="headerlink" title="392. 判断子序列 - 动态规划"></a>392. 判断子序列 - 动态规划</h2><p>输入：长序列 t，短序列 s</p>
+<p>判断：s 是不是 t 的子序列</p>
+<p>条件：</p>
+<ul>
+<li>从原始序列到子序列，可以删除部分字符，可以不连续，但是<strong>相对位置</strong>不能变</li>
+<li>两个序列全是英文小写字母</li>
+</ul>
+<span id="more"></span>
+
+<p>传统方法：</p>
+<ul>
+<li>如果可以不改变顺序地去重，那么就可以直接取筛选了</li>
+</ul>
+<p><strong>怎么样使用动态规划呢？</strong></p>
+<p>到了 t 的第 n 个字符，已经发现了 s 的字符数为 f(n)</p>
+<p>那么</p>
+<ul>
+<li>如果这一个（t_n）不是s中的下一个（s_(f(n-1)+1)），那么f(n) &#x3D; f(n-1)</li>
+<li>如果是，那么f(n) &#x3D; f(n-1) + 1</li>
+</ul>
+<p>推导至 t 的结尾，或者到了s 的结尾，就要停止了</p>
+<p>如果s到了结尾，那就说明是子序列</p>
+<p>特殊情况：</p>
+<p>（1）短字符为空</p>
+<p><del>（2）长字符和短字符一样长【如果不相等可以直接判断为False了】，那相等直接判定为True【其实这个也不必了】</del></p>
+<p>这个问题最容易出错的地方是list的索引问题，上代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isSubsequence</span>(<span class="params">self, s: <span class="built_in">str</span>, t: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        yes_num = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">len</span>(s):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="comment"># if len(s) == len(t):</span></span><br><span class="line">        <span class="comment">#     return False if s != t else True</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(t)):</span><br><span class="line">            <span class="keyword">if</span> t[i] == s[yes_num]:</span><br><span class="line">                yes_num += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> yes_num == <span class="built_in">len</span>(s):</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span> <span class="keyword">if</span> yes_num == <span class="built_in">len</span>(s) <span class="keyword">else</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>yes_sum 直接代表了 s 中的下一个位置【因为list从0开始】，也表示了 s 已经匹配的字符数量</p>
+<p><strong>所以最后对比yes_num和s的长度就不用长度减一了！！</strong></p>
+<p>所以长字符和短字符一样长的情况也就不再是特殊情况了</p>
+<p>最后，最简化版本，特殊情况不特殊，最后判断也多余：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isSubsequence</span>(<span class="params">self, s: <span class="built_in">str</span>, t: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        yes_num = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">len</span>(s):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(t)):</span><br><span class="line">            <span class="keyword">if</span> t[i] == s[yes_num]:</span><br><span class="line">                yes_num += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> yes_num == <span class="built_in">len</span>(s):</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="746-使用最小花费爬楼梯-动态规划"><a href="#746-使用最小花费爬楼梯-动态规划" class="headerlink" title="746. 使用最小花费爬楼梯 - 动态规划"></a>746. 使用最小花费爬楼梯 - 动态规划</h2><p>本题确实是一个动态规划方面的问题，但是我得说这个问题的描述有点迷糊</p>
+<p>输入：一个列表，全是数值，长度至少是2</p>
+<p>输出：最小子序列的和</p>
+<p>要求：</p>
+<ul>
+<li>该子序列可以连续，也可以间隔1个；</li>
+<li>该子序列可以不包含第1个元素（索引为0）；</li>
+<li>该子序列可以不包含最后一个元素（索引为 n-1）；</li>
+</ul>
+<p>假设到第 n 个数值，最小和为 f(n)</p>
+<p>有三种可能：怎么样去选择？</p>
+<ul>
+<li><p>$f(n) &#x3D; f(n-1)$（可以从第2个数，也就是索引为1开始）【跳当前数值】</p>
+<ul>
+<li>问题：<strong>【那这个肯定比第二种要小，怎么说？】</strong></li>
+</ul>
+</li>
+<li><p>$f(n) &#x3D; f(n-1) + i$（可以从第2个数，也就是索引为1开始）【连续】</p>
+<ul>
+<li>如果此时 n 是最后一个，那么 i 是不能加的<strong>【但问题是我不知道 n 到底是不是最后一个】</strong></li>
+</ul>
+</li>
+<li><p>$f(n) &#x3D; f(n-2) + i$（可以从第3个数，也就是索引为2开始）【跳前一个数值】</p>
+<ul>
+<li>如果此时 n 是最后一个，那么 i 是必须加的</li>
+</ul>
+</li>
+</ul>
+<p>初始条件：</p>
+<ul>
+<li>$f(1) &#x3D; i_0$</li>
+<li>$f(2)&#x3D;min(f(1), i_1)$【如果能跳过2个，那么一定会跳过，否则和一定会变大】</li>
+</ul>
+<p>终止条件：</p>
+<ul>
+<li>$n$ 到了结尾</li>
+</ul>
+<p>现在思路开始混乱了：</p>
+<p>在第 n 个数值，有几种情况？选择当前，不选择当前，不管选不选当前，都有可能选前一个数值</p>
+<ul>
+<li>一般情况下，我肯定不会连续选择数值，除非旁边的数值更大，或者没得选</li>
+</ul>
+<h3 id="阅读题解"><a href="#阅读题解" class="headerlink" title="阅读题解"></a>阅读题解</h3><p><strong>递归关系</strong>似乎是 $f(n) &#x3D; i + min(f(n-1), f(n-2))$</p>
+<p>最后一步，为了防止最后一步需要判断取舍，可以直接在最后选择 f(n) 和 f(n-1) 中比较小的，那就实现了最优</p>
+<p>还有一点就是，这样的话，初始化就和上面略有不同了：</p>
+<ul>
+<li>f(1) &#x3D; i_0</li>
+<li>f(2) &#x3D; i_1</li>
+</ul>
+<p>因为最后已经增加了判断最后一个数值取舍的步骤，这里的 f(2) 就没有必要多一次判断了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minCostClimbingStairs</span>(<span class="params">self, cost: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        sum_cost = []</span><br><span class="line">        sum_cost.append(cost[<span class="number">0</span>])</span><br><span class="line">        sum_cost.append(cost[<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(cost) == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> sum_cost[-<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">len</span>(cost)):</span><br><span class="line">            sum_cost.append(cost[i] + <span class="built_in">min</span>(sum_cost[-<span class="number">1</span>], sum_cost[-<span class="number">2</span>]))</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">min</span>(sum_cost[-<span class="number">1</span>], sum_cost[-<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+
+<h2 id="面试题-17-16-按摩师-动态规划"><a href="#面试题-17-16-按摩师-动态规划" class="headerlink" title="面试题 17.16 按摩师 - 动态规划"></a>面试题 17.16 按摩师 - 动态规划</h2><p>输入：一个序列</p>
+<p>输出：子序列的和，最大和</p>
+<p>要求：子序列元素不能相邻</p>
+<p>本题就是比较典型的动态规划</p>
+<p>状态表达式：$f(n)$ 表示到第 n 个数的最大和</p>
+<p>状态转移方程及条件：</p>
+<p>（1）$f(n) &#x3D; f(n-1)$，什么条件？</p>
+<p>（2）$f(n) &#x3D; f(n-2) + i$</p>
+<p>那本题岂不是和198题相同？？</p>
+<blockquote>
+<p>在746题中，因为可以连续，或者只能间隔一个，所以是先比较最大值（最小值），然后再加当前值</p>
+<p>但是本题不能连续，不能先比较最大值</p>
+</blockquote>
+<p>本题有个问题，一定会选择当前数值吗？不一定</p>
+<p>和198题还真是一样的，就考虑三个特殊情况：</p>
+<p>列表长度为0，1，2，分别是0，sum(list)，max(list)，有没有什么方法可以一句话搞定的？</p>
+<h2 id="389-找不同-运算，ASCII和异或"><a href="#389-找不同-运算，ASCII和异或" class="headerlink" title="389. 找不同 - 运算，ASCII和异或"></a>389. 找不同 - 运算，ASCII和异或</h2><p>输入：两个字符串 s 和 t</p>
+<p>输出：t 中 s 没有的字符</p>
+<p>要求：t 由 s 随机重排并添加了一个字母</p>
+<p><strong>本题居然是简单？</strong></p>
+<p>观察示例发现：</p>
+<p>添加的字母有可能是s 中已有字母重复的，那么这样的话使用 set 元组做去重就是不太好的方法了</p>
+<p>如果遍历 s 中的字符，找 t 中的位置，然后找出那个字符呢，时间复杂度为 o(n)，可能不是最好的方法【尤其如果s本身含有重复字母，那么t中肯定也有重复字母了】还好s最长只是1000，那么肯定会有重复的，这样确实不是太好难道说要统计s中每个字母的数量，然后去对比吗？普通的list并没有找出全部索引的功能吧</p>
+<h3 id="官方题解"><a href="#官方题解" class="headerlink" title="官方题解"></a>官方题解</h3><p>（1）计数，还真的可以对字符串中出现的字母进行计数，然后比较（这里使用的方法是在t中进行递减计数，当数字为负，那就找到了数字）</p>
+<p>（2）位运算【这个思路比较好】</p>
+<p>把两个字符串合二为一，肯定有一个字母出现次数不是偶数，就是ta</p>
+<blockquote>
+<p>类似 136题，这个题我做过了，但是说实话，这个异或我还是没有太明白</p>
+<p>好像明白一点了，如果 一个字母是唯一的，那么任何字母和它异或，都不会改变它，而且由于其他的成双成对，最后一定都会相当于和自身异或一次，会最后剩下一个字母</p>
+<p>这个方法的空间复杂度和时间复杂度都是一定的，而且没有优化的空间</p>
+</blockquote>
+<p>（3）求和</p>
+<p>这个方法用的是ASCII码的方法，ASCII码的和的差值就是多出来的那个字母的ASCII码</p>
+<p>python ASCII码 <code>ord(&#39;a&#39;)</code></p>
+<p>从ASCII码反读字母呢：<code>chr(num)</code></p>
+<h2 id="1025-除数博弈-动态规划，数学"><a href="#1025-除数博弈-动态规划，数学" class="headerlink" title="1025. 除数博弈 - 动态规划，数学"></a>1025. 除数博弈 - 动态规划，数学</h2><p>输入：int 数字 n，1到1000之间</p>
+<p>输出：布尔值</p>
+<p>功能：每一轮的要求如下，最后要求出来的是总轮数，如果为奇数那么返回True，如果为偶数返回False</p>
+<ul>
+<li><p>对于任意 &#x3D;&#x3D;x&lt;n&#x3D;&#x3D;，余数如果为0就是true</p>
+</li>
+<li><p>然后 n&#x3D;n-x，对于新的任意 y&lt;新的n，余数为0就是true</p>
+</li>
+<li><p>直到找不到使余数为0的除数 z&lt;新的新的n</p>
+</li>
+</ul>
+<p>题目中举了一个很有意思的例子：3</p>
+<ul>
+<li>第一位选择 1，那么余数是0【其实对于任意 n，总可以以1为除数，得到余数为0】，然后3-1&#x3D;2</li>
+<li>第二位选择 1，余数还是0，然后 2-1&#x3D;1</li>
+<li>然后不能再选1了，因为不满足 x&lt;n(此时n&#x3D;1了)</li>
+</ul>
+<p>也就是说每一轮，n在更新，除数的上限也在更新，除数也在更新，如果被除数变为1，那么游戏就结束了</p>
+<p>难点：</p>
+<ul>
+<li>找整除的数，1是万能的，除1以外-永远可以整除，但问题是也要防止给对方留下赢的空间<ul>
+<li>比如4<ul>
+<li>选2，剩下2，选1，输了</li>
+<li>选1，剩下3，选1，剩下2，选1，赢了</li>
+<li>那这样的话肯定第二种思路要比第一种要好</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>也就是说要最优化 - 尽可能赢，除非必输</li>
+</ul>
+<p>本题居然是简单？</p>
+<p>假设当前剩余数字 n，最佳轮数\路径是 f(n) 【这样不行】</p>
+<blockquote>
+<p>问题是本题是数字n越小越容易发现正确路径，数字越大反而越不容易</p>
+<p>比如 n &#x3D; 1，直接<strong>输</strong>，1步</p>
+<p>n &#x3D; 2，直接<strong>赢</strong>，1步</p>
+<p>n &#x3D; 3，一定会<strong>输</strong>，没得选，2步</p>
+<p>n &#x3D; 4，可以<strong>赢</strong>，2步，3步（赢）</p>
+<p>n &#x3D; 5，</p>
+<ul>
+<li>选1，为4</li>
+<li>这下选择权在对方手里，一定<strong>输</strong>【每轮都是按照最优方法】2步（输），3步</li>
+</ul>
+<p>n &#x3D; 6，</p>
+<ul>
+<li>选1，为5，1+1+2或3，最后一定输</li>
+<li>选2，为4，2或3一定输</li>
+<li>选3，为3，一定<strong>赢</strong></li>
+</ul>
+<p>【问题就在于这个关系是一个可以递推的关系吗？所以要怎么样才能实现动态规划？】</p>
+<p>如果这一步过后，留给对手的总轮数可以是奇数，也可以是偶数，那么对手一定会选择偶数，那么我方一定会选择奇数，永远在博弈</p>
+</blockquote>
+<p>其实已经渐渐发现规律了！</p>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>非官方：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/divisor-game/solution/qi-shi-shi-yi-dao-shu-xue-ti-by-coder233/">https://leetcode-cn.com/problems/divisor-game/solution/qi-shi-shi-yi-dao-shu-xue-ti-by-coder233/</a></p>
+<p>刚才比较的对剩下数字来说，轮数的奇偶比较</p>
+<p>换一个思路：</p>
+<ol>
+<li>什么时候能判断最终结果？N &#x3D; 2时。那么就是看到谁手里为2。</li>
+<li>剩下的数字是奇数还是偶数？</li>
+</ol>
+<p>核心思想：&#x3D;&#x3D;奇数的约数一定是奇数，偶数的约束可奇可偶&#x3D;&#x3D;</p>
+<p>如果开局奇数：第一次不管选什么，对方手里都是偶数</p>
+<p>如果开局偶数：只要一直选1，那么对方手里一定是奇数（2一定不在对方手里），这样就到了上面的情况【妙啊，太妙了！】</p>
+<p>所以，总结出来就是，开局奇数，必输，开局偶数，必赢</p>
+<p>所以，只要判断奇偶数就好了【炸】</p>
+<p>官方题解中还有一种思路是找让对方处于“必败态”的情况</p>
+<h1 id="分治法"><a href="#分治法" class="headerlink" title="分治法"></a>分治法</h1><h2 id="50-Pow（x-n）-基础，复杂度-分治"><a href="#50-Pow（x-n）-基础，复杂度-分治" class="headerlink" title="50. Pow（x, n）- 基础，复杂度 - 分治"></a>50. Pow（x, n）- 基础，复杂度 - 分治</h2><p>输入：正负100以内的浮点数 x 和 32位带符号 int 数 n</p>
+<p>输出： x 的 n 次幂</p>
+<p>本题就是纯粹的数学问题的算法实现，关键是这个幂的范围异常大，所以如果真的一个一个乘，时间复杂度会爆炸，所以就是为了尽量压缩时间复杂度诞生的问题！</p>
+<p>首先计算不大于 n 的 $2^k$ 幂，k也就是循环的次数，这样能够尽量减少时间复杂度</p>
+<ul>
+<li>k &#x3D; 0，那么就是 x</li>
+<li>k &#x3D; 1， x * x</li>
+<li>k &#x3D; 2，x^2 * x^2</li>
+<li>k &#x3D; n，x^n * x^n</li>
+</ul>
+<p>然后对于剩下的 $n-2^k$ 次幂，就转化为求解 x 的 $n-2^k$ 次幂的问题，就可以迭代了</p>
+<p>细节：</p>
+<p>（1）x 化为正数，直接把 x 变成 正数，但是最后结果的正负还要看 n 是奇数还是偶数</p>
+<p>（2）指数为负时，直接把x的倒数求出来</p>
+<p>（3）特殊情况：</p>
+<ul>
+<li>x 为0，直接为0</li>
+<li>n 为0，直接为1</li>
+<li>n 为1，直接为x</li>
+</ul>
+<p>以下是我成功的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myPow</span>(<span class="params">self, x: <span class="built_in">float</span>, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">float</span>:</span></span><br><span class="line">        <span class="keyword">if</span> x == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> x == <span class="number">1</span> <span class="keyword">or</span> n == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> n &lt; <span class="number">0</span>:</span><br><span class="line">            x, n = <span class="number">1</span>/x, <span class="built_in">abs</span>(n)</span><br><span class="line">        weight = <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> x &lt; <span class="number">0</span> <span class="keyword">and</span> n % <span class="number">2</span>:</span><br><span class="line">            weight = -<span class="number">1</span></span><br><span class="line">            x = <span class="built_in">abs</span>(x)</span><br><span class="line">        result = <span class="number">1</span></span><br><span class="line">        res = n</span><br><span class="line">        <span class="keyword">while</span> res:</span><br><span class="line">            this_k, this_pow_2 = self.max_2_pow(res)</span><br><span class="line">            this_x = x</span><br><span class="line">            <span class="built_in">print</span>(this_k, this_pow_2)</span><br><span class="line">            <span class="keyword">while</span> this_k:</span><br><span class="line">                this_x *= this_x</span><br><span class="line">                this_k -= <span class="number">1</span></span><br><span class="line">            result *= this_x</span><br><span class="line">            res -= this_pow_2</span><br><span class="line">        <span class="keyword">return</span> weight * result</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">max_2_pow</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        <span class="comment"># 求不大于 n 的 2 的 k 次幂</span></span><br><span class="line">        pow_2 = <span class="number">1</span></span><br><span class="line">        k = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> n &gt;= pow_2:</span><br><span class="line">            pow_2 *= <span class="number">2</span></span><br><span class="line">            k += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(k-<span class="number">1</span>, <span class="number">0</span>), <span class="built_in">max</span>(<span class="number">1</span>, pow_2 / <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>其中，多次修改的部分是关于“不大于 n 的 2 的 k 次幂”的求解</p>
+<p>一般情况下，$2^k \leq n &lt; 2^{k+1}$，此时需要输出的是 k，但是因为满足 while 的循环条件，会多计算一层，所以最后的结果又要扒去一层，但是又要考虑 $ n &#x3D; 1$ 的情况【这里n不可能为0，因为已经被其他的条件约束了】，所以又要防止把 k&#x3D;0 和 n&#x3D;1 又给削了</p>
+<blockquote>
+<p><strong>还有一种找 $2^k$ 的方式，是观察余数，如果 $n % 2^k &lt; 2^k$，那么自然是介于$2^k$ 和 $2^{k+1}$之间了</strong> </p>
+</blockquote>
+<h3 id="阅读题解-1"><a href="#阅读题解-1" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>官方题解说的分治思想确实很不错，从 n 开始，从后往前看，每次对指数向下取整，指数为偶数和奇数分两种结果，也很不错，而且优势在于这种方式可以递归！</p>
+<p>第二种方法绝了，如果不是对二进制非常熟悉，恐怕很难发现这种规律。</p>
+<h2 id="53-同剑指offer42-连续子数组的最大和-动态规划、分治法"><a href="#53-同剑指offer42-连续子数组的最大和-动态规划、分治法" class="headerlink" title="53 同剑指offer42.连续子数组的最大和 - 动态规划、分治法"></a>53 同剑指offer42.连续子数组的最大和 - 动态规划、分治法</h2><p>输入：数组（全为整数，有正负，不会超过10000个数字，绝对值不会大于100）</p>
+<p>输出：最大子序列和</p>
+<p>要求：子序列如果包含2个及以上数字，必须连续；可以是原数组中的任何片段</p>
+<p>假设移动到数组中的第n个数字，此时满足条件的最大和是 f(n)，应该解释为：前n个数字中满足题干条件的最大序列和是f(n)</p>
+<blockquote>
+<p>我怎么知道现在是不是连续的？</p>
+<p>假设有某个连续序列比较大，是当前最大，那么后续数组是加还是减，是从后往前进行计算吗？</p>
+</blockquote>
+<p>那么当新的 n+1 加入后，首先要看当前数 i 是正的还是负的</p>
+<ul>
+<li>如果是负的，只需要比较和 f(n) 的大小就好了，不可能让 f(n) 更大， f(n+1)&#x3D;max(f(n), i)</li>
+<li>如果是正的，那么有可能让 f(n+1) 更大<ul>
+<li>一方面是比较 f(n) 和 f(n+1)</li>
+<li>另一方面，从当前值 i 从后往前加各个数字，观察和能不能超过 f(n)<ul>
+<li>但是这样会导致复杂度比较高，大概是 $O(n^2)$ &#x3D;&#x3D;要求$O(n)$&#x3D;&#x3D;</li>
+<li>怎么样进行更加方便的判断呢？</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>我印象中前面有一个很类似的问题</p>
+<p>有一种方法是从中间断开然后进行两段计算的方法</p>
+<p>没错，是很类似前面的“买卖股票的最佳时机问题”，不过不一样的地方是，要把中间的数字也加上，而不是只计算头尾</p>
+<p>前面做过的两道题都没有很好地进行学习</p>
+</blockquote>
+<p>关键问题是一个数组是否吸收下一个数字不止取决于下一个数字，而是取决于下一个数字之后的一个连续序列是不是能够对当前序列进行增加。</p>
+<blockquote>
+<p>这里本来是剑指offer42，结果和53题相同</p>
+</blockquote>
+<p>！！！应该说53题当时没有好好学习</p>
+<p>&#x3D;&#x3D;<u>这里注意 f(i) 的解释：表示以第 i 个数字结尾的连续子数组的最大和</u>&#x3D;&#x3D;</p>
+<p>那么 $f(i+1) &#x3D; max(f(i)+a_i, a_i)$ 就非常正确了，就不用再考虑从后往前加那么多了！</p>
+<p>这道题的第二种方法是分治，其实是本题的深化：求序列的 [l, r] 区间内的最大连续子段和</p>
+<h1 id="贪心法"><a href="#贪心法" class="headerlink" title="贪心法"></a>贪心法</h1><h2 id="376-摆动序列-动态规划、贪心法"><a href="#376-摆动序列-动态规划、贪心法" class="headerlink" title="376. 摆动序列 - 动态规划、贪心法"></a>376. 摆动序列 - 动态规划、贪心法</h2><p>输入：一个数组</p>
+<p>输出：最长子数组的长度</p>
+<p>要求：子数值后一项减前一项的差值必须是一正一反交替的；只有一个元素，或者只有两个元素的也算。</p>
+<p>怎么样检测差值是不是交替？可以用乘法，差值乘积小于0，那么就是了</p>
+<p>但是怎么样获得最长数组？</p>
+<p>个人觉得还是一个动态规划的问题，题解标题来看也有说是贪心法的，如果用动态规划来说，最大问题是不一定后面的元素和前面的元素存在关系</p>
+<p>思路：</p>
+<p>比方说<strong>先计算一遍差值，形成一个新的数组</strong>，然后选择正负交替，最后差值数量 + 1 就是最后的结果吗</p>
+<p><strong>连续的正数，或者连续的负数</strong>都不会增加差值的数量，<strong>只有出现改变</strong>才增加一次</p>
+<p>如果用一个数组记录新数组，那么这个空间占用率会很高，最好是一个循环直接带走，也是需要两个量来进行交替取值</p>
+<ul>
+<li>新问题：如果差值为0，那么也是不能算的</li>
+<li>另外：如果出现一个差值为0， 那么不能继续乘以它了，这样后面就无效了</li>
+</ul>
+<!--重要-->
+
+<p>&#x3D;&#x3D;重新整理思路：&#x3D;&#x3D;</p>
+<ul>
+<li><p>第一个数，索引0，结果直接加1，不会比1小</p>
+</li>
+<li><p>从第2个数（索引1）开始，如果其和前一个数的差值 * 索引1与索引0的差值 &lt; 0 ，那么结果就要加1了</p>
+</li>
+<li><p>如果差值为0，那么又不能使用这一个差值<!--【这是最大的问题】--></p>
+</li>
+<li><p>所以就是，计算差值</p>
+<ul>
+<li><p>如果差值为0自然是不加不减</p>
+<ul>
+<li>&#x3D;&#x3D;而且不能改变前一个趋势值 s1&#x3D;&#x3D;</li>
+</ul>
+</li>
+<li><p>如果前面差值为负数，当前为正，或者前面差值为正数，当前为负，则会加1</p>
+</li>
+<li><p>如果前面差值为0呢？</p>
+<ul>
+<li>按照上面的说法，其实只有一种可能前面的趋势值 s1 为0，那就是从开头以来，s1就是0，而且还没有变过</li>
+<li>一旦 s2不是0，一定会把 s1变化一次的</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!--重要-->
+
+<p>其实我的方法是<strong>贪心法</strong>的思路！！</p>
+<ul>
+<li>但是问题是我没有很好地&#x3D;&#x3D;处理 0 的问题&#x3D;&#x3D;，如果不能用乘法一劳永逸地解决，不妨直接&#x3D;&#x3D;用不等号进行尝试&#x3D;&#x3D;！</li>
+<li>而且，也不要最后再加1，这样针对【0，0】这样的数组就会多加一次，应该在最开始就加到位，后面就是不停地补充就好了</li>
+</ul>
+<h3 id="阅读题解-2"><a href="#阅读题解-2" class="headerlink" title="阅读题解"></a>阅读题解</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/wiggle-subsequence/solution/bai-dong-xu-lie-by-leetcode-solution-yh2m/">摆动序列官方题解</a></p>
+<p>峰谷思想：</p>
+<ul>
+<li>两侧均小为峰，两侧均大为谷，非峰非谷为过渡</li>
+<li>两端元素只有一侧，小为谷，大为峰</li>
+<li>最后一个元素上升趋势，则为上升摆动序列，下降趋势则为下降摆动序列</li>
+</ul>
+<blockquote>
+<p>状态表达式</p>
+<p>状态转移规则（方程）</p>
+<p>初始条件</p>
+</blockquote>
+<p><strong>动态规划思路：</strong></p>
+<p><strong>状态表达</strong></p>
+<ul>
+<li>以当前元素结尾的序列中，最长上升摆动序列为 up[i]，最长下降摆动序列为 down[i]</li>
+</ul>
+<p><strong>状态转移规则</strong></p>
+<ul>
+<li>针对 up[i]<ul>
+<li>当前元素小于上一个元素（包括等于），那么最长上升摆动序列不变</li>
+<li>当前元素大于上一个元素，那么既可以从 up[i-1]转移，也可以从 down[i-1]转移</li>
+</ul>
+</li>
+<li>针对 down[i]<ul>
+<li>当前元素大于上一个元素（包括等于），那么最长下降摆动序列不变</li>
+<li>当前元素小于上一个元素，那么可以从 up[i-1]转移，也可以从 down[i-1]转移</li>
+</ul>
+</li>
+</ul>
+<img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20201212135251108.png" alt="image-20201212135251108" style="zoom: 67%;" />
+
+<p>最后的答案也是从 up[n-1] 和 down[i-1]中选择比较大的那个</p>
+<h2 id="135-分发糖果-贪心法"><a href="#135-分发糖果-贪心法" class="headerlink" title="135. 分发糖果 - 贪心法"></a>135. 分发糖果 - 贪心法</h2><p>这道题有一点像华为今年的题</p>
+<p>输入：一个整数序列</p>
+<p>输出：重建序列和</p>
+<p>要求：对输入序列，对比相邻元素</p>
+<ul>
+<li>如果元素比较大，重建序列中该值位置的数字应当+1</li>
+<li>元素相等，不用+1，直接给1</li>
+</ul>
+<p>当前元素有几颗糖完全取决于前面一个的糖？</p>
+<ul>
+<li>[0, 2, 1]，第三个数字介于前两个数字之间，如果0给1，2给2，那么1给1，完全没问题</li>
+<li>[2, 2, 1]，2给1，2给1，但是后一个是1，至少给1，所以第2个2不能为1</li>
+</ul>
+<p>我的想法：</p>
+<p>到第 i 个数字，首先给 1</p>
+<p>从前往后的序列是相对比较容易的，直接对比，然后加就可以了</p>
+<p>从后往前的序列是比较难的，需要对前面的序列一个一个对比大小和调整，直到遇到比较小的数字</p>
+<p>如果一个序列就按照从大到小降序排列呢？那就要处理很多，复杂度就高了，这样显然不是太好</p>
+<h3 id="官方题解-1"><a href="#官方题解-1" class="headerlink" title="官方题解"></a>官方题解</h3><p>其实刚才的想法中暗含了本问题的额正确解决思路：&#x3D;&#x3D;就是需要反过来进行计算&#x3D;&#x3D;，其实两个递减序列肯定是互不相关的，那么直接反过来再计算一遍不就好了？</p>
+<p>总体想法：正着一遍，反着一遍</p>
+<p>注意一个问题：</p>
+<ul>
+<li>正着一遍，我们需要得到新的序列</li>
+<li>反着一遍，其实序列本身并不是我们需要的，数字的和才是我们需要的</li>
+</ul>
+<p><code>range(n-1, -1, -1)</code>，从 n-1 一直到 0</p>
+<p>官方题解中的 <code>ret += max(left[i], right)</code> 一句点明了两点：</p>
+<p>（1）每一次循环其实决定的是新序列右侧值</p>
+<p>（2）反向序列满足规律时才会修改，如果不满足规律那么right会是1，也就不怎么改变了</p>
+<p>总结：贪心法，两遍扫描，已有相关题解</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="118-杨辉三角-基础"><a href="#118-杨辉三角-基础" class="headerlink" title="118. 杨辉三角 - 基础"></a>118. 杨辉三角 - 基础</h2><p>输入：非负整数 n</p>
+<p>输出：杨辉三角的前 n 行</p>
+<p>理论上可以硬解</p>
+<p>特点：</p>
+<ul>
+<li>每一行首尾都是1，其他数字i是上一行第i个和第i-1个数字的加和</li>
+<li>第 i 行 i 个数字</li>
+</ul>
+<p>按我自己的方法，主要是会有三种特殊情况：</p>
+<p>（1）n&#x3D;0，那么返回是空</p>
+<p>（2）n&#x3D;1，那么返回是[[1]]</p>
+<p>（3）n&#x3D;2，那么返回是[[1],[1,1]]</p>
+<p>只有从n&#x3D;3开始，才建立起递推关系</p>
+<hr>
+<p>OK！本期10题就先到这里了，应该说在这段期间对代码的理解有了提高，但是对知识的巩固一如既往地糟糕，需要经常复习。</p>
+<p>期待下一个10题快点到来！</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/12/29/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%89/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E6%B2%BB%E6%B3%95/" rel="tag">分治法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B4%AA%E5%BF%83%E6%B3%95/" rel="tag">贪心法</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/01/12/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E5%9B%9B/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            LeetCode刷题笔记（四）
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/12/06/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%BA%8C/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">LeetCode刷题笔记（二）</div>
+      </a>
+    
+  </nav>
+
+  
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2022
+        <i class="ri-heart-fill heart_icon"></i> Sun Yue
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="悦"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/246643413">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about-me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

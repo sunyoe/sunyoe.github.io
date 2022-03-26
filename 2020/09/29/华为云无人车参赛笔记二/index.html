@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+  
+
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="思考，学习，生活" />
+       
+      <meta name="description" content="SJTU 研究僧" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>华为云无人车参赛笔记二 |  悦</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="悦" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-华为云无人车参赛笔记二"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  华为云无人车参赛笔记二
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/09/29/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0%E4%BA%8C/" class="article-date">
+  <time datetime="2020-09-29T01:24:30.000Z" itemprop="datePublished">2020-09-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ROS/">ROS</a> / <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89/">机器视觉</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">9 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>上一篇主要内容是针对本赛事中的重难点进行描述，但是针对实际问题，需要更加细致的调整。</p>
+<p>本文记录实际调试过程中遇到的问题和改善方法。</p>
+<span id="more"></span>
+
+<h2 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h2><h3 id="1-首先需要调整透视变换视角"><a href="#1-首先需要调整透视变换视角" class="headerlink" title="1. 首先需要调整透视变换视角"></a>1. 首先需要调整透视变换视角</h3><p>主要是画面范围的调整。</p>
+<p>由于弯道比较多，真实小车的视线中很少能看到两条线；同时，大概是因为选择透视变换的范围比较小，无法覆盖到需要的图像区域。因此需要对画面进行调整。</p>
+<p><strong>直接用openCV添加直线</strong></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200903135454484.png" alt="image-20200903135454484"></p>
+<blockquote>
+<p>可能出现的问题：</p>
+<p><code>SystemError: new style getargs format but argument is not a tuple</code></p>
+<p>这个问题应该关键是数据的类型不太对</p>
+</blockquote>
+<p>效果如图所示，大概明白如下：前面的区域界定，只是计算转换矩阵，然后使用转换矩阵把整个图片进行转换。</p>
+<p>所以说，<strong>转换矩阵要谨慎一点</strong>，不是随便怎么转换都可以的。</p>
+<p>那么我们应该怎么样转换呢？让比例更加准确一点！</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200904094713780.png" alt="image-20200904094713780"></p>
+<p>这张图应证了我的想法，确实需要<strong>调整好直线道路上的透视变换效果图</strong>。</p>
+<blockquote>
+<p>本赛道转弯比较多</p>
+<p>按道理来说，按照透视的原理，只要将一个水平的梯形区域转换为一个正常的方形区域就可以了</p>
+<p>但是现实是，本赛道弯道多，车身倾角大，导致车的姿态情况不是水平，最好有一点偏角</p>
+<p>应该是左低右高的一个区域就比较好</p>
+</blockquote>
+<p><strong>原始区域：</strong></p>
+<p>变换前：<code>src_points = np.array([[3,570], [387,460], [906,452], [1041,485]], dtype=&quot;float32&quot;)</code></p>
+<p>变换后：<code>[266., 686.], [266., 19.], [931., 20.], [931., 701.]</code></p>
+<p>该区域的问题是，没有线的区域会比较多，或者说覆盖的车道区域有点小</p>
+<p>从形状上来看倒是很符合左低右高的形状</p>
+<p><strong>区域1：</strong></p>
+<p>变换前：<code>src_points = np.array([[3,570], [387,460], [1106,472], [1241,520]], dtype=&quot;float32&quot;)</code></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200903151451012.png" alt="image-20200903151451012"></p>
+<p>其实这个区域还不错</p>
+<p>对中间的纯黑地带过滤也比较到位</p>
+<p>就看实际中的表现如何</p>
+<blockquote>
+<p>不对，这个确实应该动态进行调整</p>
+<p>&#x3D;&#x3D;车身姿态影响到了拍摄角度&#x3D;&#x3D;</p>
+<p>左转的时候应该是坐地右高，右转的时候则是要右低左高了，目前这样肯定是不够的</p>
+<p>如果按照IMU的数据去调整呢</p>
+</blockquote>
+<p><strong>区域2</strong>：</p>
+<p>变换前：<code>src_points = np.array([[3,520], [387,470], [1106,472], [1241,520]], dtype=&quot;float32&quot;)</code></p>
+<p>我使用opencv将视频转换为图片，然后用matplotlib展示出图片，然后进行分析</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200904205233116.png" alt="image-20200904205233116"></p>
+<p>目前看完了全部代码之后，就很明朗了</p>
+<p>就是要不断调整透视变换的比例，从而确保在直线道路上，能够调试出满意的透视变换图像</p>
+<hr>
+<p>&#x3D;&#x3D;观察结果：&#x3D;&#x3D;</p>
+<p>按照最后的观察结果来看，右转问题有二：</p>
+<p>第一，其视角偏上，那么近一点的区域就会反应过于灵敏</p>
+<ul>
+<li>这个调整的是转换前的区域大小，以及转换后的区域的大小</li>
+</ul>
+<p>第二，如果角度变换的速度太慢，就会没有转到有线的位置，从而丢失车道线画面</p>
+<ul>
+<li>这里调节角度变换的速度，一个是调整&#x3D;&#x3D;计算<code>cmdSteer</code>的系数k&#x3D;&#x3D;，基准是 -19，<strong>这个数字是什么意思呢？</strong></li>
+<li>这个数字应该是弯道的斜率，不同的弯这个系数确实是不太一样的</li>
+</ul>
+<p><strong>其实比较好奇，什么样的结果算是改动成功？</strong></p>
+<p>结果就是应该准确快速地转弯成功</p>
+<h3 id="2-midPoint"><a href="#2-midPoint" class="headerlink" title="2. midPoint"></a>2. midPoint</h3><p>midpoint理论上是视野的中点，但是程序中是 320，这个是有点奇怪的，偏左了一点点</p>
+<ul>
+<li>回答：程序中有两个midPoint，一个是midPoint_x，这个值是640，已经确定，没有问题</li>
+<li>还有一个是midPoint_y，似乎是用以分隔上下部分，这个值目前定的是320，实际上也可以进行调整，主要还是看车道在画面中所占的位置</li>
+</ul>
+<p>这个值感觉不是特别需要改动</p>
+<p>或者说修改的意义不大</p>
+<h3 id="3-视频录制"><a href="#3-视频录制" class="headerlink" title="3. 视频录制"></a>3. 视频录制</h3><p>使用opencv-python录制视频</p>
+<p>首先使用的代码参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/hhaowang/article/details/88236612">Python-OpenCV视频录制</a></p>
+<p>但是这个一点都不好用，录制的视频播放速度极快，丢帧也比较严重了</p>
+<p>接下来希望参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43635647/article/details/103774559">Python -opencv 录制视频</a></p>
+<p>这个代码看起来要简洁一点</p>
+<h3 id="4-入弯出弯测试"><a href="#4-入弯出弯测试" class="headerlink" title="4. 入弯出弯测试"></a>4. 入弯出弯测试</h3><p>目前来说，右转入弯要么不够迅速，要么会提前（主要还是看视野内的车道线情况）</p>
+<p>左转入弯有问题，似乎是机械方面的故障，从信号上来说已经是左转了，但是实际转弯情况却是右转的</p>
+<p>目前的参数中：</p>
+<p><strong>转向参数设为 -21</strong></p>
+<p>效果不错，右转弯很合适，左转弯尚有不足</p>
+<p>速度调至10很完美，速度调至15稍有不足（主要是左转弯时会打方向比较急、猛）</p>
+<h3 id="5-斑马线识别"><a href="#5-斑马线识别" class="headerlink" title="5. 斑马线识别"></a>5. 斑马线识别</h3><p>怎么样将最边上的线识别出来呢？</p>
+<p>用了边缘检测，效果尚可，但是怎么样压制其他区域呢？</p>
+<p>首先查看了lanebase点的位置，可以看的出来，在这之前的一小段高曝光中，会对lanebase产生一点影响</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200908221446425.png" alt="image-20200908221446425"></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200908222634494.png" alt="image-20200908222634494"></p>
+<p>此时lanebase做了什么</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200908222912990.png" alt="image-20200908222912990"></p>
+<p>当前使用的解决方法涉及两个参数;</p>
+<ul>
+<li>白色像素占图像的比例：大于0.083</li>
+<li>lane_base中心值只要小于900，就会自动加500，保证向左转弯过车道线</li>
+</ul>
+<blockquote>
+<p>我认为该问题中的关键是lane_base位置的错误，导致了车道曲线的识别问题</p>
+<p>因此我的两种方法：</p>
+<ul>
+<li>根据lanebase的突变情况，使用黑色色块进行掩盖</li>
+<li>根据lanebase的突变情况，对lanebase进行修正<ul>
+<li>其实第二种修正情况，有一定的问题，那就是一刀切全部加了500，这个不是非常合理</li>
+<li>但是我发现nonzerox的值似乎和我设想的不太一样【nonzerox要配合nonzeroy来同时查看，nonzeroy是从0到720，nonzerox则也是要跟着nonzeroy的像素值进行变化】也不对，不需要直接进行索引，直接求最大值也是可以的</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="新方法"><a href="#新方法" class="headerlink" title="新方法"></a>新方法</h4><p>使用霍夫变换检测斑马线的两侧横线，然后求凸包的顶点，将凸包内的斑马线直接去除，该方法在视觉效果上还是不错的</p>
+<p><strong>测试参数表：</strong></p>
+<p>各参数含义：</p>
+<ul>
+<li>rho：</li>
+<li>theta：</li>
+<li>threshold：</li>
+<li>min_line_length：</li>
+<li>max_line_gap：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>rho</th>
+<th>theta</th>
+<th>threshold</th>
+<th>min_line_length</th>
+<th>max_line_gap</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>np.pi&#x2F;180</td>
+<td>30</td>
+<td>30</td>
+<td>30</td>
+<td>出现的线条会很少</td>
+</tr>
+<tr>
+<td>1</td>
+<td>np.pi&#x2F;180</td>
+<td>50</td>
+<td>30</td>
+<td>1</td>
+<td>出现线条多，很多小线条以点的形式出现</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="6-滑动平均问题"><a href="#6-滑动平均问题" class="headerlink" title="6. 滑动平均问题"></a>6. 滑动平均问题</h3><p>关于servoNode中的滑动平均值，之前确实没有过多考虑，可能还是希望能就原状进行测试，但是忽略了代码间的相互协调能力</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200910135546937.png" alt="image-20200910135546937"></p>
+<p>这个 n 值的设定主要是起到滑动平均的基数的关系</p>
+<p>如果调整n，发布的速度也会比较慢，但是也需要可以起到比较好的光滑的效果（不见得）</p>
+<p>需要尝试一下，目前设想的测试顺序如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>n&#x3D;</th>
+<th>1</th>
+<th>5</th>
+<th>3</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>抖动比较明显，但是可过弯</td>
+<td>抖动降低，但是人行道不易通过，转角过大</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="7-整体规划首个思路"><a href="#7-整体规划首个思路" class="headerlink" title="7. 整体规划首个思路"></a>7. 整体规划首个思路</h3><p><strong>起步</strong></p>
+<p>由于是绿灯开始后才进行运动，因此可以在运动的开始添加一个延时，在此延时中将无人车的运动方向设置为50，可以稍微加快速度</p>
+<p><strong>左转弯</strong></p>
+<p>使用视觉进行检测，几乎不需要进行干扰</p>
+<p><strong>人行道</strong></p>
+<p>可以通过opencv或者是hilens进行识别</p>
+<ul>
+<li>在此位置需要停车</li>
+</ul>
+<p>可以通过激光雷达检测到右侧的距离，检测行人等障碍物</p>
+<ul>
+<li>此时应该判断是不是处在左转弯的过程中？【或者说怎样让它具有独特性，而不是全赛道通用的】</li>
+<li>需要判断障碍物是不是消失，障碍物的级别最高，高于人行道，高于车道</li>
+<li>检测到障碍物时：方向设置为50，挡位设置为空，避免来回的摆动</li>
+</ul>
+<p><strong>重新启动</strong></p>
+<ul>
+<li>应当保持停车前的运行方向不变</li>
+<li>检测重新启动后的小车运动方向</li>
+<li>重新可以设置方向和挡位（也就是说在斑马线期间视觉确实也是在启动的，只不过不能修改方向值）</li>
+</ul>
+<p><strong>交叉区域</strong></p>
+<p>激光雷达slam，可以在中间交叉区域通过判断两边距离是否一致从而实现</p>
+<p><strong>右转弯</strong></p>
+<p>视觉可以实现比较好的操作</p>
+<p><strong>限速操作</strong></p>
+<p>我们把限制后的速度调整为10，限速前应当能够按照15-20进行运动</p>
+<p>注意限速和转角之间的配合关系，需要进行测试</p>
+<p>这边转弯的过程中限速和转角是不是能很好地进行配合</p>
+<p><strong>停车</strong></p>
+<p>首先识别到黄灯，开始进入停车识别</p>
+<p>然后识别车的位姿，是不是和右侧挡板平行（使用激光雷达）</p>
+<p>满足和右侧挡板平行，或者能够保持一定的距离，进行驶入</p>
+<p>最后当看不到黄灯、或者红灯后，进行延时，从而确保停车完毕</p>
+<ul>
+<li>注意不能压线，不能碰挡板</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">camera --&gt; l(laneDetection)</span><br><span class="line">l --&gt; images</span><br><span class="line">l --&gt; l2(lane_vel:topic)</span><br><span class="line">l2 -.- res1[有效信息只有angle_z]</span><br><span class="line">l2 --&gt; s1((servoNode))</span><br><span class="line"></span><br><span class="line">h[hilens] --&gt; t1(traffic_light)</span><br><span class="line">h --&gt; t2(标识牌信息)</span><br><span class="line">t1 --&gt; s1</span><br><span class="line">t2 --&gt; s1</span><br><span class="line">s1 --&gt; m1(manul)</span><br><span class="line">s1 --&gt; d1(direction)</span><br><span class="line">s1 --&gt; s2(speed)</span><br><span class="line">s1 --&gt; g(gear)</span><br><span class="line"></span><br><span class="line">m1 -.- res2[自动手动]</span><br><span class="line">d1 -.- res3[方向]</span><br><span class="line">s2 -.- res4[速度]</span><br><span class="line">g -.- res5[挡位]</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-x2F-scan话题无法读取的问题"><a href="#8-x2F-scan话题无法读取的问题" class="headerlink" title="8. &#x2F;scan话题无法读取的问题"></a>8. &#x2F;scan话题无法读取的问题</h3><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38441692/article/details/98205852">ROS多机通讯踩坑，（主机和从机之间可以订阅话题，但是看不到话题消息）</a></p>
+<p><a target="_blank" rel="noopener" href="https://answers.ros.org/question/48240/rostopic-list-works-but-rostopic-echo-does-not/"><strong>rostopic list works but rostopic echo does not</strong></a></p>
+</blockquote>
+<p>该问题已经解决，使用&#x2F;rosout进行读取</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/09/29/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0%E4%BA%8C/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCV/" rel="tag">OpenCV</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6/" rel="tag">华为云无人车</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/09/30/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0%E4%B8%89/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            华为云无人车参赛笔记三
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/09/27/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0%E4%B8%80/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">华为云无人车参赛笔记一</div>
+      </a>
+    
+  </nav>
+
+  
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2022
+        <i class="ri-heart-fill heart_icon"></i> Sun Yue
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="悦"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/246643413">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about-me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

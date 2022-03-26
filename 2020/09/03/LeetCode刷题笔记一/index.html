@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+  
+
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="思考，学习，生活" />
+       
+      <meta name="description" content="SJTU 研究僧" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>LeetCode刷题笔记（一） |  悦</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="悦" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-LeetCode刷题笔记一"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  LeetCode刷题笔记（一）
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/09/03/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%80/" class="article-date">
+  <time datetime="2020-09-03T02:09:27.000Z" itemprop="datePublished">2020-09-03</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">4.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">16 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>本文按题目排序，每期10题。</p>
+<p>本期内容多以排序为主，出现了滑动窗口等算法，学习到了python对于数组的一些操作。</p>
+<span id="more"></span>
+
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="2-两数相加"><a href="#2-两数相加" class="headerlink" title="2. 两数相加"></a>2. 两数相加</h2><p><code>next</code>函数：返回迭代器的下一个项目</p>
+<p><code>.next</code>函数：</p>
+<p>python3 中的 <code>-&gt;</code>，出现在函数定义中尤其的多：</p>
+<ul>
+<li><p>用于标记返回函数注释</p>
+</li>
+<li><p>指示函数返回的类型</p>
+</li>
+<li><p>常常出现在python函数定义的函数名后面，为函数添加元数据，描述函数的返回类型，从而方便开发人员使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span>(<span class="params">x,y</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x+y</span><br></pre></td></tr></table></figure>
+
+<p>这里面，元数据表明了函数的返回值为int类型</p>
+</li>
+</ul>
+<p>本题提供了<code>ListNode</code>的类，应当学会使用</p>
+<ul>
+<li><p>val一般是value的意思吧</p>
+</li>
+<li><p>怎样实例化一个类？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">add</span>:</span></span><br><span class="line">    <span class="built_in">type</span> = <span class="string">&#x27;add&#x27;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name, sex, leg</span>):</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.sex = sex</span><br><span class="line">        self.leg = leg</span><br><span class="line">        </span><br><span class="line">cat = animal(<span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;male&#x27;</span>, <span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这里的<code>ListNode</code>类很巧妙，用的时候要注意</p>
+<p>解题思路：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/add-two-numbers/solution/zui-zhi-bai-de-xie-fa-by-meng-zhi-hen-n-2/">leecode第二题python解法</a></p>
+</li>
+</ul>
+<h2 id="3-无重复字符的最长子串"><a href="#3-无重复字符的最长子串" class="headerlink" title="3. 无重复字符的最长子串"></a>3. 无重复字符的最长子串</h2><p>问题1：str变量有索引吗？似乎没有</p>
+<ul>
+<li>subscriptable 可下标的，也就是可索引的</li>
+</ul>
+<p>问题2：如何把字符串转化为列表（有序）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字符串用 split() 转化为列表</span></span><br><span class="line">a = <span class="string">&#x27;ab,cd,ef&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(a.split(<span class="string">&#x27;,&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表转化为字符串</span></span><br><span class="line">l = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>.join(l))</span><br></pre></td></tr></table></figure>
+
+<p>可是如果没有<code>,&#39; &#39;</code>逗号、空格之类的呢？</p>
+<p>额，醉了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&#x27;abc&#x27;</span></span><br><span class="line"><span class="built_in">list</span>(s)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>这道题还是有点难度的，并不是说都是从第一位开始来算的</p>
+<p>有可能从中间开始计算，那么这个时候该怎么办呢？</p>
+<p>首先移动到第 i 位，比较 该位之前所有位，是否与它相同</p>
+<p>记录位置，选最近的哪个</p>
+<p>几种特殊情况：</p>
+<p><strong>只有一个重复的，1</strong></p>
+<p><strong>空字符串，0</strong></p>
+<p><strong>字符串是空格：</strong></p>
+<ul>
+<li>怎样区分空格和空，是一个问题</li>
+</ul>
+<blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">len</span>(<span class="built_in">str</span>) == <span class="number">0</span> <span class="comment"># 这是字符串为空</span></span><br><span class="line"><span class="built_in">str</span>.isspace() == <span class="literal">True</span> <span class="comment"># 这是字符串为空格</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>随之而来另一个问题：</p>
+<ul>
+<li>将字符串转为列表，空格是怎么处理的？</li>
+</ul>
+<blockquote>
+<p>这个我自己做了一个实验：</p>
+<p>空格还是空格，还是放在那里的</p>
+<p>而且它的布尔值也是True</p>
+<p>与此同时，空字符串的bool值是False</p>
+</blockquote>
+<p><strong>只有两个字符：au，</strong>怎么进行判断，那就是没有重复项，因此的话，需要直接把整个字符串的长度计算进来，也就是说到目前这个量都是对的</p>
+<p>现在的问题是<code>pwwkew</code>为什么结果是<code>5</code>而不是<code>3</code></p>
+<p>开始流动，到了w，开始那个是1，最后这个，j&#x3D;1或2，都会给list_lit增加一项</p>
+<p>比如说到k了，lit是空的，这个时候头已经变了，不再是从头开始了！</p>
+<p>设计一个num记录当前无重复的最大数值</p>
+<p>那么循环就应该从num开始</p>
+<p>这个题涉及的语言方法还是比较多的，我用的str方法</p>
+<p>题解中有用enumerate方法的，还有用C++中的指针方法的</p>
+<p>提到最多的还是“滑动窗口”</p>
+<p>其实倒也没有错，我的方法其实也是为了实现一个<strong>滑动窗口</strong>，并且记录窗口的长度，但是问题是空格该怎么算</p>
+<h2 id="4-寻找两个正序数组的中位数"><a href="#4-寻找两个正序数组的中位数" class="headerlink" title="4. 寻找两个正序数组的中位数"></a>4. 寻找两个正序数组的中位数</h2><p>读题：本题的要求是：</p>
+<p>给的两个数列（list）顺序是好的</p>
+<p>但是最后要找的，是两个数组合并到一块，然后取中位数</p>
+<p>那么合并后的数组，要进行排序（或者不用排序了，使用一些算法来寻找中位数），这就是问题所在了</p>
+<p><strong>数组怎么排序呢？</strong></p>
+<p><code>list.sort()</code>方法可以进行排序，默认是升序</p>
+<p>如果列表中有字符串，字符串是按照首字母顺序来的</p>
+<p>没有返回值</p>
+<p>本题中是正序数组</p>
+<p><strong>本题还对复杂度进行了要求：</strong></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/1226993-20191224220129568-1860331149.png" alt="网页上的一张排序的时间复杂度详情"></p>
+<p><strong>本题核心：找第k小的数</strong></p>
+<p>用到了递归的方法</p>
+<p>我们比较了 第 k&#x2F;2 个数的大小情况，然后cut掉一部分</p>
+<p>最后把一边消耗完，返回另一边最小的哪个数字</p>
+<p><strong>还有一种很巧妙的计算奇偶两个数列中位数的一个方法</strong></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">k1 = (len(nums1) + len(nums2) + <span class="number">1</span>) // <span class="number">2</span></span><br><span class="line">k2 = (len(nums1) + len(nums2) + <span class="number">2</span>) // <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>如果两个数列一奇一偶：</p>
+<p>k1 &#x3D; k2</p>
+<p>如果两个数列都是奇数，或者都是偶数</p>
+<p>k1 是中间左边，k2是中间右边</p>
+<h2 id="17-电话号码的字母组合"><a href="#17-电话号码的字母组合" class="headerlink" title="17. 电话号码的字母组合"></a>17. 电话号码的字母组合</h2><p>九键输入法中，2-9每个数字对应着一些字母</p>
+<p>给定一个仅包含数字2-9的<strong>字符串</strong>，返回所有它能表示的字母组合（顺序可以任意）</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/17_telephone_keypad.png" alt="例图"></p>
+<p>本来来说，应该要给一个字典存放以下，以便记录每个数字都对应哪些字母</p>
+<p>但是实际上也有一定的规律，大多三个，有两个是四个，而且是连续的</p>
+<p><strong>分析：</strong></p>
+<p>输入是字符串，可以进行索引，然后找对应的字母</p>
+<ul>
+<li>每个数字 &#x3D;》 对应几个字母</li>
+<li>下一个数字 &#x3D;》 对应几个字母</li>
+<li>还需要做排列组合</li>
+</ul>
+<p>不过，这样的话，岂不是要做3-4层循环？而且还要逐个遍历</p>
+<p>感觉容易超时</p>
+<p>不对呀，我不是很好控制循环的层数，加之，组合出来的字符串实在有点多</p>
+<p>可以这样思考：</p>
+<p>如果你已经有了各数字对应的字母</p>
+<p>你会如何得到最后的字符串呢？</p>
+<p>直接两两组合</p>
+<p>这个两两组合还是会使用循环</p>
+<p>组合出的是字符串，组合的结果会放在列表里面</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 移动到某一位</span></span><br><span class="line"><span class="comment"># 当前位与之前的字符串进行各种组合</span></span><br><span class="line"><span class="comment"># 把组合出的字符串重新加入字符列表</span></span><br></pre></td></tr></table></figure>
+
+<p>【9月3日】现在的方法是，判断列表是不是空的</p>
+<p>如果是空的，说明是第一个数字，那么此时，就需要填入单个的字符，但是这个字符又不能直接加到最后的内容中</p>
+<p>如果不是空的，这时已经不是第一个数字了</p>
+<p>所以我引入了一个新的列表，是上一个列表的copy</p>
+<h2 id="122-买卖股票的最佳时机-II"><a href="#122-买卖股票的最佳时机-II" class="headerlink" title="122. 买卖股票的最佳时机 II"></a>122. 买卖股票的最佳时机 II</h2><p>给一个数组，第i个元素表示第i天的价格</p>
+<p>可以多次交易，但是购买前需要出售掉之前的股票，设计算法让利润最大</p>
+<p>（1）利润也就是价差，主要是卖的时候的价差</p>
+<p>（2）最多买i&#x2F;2次，卖也是</p>
+<p>（3）应该是低价买进，高价卖出，找差价最大的两天？</p>
+<pre><code>     所以应该先找最低点，买进，然后找其后的最高点（跌之前卖出）
+</code></pre>
+<p>跳出股票的场景，其实是在求<strong>数组中数的差值</strong>，上升过程中，找最大差值卖出，跌到最低，应当买入</p>
+<ol>
+<li><p>滑动窗口，移动到当前值，判断大小：</p>
+<p>小于上一个值，小于下一个值，此时应该买进</p>
+<p>小于上一个值，大于下一个值，观望，下一个值（或之后）应该买进</p>
+<p>大于上一个值，小于下一个值，观望，上一个值（或之前）应该买进</p>
+<p>大于上一个值，大于下一个值，卖出</p>
+</li>
+<li><p>所以需要有一个股票计数君，记录当前手里有没有股票</p>
+<p>没有才能买</p>
+<p>有才能卖</p>
+</li>
+<li><p>还有一个利润君，计算利润</p>
+</li>
+</ol>
+<p>手里有股票：</p>
+<ul>
+<li>价格</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 未完</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span>(<span class="params">self, prices: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        profit = <span class="number">0</span></span><br><span class="line">        stock = <span class="number">0</span></span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(prices):</span><br><span class="line">            <span class="keyword">if</span> stock:   <span class="comment"># 手里有股票，应当卖出</span></span><br><span class="line">                <span class="comment"># 观察价格，应当是最高点卖出</span></span><br><span class="line">                <span class="keyword">while</span> prices[i] &lt; prices[i+<span class="number">1</span>] <span class="keyword">and</span> i+<span class="number">1</span> &lt; <span class="built_in">len</span>(prices):</span><br><span class="line">                    i += <span class="number">1</span></span><br><span class="line">                <span class="comment"># 股票卖出</span></span><br><span class="line">                stock -= <span class="number">1</span></span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>：      <span class="comment"># 手里没有股票，应该买进</span></span><br><span class="line">                <span class="comment"># 观察价格，最低点买入</span></span><br><span class="line">                <span class="keyword">while</span> prices[i] &lt; prices[i-<span class="number">1</span>] <span class="keyword">and</span> i &lt; <span class="built_in">len</span>(prices):</span><br><span class="line">                    i += <span class="number">1</span></span><br><span class="line">                <span class="comment"># 股票买入</span></span><br><span class="line">                stock += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> profit</span><br></pre></td></tr></table></figure>
+
+<p>我怎么觉得是一个滑动窗口的问题</p>
+<p>试看一个窗口：</p>
+<p>如果手里还没有股票：</p>
+<ul>
+<li>此时如果是 ab，a&lt;b，则在a买入</li>
+<li>如果ba，则观望</li>
+</ul>
+<p>如果手里已经有了股票：</p>
+<ul>
+<li>此时如果是ba，则在b卖出</li>
+<li>如果ab，则观望</li>
+<li>如果已经到结尾了，直接卖出</li>
+</ul>
+<p>也就是说总是第一个点交易，除非已到结尾</p>
+<p>这种方法是可以的，效果也还不错</p>
+<blockquote>
+<p>看别人的题解，有一种很秀的方法，是我这种方法的进化：</p>
+<p>直接求<strong>下一个数-本数</strong>的差值（也就是利润）</p>
+<p>如果是正的，就加上，如果是0或者负的，就跳过</p>
+<p><strong>至于连续上涨交易日，等价于每天都在买卖</strong></p>
+</blockquote>
+<h2 id="136-只出现一次的数字"><a href="#136-只出现一次的数字" class="headerlink" title="136. 只出现一次的数字"></a>136. 只出现一次的数字</h2><p>哈希表问题</p>
+<p>一个非空整数数组中：</p>
+<ul>
+<li>只有一个元素只出现了一次</li>
+<li>其余每个元素都出现了两次</li>
+</ul>
+<p>找出这个只出现了一次的元素</p>
+<p>额外要求：线性时间复杂度，不使用额外空间</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在有限能力范围内，我的想法是</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        <span class="comment"># 首先给数组去重排序</span></span><br><span class="line">        <span class="comment"># 然后遍历循环，找出数组中数字的索引位置</span></span><br><span class="line">        <span class="comment"># 如果索引位置只有1个，那么就是只出现了一次</span></span><br></pre></td></tr></table></figure>
+
+<p>问题是：我要怎么分析它的时间复杂度是不是线性的，数组去重排序本身所用的时间就比较多，python中仅一句代码</p>
+<p><strong>列表的去重</strong></p>
+<p>（1）set方法，起始时转化成了元组，所以之后需要再转化成list，优点是索引值不变</p>
+<p>（2）itertools.groupby</p>
+<p>（3）fromkeys</p>
+<p>（4）添加到新的列表</p>
+<p>（5）列表的sort方法可以做到排序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 再思考，去重排序其实是多此一举的</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        <span class="comment"># 遍历循环</span></span><br><span class="line">        <span class="comment"># 找数组中有没有和它一样的</span></span><br><span class="line">        <span class="comment"># 因为是从前往后的，已经遍历过的不算，已经配好对的也不能再遍历了</span></span><br></pre></td></tr></table></figure>
+
+<p>还是要排一下序，不然不好找</p>
+<p>continue和break</p>
+<p>continue仅停止本次循环</p>
+<p>break跳出本层循环体</p>
+<blockquote>
+<p>NB的解法：</p>
+<p>（1）一个小神的解法是：由于全是数字，直接去重，然后double，减去原来的，得到的差就是唯一一个单个的数字；</p>
+<p>（2）<strong>另一种解法是python中的异或：</strong></p>
+<p><strong>符号是<code>^</code></strong></p>
+<p><strong>相同的数异或为0</strong></p>
+<p><strong>0和任何数异或，结果都是这个数本身</strong></p>
+<p>所以，依次异或就可以，剩下来的一定是只出现一次的数</p>
+<p>（3）还有一种解法是：Collections.Counter() 函数，这是一个计数器</p>
+</blockquote>
+<h2 id="202-快乐数"><a href="#202-快乐数" class="headerlink" title="202.快乐数"></a>202.快乐数</h2><p>一个正整数，每一次将该数替换为它每个位置上的数字的平方和，不断重复这个过程</p>
+<p>如果最终能够变成1，那么就是快乐数</p>
+<p>如果不能变成1，那么就不是快乐数</p>
+<blockquote>
+<p>其实变成1，就必须是一个1，和多个0</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 另写一个函数，用来计算平方和</span></span><br><span class="line"><span class="comment"># 其中，首先需要把上一个数字拆成单个数字的组合，把数字变成列表</span></span><br><span class="line"><span class="comment"># 然后计算平方和并相加</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>把数字，拆成一个个单个数字的列表</strong>，可以先转换成字符串，然后再转换为列表</p>
+<p>关键问题是，如何判断它不是快乐数？</p>
+<p>一次循环，不行，两次循环不行，要多少次循环呢？</p>
+<p>无限循环始终变不到1，但是我不可能真的无限循环，要有判断吧！</p>
+<blockquote>
+<p>尝试251，发现，会有重复！如果出现重复，那么肯定是不可以了</p>
+<p>也是，全部是100以内的加减法，所以第一次运算之后也不会大于3位</p>
+<p>三位数的组合，能够实现快乐数的</p>
+<blockquote>
+<p>所以这里有一个问题，三位数，计算平方数，用循环显然不是很经济，取位才是更经济的方法</p>
+</blockquote>
+</blockquote>
+<p>递归似乎是有上限的，先后遇到两个问题：</p>
+<p>（1）<code>maximum recursion depth exceeded while getting the str of the object</code> 超出了最大递归深度，估计大概递归不到1000次就超出了</p>
+<p><strong>python中if 条件的非是：<code>if not</code></strong></p>
+<p>没错，看了题解，我基本发现真相了</p>
+<p>就是判断有没有重复，然后再判断是不是1就可以了</p>
+<p>所以，需要一个之来存放已经出现过的值：</p>
+<p>set() 元组，特点是无序不重复，可以进行关系测试，计算交集、差集、并集等等</p>
+<h2 id="724-寻找数组的中心索引"><a href="#724-寻找数组的中心索引" class="headerlink" title="724. 寻找数组的中心索引"></a>724. 寻找数组的中心索引</h2><p>如果一个数组（python中是list）中，某个数的左侧数字之和 &#x3D; 右侧数字之和，那么这个数就是中心数，返回索引值</p>
+<p>我的方法就是，先求出总和</p>
+<p>然后看左边的数字之和，是不是等于（总和-当前数字）&#x2F; 2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pivotIndex</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        list_sum = <span class="built_in">sum</span>(nums)</span><br><span class="line">        <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(nums):</span><br><span class="line">            left_sum = <span class="built_in">sum</span>(nums[<span class="number">0</span>:i])</span><br><span class="line">            <span class="keyword">if</span> (list_sum - nums[i])/<span class="number">2</span> == left_sum:</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>一把过。</p>
+<h1 id="筛法"><a href="#筛法" class="headerlink" title="筛法"></a>筛法</h1><h2 id="204-计数质数"><a href="#204-计数质数" class="headerlink" title="204. 计数质数"></a>204. 计数质数</h2><p>这个题居然难度是简单？</p>
+<p>给一个n，统计小于n的质数的数量</p>
+<p>问题1：是不是得计算一下一个数是不是质数？</p>
+<ul>
+<li>质数，除了1和它本身，不能被其他数整除，但是这个其他数也要进行遍历吗？余数为0的检验</li>
+</ul>
+<p>问题2：计算资源的使用</p>
+<ul>
+<li>从1到n循环</li>
+<li>从1到n做除数，观察余数</li>
+<li>所以复杂度在$O(n^2)$级别</li>
+</ul>
+<p>最后要的只是数量，而没有要具体是哪些</p>
+<p>其实按照双循环的思路，做出来并不难，难的是速度，一下子就写出了代码，但是总是有<strong>超时问题</strong>，这个问题也很严重了！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countPrimes</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="comment"># 判断每个数是不是质数</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; n:</span><br><span class="line">            <span class="keyword">if</span> self.is_primes(i):</span><br><span class="line">                <span class="comment"># 如果是质数，则计数君加1</span></span><br><span class="line">                count += <span class="number">1</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 判断一个数是不是质数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_primes</span>(<span class="params">self, num: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">elif</span> num == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            k = <span class="number">2</span></span><br><span class="line">            <span class="keyword">while</span> (k * k) &lt;= num:</span><br><span class="line">                <span class="keyword">if</span> num % k == <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    k += <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<p>理论上，已经除过的数的倍数也不能再作为除数了</p>
+<p>但是这个筛选听起来就很麻烦</p>
+<p>从解答来看</p>
+<ol>
+<li><p><strong>i不需要遍历到n，而只需要到sqrt(n)即可</strong></p>
+<p>因为，如果不是素数，在sqrt(n)之后的乘数其实就是前面的反过来</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200818094425006.png" alt="image-20200818094425006"></p>
+<p>这样的话，复杂度降到了$O(\sqrt n)$</p>
+</li>
+<li><p><strong>其实也不是非要有一个判断质数的函数</strong></p>
+<p>的确，比如3，没有必要从2开始除，这就是在白费力气</p>
+<p>所以应该使用排除法</p>
+<p>2是素数，2的倍数都不可能是素数</p>
+<p>3也是素数，3的倍数</p>
+<p>4因为是2的倍数，所以已经不是素数了</p>
+<p>5仍然是素数，倍数</p>
+<p>6是2的倍数，也是3的倍数</p>
+<p>7仍然素数</p>
+<p>8，2的倍数</p>
+<p>9，3的倍数</p>
+<p><strong>这个方法确实很妙！！</strong></p>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-primes/comments/38186"><strong>昂拉多塞筛法</strong>：</a></p>
+<p>由于给出的数是n，不妨给出一个有n个1的列表：方法是：<code>list =[1] * n</code></p>
+<p>如果我们找出合数，然后把它的倍数所在位置的值标记为0:</p>
+<ul>
+<li>这个也是极妙</li>
+<li>如果2是素数，其倍数从2*2&#x3D;4开始，到n结束，间隔都是2</li>
+<li>如果3是素数，其倍数从3*3&#x3D;9开始（因为3x2已经是2的倍数了，就可以略过），到n结束，间隔都是3</li>
+<li>如果5是素数，其倍数从5*5&#x3D;25开始······</li>
+<li>实在是很妙，所以就是 从 i*i 开始，到 n 结束，间隔为 i</li>
+</ul>
+<p>这要到最后，这个列表中为1的地方就是所有素数的索引位置了！</p>
+<p>纯粹筛法，不用仔细计算！</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="面试题16-08-整数的英文表示"><a href="#面试题16-08-整数的英文表示" class="headerlink" title="面试题16.08 整数的英文表示"></a>面试题16.08 整数的英文表示</h2><p>有点意思</p>
+<p>这个题中：</p>
+<p><strong>首先看数字长度：</strong></p>
+<p>3位：hundred</p>
+<p>4位：thousand</p>
+<p>5位：xxty xx thousand（这个地方可能会比较难）</p>
+<p>6位： million</p>
+<p>9位：billion</p>
+<p>高于9位，还是billion</p>
+<p>每过一个点看3位数字</p>
+<p>用函数嵌套会比较好一点</p>
+<p><strong>另外两位数：</strong></p>
+<p>10-19有特殊的表示</p>
+<p>如果是0x一类的</p>
+<p><strong>三位数：</strong></p>
+<p>xxx hundred xxty xx</p>
+<p><strong>顺序：正向还是反向？</strong></p>
+<p>正向可能会好一点</p>
+<p>如果是反向的话，那么两位数的情况可能不是很通用</p>
+<p>问题一：python中，int没有长度，所以要先转化成list</p>
+<p>方法是，先从int转为str，然后从str转为list，或者str也是有长度的可以直接用</p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/jingyoushui/article/details/100133496">python中str,int,list,list(str),list(int)的相互转换</a></p>
+</blockquote>
+<p>这道题说实在的，道理就是这么多，每三位读取一次</p>
+<p>看位数，不停进行查找就可以了</p>
+<p>但是从一个题解来看，还是有可学习之处的，那就是怎么样把数字的写法写的更简洁</p>
+<p>其实除了 thousand、million、billion之外，其他部分的写法还是很通用的</p>
+<hr>
+<p>OK！本期10题就先到这里了，期待下一个10题快点到来！</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/09/03/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%80/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F%E9%97%AE%E9%A2%98/" rel="tag">排序问题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" rel="tag">滑动窗口</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/09/26/OpenCV%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            OpenCV常用方法
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86%E4%BA%8C/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">【机器学习】常见知识梳理（二）</div>
+      </a>
+    
+  </nav>
+
+  
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2022
+        <i class="ri-heart-fill heart_icon"></i> Sun Yue
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="悦"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/246643413">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about-me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

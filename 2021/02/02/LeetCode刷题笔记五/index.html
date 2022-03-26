@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+  
+
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="思考，学习，生活" />
+       
+      <meta name="description" content="SJTU 研究僧" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>LeetCode刷题笔记（五） |  悦</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="悦" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-LeetCode刷题笔记五"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  LeetCode刷题笔记（五）
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/02/02/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%BA%94/" class="article-date">
+  <time datetime="2021-02-02T03:58:49.000Z" itemprop="datePublished">2021-02-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">9.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">35 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>每期10题，上一期参见<a target="_blank" rel="noopener" href="https://sunyoe.github.io/2021/01/12/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E5%9B%9B/">LeetCode刷题笔记（四）</a>。</p>
+<p>本期内容紧贴2021年1月leetcode每日一题，本月主要内容是并查集（包括深度优先或广度优先）及双指针，包括在周赛中也遇到双指针题目，需要重点考虑。</p>
+<h2 id="1018-可被5整除的二进制前缀"><a href="#1018-可被5整除的二进制前缀" class="headerlink" title="1018. 可被5整除的二进制前缀"></a>1018. 可被5整除的二进制前缀</h2><p>输入：整数列表 - 只有 0 和 1</p>
+<p>输出：布尔列表 - 只有 false 和 true</p>
+<p>要求：依次选择整数列表中 从 第0位到第i位的所有数字，这是一个二进制数字，如果可以被5整除，那么布尔列表的第 i 位为true，否则为false。</p>
+<span id="more"></span>
+
+<hr>
+<h3 id="自我解读"><a href="#自我解读" class="headerlink" title="自我解读"></a>自我解读</h3><p>方案：</p>
+<p>（1）先获得十进制数字</p>
+<p>由于本身就是列表，确实要稍微容易一点</p>
+<p>$num_{10} &#x3D; num_2[-1] * 1 + num_2[-2] * 2 +…+num_2[-i] * 2^{i-1}$</p>
+<p>但是如果每次都是从头开始计算，2的幂需要计算，空间占用会比较多</p>
+<p>（2）能不能被 5 整除其实最关键的就是看最后一位，5或者0就可以</p>
+<p>观察一下：1，2，4，8，16，32，64，128，256，…，已经有规律了</p>
+<table>
+<thead>
+<tr>
+<th>阶数</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>最后一位</td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>8</td>
+<td>6</td>
+</tr>
+<tr>
+<td><strong>阶数</strong></td>
+<td></td>
+<td><strong>5</strong></td>
+<td><strong>6</strong></td>
+<td><strong>7</strong></td>
+<td><strong>8</strong></td>
+</tr>
+<tr>
+<td>最后一位</td>
+<td></td>
+<td>2</td>
+<td>4</td>
+<td>8</td>
+<td>6</td>
+</tr>
+</tbody></table>
+<p>那么能够产生被5整除的情况：</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 1 + 4：索引0 + 索引2+4n</li>
+<li><input checked="" disabled="" type="checkbox"> 2 + 8：索引1+4n + 索引3+4n</li>
+<li><input checked="" disabled="" type="checkbox"> 4 + 6：索引2+4n + 索引4+4n</li>
+</ul>
+<p>对以上组合的对数进行计算，只要能配好对，那就可以整除</p>
+<p>我觉的这个思路就好很多，尤其对一些比较长的数字会比较好</p>
+<p>存在几个问题：</p>
+<p>（1）那么问题是到底要怎么样进行遍历呢：比如我可以判断 2+4n 有没有超过 len</p>
+<p>（2）能不能利用前面的数据判断当前的情况？其实应该是可以的，每次应该计算出下一位需要几，如果是那么就是true，如果不是那么就是false；这样形成一个动态规划</p>
+<p>比如说刚开始形成3个存储数字A1，A2，B1，B2，C1</p>
+<ul>
+<li>开始，如果索引0是1，A1+1</li>
+<li>如果索引2+4n是1，A2+1</li>
+<li>如果索引1+4n是1，B1+1</li>
+<li>如果索引3+4n是1，B2+1</li>
+<li>如果索引4+4n是1，C1+1</li>
+</ul>
+<p>最后判断：A1+C1 &#x3D;&#x3D; A2，B1 &#x3D;&#x3D; B2，这样又会出现一个问题，如果刚好是 22222，那么也是可以的，这样是1+4n为奇数</p>
+<p>注意，0对数值大小完全没有影响</p>
+<p>（3）新方案，设一个数值Res，直接遍历字符串，然后</p>
+<ul>
+<li>索引0是1，Res+1</li>
+<li>索引1+4n是1，每个+2</li>
+<li>索引2+4n是1，每个+4</li>
+<li>索引3+4n是1，每个+8</li>
+<li>索引4n是1，每个+6</li>
+</ul>
+<p>最后，如果Res可以被5整除，那么就是true，如果不是那就不行</p>
+<p>然后，每次是在结尾增加了一位数字</p>
+<ul>
+<li><p>索引0 -》索引1，Res+1</p>
+</li>
+<li><p>索引1+4n -》 索引2+4n，每个+2</p>
+</li>
+<li><p>索引2+4n -》 索引 3+4n，每个+4</p>
+</li>
+<li><p>索引3+4n -》 索引 4n，每个-2</p>
+</li>
+<li><p>索引4n -》 索引1+4n，每个-4</p>
+</li>
+</ul>
+<p>确实是可以进行抵消的，但问题是前面各索引有1有0需要计数吗？</p>
+<p>也就是说我只统计各索引的次数，然后每次把这些数字进行移动（轮换）</p>
+<hr>
+<h3 id="观察题解"><a href="#观察题解" class="headerlink" title="观察题解"></a>观察题解</h3><p>官方题解</p>
+<p>从二进制到十进制数字的特点是：$N_i &#x3D; N_{i-1} \times 2 +A[i]$</p>
+<p>每添加一位数字，计算余数，看能不能被5整除就可以了，这个方法也不错，还很简单</p>
+<p>相对来说，我的方法还是复杂了，惭愧！</p>
+<h1 id=""><a href="#" class="headerlink" title=""></a><!--并查集系列--></h1><h2 id="947-移除最多的同行或同列石头-并查集"><a href="#947-移除最多的同行或同列石头-并查集" class="headerlink" title="947. 移除最多的同行或同列石头 - 并查集"></a>947. 移除最多的同行或同列石头 - 并查集</h2><p>输入：二维整数数组，每个子数组只有两个整数元素，相当于坐标</p>
+<p>输出：一个整数</p>
+<p>要求：同行（第一个元素相同），或者同列（第二个元素相同）的子数组只能保留一个，最后输出的就是要去除的子数组的数量</p>
+<hr>
+<h3 id="自我解读-1"><a href="#自我解读-1" class="headerlink" title="自我解读"></a>自我解读</h3><p>遍历数组，如果行号是新的，行号list新增一个</p>
+<p>如果列号是新的，列号list新增一个</p>
+<p>遇到新的子数组，检查行号是不是在行号list中，是，del+1，直接下一个</p>
+<p>否，检查列号是不是在列号list中，是，del+1，直接下一个</p>
+<p>否，下一个，过</p>
+<blockquote>
+<p>但是，题目中要求是：&#x3D;&#x3D;可以移除的石子的最大数量&#x3D;&#x3D;</p>
+</blockquote>
+<p>比如示例1：</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：stones = <span class="comment">[<span class="comment">[0,0]</span>,<span class="comment">[0,1]</span>,<span class="comment">[1,0]</span>,<span class="comment">[1,2]</span>,<span class="comment">[2,1]</span>,<span class="comment">[2,2]</span>]</span></span><br><span class="line">输出：5</span><br></pre></td></tr></table></figure>
+
+<p>如果按照我的思路，先记录了【0，0】，那么会去掉【0，1】【1，0】，但是不会取消【1，2】</p>
+<p>但是实际答案说的却是：先移除【2，2】，因为它和【2，1】同行了，。。。最后就只剩下了【0，0】，就像是后来的先移除，这样一定是移除最多的吗？</p>
+<p>另一个问题：所有输入一定是一行一行进行展示的吗，这样的话岂不是要简单一点</p>
+<blockquote>
+<p>既然需要最大移除数量，那么就要把移除的石子的两个坐标也加入到list中，这样一定是最大的吗？</p>
+</blockquote>
+<p>还是存在一点问题的：</p>
+<p>例如一个输入：<code>[[0,1],[1,0],[1,1]]</code>，最多可以移除两个石子，但是按照上面的算法却只能去除一个石子</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20210115142425858.png" alt="image-20210115142425858"></p>
+<p>类似的，其实这样一个三角结构，会决定到底应该怎么样进行移除</p>
+<p>我们如果是从前往后，那么就只能移除1个，但是如果从后往前，就可以移除两个，同样，反过来也是一样的</p>
+<blockquote>
+<p>新增案例：<code>[[0,1],[1,2],[1,3],[3,3],[2,3],[0,2]]</code></p>
+</blockquote>
+<p>这个案例说明了，子数组并不是按顺序的，如果不按顺序来进行排列</p>
+<p>就有可能导致少删除一个</p>
+<hr>
+<h3 id="阅读题解"><a href="#阅读题解" class="headerlink" title="阅读题解"></a>阅读题解</h3><p>横坐标相同、或者纵坐标相同，那么就形成了一条边，有联系的边构成了一个连通图</p>
+<p>&#x3D;&#x3D;<strong>一定可以把一个连通图里的所有顶点根据该规则删到只剩下一个顶点</strong>&#x3D;&#x3D;</p>
+<p>原因是：连通图中，可以通过<strong>遍历</strong>方式遍历到该连通图中的所有顶点，按照遍历的逆向顺序移除石头就可以只剩下一块石头</p>
+<p>所以，题目的结果 &#x3D; 石头总数 - 极大连通子图（连通块或连通分量）的个数（连通块的数量&#x3D;最后剩下的石头的数量）</p>
+<p>并查集里的元素是描述 横坐表和纵坐标的数值</p>
+<p>遍历数组，每个元素的横坐表和纵坐标在并查集中进行合并</p>
+<blockquote>
+<p>合并：所有横坐标 为x的石头和所有纵坐标 为y的石头都属于同一个连通分量</p>
+</blockquote>
+<p>那么在并查集内部，我们要如何区分横纵坐标？</p>
+<p>石头的位置是 数组，并查集底层是一维，怎么样在并查集中区分横纵坐标</p>
+<p>方法是扩大坐标区间，比如题目说 $0&lt;&#x3D;x_i,y_i&lt;&#x3D;10^4$，那么就可以操作：$横坐标 \pm 10001 $，从而超越原来的区间，保证不会重复</p>
+<p>&#x3D;&#x3D;<strong>问题是怎么合并</strong>？&#x3D;&#x3D;</p>
+<p>（1）第一种方法：需要<strong>枚举计算任意两点间的连通性</strong>，可以使用深度优先或者广度优先搜索的方法进行计算</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/most-stones-removed-with-same-row-or-column/solution/yi-chu-zui-duo-de-tong-xing-huo-tong-lie-m50r/">官方题解</a>的python3代码中使用了<code>edge=collections.defaultdict(list)</code>来作为存储单元，用于建图，也就是通过枚举找到了<strong>所有</strong>相互关联的边</p>
+<p>但是到了深度优先搜索这里，看上去还是使用了一些库吗？<code>vis.add(x)</code>，但是vis并没有进行定义，也有可能是定义的晚了（在下方，函数调用前有一个定义<code>vis=set()</code>）？我个人觉得这个写法很糟糕，也许是和下面的代码进行了联动，但是展示出来的效果却非常差</p>
+<p>（2）第二种方法：</p>
+<p>上面的方法需要循环套循环进行元素的遍历完成建图，还是有一点麻烦了。</p>
+<p>任意两点之间直接相连或间接相连其实都是可以的，我们只关注两点之间的连通性。</p>
+<p>该方法说对于拥有k个石子的任意一行或者一列，都使用 k-1 条边进行连接</p>
+<p>所以方法就是：</p>
+<ol>
+<li>先用哈希表存储每一行或每一列所拥有的石子，对纵坐标加了10000，以区分横纵坐标</li>
+<li>然后分别处理每一行或每一列的连通属性</li>
+</ol>
+<p>非官方题解：</p>
+<p><strong>大多数方法建立了一个专门的&#x3D;&#x3D;class（class UnionFind）&#x3D;&#x3D;来归纳并查集的方法，然后对该类中的方法进行调用</strong></p>
+<hr>
+<p>终于找到一个可能比较容易理解的算法了</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/most-stones-removed-with-same-row-or-column/solution/pythonbing-cha-ji-onlogm94om19-by-jasonc-3uv7/">Python,并查集, O(nlogm)94%,O(m)19%</a></p>
+<p>仍然保留了两个关键：</p>
+<ul>
+<li>答案 &#x3D; 石头总数 - 连通块的数量</li>
+<li>纵坐标+10000，&#x3D;&#x3D;<strong>这样就可以把坐标也看成edges了！</strong>&#x3D;&#x3D;</li>
+</ul>
+<p>这里举了例子：</p>
+<p><code>[[0,0],[1,1],[1,2]]=&gt;[[0,10000],[1,10001],[1,10002]]</code></p>
+<p>这里（1）思考为5个nodes：<code>0,10000,1,10001,10002</code></p>
+<p>（2）把<code>[0,10000]</code>视为 node 0和node 10000有edge连通，其他类似，这样就好理解为什么<code>+10000</code>能方便求解了</p>
+<p>然后转化为了熟悉的图并查集问题，遍历所有edges，找出所有连通组</p>
+<blockquote>
+<p>步骤一：给所有纵坐标+10000</p>
+</blockquote>
+<p>还是比较容易的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> stone <span class="keyword">in</span> stones:</span><br><span class="line">    stone[-<span class="number">1</span>] += <span class="number">10000</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>步骤二：如何遍历所有的edges，找出所有连通组？</p>
+</blockquote>
+<p>代码中建立了一个字典吗？还是set？</p>
+<p><code>dus=&#123;s+i*10000:s+i*10000 for stone in stones for i, s in enumerate(stone)&#125;</code></p>
+<p>遍历每一个石头，i 是第几个，s是坐标值啊，s+i*10000?这个我就不太理解了，是原来的意思吗</p>
+<p>神奇，我尝试了一下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>ss = [[<span class="number">0</span>,<span class="number">0</span>], [<span class="number">1</span>,<span class="number">1</span>], [<span class="number">2</span>,<span class="number">2</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dus = &#123;k+i*<span class="number">10000</span>:k+i*<span class="number">10000</span> <span class="keyword">for</span> s <span class="keyword">in</span> ss <span class="keyword">for</span> i, k <span class="keyword">in</span> <span class="built_in">enumerate</span>(s)&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dus</span><br><span class="line">&#123;<span class="number">0</span>: <span class="number">0</span>, <span class="number">10000</span>: <span class="number">10000</span>, <span class="number">1</span>: <span class="number">1</span>, <span class="number">10001</span>: <span class="number">10001</span>, <span class="number">2</span>: <span class="number">2</span>, <span class="number">10002</span>: <span class="number">10002</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>没想到真的能出这样的结果</p>
+<p>当我打下下面的代码的时候，发现了问题所在：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> s <span class="keyword">in</span> ss:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">for</span> i,k <span class="keyword">in</span> <span class="built_in">enumerate</span>(s):</span><br><span class="line"><span class="meta">... </span>        <span class="built_in">print</span>(k)</span><br><span class="line">...</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>这是因为 enumerate 针对的是stone，而不是stones！</p>
+<p>每个stone只有两个元素，所以 i 只有0 或1，而k就是横坐标或者纵坐标</p>
+<p>所以每个横坐标对应0，不会加10000，每个纵坐标对应1，会加10000，就区分开来了，而且使用的是字典，会自动去重！</p>
+<p>【妙啊】</p>
+<p>然后定义了一个find函数：</p>
+<ul>
+<li>输入是 i</li>
+<li>如果 字典中 i 对应的位置不是 i<ul>
+<li>那么继续find（字典中 i 对应的数值），并赋值给 字典中 i 的位置</li>
+</ul>
+</li>
+<li>返回 字典中 i 对应的数值</li>
+</ul>
+<blockquote>
+<p>需要观察一下</p>
+<p>比如说 字典 bus &#x3D; {1:1, 2:2, 0:0}</p>
+<p>dus[0] &#x3D; 0肯定的</p>
+<hr>
+<p>如果 字典 bus &#x3D; {1:2, 2:1, 0:1}</p>
+<p>dus[0] &#x3D; 1，不等于0</p>
+<p>那么我们再找 find(dus[0]) &#x3D; find(1)</p>
+<p>find(1)中，dus[1]  &#x3D; 2，也不等于 1，再找find(2)</p>
+<p>find(2)中，dus[2] &#x3D; 1，也不等于 2，再找find(1)不停循环</p>
+<hr>
+<p>也就是说不停找，直到找到字典中 key和value一样的值？</p>
+</blockquote>
+<p>然后遍历stones，如果横坐标在字典中，而且横坐标对应的值不等于纵坐标对应的值【这有可能相等吗】</p>
+<ul>
+<li>那么，字典中横坐标对应的位置，value等于纵坐标+10000对应的数值</li>
+</ul>
+<blockquote>
+<p>举个例子</p>
+<p><code>stones = [[0,0], [0,1], [0,2]]</code></p>
+<p>那么</p>
+<p><code>dus=&#123;0:0, 10000:10000, 10001:10001, 10002:10002&#125;</code></p>
+<ul>
+<li><p>首次循环：0 在dus，find(0) &#x3D; 0 !&#x3D; find(0+10000)&#x3D;10000【是否存在】</p>
+<ul>
+<li>所以 dus[find(0)] &#x3D; dus[0] &#x3D; find(0+10000) &#x3D; 10000</li>
+<li><code>dus=&#123;0:10000, 10000:10000, 10001:10001, 10002:10002&#125;</code></li>
+</ul>
+</li>
+<li><p>下一个循环：0 在dus，find(0)中，dus[0] &#x3D; 10000 !&#x3D; 0了，找find(10000) &#x3D; 10000，赋值给 dus[0]，最后输出10000 !&#x3D; find(10001) &#x3D; 10001</p>
+<ul>
+<li>所以 dus[find(0)] &#x3D; dus[10000] &#x3D; find(10001) &#x3D; 10001</li>
+<li><code>dus=&#123;0:10000, 10000:10001, 10001:10001, 10002:10002&#125;</code></li>
+</ul>
+</li>
+<li><p>下一个循环：0 在dus，find(0)中，dus[0] &#x3D; 10000 !&#x3D; 0了，找find(10000) &#x3D; 10001 !&#x3D; 10000，再找find(10001)&#x3D;10001，赋值给 dus[0]，最后输出10001 !&#x3D; find(10002) &#x3D; 10002</p>
+<ul>
+<li>所以dus[find(0)] &#x3D; dus[10001] &#x3D; find(10002) &#x3D; 10002</li>
+<li><code>dus=&#123;0:10000, 10000:10001, 10001:10002, 10002:10002&#125;</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>然后，需要再来一个循环：</p>
+<p>对dus字典中的每一个值进行遍历：</p>
+<p><code>for k in dus: print(k)</code></p>
+<p>这里要注意，输出的只有 字典dus 的键 key，而没有value值</p>
+<blockquote>
+<p>紧接着上面的注释</p>
+<p>现在，find(0) &#x3D; find(10000) &#x3D; find(10001) &#x3D; find(10002) &#x3D; 10002</p>
+<p>所以，最后的字典是：</p>
+<p><code>dus=&#123;0:10002, 10000:10002, 10001:10002, 10002:10002&#125;</code></p>
+</blockquote>
+<p>最后一步，<code>set(dus.values())</code></p>
+<p>应该是取字典 dus 的所有值 values，然后生成集合 set，会去重，再计算集合的长度就是连通域的数量了</p>
+<p>简直是太妙了！！！</p>
+<p>其实find函数就是寻找最高节点的过程；</p>
+<p>而第一个循环的意义就是把横坐标的指向改变，也就是添加连通边edge，建图的过程</p>
+<h2 id="1584-连接所有点的最小费用"><a href="#1584-连接所有点的最小费用" class="headerlink" title="1584. 连接所有点的最小费用"></a>1584. 连接所有点的最小费用</h2><p>输入：二维整数数组，每个子数组有两个整数，表示坐标点</p>
+<p>输出：整数，表示将所有点连接起来的最小总费用</p>
+<p>要求：任意两点之间有且仅有一条简单路径，总路径长度和要最小</p>
+<hr>
+<p>果然，又是一个图论的问题</p>
+<p>比如说我们要建图，每个点要连接到最近的一个点</p>
+<p>但是如果两个点互相是最近的点呢 - 构成了一个孤立的群，两个群之间找一个最短的边即可</p>
+<p>如果 A 周围最近的是 B，B 周围最近的是 C，C 周围最近的会不会是 A？不会，一定不是 A</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20210119161038414.png" alt="image-20210119161038414"></p>
+<p>不然的话，离 A 最近的就不是 B 了</p>
+<p>又是一个并查集的问题</p>
+<hr>
+<h3 id="官方题解"><a href="#官方题解" class="headerlink" title="官方题解"></a>官方题解</h3><p>满足任意两点之间有且仅有一条简单路径，只有 树结构 - tree</p>
+<p>该树 &#x3D; 给定图的生成树，总权值最小的生成树，成为最小生成树</p>
+<p>经典算法：Kruskal 算法</p>
+<ol>
+<li>图中所有边按照长度的由小到大进行排序，等长边任意顺序</li>
+<li>从前往后（也就是从小到大）扫描排序后的边，如果扫描到的边 <strong>连接了两个相异的连通块</strong>，则将它插入图中</li>
+<li>最后得到的图就是最小生成树</li>
+</ol>
+<p>所以现在的问题是 key <strong>应该取edge的两个端点</strong>，还是<strong>选择edge 的边长</strong></p>
+<p>第一步：建立一个字典，字典的所有value就是list</p>
+<p><code>rec = collections.defaultdict(list)</code> ，表示建立了一个具有默认值的字典，默认值是list</p>
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a><!--数组系列--></h1><h2 id="56-合并区间-数组"><a href="#56-合并区间-数组" class="headerlink" title="56. 合并区间 - 数组"></a>56. 合并区间 - 数组</h2><p>输入：一个二维数组，每个子数组包含两个整数，表示一个区间的起始和终止端</p>
+<p>输出：一个二维数组，每个子数组包含两个整数，表示一个区间的起始和终止端</p>
+<p>要求：输入数组可能会有重叠，将重叠的两个区间进行合并，输出区间不能有重叠</p>
+<hr>
+<p>我曾想到过一个方法，类似做直方图</p>
+<ul>
+<li>先新建了一个字典，默认为0</li>
+<li>然后遍历所有的区间，有这个区间，那就在这个区间内将所有的数字对应在字典中的value +1</li>
+<li>最后取出所有有数字的key值，再取start和end进行集合</li>
+</ul>
+<p>问题是遇到了一个样例：</p>
+<p><code>[[1,4],[5,6]]</code></p>
+<p>如果直接进行直方图，那么一定会得到 <code>[[1,6]]</code></p>
+<p>但是实际上这两个区间并没有重叠</p>
+<p>原有代码;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span>(<span class="params">self, intervals: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]:</span></span><br><span class="line">        <span class="comment"># 先建立一个字典，对每一个key的默认值是int类型</span></span><br><span class="line">        merge_dict = collections.defaultdict(<span class="built_in">int</span>)</span><br><span class="line">        merge_list = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> interval <span class="keyword">in</span> intervals:</span><br><span class="line">            start, end = interval[<span class="number">0</span>], interval[<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(start, end+<span class="number">1</span>):</span><br><span class="line">                merge_dict[i] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        start = <span class="number">0</span></span><br><span class="line">        max_key = <span class="built_in">max</span>(merge_dict.keys())</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(max_key+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> start <span class="keyword">and</span> merge_dict[i]:</span><br><span class="line">                start = i</span><br><span class="line">            <span class="keyword">if</span> start:</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> merge_dict[i]:</span><br><span class="line">                    merge_list.append([start, i-<span class="number">1</span>])</span><br><span class="line">                    start = <span class="number">0</span></span><br><span class="line">                <span class="keyword">elif</span> i == max_key:</span><br><span class="line">                    merge_list.append([start, i])</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> merge_list</span><br></pre></td></tr></table></figure>
+
+<h3 id="官方题解-1"><a href="#官方题解-1" class="headerlink" title="官方题解"></a>官方题解</h3><p><strong>排序方法</strong></p>
+<p>如果按照区间的左端点进行排序，在排序后：</p>
+<p>&#x3D;&#x3D;<strong>可以合并的区间一定是连续的</strong>&#x3D;&#x3D;</p>
+<blockquote>
+<p>官方证明中举例是： a[i], a[j], a[k]，a[i]和a[k] 能合并，但是 a[i] 和 a[j], a[j] 和 a[k]均不能合并</p>
+<p>但是我自己举了一个例子：<code>[1,10],[2,5],[10,11]</code>，这个例子明显不满足上面说的 <code>a[i]</code>和<code>a[j]</code>也不能合并的条件，所以其实并不满足题意</p>
+</blockquote>
+<p>用 merged 区间表示最后需要输出的多维列表，先将第一个列表存储到区间中：</p>
+<p>遍历所有区间</p>
+<ul>
+<li>左端点在上一个区间的右端点后<ul>
+<li>是，表示不重合，那么加入输出数组</li>
+<li>否，表示重合，那么需要更新右端点</li>
+</ul>
+</li>
+</ul>
+<p>第一步：排序，怎样按照第一个元素的大小进行排序？</p>
+<p><code>list.sort()</code>方法的使用</p>
+<p><code>list.sort(key=lambda x: x[0])</code>就可以根据第一个元素的大小进行排序</p>
+<blockquote>
+<p>排序保证了后一个区间的起始点不会小于前一个区间的起始点，所以只需要比较尾巴，不用比较头了</p>
+</blockquote>
+<p>第二步：遍历，进行对比</p>
+<p>&#x3D;&#x3D;本方法的独特性在于，直接与上一个区间进行对比，而不需要再对前面的区间进行对比了&#x3D;&#x3D;</p>
+<p>比如上面的区间对比完了之后已经存储在 <code>merged</code> 里面了，那么现在最新的一个区间，只需要和 <code>meged[-1]</code>进行对比，就可以了，而不需要从 <code>merged[0] </code>开始进行对比</p>
+<p>最后的程序：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span>(<span class="params">self, intervals: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]:</span></span><br><span class="line">        intervals.sort(key = <span class="keyword">lambda</span> x: x[<span class="number">0</span>])</span><br><span class="line">        merged = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> interval <span class="keyword">in</span> intervals:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> merged <span class="keyword">or</span> merged[-<span class="number">1</span>][<span class="number">1</span>] &lt; interval[<span class="number">0</span>]:</span><br><span class="line">                merged.append(interval)</span><br><span class="line">            <span class="keyword">elif</span> merged[-<span class="number">1</span>][<span class="number">1</span>] &gt;= interval[<span class="number">0</span>]:</span><br><span class="line">                merged[-<span class="number">1</span>][<span class="number">1</span>] = <span class="built_in">max</span>(merged[-<span class="number">1</span>][<span class="number">1</span>], interval[<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">return</span> merged</span><br></pre></td></tr></table></figure>
+
+<h2 id="154-offer-11-旋转数组的最小数字"><a href="#154-offer-11-旋转数组的最小数字" class="headerlink" title="154-offer 11 旋转数组的最小数字"></a>154-offer 11 旋转数组的最小数字</h2><p>二分查找方法</p>
+<p>首先说明旋转数组是指能旋转一次就变成升序数组的数组</p>
+<p>所以特点就是，原来的数组是升序排列的</p>
+<p>当旋转一次后，其排列规律是：</p>
+<p><img src="https://assets.leetcode-cn.com/solution-static/jianzhi_11/1.png" alt="fig1"></p>
+<p>最小值右侧的元素都是小于等于右边界点的</p>
+<p>最小值左侧的元素都是大于等于左边界点的</p>
+<p>可以利用以上的性质从而缩小最小值所在的区间</p>
+<p>有一种情况是中间某个点的数值大小 等于 边界点</p>
+<p><img src="https://assets.leetcode-cn.com/solution-static/jianzhi_11/4.png" alt="fig4"></p>
+<p>那么这个时候不能简单说明该点左侧或者右侧是区间，而应该调整边界点（边界点一定是满足降序要求的，从而找出区间）</p>
+<h2 id="面试题04-二维数组中的查找"><a href="#面试题04-二维数组中的查找" class="headerlink" title="面试题04.二维数组中的查找"></a>面试题04.二维数组中的查找</h2><p>一个二维数组，每一列从上到下递增，每一行从左到右递增</p>
+<p>请在该数组中找某一个数值时候存在，当存在时返回 True，不存在 返回 False</p>
+<p>暴力方法，直接查找</p>
+<p>线性查找，比如从数组的左下角开始查找，如果比target大，那么行数 -1，如果比 target 小，那么列数 +1</p>
+<h2 id="674-最长连续递增序列"><a href="#674-最长连续递增序列" class="headerlink" title="674. 最长连续递增序列"></a>674. 最长连续递增序列</h2><p>输入：一个递增数组</p>
+<p>输出：最长连续递增子数组的长度</p>
+<p>非常的明白，就是贪心法把最长的找出来</p>
+<p>可能会遇到两个问题：</p>
+<p>（1）怎么处理末尾的问题，到末尾，一方面要继续比较是不是递增序列，另一方面还要把当前的子序列输入进结果</p>
+<p>（2）怎么样重置，重置为0是不好的，应该重置为1</p>
+<p>所以我的代码是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findLengthOfLCIS</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        len_list = []</span><br><span class="line">        len_max = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i,num <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> i:</span><br><span class="line">                len_max += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> num &gt; nums[i-<span class="number">1</span>]:</span><br><span class="line">                len_max += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                len_list.append(len_max)</span><br><span class="line">                len_max = <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> i == <span class="built_in">len</span>(nums)-<span class="number">1</span>:</span><br><span class="line">                len_list.append(len_max)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> <span class="keyword">not</span> len_list <span class="keyword">else</span> <span class="built_in">max</span>(len_list) </span><br></pre></td></tr></table></figure>
+
+<p>而官方的代码是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findLengthOfLCIS</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        n = <span class="built_in">len</span>(nums)</span><br><span class="line">        start = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            <span class="keyword">if</span> i &gt; <span class="number">0</span> <span class="keyword">and</span> nums[i] &lt;= nums[i - <span class="number">1</span>]:</span><br><span class="line">                start = i</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, i - start + <span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<p>每次计算的过程中都在更新最大值，这样能够减少对空间的使用</p>
+<p>其次记录的并不是递增序列的长度，而是起始位置，这样也可以减少空间的消耗，只有在变小的时候才会更新起始位置</p>
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a><!--双指针系列--></h1><h2 id="15-三数之和"><a href="#15-三数之和" class="headerlink" title="15. 三数之和"></a>15. 三数之和</h2><p>本次周赛的过程中，遇到这类问题，找到四个数字构成定积元组一类的问题，怎么样减小时间复杂度？</p>
+<p>发现15、16、18三道题都是这样的问题，看来需要进行一个专题的解决。</p>
+<p>相似题目：两数之和、最接近的三数之和、四数之和、较小的三数之和</p>
+<p>标签：数组，双指针</p>
+<hr>
+<p>输入：一个整数数组</p>
+<p>输出：二维整数数组，每个子数组中有3个数字，和为0</p>
+<p>要求：</p>
+<ul>
+<li>找出所给整数数组中和为0的所有组合</li>
+<li>组合不能重复</li>
+<li>所给整数数组中的数字是有可能重复的</li>
+</ul>
+<hr>
+<p>在示例中出现了一种情况，如果本身数字比较少，少于3个，直接可以返回结果为空</p>
+<p>如果数字在3个以上，那也只好进行遍历了，找到所有组合，这样的话，一定需要 $O(n^3)$</p>
+<p>提示：</p>
+<ol>
+<li>如果能固定一个数字，那么就变成了一个“两数之和”的问题了</li>
+<li>在两数之和问题中，如果我们固定一个数组，我们就需要扫描整个数组，找最后一个数字是不是存在，可不可以<strong>修改这个数组</strong>从而让这个查找变得更快呢？</li>
+<li>或者在不改变数组的情况下，我们呢是不是可以<strong>通过使用额外空间 的方法</strong>，比如哈希表来加速搜索</li>
+</ol>
+<p>我直接用遍历的方法进行计算，遇到一个问题：可能会出现相同的元组</p>
+<p>例如：<code>nums=[-1,0,1,2,-1,-4]</code></p>
+<p>如果从头开始遍历，可能有 <code>[-1,0,1]</code>，然后又会遇到<code>[0,1,-1]</code>，这两个元组会重复（如果是list确实不重复），但是<code>[-1,-1,2]</code>又是可以的</p>
+<h3 id="官方题解-2"><a href="#官方题解-2" class="headerlink" title="官方题解"></a>官方题解</h3><ol>
+<li><p>用排序避免重复答案</p>
+</li>
+<li><p>所谓双指针的方法是说：一个头指针，一个尾指针，如果和比较小，移动头指针，如果和比较大，移动尾指针，直到找到值</p>
+</li>
+</ol>
+<p>但即使如此，还没有完全解决问题，比如 <code>[0,0,0,0]</code>，也只能出一个结果 <code>[0,0,0]</code>，但是如果只是进行移动，而没有进行判断，最后会出两个<code>[0,0,0]</code></p>
+<p>实际题解中用了一些细节来解决各种问题：</p>
+<ol>
+<li>如果这次的首位数字和上一次的首位数字相同，直接跳过</li>
+<li>第二个元素虽说是左指针，但是也可以用for循环</li>
+<li>这次的第二个元素也应该和上一次的第二个数字不同，也就是所找一个全新的第二个数字</li>
+<li>只移动右指针即可</li>
+</ol>
+<p>官方代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]:</span></span><br><span class="line">        n = <span class="built_in">len</span>(nums)</span><br><span class="line">        nums.sort()</span><br><span class="line">        ans = <span class="built_in">list</span>()</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 枚举 a</span></span><br><span class="line">        <span class="keyword">for</span> first <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            <span class="comment"># 需要和上一次枚举的数不相同</span></span><br><span class="line">            <span class="keyword">if</span> first &gt; <span class="number">0</span> <span class="keyword">and</span> nums[first] == nums[first - <span class="number">1</span>]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="comment"># c 对应的指针初始指向数组的最右端</span></span><br><span class="line">            third = n - <span class="number">1</span></span><br><span class="line">            target = -nums[first]</span><br><span class="line">            <span class="comment"># 枚举 b</span></span><br><span class="line">            <span class="keyword">for</span> second <span class="keyword">in</span> <span class="built_in">range</span>(first + <span class="number">1</span>, n):</span><br><span class="line">                <span class="comment"># 需要和上一次枚举的数不相同</span></span><br><span class="line">                <span class="keyword">if</span> second &gt; first + <span class="number">1</span> <span class="keyword">and</span> nums[second] == nums[second - <span class="number">1</span>]:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="comment"># 需要保证 b 的指针在 c 的指针的左侧</span></span><br><span class="line">                <span class="keyword">while</span> second &lt; third <span class="keyword">and</span> nums[second] + nums[third] &gt; target:</span><br><span class="line">                    third -= <span class="number">1</span></span><br><span class="line">                <span class="comment"># 如果指针重合，随着 b 后续的增加</span></span><br><span class="line">                <span class="comment"># 就不会有满足 a+b+c=0 并且 b&lt;c 的 c 了，可以退出循环</span></span><br><span class="line">                <span class="keyword">if</span> second == third:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">if</span> nums[second] + nums[third] == target:</span><br><span class="line">                    ans.append([nums[first], nums[second], nums[third]])</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line">作者：LeetCode-Solution</span><br><span class="line">链接：https://leetcode-cn.com/problems/3<span class="built_in">sum</span>/solution/san-shu-zhi-he-by-leetcode-solution/</span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+
+<p>我的错误代码（时间会比较长）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]:</span></span><br><span class="line">        n = <span class="built_in">len</span>(nums)</span><br><span class="line">        result = []</span><br><span class="line">        <span class="comment"># 排序，以免重复</span></span><br><span class="line">        nums.sort()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 遍历第一个数字 A</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            <span class="comment"># 确保在i循环中，该数字不会重复</span></span><br><span class="line">            <span class="keyword">if</span> i&gt;<span class="number">0</span> <span class="keyword">and</span> nums[i] == nums[i-<span class="number">1</span>]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 遍历第二个数字 B，正着遍历</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>,n):</span><br><span class="line">                <span class="comment"># 确保在j循环里面，该遍历数字是不会重复的</span></span><br><span class="line">                <span class="keyword">if</span> j&gt;i+<span class="number">1</span> <span class="keyword">and</span> nums[j] == nums[j-<span class="number">1</span>]:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                target = - nums[i] - nums[j]</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 第三个数字，从尾部遍历</span></span><br><span class="line">                k = n-<span class="number">1</span></span><br><span class="line">                <span class="keyword">while</span> j&lt;k <span class="keyword">and</span> nums[k]&gt;target:</span><br><span class="line">                    k -= <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> j == k:</span><br><span class="line">                    <span class="comment"># 说明到头了，这个循环结束了</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">if</span> target==nums[k]:</span><br><span class="line">                    result.append([nums[i],nums[j],nums[k]])</span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+
+<p>关键的原因请看第22行： <code>k=n-1</code>这行代码如果放在 <code>j</code>循环中，那么就跟3个循环是一样的！！</p>
+<p>如果放在 <code>j</code>循环的外面，立马就不一样了，j 增加， k并没有每次都归 （n-1），这样就减少了一次循环，这是非常重要的！</p>
+<h2 id="16-最接近的三数之和"><a href="#16-最接近的三数之和" class="headerlink" title="16. 最接近的三数之和"></a>16. 最接近的三数之和</h2><p>给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。</p>
+<p>输入：整数数组 nums，整数target</p>
+<p>输出：整数</p>
+<p>要求：在nums中找3个数字，其和与target最接近，输出的整数即为该和，假设只有一个答案</p>
+<hr>
+<p>那么这一次，我们需要记录最小的和，也就是差值最小的和，然后每次去比较差值，如果没有更小的了，那就是它了</p>
+<p>还是双指针</p>
+<p>先要做一个排序</p>
+<p>第一个数字遍历</p>
+<ul>
+<li>开头取一个，结尾取一个</li>
+<li>如果大了，结尾小一位，如果小了，开头就要加一位，最终会有一个最接近的</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sort</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">len</span>:</span><br><span class="line">    first_num = <span class="built_in">list</span>[i]</span><br><span class="line">    k = n-<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> i+<span class="number">1</span>:<span class="built_in">len</span>:</span><br><span class="line">        second_num = <span class="built_in">list</span>[j]</span><br><span class="line">        <span class="built_in">sum</span> = first_num + second_num</span><br><span class="line">        sum_des = target - <span class="built_in">sum</span></span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">list</span>[k] &gt; sum_des:</span><br><span class="line">            k -= <span class="number">1</span></span><br><span class="line">        <span class="built_in">sum</span> += second_num + third_num</span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+
+<p>但是此时的比较方案和上面又不太一样了，如果 k减到最后已经比最后的差值小了，再升 j 还是小</p>
+<p>没关系，我们可以额外使用一个变量，用来比较和存储比较小的差值</p>
+<p>本题的三个数字是不是还需要像上面的题一样避免重复？</p>
+<ul>
+<li>i 不变的情况下，确实 j 不用再重复了</li>
+<li>i 如果重复呢，确实也不用，所以 i 最好也不要重复了</li>
+</ul>
+<hr>
+<h3 id="官方题解-3"><a href="#官方题解-3" class="headerlink" title="官方题解"></a>官方题解</h3><ol>
+<li><p>本题和15题不一样的地方在于，本题要的是最小差距，而不是枚举所有的最小差距的取值</p>
+</li>
+<li><p>双指针既可以用之前的双循环的方式进行书写，也可以使用真的双指针，两个索引的方式进行书写</p>
+</li>
+<li><p>初始化 最佳答案的方法是，直接赋值，赋一个很大的值，比如1e7</p>
+</li>
+</ol>
+<p>最后完成的代码是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSumClosest</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], target: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        <span class="comment"># 首先排序</span></span><br><span class="line">        nums.sort()</span><br><span class="line">        len_num = <span class="built_in">len</span>(nums)</span><br><span class="line">        min_tar = <span class="number">1e7</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 第一个数字的索引</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len_num):</span><br><span class="line">            <span class="comment"># 防止重复</span></span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">and</span> nums[i] == nums[i-<span class="number">1</span>]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="comment"># 第二个数字的索引</span></span><br><span class="line">            j = i + <span class="number">1</span></span><br><span class="line">            <span class="comment"># 第三个数字的索引</span></span><br><span class="line">            k = len_num - <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> j &lt; k:</span><br><span class="line">                sum_three = nums[i] + nums[j] + nums[k]</span><br><span class="line">                <span class="keyword">if</span> sum_three &gt; target:</span><br><span class="line">                    k -= <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> sum_three == target:</span><br><span class="line">                    <span class="keyword">return</span> sum_three</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    j += <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">abs</span>(sum_three - target) &lt; <span class="built_in">abs</span>(min_tar - target):</span><br><span class="line">                    min_tar = sum_three</span><br><span class="line">        <span class="keyword">return</span> min_tar</span><br></pre></td></tr></table></figure>
+
+<p>相比官方答案有一点偷懒的地方就是更改 j和k 的时候是直接改，并没有去检查一下修改后的实际数值和修改前的有什么区别，这样其实不太好，确实会重复计算。</p>
+<h2 id="18-四数之和"><a href="#18-四数之和" class="headerlink" title="18. 四数之和"></a>18. 四数之和</h2><p>输入：整数数组nums，目标值 target</p>
+<p>输出：二维数组</p>
+<p>判断nums中是否存在 a,b,c,d，满足 $a+b+c+d&#x3D;target$，找出所有满足的组合（不能重复）</p>
+<hr>
+<p>本题看上去还是用双指针的方法进行解决</p>
+<p><strong>第一种遍历方法：固定1、2、4，然后让第3位数字遍历</strong></p>
+<p>先排序</p>
+<p>第一个数字 i 直接循环</p>
+<p>第二个数字 j从 i+1 开始递增</p>
+<p>最后一个数字 从 n-1 开始递减</p>
+<p>然后第三个数字 就要在 j 到 k 之间进行遍历</p>
+<p>要注意的是，这一次，j和k的遍历都不能重复了，要保证是不同的</p>
+<blockquote>
+<p>之前的问题中，实现这一目标，有两种方法：</p>
+<ol>
+<li><p>循环用 for，然后在循环体中添加判断 当相同的时候就continue</p>
+</li>
+<li><p>循环用 while，循环体中直接判断，判断结束后直接修改索引（第二种方法可能看起来比较容易，实际上两个方法可能消耗的时间差不多）</p>
+<p>这种方法的不足之处是，需要修改的时候，考虑的会比较多</p>
+<p>而且使用while比较的时候似乎需要考虑会不会超出索引边界</p>
+</li>
+</ol>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sort</span><br><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">list</span>:</span><br><span class="line">    <span class="keyword">if</span> a == last_a:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    </span><br><span class="line">    j = a+<span class="number">1</span></span><br><span class="line">    k = <span class="built_in">len</span>-<span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> j&lt;k-<span class="number">1</span>:</span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span> j-&gt;k:</span><br><span class="line">	        <span class="keyword">if</span> a+j+c+k == target:</span><br><span class="line">    	        result.append(this_group)</span><br><span class="line">        <span class="comment"># 该怎样控制 j 和 k 的增减产生双指针的效果呢？        </span></span><br></pre></td></tr></table></figure>
+
+<p><strong>在写上面那种方法的时候突然想到，如果我们先固定1，2，那么3，4不就是一个新的双指针了吗？而且这种方法看起来更可靠</strong></p>
+<p>但是同样需要注意，2可以和1重复，但是2和之前的2不要重复，1和之前的1也不要重复，3也不要重复</p>
+<p>出现的问题是在运行过程中，不是<strong>超出了时间限制</strong>，就是<strong>超出了内存限制</strong></p>
+<p>哦，我忘了一件事，就是在 &#x3D;&#x3D;等于target的时候，也需要进行移动&#x3D;&#x3D;，不然就出不去了</p>
+<h3 id="官方题解-4"><a href="#官方题解-4" class="headerlink" title="官方题解"></a>官方题解</h3><p>阅读官方的代码，发现了几个有意思的点：</p>
+<ol>
+<li><p>第一个数字的索引区间是 0到 n-3</p>
+</li>
+<li><p>第二个数字的索引区间是 i+1 到 n-2，还使用了 j&gt;i+1 保证满足j的区间正确</p>
+</li>
+<li><p>还有就是一些比较基础的判断：</p>
+<ul>
+<li>i,i+1,i+2,i+3 这样四个数字加起来如果都比target大，就不用再循环了</li>
+<li>i，n-1，n-2，n-3这样四个数字加起来如果比 target小，那也不用循环了</li>
+<li>i，j，j+1，j+2，这样四个数字加起来比 target 大，本轮（第二层循环）可以结束了</li>
+<li>i，j，n-1，n-2，这样四个数字加起来比target 小，本轮（第二层循环）可以结束了</li>
+</ul>
+</li>
+<li><p>最后在修改 左右区间的时候</p>
+<ol>
+<li>只有&#x3D;target的情况下，修改区间才需要判断是不是和之前的相等</li>
+<li>不等于target，那就直接更改左右边界，不用判断和之前的是不是重复</li>
+</ol>
+</li>
+<li><p>还有很有意思的地方：</p>
+<ol>
+<li><p>官方题解中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> left &lt; right <span class="keyword">and</span> nums[left] == nums[left + <span class="number">1</span>]:</span><br><span class="line">    left += <span class="number">1</span></span><br><span class="line">left += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>因为是和右侧对比，所以可以先对比，最后再 +1</p>
+</li>
+<li><p>我刚开始的方法是，先+1，然后再和左侧进行对比</p>
+</li>
+<li><p>应该说两者还是有一些细节上的不同的</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>果然，使用基础判断条件能够极大减少判断时间！</p>
+<p>再把 和的计算结果保存下来，又能节省一点时间（毕竟后面多次用到了计算出来的和）</p>
+<h1 id="小岛问题-DFS练习"><a href="#小岛问题-DFS练习" class="headerlink" title="小岛问题 - DFS练习"></a>小岛问题 - DFS练习</h1><p>参考：<a target="_blank" rel="noopener" href="https://github.com/azl397985856/leetcode/blob/master/thinkings/island.md">小岛问题  - DFS子专题</a></p>
+<p>深度优先遍历的方法</p>
+<p>经典方法：（四联通）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">i,j</span>):</span></span><br><span class="line">    <span class="keyword">if</span> i或j 出界: <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> (i,j)已经遍历过: <span class="keyword">return</span></span><br><span class="line">    temp = board[i][j]</span><br><span class="line">    <span class="comment"># 将（i，j）添加到已经遍历过的列表中</span></span><br><span class="line">    seen.add((i,j))</span><br><span class="line">    <span class="comment"># 按照四连通，分别对上下左右四个方向进行递归遍历</span></span><br><span class="line">    dfs(i+<span class="number">1</span>, j)</span><br><span class="line">    dfs(i-<span class="number">1</span>, j)    </span><br><span class="line">    dfs(i, j+<span class="number">1</span>)    </span><br><span class="line">    dfs(i, j-<span class="number">1</span>)    </span><br><span class="line">    <span class="comment"># 撤销标记</span></span><br><span class="line">    seen.remove((i,j))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用算法：单点搜索</span></span><br><span class="line">dfs(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"><span class="comment"># 多点搜索</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(M):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        dfs(i, j)</span><br></pre></td></tr></table></figure>
+
+<p>这种方法的标记是专门用了一个列表来存放遍历过的点</p>
+<p>还有一种标记方法是原地标记，比如直接把遍历过的点的values变成 -1</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/azl397985856/leetcode/blob/master/thinkings/DFS.md">深度优先遍历</a></p>
+<p>Depth-First-Search 深度优先搜索算法，遍历或搜索树或图的算法</p>
+<ul>
+<li>沿着树的深度遍历树的节点，尽可能深的搜索树的分支。</li>
+<li>当节点 v 的所在边都己被探寻过，搜索将回溯到发现节点 v 的那条边的起始节点。</li>
+<li>这一过程一直进行到已发现从源节点可达的所有节点为止。</li>
+<li>如果还存在未被发现的节点，则选择其中一个作为源节点并重复以上过程，整个进程反复进行直到所有节点都被访问为止。</li>
+<li>属于<strong>盲目搜索</strong>。（对应启发式搜索，有目的地搜索）</li>
+</ul>
+<p>DFS是图论中的经典算法，和图、拓扑排序密切相关</p>
+<p>对于树的题目，基本上都可以使用DFS来解决</p>
+<p>DFS通常可以基于递归来做，因此算法会更简洁</p>
+<h1 id="并查集练习"><a href="#并查集练习" class="headerlink" title="并查集练习"></a>并查集练习</h1><p>有个同学这样进行描述：<a target="_blank" rel="noopener" href="https://github.com/azl397985856/leetcode/blob/master/thinkings/union-find.md">并查集 union-find</a></p>
+<p>一种树型的数据结构，用于处理一些不交集（Disjoint Sets）的合并及查询问题。</p>
+<p>有一个联合-查找算法（Union-find Algorithm），两个操作：</p>
+<ul>
+<li>find：确定元素属于哪一个子集【建图和压缩路径】</li>
+<li>union：将两个子集合并成同一个集合</li>
+</ul>
+<p>不带权并查集</p>
+<p>带权并查集</p>
+<p>以下对无权并查集的基本类进行研究：</p>
+<p>class UF：</p>
+<p>初始化函数：</p>
+<p>（1）建立一个字典parent表示父元素的集合</p>
+<p>（2）建立一个整数cnt，用于记录？</p>
+<p>查找（find）：</p>
+<ul>
+<li>如果不在父集合中<ul>
+<li>cnt +1</li>
+<li>父集合中添加元素</li>
+</ul>
+</li>
+</ul>
+<p>集合（union）：</p>
+<ul>
+<li>调用连通判断函数（connected）检测 两个元素是不是连通的</li>
+</ul>
+<p>连通（connected）：</p>
+<ul>
+<li>通过 find 函数判断两个元素的find值是不是相等</li>
+</ul>
+<p>说真的这个class包括里面的函数不是很好理解</p>
+<h1 id="字典的使用"><a href="#字典的使用" class="headerlink" title="字典的使用"></a>字典的使用</h1><h2 id="使用-collections-defaultdict-建立字典"><a href="#使用-collections-defaultdict-建立字典" class="headerlink" title="使用 collections.defaultdict() 建立字典"></a>使用 collections.defaultdict() 建立字典</h2><p><code>collections.defaultdict()</code>为字典提供默认值，以免字典中Key不存在的时候引发<code>KeyError</code>的异常</p>
+<p>这是一种&#x3D;&#x3D;提供了默认值的字典&#x3D;&#x3D;</p>
+<p>该函数返回一个类似字典的对象</p>
+<p><code>defaultdict</code> 是 Python 内建字典类（dict）的一个子类</p>
+<p><code>rec = collections.defaultdict(list)</code> </p>
+<p>那么在调用的时候，使用<code>rec.items</code> 可以比较完整地调用key和values的值对，也可以通过 <code>rec.values()</code>调用所有的values，这样不会包括 keys</p>
+<p>参考：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/clearlove100/article/details/111028876">collections.defaultdict() 和 dict.values()与*dict.values() 的区别</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44110891/article/details/89575020">默认字典collections.defaultdict()的使用</a></p>
+</li>
+</ul>
+<p><strong>该博客中说，key 值可以自定义，value 的类型与括号中设置类型先沟通，比如括号中是list，那么最后的键值对的值就是list</strong></p>
+<h2 id="修改字典"><a href="#修改字典" class="headerlink" title="修改字典"></a>修改字典</h2><p>如果 字典的 value是<code>list</code>：可以 <code>rec[k].append(v)</code></p>
+<p>如果 字典的 value是<code>set</code>：可以 <code>rec[k].add(v)</code></p>
+<p>如果 字典的 value是<code>int</code>：可以 <code>rec[k]+=1</code></p>
+<h1 id="list-sort-综合排序方法"><a href="#list-sort-综合排序方法" class="headerlink" title="list.sort()综合排序方法"></a>list.sort()综合排序方法</h1><p><code>list.sort(cmp, key, reverse)</code></p>
+<ul>
+<li>cmp - 使用该参数的方法进行排序</li>
+<li>key - 每个列表中用来进行比较的元素，可以取自于可迭代对象中，指定可迭代对象中的一个元素进行排序</li>
+<li>reverse - 降序标志，默认是false升序</li>
+</ul>
+<p>比如如果需要对列表的第一个元素进行比较，可以这样进行使用：</p>
+<p><code>list.sort(key = lambda x: x[0])</code></p>
+<hr>
+<p>OK，本期的解题就是这些，并查集其实理解还不够深入，深度优先和广度优先将是一个大的领域，接下来需要重点关注！</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2021/02/02/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%BA%94/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">双指针</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/03/03/%E6%95%B0%E6%8D%AE%E5%BA%93-SQL%E8%AF%AD%E8%A8%80/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            数据库-SQL语言
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/01/28/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%BA%94/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">【统计学习方法】5-决策树</div>
+      </a>
+    
+  </nav>
+
+  
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2022
+        <i class="ri-heart-fill heart_icon"></i> Sun Yue
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="悦"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/246643413">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about-me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

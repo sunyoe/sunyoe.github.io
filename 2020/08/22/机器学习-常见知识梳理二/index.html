@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+  
+
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="思考，学习，生活" />
+       
+      <meta name="description" content="SJTU 研究僧" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>【机器学习】常见知识梳理（二） |  悦</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="悦" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-机器学习-常见知识梳理二"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  【机器学习】常见知识梳理（二）
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86%E4%BA%8C/" class="article-date">
+  <time datetime="2020-08-22T01:04:49.000Z" itemprop="datePublished">2020-08-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">6 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>本文内容根据《有趣的机器学习》一书整理而成，可作为简单了解。</p>
+<h2 id="目前的机器学习分类"><a href="#目前的机器学习分类" class="headerlink" title="目前的机器学习分类"></a>目前的机器学习分类</h2><p><strong>监督学习</strong></p>
+<ul>
+<li>有数据和标签</li>
+</ul>
+<p><strong>无监督学习</strong></p>
+<ul>
+<li>只有数据没有标签</li>
+</ul>
+<p><strong>半监督学习</strong></p>
+<ul>
+<li>少量数据有标签</li>
+<li>大量数据无标签</li>
+</ul>
+<p><strong>强化学习（Reinforcement learning）</strong></p>
+<ul>
+<li>从经验中总结提升</li>
+</ul>
+<p><strong>遗传算法（Genetic algorithm）</strong></p>
+<ul>
+<li>适者生存，不适者淘汰，优中选优</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h2><p>一种统计学模型，能够不断学习</p>
+<h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><p><strong>神经层</strong></p>
+<ul>
+<li>输入层<ul>
+<li>计算机能看到的全是数字</li>
+</ul>
+</li>
+<li>隐藏层<ul>
+<li>信息加工处理</li>
+</ul>
+</li>
+<li>输出层</li>
+</ul>
+<p><strong>神经元（节点）</strong></p>
+<ul>
+<li>每个神经元都有它自己的刺激函数</li>
+<li>有的神经元被激活，有的没有被激活</li>
+<li>反向学习后改动神经元激活情况，有的变迟钝，有的被激活，对重要信息进行反映</li>
+</ul>
+<h3 id="学习经验"><a href="#学习经验" class="headerlink" title="学习经验"></a>学习经验</h3><p>认识预测结果和真实结果之间的差别（错误偏差）；</p>
+<p>然后把差别反向的方向上改动一点点。</p>
+<h3 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h3><p><strong>如何评价</strong></p>
+<ul>
+<li>训练数据（70%）和测试数据（30%）</li>
+<li>用测试数据来评价</li>
+<li>从误差值开始评价</li>
+<li>误差曲线和精确度曲线</li>
+<li>R2 score 回归问题的精度</li>
+<li>f1 score 不均匀</li>
+<li>过拟合<ul>
+<li>训练误差和测试误差</li>
+<li>正则化</li>
+</ul>
+</li>
+<li>交叉验证，调参</li>
+</ul>
+<p><strong>特征标准化（使数据跨度尽量统一）</strong></p>
+<p><strong>什么是好特征</strong></p>
+<ul>
+<li>更容易辨别事物的特征（有区分能力）</li>
+<li>避免无意义的信息</li>
+<li>避免重复性的信息</li>
+<li>避免复杂的信息</li>
+</ul>
+<p><strong>激励函数</strong></p>
+<ul>
+<li><p>不能用线性方程所概括的问题</p>
+</li>
+<li><p>y&#x3D;AF（Wx）激励函数</p>
+<p>要确保激励函数必须是可以微分的这样才能用微分把误差传递回去</p>
+<ul>
+<li><strong>relu 函数</strong><ul>
+<li>卷积中推荐</li>
+<li>循环中推荐</li>
+<li>负实轴上的值全为0</li>
+</ul>
+</li>
+<li><strong>sigmoid 函数</strong><ul>
+<li>当横轴非常小时，函数值为0</li>
+<li>当横轴非常大时，函数值为1</li>
+</ul>
+</li>
+<li><strong>tanh 函数</strong><ul>
+<li>循环中推荐</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>过拟合 overfitting</strong></p>
+<ul>
+<li>增加数据量</li>
+<li>正则化<ul>
+<li>惩罚机制</li>
+</ul>
+</li>
+</ul>
+<p><strong>不均衡数据</strong></p>
+<ul>
+<li>比如数据有多数派和少数派，机器预测会选择多数派</li>
+<li>避免这种情况的方法<ul>
+<li>获取更多的数据</li>
+<li>换一种评价方式</li>
+<li>重组数据&lt;复制少数并合成，砍掉一些多数&gt;</li>
+<li>修改算法&lt;如sigmoid函数调整门槛位置，原门槛大约是±1&gt;</li>
+</ul>
+</li>
+</ul>
+<p><strong>批标准化（Batch Normalization）</strong></p>
+<ul>
+<li>Batch 把数据变成小批，对每一层进行正规化处理</li>
+<li>还进行反向Normalization，让NN自己学习是否起到作用</li>
+</ul>
+<p><strong>L1&#x2F;L2正规化&lt;针对过拟合问题&gt;</strong></p>
+<ul>
+<li>方法是在cost函数中除了样本误差部份外，再增加 theta 参数平方和项</li>
+<li>如果拟合结果的非线性太强，theta 的平方和会比较大，惩罚机制</li>
+</ul>
+<p><strong>加速训练过程</strong></p>
+<ul>
+<li>SGD</li>
+<li>adagrad</li>
+<li>monument</li>
+<li>RMSPROP</li>
+<li>adam</li>
+</ul>
+<h3 id="卷积神经网络（Convolutional-Neural-Networks）"><a href="#卷积神经网络（Convolutional-Neural-Networks）" class="headerlink" title="卷积神经网络（Convolutional Neural Networks）"></a>卷积神经网络（Convolutional Neural Networks）</h3><p>图像识别，自然语言处理</p>
+<p><strong>卷积</strong></p>
+<ul>
+<li>不是对每个像素，而是对像素块进行处理，加强了对图像的识别</li>
+</ul>
+<p><strong>批量过滤器</strong></p>
+<ul>
+<li>不断移动，搜集像素块</li>
+</ul>
+<p>像素块-&gt;边缘信息-&gt;局部物体-&gt;物体全部</p>
+<p><strong>图片有高度</strong></p>
+<ul>
+<li>黑白高度0和1</li>
+<li>彩色图片颜色信息就是高度</li>
+<li>每搜索过滤一次，图片长宽变小，深度加深</li>
+</ul>
+<p><strong>pooling 池化</strong></p>
+<ul>
+<li>防止丢失信息</li>
+<li>池化层包含预设定的池化函数，其功能是将特征图中单个点的结果替换为其相邻区域的特征图统计量</li>
+</ul>
+<p><strong>分类器</strong></p>
+<p><strong>ReLU 线性整流单元</strong></p>
+<h3 id="循环神经网络（RNN）"><a href="#循环神经网络（RNN）" class="headerlink" title="循环神经网络（RNN）"></a>循环神经网络（RNN）</h3><p>可以用人工智能编写一首歌</p>
+<p>顺序排列</p>
+<p>数据间的关联，存储记忆</p>
+<p><strong>弊端</strong></p>
+<ul>
+<li>有序数据</li>
+<li>健忘<ul>
+<li>梯度消失，梯度弥散<ul>
+<li>当信息出现在开始时刻，由于误差反向计算时有加权，当权重比较小时，在开始时刻的误差接近于0，相当于没有误差，产生了错误</li>
+</ul>
+</li>
+<li>梯度爆炸<ul>
+<li>这次是由于权重大于1，累积到开始时刻时，误差已经很大了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>LSTM RNN</strong></p>
+<p>延缓记忆消失</p>
+<ul>
+<li>输入控制</li>
+<li>忘记控制</li>
+<li>输出控制</li>
+</ul>
+<h3 id="自编码（Autoencoder）"><a href="#自编码（Autoencoder）" class="headerlink" title="自编码（Autoencoder）"></a>自编码（Autoencoder）</h3><p>如何用神经网络指导非监督学习</p>
+<p><strong>是一种神经网络形式</strong></p>
+<ul>
+<li>图片-打码-解码</li>
+<li>图片-压缩（信息小但全面，有代表性）-解压<ul>
+<li>压缩获取原数据的精髓</li>
+<li>求出误差，反向传递</li>
+</ul>
+</li>
+</ul>
+<p><strong>只用了数据，没有用标签，所以是非监督学习</strong></p>
+<p><strong>PCA 原数据主程序分析</strong></p>
+<h3 id="GAN-生成对抗网络"><a href="#GAN-生成对抗网络" class="headerlink" title="GAN 生成对抗网络"></a>GAN 生成对抗网络</h3><p>凭空捏造数据</p>
+<p><strong>新手画家（generator）凭借随机数生成有用数据</strong></p>
+<p><strong>（给于一定的数据标签）新手鉴赏家（discriminator）（学习判断哪些是真实数据，哪些是生成数据，然后将经验反向传递给generator教它如何用生成生成数据能更像真实数据）-新手画家</strong></p>
+<h3 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h3><p>从什么都没有到学习达到目标的方法</p>
+<h4 id="基本过程"><a href="#基本过程" class="headerlink" title="基本过程"></a>基本过程</h4><p>评分-高分&#x2F;低分-机器有分数导向性，会自动选择更多的高分动作；</p>
+<p>也就是进行数据尝试，然后获得数据标签，反过来激励机器多做高分动作。</p>
+<h4 id="大致分类"><a href="#大致分类" class="headerlink" title="大致分类"></a>大致分类</h4><p><strong>基于</strong></p>
+<ul>
+<li>value-based 基于价值<ul>
+<li>Q-Learning</li>
+<li>Actor-Critic</li>
+</ul>
+</li>
+<li>基于动作&#x2F;基于概率<ul>
+<li>Policy Gradients</li>
+</ul>
+</li>
+</ul>
+<p><strong>环境区分</strong></p>
+<ul>
+<li>理解环境<ul>
+<li>按部就班，在自己所处的环境下解决问题</li>
+</ul>
+</li>
+<li>不理解环境<ul>
+<li>多一个虚拟环境的建模过程</li>
+<li>想象力更好</li>
+</ul>
+</li>
+</ul>
+<p><strong>更新</strong></p>
+<ul>
+<li>回合更新<ul>
+<li>每局结束之后再更新</li>
+</ul>
+</li>
+<li>单步更新<ul>
+<li>每结束一步就更新一次</li>
+<li>Actor-Critic 演员评论家</li>
+</ul>
+</li>
+</ul>
+<p><strong>学习方法</strong></p>
+<ul>
+<li>在线学习<ul>
+<li>本人在场，亲自学习</li>
+<li>Sarsa &#x2F; Sarsa（lamda）</li>
+</ul>
+</li>
+<li>离线学习<ul>
+<li>看别人玩，从中学习</li>
+<li>比如 Alpha Go</li>
+</ul>
+</li>
+</ul>
+<h4 id="典型强化学习方法"><a href="#典型强化学习方法" class="headerlink" title="典型强化学习方法"></a>典型强化学习方法</h4><p><strong>Q-Learning</strong></p>
+<ul>
+<li>Q表决策，离线学习</li>
+<li>估计（预测）的动作不一定是接下来要做的动作</li>
+<li>估计动作按Q表，但是做动作还是随机的</li>
+</ul>
+<p><strong>Sarsa</strong></p>
+<ul>
+<li>在线学习</li>
+<li>估计的动作也是实际的动作</li>
+</ul>
+<p><strong>Sarsa（lamda）</strong></p>
+<ul>
+<li>lamda 衰变值<ul>
+<li>离宝藏越近的脚步越重要（更新力度就要大）</li>
+<li>离宝藏越远，由于衰变累积，更新就会小一点</li>
+</ul>
+</li>
+<li>比如Sarsa（0）<ul>
+<li>每走一步更新一次&lt;单步更新&gt;</li>
+</ul>
+</li>
+<li>Sarsa（n）<ul>
+<li>走完更新&lt;回合更新&gt;</li>
+</ul>
+</li>
+</ul>
+<p><strong>Deep Q Network</strong></p>
+<ul>
+<li>Q 现实 和 Q 估计</li>
+<li>记忆库 + 现实网络 + 估计网络</li>
+<li>可以自己玩电子游戏</li>
+</ul>
+<p><strong>Policy Gradient</strong></p>
+<ul>
+<li>基于动作，尤其是连续动作，但是输出值很多</li>
+<li>随机筛选</li>
+<li>没有误差，但是有反向传递（这句话似乎是错误的，但是莫烦确实这样说）</li>
+<li>输出值-奖惩-加大被选可能（现实中的奖惩会左右更新过程）</li>
+</ul>
+<p><strong>Actor-Critic 演员评论家</strong></p>
+<ul>
+<li>基于价值</li>
+<li>学习奖惩，与环境之间的奖惩</li>
+<li>有一个问题是，基于奖惩有可能会左右摇摆，Actor这边有自己的神经网络，学习了方法，Critic这边也有</li>
+<li>然后学一步，高分》》演员-低分》》评论家-高分···如此反复</li>
+</ul>
+<p><strong>Deep Deterministic Policy Gradient</strong></p>
+<ul>
+<li>更高级的方法，避免再左右中学不到东西</li>
+<li>连续动作上更有效的学习，只有一个输出值</li>
+<li>是 Actor-Critic 和 DQN 的加合</li>
+</ul>
+<p><strong>AAA-C（A3-C）</strong></p>
+<ul>
+<li>平行方式训练 Actor-Critic</li>
+<li>经验分享</li>
+<li>多核并行运算</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86%E4%BA%8C/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/09/03/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%80/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            LeetCode刷题笔记（一）
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/08/15/%E6%80%9D%E7%BB%B4%E5%B7%A5%E5%85%B7-%E5%B9%95%E5%B8%83/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">思维工具-幕布</div>
+      </a>
+    
+  </nav>
+
+  
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2022
+        <i class="ri-heart-fill heart_icon"></i> Sun Yue
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="悦"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/246643413">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about-me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

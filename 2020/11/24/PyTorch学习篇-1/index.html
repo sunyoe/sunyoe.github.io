@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+  
+
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="思考，学习，生活" />
+       
+      <meta name="description" content="SJTU 研究僧" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>PyTorch-学习篇1 |  悦</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="悦" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-PyTorch学习篇-1"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  PyTorch-学习篇1
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/11/24/PyTorch%E5%AD%A6%E4%B9%A0%E7%AF%87-1/" class="article-date">
+  <time datetime="2020-11-24T13:38:26.000Z" itemprop="datePublished">2020-11-24</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">5 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>本文根据PyTorch官方推荐同名书籍：《Deep learning with pytorch》的个人学习笔记而来。</p>
+</blockquote>
+<h1 id="Deep-learning-with-pytorch"><a href="#Deep-learning-with-pytorch" class="headerlink" title="Deep learning with pytorch"></a>Deep learning with pytorch</h1><p>基于优化任务性能的算法的基础上，自动提取分层特征的算法</p>
+<p>相对于手动选择特征，会有什么样的不同，以及怎么样去实现ta？1.3节涉及</p>
+<p>To train this model, you need a few things (besides the loop itself, which can be a standard Python for loop): a source of training data, an optimizer to adapt the model to<br>the training data, and a way to get the model and data to the hardware that will be performing the calculations needed for training the model.  </p>
+<p>要训练该模型，您需要做一些事情（除了循环本身，它可以是标准的Python for循环）：训练数据的来源，用于使模型适应训练数据的优化器以及获取模型的方法 并将数据发送到硬件，该硬件将执行训练模型所需的计算。</p>
+<span id="more"></span>
+
+<h2 id="tensor"><a href="#tensor" class="headerlink" title="tensor"></a>tensor</h2><p>从tensor形式转化为storage形式，需要使用offset、size、stride三个变量</p>
+<p>tensor是一维的</p>
+<p>stride表示的是当tensor的维数+1时，元素必须跳过skip的个数</p>
+<p>在一个二维的tensor中</p>
+<p>$x_{i,j}&#x3D;storage_offset+stride[0]*i+stride[1]*j$</p>
+<p>offset一般是 0，如果storage要存储一个很大的tensor的时候，可能offset会是一个正数</p>
+<p><strong>关于tensor，我觉的最关键的就是storage的理解</strong></p>
+<p>pytorch一个强大的地方就是tensor数据的排列和存取方法，当你使用tensor进行存取时，storage就是一个很灵活的仓库</p>
+<p>你可以灵活地调整数据的维数，从而进行数据分析，而且还不会改变storage的分布，这确实是一个不错的创意</p>
+<h2 id="关于训练"><a href="#关于训练" class="headerlink" title="关于训练"></a>关于训练</h2><p>本书的第三章对text、image等多种数据究竟应该如何传入神经网络进行了一点说明，并进行了比较基础的操作，非常具有启发性</p>
+<p>本书的第四章首先展示了一个比较简单的线性回归网络的全部程序，并且使用了反向传播等操作：</p>
+<ul>
+<li>通过不断的演化展示了在torch中可以利用其包含的API实现loss的反向传播和params的自动优化</li>
+<li>关于params的grad优化问题，还对zero-grad和step等常用方法进行了一点介绍</li>
+</ul>
+<p>第四章的后半部分（4.2.2以后）这是对训练过程中的一些细节问题进行讨论</p>
+<p>包括<code>optimizer.zero_grad()</code>，<code>loss.backward()</code>，<code>optimizer.step()</code>以及autograd方法：</p>
+<p><code>params = torch.tensor([1.0, 0.0], requires_grad = True)</code></p>
+<p>参数在定义时就采用了requires_grad，那么就会自动开始autograd跟踪，使用backward时，就会将变量关于参数的导数进行自动计算了</p>
+<h2 id="一些技巧"><a href="#一些技巧" class="headerlink" title="一些技巧"></a>一些技巧</h2><p><strong>首先是认识到过拟合的发生</strong></p>
+<p>解决方法之一是把数据集分割一下，必须要保证在每个部分都具有良好的效果才能说明模型是正确的</p>
+<p>解决方法之二：如果你的training loss没有减小，很有可能是你的模型过于简单了</p>
+<p>还有一种可能：你的数据没有包含足够的能够解释输出的有效信息</p>
+<p>另一条原则：如果训练集loss和测试集loss出现了偏差，那就说明是过拟合了！</p>
+<p>总结就是：</p>
+<ul>
+<li>首先保证有足够的数据</li>
+<li>适合的模型<ul>
+<li>一种方法是增加惩罚机制从而方便地让模型更平滑、变化地更慢一点</li>
+<li>另一种方法是给输入数据增加噪声</li>
+</ul>
+</li>
+<li>最简单的方法可能是让你的模型简单一点（不用拟合所有的点，从它们中穿过就好了）</li>
+</ul>
+<p><strong>选择合适的模型大小size，或者说参数多少的方法：</strong></p>
+<ul>
+<li>首先增加size，直到能够拟合</li>
+<li>然后减小，直到不再过拟合</li>
+</ul>
+<h2 id="开启和关闭autograd"><a href="#开启和关闭autograd" class="headerlink" title="开启和关闭autograd"></a>开启和关闭autograd</h2><p><strong>节省计算和存储</strong></p>
+<p>其实测试集的计算根本不需要反向传播，也不需要计算导数</p>
+<p>但是测试集的计算过程和训练集是一致的，使用了相同的函数和模型</p>
+<p>那么为了节省导数计算和存储，可以使用<code>torch.no_grad</code>方法（训练的函数中使用的是<code>requires_grad</code>的方法，只要使用，意味就会对参数进行跟踪）</p>
+<p>也可以使用<code>torch.set_grad_enabled</code>方法，来达到启用（enable）和关闭（disable）autograd的目的</p>
+<h2 id="使用非线性激活函数"><a href="#使用非线性激活函数" class="headerlink" title="使用非线性激活函数"></a>使用非线性激活函数</h2><p>值得注意的是，<strong>权重 w</strong> 可以是一个数字或者是矩阵（matrix）【这样权重w就可以掌握整个一层layer的神经元neurons】</p>
+<p>而 <strong>输入 x</strong> 与<strong>偏置 b</strong> 必须相匹配，一般是一个数字或一个向量（vector）</p>
+<p>激活函数的一个功能是件输出聚焦到一个指定的范围上</p>
+<ol>
+<li><code>torch.nn.Hardtanh</code>激活函数</li>
+</ol>
+<p>小于0就全部为0，大于10就全部为10，类似这样的逻辑</p>
+<ol start="2">
+<li><p><code>torch.nn.sigmoid</code>激活函数</p>
+</li>
+<li><p><code>torch.tanh</code></p>
+</li>
+</ol>
+<p>这些激活函数，在x逐渐为负值时，渐进地接近0或者-1；而随着x上升，逐渐接近1，但是斜率会逐渐变小</p>
+<h2 id="使用nn-module搭建神经网络"><a href="#使用nn-module搭建神经网络" class="headerlink" title="使用nn module搭建神经网络"></a>使用nn module搭建神经网络</h2><p> 搭建<code>nn.Module</code>的子类，至少需要重新定义一个<code>.forward()</code>函数：</p>
+<p><code>.forward()</code>函数主要作用就是处理输入，变成输出</p>
+<p>所以通常来说，你的整个model会是<code>nn.Module</code>的一个子类，反过来，model也可嗯那个会包含其他的<code>nn.Module</code>的子类</p>
+<p>有三种方式实现相同的网络结构，并且使用的PyTorch功能越来越复杂</p>
+<ul>
+<li>第一种：<code>nn.Sequential</code></li>
+</ul>
+<h2 id="思维导图整理"><a href="#思维导图整理" class="headerlink" title="思维导图整理"></a>思维导图整理</h2><p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20201111104603544.png" alt="image-20201111104603544"></p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/Deep-Learning-with-PyTorch.png" alt="Deep-Learning-with-PyTorch"></p>
+<h2 id="推荐书目"><a href="#推荐书目" class="headerlink" title="推荐书目"></a>推荐书目</h2><ul>
+<li>Grokking Deep Learning, by Andrew W. Traska, is a great resource for developing<br>a strong mental model and intuition on the mechanism underlying deep neural networks.</li>
+<li>For a thorough introduction and reference to the field, we direct you to Deep<br>Learning, by Ian Goodfellow, Yoshua Bengio, and Aaron Courville.b【花书】</li>
+<li>Last but not least, the full version of this book is available in Early Access now, with an estimated print date in late 2019: <a target="_blank" rel="noopener" href="https://www.manning.com/books/deeplearning-with-pytorch">https://www.manning.com/books/deeplearning-with-pytorch</a>.</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/11/24/PyTorch%E5%AD%A6%E4%B9%A0%E7%AF%87-1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PyTorch/" rel="tag">PyTorch</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/11/25/PyTorch-%E5%AD%A6%E4%B9%A0%E7%AF%872/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            PyTorch-学习篇2
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/11/14/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%BD%93%E9%AA%8C/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">数据处理体验</div>
+      </a>
+    
+  </nav>
+
+  
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2022
+        <i class="ri-heart-fill heart_icon"></i> Sun Yue
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="悦"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/246643413">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about-me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

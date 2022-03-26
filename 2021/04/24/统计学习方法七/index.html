@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+  
+
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="思考，学习，生活" />
+       
+      <meta name="description" content="SJTU 研究僧" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>【统计学习方法】7-SVM支持向量机 |  悦</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="悦" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-统计学习方法七"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  【统计学习方法】7-SVM支持向量机
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/04/24/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%83/" class="article-date">
+  <time datetime="2021-04-24T02:08:14.000Z" itemprop="datePublished">2021-04-24</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">6 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><strong>一句话介绍</strong></p>
+<p>支持向量机是一种分类模型，求解能够正确划分训练数据集并且几何间隔最大的分离超平面。</p>
+<hr>
+<h1 id="0-支持向量"><a href="#0-支持向量" class="headerlink" title="0.支持向量"></a>0.支持向量</h1><p>要理解什么是支持向量（support vector），首先需要理解以下几个概念：</p>
+<p>如果我们有一堆数据（二维），在二维平面上分布如下图所示：</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20210424102729.jpg" alt="微信图片_20210424102729"></p>
+<p>我们可以用一条直线将这堆数据分成两个部分：</p>
+<p>【当这堆数据维数是<strong>3维</strong>，这条直线就成了<strong>平面</strong>；当数据<strong>维数更高</strong>，这条分隔线就成了<strong>超平面</strong>】以下统称超平面，数学表达为：</p>
+<p>$w^<em>\cdot x + b^</em>&#x3D;0$</p>
+<p>要说明的是，仅仅把这堆数据分离开，也许有无数个超平面可以做到；</p>
+<p>我们做一些规范，最大几何间隔的分离超平面，是唯一且存在的。</p>
+<p>很明显，分隔之后，有的点离这个超平面近，有的远，最近点到超平面的距离，称为<strong>间隔</strong>，这个最近的样本点的实例就被称为支持向量【本定义适用于线性可分情况下】。</p>
+<p>支持向量在确定分离超平面中起决定性作用（不移动支持向量，分离超平面就不会变化），所以把这种分类模型称为支持向量机。</p>
+<span id="more"></span>
+
+<p>相关重要概念：</p>
+<p><strong>类标记</strong>概念：可以理解为因变量，但是这个量更准确地说是观测值、实际值，而不是由函数计算出来的</p>
+<p><strong>函数间隔</strong>：该点的类标记和超平面函数值的乘积$\hat \gamma_i&#x3D;y_i(w\cdot x_i+b)$【表示分类预测的正确性和确信度】</p>
+<p><strong>几何间隔</strong>：规定$L||w||&#x3D;1$（L2范数）情况下的函数间隔$\gamma_i&#x3D;y_i(\frac{w}{||w||}\cdot x_i+\frac{b}{||w||})$【实例点到超平面的带符号的距离】</p>
+<p><strong>硬间隔最大化</strong>：线性可分的训练数据集——线性可分支持向量机</p>
+<p><strong>软间隔最大化</strong>：训练数据集近似线性可分——线性支持向量机</p>
+<h1 id="1-线性可分支持向量机"><a href="#1-线性可分支持向量机" class="headerlink" title="1.线性可分支持向量机"></a>1.线性可分支持向量机</h1><p>找<strong>最大间隔分离超平面</strong>：该超平面对训练数据集的几何间隔至少应大于某个值；</p>
+<p>凸优化问题 P116 与凸二次规划问题</p>
+<h2 id="最大间隔法"><a href="#最大间隔法" class="headerlink" title="最大间隔法"></a>最大间隔法</h2><p>in：可分训练数据集，x 和对应的类标记 y</p>
+<p>out：最大间隔分离超平面（参数 w 和 b），分类决策函数（$sign$函数）</p>
+<h3 id="间隔边界"><a href="#间隔边界" class="headerlink" title="间隔边界"></a>间隔边界</h3><p>与最大间隔分离超平面相平行的平面中，有两个超平面 H1 和 H2 之间没有任何实例点，这两个超平面就是间隔边界，中间的距离就是间隔。</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/IMG_20201117_105233.jpg" alt="IMG_20201117_105233"></p>
+<h3 id="线性可分支持向量机的对偶算法"><a href="#线性可分支持向量机的对偶算法" class="headerlink" title="线性可分支持向量机的对偶算法"></a>线性可分支持向量机的对偶算法</h3><p>使用拉格朗日乘子法进行问题的转化，注意我们的目标：要使间隔最大——也就是$||w||^2$尽可能小</p>
+<p>分类决策函数：$f(x)&#x3D;sign(\Sigma_{i&#x3D;1}^N\alpha_i^<em>y_i(x\cdot x_i)+b^</em>)$只依赖于输入x和训练样本输入的内积</p>
+<p>本方法中，将训练数据中对应于$\alpha^*_i&gt;0$的样本点称为支持向量【这里的是$\alpha_i$拉格朗日乘子】</p>
+<blockquote>
+<p>本方法核心思想是拉格朗日乘子法，在使用的过程中，将约束条件从几何间隔转化为了$\alpha_i$的约束</p>
+</blockquote>
+<h1 id="2-线性支持向量机"><a href="#2-线性支持向量机" class="headerlink" title="2.线性支持向量机"></a>2.线性支持向量机</h1><h2 id="训练样本线性不可分——软间隔最大化"><a href="#训练样本线性不可分——软间隔最大化" class="headerlink" title="训练样本线性不可分——软间隔最大化"></a>训练样本线性不可分——软间隔最大化</h2><p>其实主要是有少量的“特异点”（outlier），将这些点去除之后，剩下的样本就线性可分了。</p>
+<p>我们并不能直接去除这些特异点，但是可以放宽标准，增加一个松弛变量，一来放宽限制，二来在目标函数中进行惩罚，确保误分类的样本尽量少。</p>
+<blockquote>
+<p>线性支持向量机包含线性可分支持向量机</p>
+</blockquote>
+<p>如果假设此处的分离超平面是$w^<em>\cdot x+b^</em>&#x3D;0$，那么 w 的解是唯一的，但是 b 的解可能不唯一，而是存在一个区间</p>
+<p>下图表示软间隔的支持向量：</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/%E8%BD%AF%E9%97%B4%E9%9A%94%E7%9A%84%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F.jpg" alt="软间隔的支持向量"></p>
+<h2 id="合页损失函数"><a href="#合页损失函数" class="headerlink" title="合页损失函数"></a>合页损失函数</h2><p>在本问题中，还有一种以合页损失函数表示的目标函数：</p>
+<p>$\Sigma_{i&#x3D;1}^N[1-y_i(w\cdot x_i+b)]_++\lambda||w||^2$</p>
+<p>其中前半部分称为合页损失函数(hinge loss function)：$L(y(w\cdot x+b))&#x3D;[1-y(w\cdot x+b)]_+$</p>
+<p>其中$[z]_+&#x3D;\left { \begin{aligned} z , z&gt;0 \ 0, z \leq 0\end{aligned} \right.$</p>
+<p>该函数特性就是</p>
+<ul>
+<li>如果样本点被正确分类且函数间隔大于1，那么损失是0</li>
+<li>其他情况下，损失是$1-y_i(w\cdot x_i+b)$</li>
+</ul>
+<p>下图中：</p>
+<ul>
+<li>左侧水平线是 0-1损失 的一部分【真正的二类分类问题】</li>
+<li>虚线斜线是合页损失函数（不带1时）</li>
+<li>实现是完整的合页损失函数，只有当确信度足够高时，损失才是0，要求更高</li>
+</ul>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/%E5%90%88%E9%A1%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0.jpg" alt="合页损失函数"></p>
+<h1 id="3-非线性支持向量机与核函数"><a href="#3-非线性支持向量机与核函数" class="headerlink" title="3.非线性支持向量机与核函数"></a>3.非线性支持向量机与核函数</h1><p>非线性可分问题：如果能用一个超曲面将正负类正确分开，则称非线性可分问题</p>
+<p>求解思路：进行非线性变换，将非线性问题变换为线性问题然后进行求解</p>
+<h2 id="核技巧"><a href="#核技巧" class="headerlink" title="核技巧"></a>核技巧</h2><p>基本想法</p>
+<ul>
+<li>通过一个非线性变换将输入空间（欧式空间或者离散空间）对应于一个特征空间（希尔伯特空间）<br>使得输入空间中的超曲面模型对应于特征空间中的超平面模型</li>
+<li>在特征空间中求解线性支持向量机</li>
+</ul>
+<h2 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h2><p>从输入空间 X 到 特征空间 H 的映射关系为$\phi(x)$</p>
+<p>则输入空间中的两个量的核函数值应该是映射函数的内积$K(x,z)&#x3D;\phi(x)\cdot \phi(z)$，K 是核函数</p>
+<p>给定核函数，特征空间和映射关系的取法不唯一</p>
+<h2 id="非线性支持向量机"><a href="#非线性支持向量机" class="headerlink" title="非线性支持向量机"></a>非线性支持向量机</h2><p>只需要将线性支持向量机对偶形式中的内积换成核函数即可，当然实际计算过程过程麻烦了很多</p>
+<h1 id="4-序列最小最优化方法"><a href="#4-序列最小最优化方法" class="headerlink" title="4.序列最小最优化方法"></a>4.序列最小最优化方法</h1><p>支持向量机的学习问题可以转化为求解凸二次规划问题，但样本容量较大时，算法会变得低效；</p>
+<p>支持向量及的高效实现方法之一：<strong>序列最小最优化 SMO 算法</strong></p>
+<p>分两步：</p>
+<p>（1）选择变量的启发式方法，将原问题不断分解为子问题 </p>
+<p>（2）求解两个变量二次规划的解析方法</p>
+<p>直到所有变量满足KKT条件为止</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2021/04/24/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%83/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" rel="tag">统计学习方法</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/04/26/%E6%98%A5%E6%8B%9B-%E7%AC%94%E8%AF%95%E5%88%86%E4%BA%AB/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            春招-笔试分享
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/04/17/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%85%AD/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">【统计学习方法】6-回归和最大熵</div>
+      </a>
+    
+  </nav>
+
+  
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2022
+        <i class="ri-heart-fill heart_icon"></i> Sun Yue
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="悦"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/246643413">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about-me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

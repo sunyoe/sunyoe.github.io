@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+  
+
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="思考，学习，生活" />
+       
+      <meta name="description" content="SJTU 研究僧" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>OpenCV常用方法 |  悦</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="悦" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-OpenCV常用方法"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  OpenCV常用方法
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/09/26/OpenCV%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" class="article-date">
+  <time datetime="2020-09-26T01:36:27.000Z" itemprop="datePublished">2020-09-26</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Tools/">Tools</a> / <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89/">机器视觉</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">10 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>pip install opencv-python</p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41185868/article/details/79675875#%E5%AE%89%E8%A3%85OpenCV%E7%9A%84%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95">Py之cv2：cv2库(OpenCV，opencv-python)的简介、安装、使用方法(常见函数、方法等)最强详细攻略</a></p>
+</blockquote>
+<p>注意，基于pip安装，有多种方式，上面讲的opencv-python包含主要的modules，此外还有四个opencv的版本在pip可以获得：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://pypi.org/project/opencv-python/">opencv-python</a>包含opencv的主要modules</li>
+<li><a target="_blank" rel="noopener" href="https://pypi.org/project/opencv-contrib-python/">opencv-contrib-python</a> 包含opencv的主要modules以及contrib modules</li>
+<li><a target="_blank" rel="noopener" href="https://pypi.org/project/opencv-python-headless/">opencv-python-headless</a>: 和opencv-python相同，但是没有GUI功能</li>
+<li><a target="_blank" rel="noopener" href="https://pypi.org/project/opencv-contrib-python-headless/">opencv-contrib-python-headless</a>:与opencv-contrib-python相同，但是没有GUI功能。</li>
+</ul>
+<p>推荐在虚拟环境（conda环境）中安装第二种。</p>
+<span id="more"></span>
+
+<p>此外还有安装方式：</p>
+<p>【conda安装】</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conda install -c https://conda.anaconda.org/menpo opencv3 <span class="comment">#安装opencv3</span></span><br><span class="line"><span class="comment">#如果要安装opencv4将opencv3改成如下命令</span></span><br><span class="line">conda install -c https://conda.anaconda.org/menpo opencv <span class="comment">#安装最新版opencv4</span></span><br><span class="line"><span class="comment">#也可通过conda search -c https://conda.anaconda.org/menpo opencv*来搜索所有opencv版本</span></span><br></pre></td></tr></table></figure>
+
+<p>卸载：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda unstall opencv3 <span class="comment">#卸载opencv3</span></span><br><span class="line">conda deactivate <span class="comment">#退出虚拟环境</span></span><br><span class="line">conda remove -n vm --all <span class="comment">#删除虚拟环境conda unstall opencv3 #卸载opencv3</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011119817/article/details/100110495">【opencv】1.opencv安装之使用pip或conda安装opencv</a></p>
+</blockquote>
+<h2 id="图片相关"><a href="#图片相关" class="headerlink" title="图片相关"></a>图片相关</h2><p><code>cv2.imread()</code></p>
+<p>OpenCV定义了，图像的原点（0，0）在图片的左上角，横轴为X，朝右，纵轴为Y，朝下，如下图所示。</p>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200902213453711.png" alt="image-20200902213453711"></p>
+<p>需要注意的是，由于OpenCV的早期开发者习惯于使用BGR顺序的颜色模型，因此使用OpenCV的imread()读到的像素，每个像素的排列是按BGR，而不是常见的RGB，代码编写时需要注意。</p>
+<p><code>cv2.namedWindow(&#39;&#39;, cv2.WINDOW_KEEPRATIO)</code></p>
+<p>对视窗进行命名</p>
+<p><code>cv2.resizeWindow(&#39;&#39;, 0, 0)</code></p>
+<p>调整图像大小</p>
+<p><code>cv2.moveWindow(&#39;&#39;, 0, 0)</code></p>
+<p>移动视窗到合适的位置</p>
+<h4 id="图片缩放"><a href="#图片缩放" class="headerlink" title="图片缩放"></a>图片缩放</h4><p><code>cv2.resize(img, (int(y/2), int(x/2)))</code></p>
+<p>设置参数为图片的高和宽，定义后直接输出尺寸为宽和高</p>
+<p><code>cv2.resize(img, (0,0), fx=0.25, fy=0.25, interpolation=cv2.INTER_NEAREST)</code></p>
+<p>使用最近邻插值法缩放到原来图片的四分之一</p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wzhrsh/article/details/101630396">cv2.resize()</a></p>
+</blockquote>
+<h2 id="画图"><a href="#画图" class="headerlink" title="画图"></a>画图</h2><p>OpenCV的画图确实要比matplotlib.pyplot()高级一点</p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/skyli114/article/details/77508136">matplotlib画直线</a></p>
+</blockquote>
+<p>比如画直线等</p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011520181/article/details/83999786">Python 用 OpenCV 画直线 (3)</a></p>
+<p>该博客系列还有画点、圆、矩形、椭圆，写文字、显示图像等内容</p>
+</blockquote>
+<p><code>cv2.line(img, pt1, pt2, color[, thickness[, lineType[, shift]]])</code></p>
+<p>img：要画的圆所在的矩形或图像</p>
+<p>pt1：直线起点</p>
+<p>pt2：直线终点</p>
+<p>color：线条颜色</p>
+<p>thickness：线条宽度</p>
+<p>lineType：</p>
+<ul>
+<li>8：8-connected line</li>
+<li>4：4-connected line</li>
+<li>CV_AA：antialiased line</li>
+</ul>
+<p>shift：坐标点小数点位数</p>
+<p><code>cv2.polylines(img, pts, isClosed, color[, thickness[, lineType[, shift]]])</code></p>
+<ul>
+<li>img - 图片</li>
+<li>pts - 多边形顶点（这个该如何写，很有意思，可以用np.array定义变量，但是最后加入到函数中时，还需要再次使用[]将变量括起来）</li>
+<li>isClosed - 是否闭合线段</li>
+<li>color - 颜色</li>
+</ul>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://drivingc.com/p/5af8f4962392ec4f4727ccce">cv2.polylines()绘制多边形</a></p>
+</blockquote>
+<p><code>cv2.fillpoly()</code></p>
+<p>可以填充任意形状的图形</p>
+<p>一次可以填充多个图形</p>
+<p><code>cv2.fillConvexPoly()</code></p>
+<p>可以用来<strong>填充</strong>凸多边形，只需要提供凸多边形的顶点</p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u012135425/article/details/84983265">cv2.fillConvexPoly()与cv2.fillPoly()填充多边形</a></p>
+</blockquote>
+<h2 id="视频相关"><a href="#视频相关" class="headerlink" title="视频相关"></a>视频相关</h2><p><code>cv = cv2.VideoCapture(&#39;/dev/video10&#39;)</code></p>
+<p>表示打开摄像头</p>
+<p>如果括号里面是视频的文件名（也可以是绝对、相对路径），那么就会调用视频，但是需要注意视频位置需要和python脚本的位置在同一个文件夹中</p>
+<p><code>ret, frame = cv.read()</code></p>
+<p>按帧读取视频，有两个返回值:</p>
+<ul>
+<li><p>ret 是布尔值，如果读取帧正确，会返回true，如果读取到结尾，则返回false</p>
+</li>
+<li><p>frame 是每一帧的图像，是一个三维矩阵</p>
+</li>
+</ul>
+<p><code>cv2.waitKey()</code></p>
+<p>等待键盘输入</p>
+<p>参数：</p>
+<ul>
+<li>1：表示延时1ms切换到下一帧</li>
+<li>0，只显示当前帧，相当于暂停</li>
+<li>参数过大会因为延时较久而卡顿</li>
+</ul>
+<p><code>cv2.realse()</code></p>
+<p>释放摄像头</p>
+<p><code>cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)</code></p>
+<p>cvtColor函数用于在图像中不同的色彩空间进行转换，用于后续处理</p>
+<p>有RGB、HSV、HSI、LAB、YUV，彩色或者灰度图</p>
+<p>灰度图</p>
+<p><img src="https://pic3.zhimg.com/v2-ddeaaaeab138b73aedecf3e0fad56aba_r.jpg" alt="灰度图计算"></p>
+<p>位图模式（像素只有0或者1），</p>
+<p><code>cv2.imshow()</code></p>
+<p>将图片展示出来</p>
+<p><code>cv2.erode()</code>和<code>cv2.dilate()</code></p>
+<p>图像的形态学操作，腐蚀和膨胀</p>
+<ul>
+<li>腐蚀 erode &#x3D; 变瘦<ul>
+<li>使用腐蚀可以将图片中的一些毛刺或细小的东西去掉</li>
+<li>在原图中的每一个小区域里面取最小值，二值化图像，只要有一个点为0，则都为0</li>
+<li>参数<ul>
+<li>图像</li>
+<li>kernel</li>
+<li>iterations，该值越高，图像腐蚀程度越高，只能为整数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>膨胀 dilate &#x3D; 变胖<ul>
+<li>取得局部最大值</li>
+<li>参数<ul>
+<li>图像</li>
+<li>kernel</li>
+<li>iterations，该值越高，效果越明显，越胖</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200901161845805.png" alt="image-20200901161845805"></p>
+<p><code>cv2.destroyAllWindows()</code></p>
+<p>warp：经，经线</p>
+<p><code>cv2.warpAffine()</code></p>
+<p>仿射变换函数</p>
+<p>可以实现旋转、平移、缩放</p>
+<p>变换后的平行线依然是平行的</p>
+<p>其变换矩阵至少需要获取三组变换前后对应的点坐标，实现变换</p>
+<p><code>cv2.warpPerspective(src, M, dsize, dst=None, flags=None, borderMode=None， borderValu=None)</code></p>
+<p>&#x3D;&#x3D;透视变换函数&#x3D;&#x3D;</p>
+<p><strong>可以保持直线不变性，但是平行线可能不再平行</strong></p>
+<p>参数：</p>
+<ul>
+<li>src，输入图像</li>
+<li>dst，输出图像</li>
+<li><strong>M：2x3的变换矩阵</strong></li>
+<li>dsize：<strong>变换后输出图像尺寸</strong></li>
+<li>flag：插值方法,<code>cv2.INTER_LINEAR</code>是默认的插值方法，可以调整输入图像的大小；cv2.INTER_AREA 表示收缩，缩小尺寸；如果是放大建议使用cv2.INTER_CUBIC和cv2.INTER_LINEAR</li>
+<li>borderMode：边界像素外扩方式</li>
+<li>borderValue：边界像素插值，默认为0</li>
+</ul>
+<p>其**&#x3D;&#x3D;变换矩阵M&#x3D;&#x3D;<strong>至少需要</strong>四组**变换前后对应的点坐标</p>
+<p>其变换矩阵可以通过<code>cv2.getPerspectiveTransform()</code>函数获得</p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u012114438/article/details/102613492">python的cv2.warpAffine()和cv2.warpPerspective()解析对比</a></p>
+<p>其变换矩阵也可以通过<code>cv2.getRotationMatrix2D(center, angle, scale)</code>函数先获得旋转缩放变换，然后再通过<code>cv2.warpAffine()</code>函数对图像进行旋转缩放变换</p>
+<p>center：旋转中心坐标</p>
+<p>angle：旋转角度</p>
+<p>scale：缩放尺度</p>
+</blockquote>
+<p>仿射变换——affine transformation</p>
+<p>包括平移translation、旋转rotation、放缩isotropic uniform scaling、剪切、反射reflection</p>
+<p>欧式变换：euclidean transformation  刚体变换 rigid transformation，包括平移和旋转</p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/shine-lee/p/10950963.html">仿射变换及其变换矩阵的理解</a></p>
+</blockquote>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><p><code>cv2.split()</code> 拆分（通道分离）</p>
+<p><code>cv2.merge()</code>合并（通道合并）</p>
+<h3 id="霍夫检测"><a href="#霍夫检测" class="headerlink" title="霍夫检测"></a>霍夫检测</h3><p><code>cv2.HoughLines()</code> —— 标准</p>
+<ul>
+<li>dst：输出图像，二值化图像</li>
+<li><strong>lines：存储着检测到的直线的参数对</strong>，该参数似乎不是必须的</li>
+<li>rho：参数极径 r 以像素值为单位的分辨率，一般是1</li>
+<li>theta：参数极角 \theta 以弧度为单位的分辨率，我们使用 1度（<code>CV_PI/180</code>）</li>
+<li>threshold：阈值，一条直线所需的最少的曲线交点</li>
+<li>srn and stn：默认为0</li>
+</ul>
+<p><code>cv2.HoughLinesp(image, rho, theta, threshold[, lines[, minLineLength[, maxlineGap]]])</code> —— 基于统计</p>
+<ul>
+<li>image 输入图像，必须是二值图像，推荐使用canny边缘检测的结果图像</li>
+<li>rho累加器的距离分辨率，以像素为单位（参数极径 r）</li>
+<li>theta：累加器的角度分辨率，以弧度标识（参数极角 $\theta$）</li>
+<li>threshold：累加器阈值，int，超过设定阈值才被检测为线段</li>
+<li><strong>lines：储存着检测到的直线参数对的容器（这里存储的是起始终止点坐标【但是似乎并不会读取，在很多使用中甚至没有出现在参数列表中】）</strong>， 该参数 非必须</li>
+<li>minLineLength：检测线段的最小长度</li>
+<li>maxLineGap：同一方向上，两条线段判断定一条线段的最大允许间隔，超多了设定值，则把两条线段当成一条线段，值越大，允许线段上的断裂越大，越有可能检出潜在的直线</li>
+</ul>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wsp_1138886114/article/details/82936218">OpenCV-Python 霍夫变换 检测直线，圆形</a></p>
+<p>应用案例：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/15e3f9d8c121">简易车道线识别（图像与计算机视觉）</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HoughLinesP</span>():</span></span><br><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">     <span class="comment"># 霍夫</span></span><br><span class="line">     self.rho = <span class="number">1</span>  <span class="comment"># distance resolution in pixels of the Hough grid</span></span><br><span class="line">     self.theta = np.pi / <span class="number">180</span>  <span class="comment"># angular resolution in radians of the Hough grid</span></span><br><span class="line">     self.threshold = <span class="number">30</span>  <span class="comment"># minimum number of votes (intersections in Hough grid cell)</span></span><br><span class="line">     self.min_line_length = <span class="number">30</span>  <span class="comment"># minimum number of pixels making up a line</span></span><br><span class="line">     self.max_line_gap = <span class="number">30</span>  <span class="comment"># maximum gap in pixels between connectable line segments</span></span><br><span class="line">     <span class="comment"># line_image = np.copy(image)*0 # creating a blank to draw lines on</span></span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">houghlinesP</span>(<span class="params">self, img</span>):</span></span><br><span class="line">     <span class="comment"># return (n,4)</span></span><br><span class="line">     <span class="keyword">try</span>:</span><br><span class="line">         <span class="keyword">return</span> cv2.HoughLinesP(img, self.rho, self.theta, self.threshold, np.array([]), self.min_line_length, self.max_line_gap)[:, <span class="number">0</span>, :]</span><br><span class="line">     <span class="keyword">except</span> TypeError:</span><br><span class="line">         <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<p>从多个使用来看，输出结果似乎是直线的起点和终点，但又好像是直线的斜率和截距</p>
+</blockquote>
+<h3 id="滤波"><a href="#滤波" class="headerlink" title="滤波"></a>滤波</h3><p>阈值与平滑的实现</p>
+<p><code>cv2.blur(img, (3, 3))</code>均值滤波</p>
+<p>(3, 3) 是均值滤波的方框的大小</p>
+<p><code>cv2.boxfilter(img, -1, (3, 3), normalize=True)</code>方框滤波</p>
+<p>normalize&#x3D;True时，结果与均值滤波结果相同</p>
+<p>False，表示对加和后的结果不进行平均操作，大于255的使用255表示</p>
+<p><code>cv2.Guassiannblur(img, (3, 3), 1)</code>高斯滤波</p>
+<p>1表示$\sigma$，x表示与当前值 的距离，计算出的G(x)表示权重值</p>
+<p><code>cv2.medianBlur(img, 3)</code>中值滤波</p>
+<p>3表示当前的方框尺寸</p>
+<p>该函数用于将9个值进行排序，取中值作为当前值</p>
+<h4 id="平滑边缘锯齿-——-中值滤波"><a href="#平滑边缘锯齿-——-中值滤波" class="headerlink" title="平滑边缘锯齿 —— 中值滤波"></a>平滑边缘锯齿 —— 中值滤波</h4><p>两种滤波：中值滤波、高斯滤波</p>
+<p>平滑边缘锯齿</p>
+<p>主要步骤：找出轮廓，对轮廓进行处理</p>
+<p><code>cv2.medianBlur()</code></p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/my-love-is-python/p/10391923.html">机器学习进阶-阈值与平滑-图像平滑操作(去噪操作) </a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_16949707/article/details/70340090">3 opencv平滑边缘锯齿代码</a></p>
+</blockquote>
+<h2 id="CV-bridge"><a href="#CV-bridge" class="headerlink" title="CV_bridge"></a>CV_bridge</h2><p>和ROS相关的OpenCV使用</p>
+<h2 id="车道线识别"><a href="#车道线识别" class="headerlink" title="车道线识别"></a>车道线识别</h2><blockquote>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gavinmiaoc/article/details/88786229">无人驾驶之车道线检测（一）</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/52623916">无人驾驶技术入门（十四）| 初识图像之初级车道线检测</a></p>
+</blockquote>
+<h3 id="关于图片中的车道识别"><a href="#关于图片中的车道识别" class="headerlink" title="关于图片中的车道识别"></a>关于图片中的车道识别</h3><p>（1）可以首先进行灰度处理</p>
+<p>（2）然后进行边缘提取，突出车道线</p>
+<ul>
+<li>方法：Canny算法和Sobel算法</li>
+</ul>
+<p>（3）感兴趣区域选择（Region of Interest）</p>
+<ul>
+<li>截取</li>
+<li>似乎直接选择了一个三角形区域</li>
+</ul>
+<p><img src="https://typoraim.oss-cn-shanghai.aliyuncs.com/image/image-20200902214326070.png" alt="image-20200902214326070"></p>
+<p>（4）经典霍夫变换，将左右车道线从复杂的图像中提取出来</p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yuyuntan/article/details/80141392">经典霍夫变换</a></p>
+</blockquote>
+<p>图像中使用霍夫变换</p>
+<ul>
+<li><p>识别直线；<code>cv2.HoughLines()</code>，可以检测不同长度的线段</p>
+</li>
+<li><p>还可以识别圆、椭圆等图形</p>
+</li>
+</ul>
+<p>（5）数据后处理</p>
+<p>计算左右车道线的直线方程</p>
+<ul>
+<li>根据每个线段在图像坐标系下的斜率，判断为左车道线还是优车道线</li>
+<li>最小二乘拟合</li>
+</ul>
+<p>计算左右车道线的上下边界</p>
+<ul>
+<li>现实世界中左右车道线平行 &#x3D;》 认为左右车道线<strong>最上和最下的点</strong>对应的y值，就是左右车道线的边界</li>
+</ul>
+<p>（6）处理视频</p>
+<p>也就是把视频变成一帧帧图像，然后进行处理</p>
+<blockquote>
+<p>参考：[无人驾驶技术入门（十五）| 再识图像之高级车道线检测](</p>
+</blockquote>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/09/26/OpenCV%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCV/" rel="tag">OpenCV</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6/" rel="tag">华为云无人车</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/09/27/%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%97%A0%E4%BA%BA%E8%BD%A6%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0%E4%B8%80/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            华为云无人车参赛笔记一
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/09/03/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%80/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">LeetCode刷题笔记（一）</div>
+      </a>
+    
+  </nav>
+
+  
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2022
+        <i class="ri-heart-fill heart_icon"></i> Sun Yue
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="悦"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/246643413">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about-me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

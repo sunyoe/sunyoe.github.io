@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+  
+
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="思考，学习，生活" />
+       
+      <meta name="description" content="SJTU 研究僧" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>LeetCode刷题笔记（七） |  悦</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="悦" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-LeetCode刷题笔记七"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  LeetCode刷题笔记（七）
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/03/29/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%83/" class="article-date">
+  <time datetime="2021-03-29T08:46:05.000Z" itemprop="datePublished">2021-03-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">5.3k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">20 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id=""><a href="#" class="headerlink" title=""></a><!-- 链表 --></h1><h2 id="206-反转链表"><a href="#206-反转链表" class="headerlink" title="206. 反转链表"></a>206. 反转链表</h2><p>这个题其实已经做过多次了，这次总结一下：</p>
+<p>题目要求：给出一个链表的头节点，请反转整个链表，并且返回反转后的链表的头节点。</p>
+<p>这个题用递归的方法简直是非常之妙，而且十分经典。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val=<span class="number">0</span>, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.val = val</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverse</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNone:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> head <span class="keyword">or</span> <span class="keyword">not</span> head.<span class="built_in">next</span>: <span class="keyword">return</span> head</span><br><span class="line">        last = self.reverse(head.<span class="built_in">next</span>)</span><br><span class="line">        head.<span class="built_in">next</span>.<span class="built_in">next</span> = head</span><br><span class="line">        head.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">return</span> last</span><br></pre></td></tr></table></figure>
+
+<p>这个做法简直非常精妙，充分体现了递归方法中的关键：</p>
+<p>1）找一个最简问题，解决它</p>
+<p>2）充分理解并相信函数能解决你的问题</p>
+<span id="more"></span>
+
+<h2 id="92-反转链表-II"><a href="#92-反转链表-II" class="headerlink" title="92. 反转链表 II"></a>92. 反转链表 II</h2><p>这道题要求的是 反转链表中的某一部分</p>
+<p>比如给出 head，left，right，请反转从 left 到 right 的部分</p>
+<p><img src="https://assets.leetcode.com/uploads/2021/02/19/rev2ex2.jpg" alt="img"></p>
+<p>根据前面做过的反转链表，这里的思路大概有两种：</p>
+<ol>
+<li>先反转 left 到 末尾，再反转 right 到末尾；但是这种方法仔细一想就是不可能的，因为第一次反转之后，末尾的元素到前面来了，要想再把它们翻转回去是不可能的。</li>
+<li>只翻转 left 到 right 的部分，然后再拼接起来。</li>
+</ol>
+<p>第2种方法是可行的，但是需要考虑的问题有：</p>
+<ol>
+<li>要记录 left 的前一个节点 pre</li>
+<li>要记录 right 的后一个节点 succ（successor）</li>
+<li>pre 的 next 指向反转后的头节点</li>
+<li>反转后的尾节点的 next 指向 succ</li>
+</ol>
+<p>可见是一个比较复杂的问题，应该怎么处理呢</p>
+<hr>
+<h3 id="官方题解"><a href="#官方题解" class="headerlink" title="官方题解"></a>官方题解</h3><p>分为7个步骤：</p>
+<p>1）在头节点前添加哑节点防止头节点变化，哑节点不能动</p>
+<p>2）创建一个移动节点寻找左节点的上一个节点，其实也就找到了左节点</p>
+<p>3）再创建一个移动节点到右节点，其实也就找到了右节点的下一个节点</p>
+<p>4）截断中间部分</p>
+<p>5）反转中间部分（用一个无返回值的函数进行操作）</p>
+<p>6）重接中间部分</p>
+<p>7）返回哑节点的下一个节点</p>
+<blockquote>
+<p>我的题解：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list-ii/solution/guan-fang-jie-fa-pythonfu-xian-by-yue-wo-kebj/">官方解法-python复现</a></p>
+</blockquote>
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a><!-- 单调栈、哨兵 --></h1><h2 id="84-柱状图中的最大的矩形"><a href="#84-柱状图中的最大的矩形" class="headerlink" title="84. 柱状图中的最大的矩形"></a>84. 柱状图中的最大的矩形</h2><p>问题描述：</p>
+<p>给出一个柱形图（数组），数组中的元素表示柱的高度，现在需要在柱形图中找出一个能画出的最大的矩形，比如：</p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram_area.png" alt="img"></p>
+<hr>
+<p>先从暴力解法——枚举开始。</p>
+<p>（1）枚举宽度【左右边界】</p>
+<ol>
+<li>左边界从0开始遍历</li>
+<li>右边界从左边界开始遍历</li>
+<li>高度取从左边界到右边界区间最矮高度</li>
+<li>计算面积，记录最大面积</li>
+</ol>
+<p>这样一看，这个题的暴力方法其实也是很规矩的。</p>
+<p>缺点是：时间复杂度在 O(N^2)，因为有循环套循环，而且占用内存也不小。</p>
+<p>（2）枚举高度</p>
+<p>这种方法的思想是先找定一个高度点，然后左右扩展确定边界【边界的特征是两边的高度将小于边界的高度】，最后计算出面积。</p>
+<p>也就是扩展左右的柱子，高度均不能小于 h。</p>
+<p>这个方法其实就是在找能够覆盖第 i 个柱子的最大矩形，可以参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Zolewit/article/details/88863970">84. 柱状图中最大的矩形&#x2F;C++</a></p>
+<hr>
+<p>题目有一些特点：</p>
+<ol>
+<li><p>借鉴枚举高度的方法，我们应该找到左右两侧 最近的 高度小于 h 的柱子。</p>
+</li>
+<li><p>一个结论和思想：</p>
+<ol>
+<li>如果两根柱子：<code>j0 &lt; j1</code>，<code>height[j0]&gt;height[j1]</code></li>
+<li>那么对于 <code>j1</code> 之后的柱子，<code>j0</code>一定不是 最近的 小于 柱子高度的柱子。【至于高度大于它的，其实不重要】</li>
+</ol>
+</li>
+</ol>
+<p>第一个特点说明，我们要找的就是比当前柱子小的最近的柱子，包括左边和右边；</p>
+<p>第二个特点说明，当我们找到这个最近的之后，远处的其实不重要了，比这个高的也不重要了【就可以删除了】</p>
+<p>所以使用了 单调栈这样一个思路去求解这个问题</p>
+<hr>
+<p>使用单调栈：</p>
+<p>我个人觉得这篇题解讲的很好：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/solution/bao-li-jie-fa-zhan-by-liweiwei1419/">暴力解法、栈（单调栈、哨兵技巧）</a></p>
+<p>它讲明白了一件事情，就是栈顶元素删除之前做了什么：</p>
+<ul>
+<li>其实直到我们找到一个比较短的柱子时，我们才知道以上一个值为高度的矩形到这里结束了，一个面积就求出来了</li>
+<li>然后后面的高度就会以现在这个短的为基准了</li>
+</ul>
+<p>总结一下，我们是怎么确定一个柱形的面积的：</p>
+<ul>
+<li>我们记录了下标，下标对应的高度</li>
+<li>当我们发现这个下标比上一个下标矮的时候，好了，说明上一个下标对应的高度的矩形到头了，可以计算了</li>
+<li>而上一个下标对应的高度的矩形，其实还要找一下左边界，什么时候左边界也比它小了，这个区间找到了，这个高度的矩形面积可以算了，这个高度就完全结束了</li>
+</ul>
+<p>上面说的这个过程可能需要 进行多次，直到左边没有高度 小于 当前的高度了</p>
+<p>这个过程中，缓存数据是从左往右的，计算结果是从右往左的，所以就是后进的先出，这样的数据结构就是栈</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">largestRectangleArea</span>(<span class="params">self, heights: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        <span class="comment"># 先求一下总长度</span></span><br><span class="line">        n = <span class="built_in">len</span>(heights)</span><br><span class="line">        <span class="comment"># 这是结果，记录面积</span></span><br><span class="line">        area = <span class="number">0</span></span><br><span class="line">        <span class="comment"># 这个栈用来做单调栈，栈是用来记位置的，而不是记高度的</span></span><br><span class="line">        stack = []</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 对数组一次遍历</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            <span class="comment"># 遇到了下降的情况，开始出栈和计算了</span></span><br><span class="line">            <span class="keyword">while</span> <span class="built_in">len</span>(stack) &gt; <span class="number">0</span> <span class="keyword">and</span> heights[i] &lt; heights[stack[-<span class="number">1</span>]]:</span><br><span class="line">                <span class="comment"># 出栈，要计算面积了</span></span><br><span class="line">                cur_height = heights[stack.pop()]</span><br><span class="line">                </span><br><span class="line">                <span class="comment"># 这个是？保证绝对单调吗？</span></span><br><span class="line">                <span class="keyword">while</span> <span class="built_in">len</span>(stack) &gt; <span class="number">0</span> <span class="keyword">and</span> cur_height == heights[stack[-<span class="number">1</span>]]:</span><br><span class="line">                    stack.pop()</span><br><span class="line">            </span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(stack) &gt; <span class="number">0</span>:</span><br><span class="line">                    <span class="comment"># 栈没有空，那么左右边界求一下</span></span><br><span class="line">                    cur_width = i - stack[-<span class="number">1</span>] - <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="comment"># 栈空了，那就是全长</span></span><br><span class="line">                    cur_width = i</span><br><span class="line">                <span class="comment"># 计算面积</span></span><br><span class="line">                area = <span class="built_in">max</span>(area, cur_height * cur_width)</span><br><span class="line">            <span class="comment"># 这是新的高度（可能是更高的，也可能是栈操作了一遍之后新加的高度）</span></span><br><span class="line">            stack.append(i)</span><br><span class="line">            </span><br><span class="line">        <span class="comment"># 数组遍历结束了，但是栈可能还没有清空</span></span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(stack) &gt; <span class="number">0</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            cur_height = heights[stack.pop()]</span><br><span class="line">            <span class="keyword">while</span> <span class="built_in">len</span>(stack) &gt; <span class="number">0</span> <span class="keyword">and</span> cur_height == heights[stack[-<span class="number">1</span>]]:</span><br><span class="line">                stack.pop()</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(stack) &gt; <span class="number">0</span>:</span><br><span class="line">                <span class="comment"># 因为数组已经遍历结束了，这里留下来的高度就是从记录位置到尾部的了</span></span><br><span class="line">                cur_width = n - stack[-<span class="number">1</span>] - <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur_width = n</span><br><span class="line">            area = <span class="built_in">max</span>(area, cur_height * cur_width)</span><br><span class="line">            </span><br><span class="line">       	<span class="keyword">return</span> area </span><br></pre></td></tr></table></figure>
+
+<p>上面这种方法做了分类讨论：</p>
+<ul>
+<li>弹栈的时候，栈有可能是空的</li>
+<li>遍历完成后，栈里还有元素</li>
+</ul>
+<p>解决方法：【<strong>哨兵方法</strong>】Sentinel</p>
+<ul>
+<li>数组两端加上两个 0：只要比 1 严格小就可以了<ul>
+<li>左边的哨兵一定比数组中所有元素都小，绝对不会出栈</li>
+<li>右边的哨兵一定比数组中所有元素都小，会让所有元素都出栈（除了左边的哨兵）</li>
+</ul>
+</li>
+<li>这样就可以不用分类讨论了</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">largestRectangleArea</span>(<span class="params">self, heights: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        n = <span class="built_in">len</span>(heights)</span><br><span class="line">        area = <span class="number">0</span></span><br><span class="line">        heights = [<span class="number">0</span>] + heights + [<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 先向栈中放入哨兵</span></span><br><span class="line">        stack = [<span class="number">0</span>]</span><br><span class="line">        n += <span class="number">2</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n):</span><br><span class="line">            <span class="keyword">while</span> heights[i] &lt; heights[stack[-<span class="number">1</span>]]:</span><br><span class="line">                cur_height = heights[stack.pop()]</span><br><span class="line">                cur_width = i - stack[-<span class="number">1</span>] -<span class="number">1</span></span><br><span class="line">                area = <span class="built_in">max</span>(area, cur_height * cur_width)</span><br><span class="line">            <span class="comment"># 下面这一句为什么是在 while循环外的？</span></span><br><span class="line">            <span class="comment"># 这个地方不要担心 i 不满足要求，因为如果不满足要求，过不了上面的while循环</span></span><br><span class="line">            stack.append(i)</span><br><span class="line">        <span class="keyword">return</span> area</span><br></pre></td></tr></table></figure>
+
+<p>居然一下子简洁了这么多，哨兵的作用真的很厉害</p>
+<blockquote>
+<p>python 实现栈的方法其实就是 list，栈顶就是 list 尾部</p>
+</blockquote>
+<blockquote>
+<p>我想起有一个<strong>收集雨水</strong>的问题，其实有一定的联系，都是单调栈的问题</p>
+<p>单调栈问题：739、469、42</p>
+</blockquote>
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a><!-- 哈希表 --></h1><h2 id="1603-设计停车系统"><a href="#1603-设计停车系统" class="headerlink" title="1603. 设计停车系统"></a>1603. 设计停车系统</h2><p>题目描述：</p>
+<ol>
+<li>告诉了三种车位的数量：大、中、小车位各有几个</li>
+<li>然后告诉车的类型：大、中、小车辆</li>
+</ol>
+<p>最后，问每辆车是不是有位置停，返回布尔值</p>
+<p>而且这个问题就是先到先得，车位满了后面的就是 false</p>
+<p>最简单的想法，直接3个 if 进行判断</p>
+<p>稍微好一点的方法，可以使用一个哈希表进行3种车位的存储，这样搜索起来也比较快：内存消耗少了一点点，用时居然还是很高</p>
+<h2 id="20-有效的括号"><a href="#20-有效的括号" class="headerlink" title="20. 有效的括号"></a>20. 有效的括号</h2><p>描述：</p>
+<p>数学中，括号是成对出现的，而且括号应该是 由内向外完整嵌套的，比如：</p>
+<p><code>&#123;[()]&#125;</code> 就是有效的</p>
+<p><code>&#123;[&#125;])</code> 方括号位置不对，圆括号少了一半就是无效的</p>
+<p>现在就是给一个全是括号的字符串，检测是不是有效的</p>
+<hr>
+<p>这个题曾经看过了题解，记下了一个重要的方法：哈希表</p>
+<p>用 左括号 做 key，右括号 做value</p>
+<p>我自己想出以下步骤：</p>
+<ol>
+<li>遍历字符串<ol>
+<li>如果是左括号<ol>
+<li>新建一个 need 列表存储 需要的右括号</li>
+</ol>
+</li>
+<li>如果是右括号，看是不是 need 中最后一个（最新需要的）右括号<ol>
+<li>如果是，need 中最新的右括号扔掉【其实就是栈啊】</li>
+<li>如果不是，直接 False</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>最后看 need 是不是空的<ol>
+<li>如果是，返回 True</li>
+<li>如果不是，返回 False</li>
+</ol>
+</li>
+</ol>
+<p>其中几个细节点：</p>
+<ol>
+<li>怎么样检查是不是左括号？<ol>
+<li>方法一，需要一个左括号的列表</li>
+<li>方法二，检查 括号是不是字典的一个 key：<code>if xxx in dict.keys():</code></li>
+</ol>
+</li>
+</ol>
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a><!-- Hot 100 问题 --></h1><h2 id="5-最长回文子串问题"><a href="#5-最长回文子串问题" class="headerlink" title="5. 最长回文子串问题"></a>5. 最长回文子串问题</h2><p>问题描述：</p>
+<p>给一个字符串，请返回该字符串中最长的回文子串（串，应该是连续的）</p>
+<hr>
+<p>首先想到暴力解法：</p>
+<p>枚举所有可能的字符串（的左右两边）</p>
+<p>然后判断这个子串是不是回文的，并记录最长的回文子串</p>
+<p>我的写法超时了，最大问题在于怎么判断是不是回文的，如果对于每一个可疑的子串都采用<code>双指针</code>的方法进行判断，那么肯定会超时，所以才需要用算法</p>
+<hr>
+<p>方法一：动态规划</p>
+<p>从大的角度讲，枚举所有可能的子串是必要的，这个复杂度可能少不了</p>
+<p>但是</p>
+<ol>
+<li>判断回文串的方法可以采用动态规划方法，如果 <code>[i+1, j-1]</code> 的子串是回文串，那么<code>[i, j] 且 s[i]==s[j]</code>的子串就是一个回文串，这样的判断方法比每一次都用双指针要好得多；</li>
+<li>怎么样知道 <code>[i+1, j-1]</code> 的子串是不是回文串呢，这里就需要记录一定的信息了，怎么样既能记录开头，也能记录结尾，还能记录是不是回文串呢？<code>二维数组</code></li>
+</ol>
+<p>注意两种情况：</p>
+<ol>
+<li><code>[i, i]</code> 一定是回文的</li>
+<li><code>[i, i+1]</code> 是不是回文的，要看 <code>s[i]</code> 和 <code>s[i+1]</code> 是不是相等</li>
+</ol>
+<p>官方解答中使用的遍历方法是按照 子串长度 和 起始位置 进行枚举，这种方法确实可以实现枚举，而且优点是对同一个长度的子串，可以使用一个简单的判断条件进行排除</p>
+<hr>
+<p>方法二：中心扩展</p>
+<p>这个方法很有意思</p>
+<p>回文串有两种：奇数形和偶数形</p>
+<p>奇数形的中心应该是 <code>s[i] == s[i]</code></p>
+<p>偶数形的中心应该是 <code>s[i] == s[i+1]</code></p>
+<p>然后所有的回文串都是有这样的中心的，并且应该根据这个中心向两边进行扩展，所以我们的步骤就是：</p>
+<ol>
+<li>枚举中心，并检查奇数形和偶数形两种可能</li>
+<li>向两边进行扩展，直到出现不对称的情况</li>
+<li>返回最长长度</li>
+</ol>
+<p>这个方法其实时间复杂度还是 <code>O(n^2)</code>，因为少不了要向两边进行扩展</p>
+<p>但是这个思路可能比较清晰</p>
+<hr>
+<p>细节一：原字符串长度为1</p>
+<p>按照第二个思路进行尝试，部分错误，案例为：<code>a</code> ，结果输出为空</p>
+<p>问题还是没有对一个字母，或者一个数字的情况做很好的处理</p>
+<p>我的错误方法是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="built_in">len</span>(s)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    ...</span><br><span class="line">    ans = s[elft, right]</span><br><span class="line"><span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<p>这样导致一个问题就是，如果 n &#x3D; 1，那么会直接跳过循环遍历，直接把空的 ans 导出了</p>
+<p>官方的方法是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">start, end = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">    修改 start, end 的值</span><br><span class="line"><span class="keyword">return</span> s[start: end+<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<p>其实主要还是最后一句的功劳，就是把0，0的情况也考虑在内了</p>
+<p>可以对我的方法进行一点点修改，保证不是空的就可以了</p>
+<p><code>return s[0] if not ans else ans</code></p>
+<p>细节二：索引相减 和 字符串长度不一定相等</p>
+<p> <code>right - left</code> 和 <code>len()</code> 不是相等的，差了1</p>
+<p>所以应该要 <code>right-left == len(ans)-1</code></p>
+<p>但是如果要更新 <code>ans</code> 结果子串的时候，又应该是 <code>ans = s[left:right+1]</code>以免 right 字符没有加入到子串当中</p>
+<h2 id="10-正则表达式匹配"><a href="#10-正则表达式匹配" class="headerlink" title="10. 正则表达式匹配"></a>10. 正则表达式匹配</h2><p>输入：</p>
+<p>两个字符串，s - 要匹配的字符串，p-正则表达式</p>
+<p>正则表达式中会有三种值：</p>
+<ul>
+<li>字母，直接匹配，必须相等</li>
+<li><code>.</code> 匹配任意一个单个字符</li>
+<li><code>*</code> 匹配任意个前面的一个元素</li>
+</ul>
+<p>需要返回的是，是否能够进行匹配</p>
+<hr>
+<p>这个题的关键难点在 <code>.*</code> 表示可以匹配任意多个任意字符</p>
+<p>如果正则表达式中这两个后面还有字符呢，那就会非常棘手</p>
+<p>这类问题之前其实也有，就是有多种可能性的问题 —— 动态规划</p>
+<hr>
+<p>这道题做动态规划，最难的一点是怎么样把问题思考全面，还有就是初始化非常容易出错</p>
+<p>动态规划思路：</p>
+<ol>
+<li><code>p[j] == s[i]</code> ，最方便，<code>dp[i][j] = dp[i-1][j-1]</code></li>
+<li><code>p[j] == &#39;.&#39;</code>，也还可以，<code>dp[i][j] = dp[i-1][j-1]</code></li>
+<li><code>p[j] == &#39;*&#39;</code>，比较麻烦，需要分两种情况<ol>
+<li><code>p[j-1] != s[i]</code>，那么就是说 <code>*</code> 前面的字母也不匹配，那么直接<code>dp[i][j] = dp[i][j-2]</code></li>
+<li><code>p[j-1] == &#39;.&#39;</code>或<code>p[j-1] == s[i]</code>，那么就要考虑匹配多少的问题呢，有两种情况，匹配了很多，或者一个都没有匹配&#x3D;&#x3D;【这里给出了一个很好的例子，比如 “###b”和“###b*”】&#x3D;&#x3D;<ol>
+<li>匹配了很多 <code>dp[i][j] = dp[i-1][j]</code></li>
+<li>一个都没有匹配 <code>dp[i][j] = dp[i][j-2]</code></li>
+<li>以上两种情况，只要出现一种就可以了，所以是 or 的关系</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>初始化问题：</p>
+<ol>
+<li>如果全部初始化为 False，那么不管怎么变，最后都是 False，所以一定要有Ture，但是又不能直接判断出某一个是True，所以方法有在 s 和 p 前面都加一个空格，然后定义第一个 <code>dp[0][0]=True</code></li>
+<li><code>dp</code>矩阵是个二维矩阵，到底需要多大？而且它的索引又会和<code>s</code>和<code>p</code>的索引相关</li>
+<li>如果 <code>p</code> 字符串并不能覆盖 <code>s</code>字符串呢？</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isMatch</span>(<span class="params">self, s: <span class="built_in">str</span>, p: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        m = <span class="built_in">len</span>(s)</span><br><span class="line">        n = <span class="built_in">len</span>(p)</span><br><span class="line">        dp = [[<span class="literal">False</span>] * (n+<span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(m+<span class="number">1</span>)]</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">True</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> p[j-<span class="number">1</span>] ==<span class="string">&#x27;*&#x27;</span>: dp[<span class="number">0</span>][j] = dp[<span class="number">0</span>][j-<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># i 指针，在 s 上滑动</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, m+<span class="number">1</span>):</span><br><span class="line">            r = i - <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n+<span class="number">1</span>):</span><br><span class="line">                c = j - <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> p[c] == s[r] <span class="keyword">or</span> p[c] == <span class="string">&#x27;.&#x27;</span>:</span><br><span class="line">                    dp[i][j] = dp[i-<span class="number">1</span>][j-<span class="number">1</span>]</span><br><span class="line">                <span class="keyword">elif</span> p[c] == <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">                    <span class="keyword">if</span> p[c-<span class="number">1</span>] == s[r] <span class="keyword">or</span> p[c-<span class="number">1</span>] == <span class="string">&#x27;.&#x27;</span>:</span><br><span class="line">                        dp[i][j] = dp[i-<span class="number">1</span>][j] <span class="keyword">or</span> dp[i][j-<span class="number">2</span>]</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        dp[i][j] = dp[i][j-<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">return</span> dp[m][n]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>最后参考内容：</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/regular-expression-matching/solution/shou-hui-tu-jie-wo-tai-nan-liao-by-hyj8/">https://leetcode-cn.com/problems/regular-expression-matching/solution/shou-hui-tu-jie-wo-tai-nan-liao-by-hyj8/</a></p>
+</blockquote>
+<h2 id="11-盛水最多的容器"><a href="#11-盛水最多的容器" class="headerlink" title="11. 盛水最多的容器"></a>11. 盛水最多的容器</h2><p>是接雨水问题、柱状图中最大矩形问题的前序问题</p>
+<p>这个相对比较简单一点</p>
+<p>两个柱子之间有阻挡也没有关系</p>
+<p>用双指针-左右指针进行收缩</p>
+<p>如果左边高度比较低，就移动左边指针</p>
+<p>如果右边高度比较低，就移动右边指针</p>
+<p>但是这道题的耗时有点离谱，大家都是怎么刷时间的</p>
+<h2 id="34-在排序数组中查找元素的第一个和最后一个位置-二分法"><a href="#34-在排序数组中查找元素的第一个和最后一个位置-二分法" class="headerlink" title="34. 在排序数组中查找元素的第一个和最后一个位置 - 二分法"></a>34. 在排序数组中查找元素的第一个和最后一个位置 - 二分法</h2><p>数组是有序的，给定一个target</p>
+<p>查找 target 在数组中的位置</p>
+<hr>
+<p>这个题其实是看过算法的，但是二分法就是 细节魔鬼！</p>
+<p>有一个非常好的题解：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/solution/34po-shi-wu-hua-de-er-fen-cha-zhao-zan-men-yi-bu-y/">34.【朴实无华的二分查找】咱们一步一步来！</a></p>
+<p>这篇文章中的思路非常好，在不会跑的时候，就先用走的。</p>
+<p>二分法在本问题中的应用是：</p>
+<ol>
+<li>找到target的左边界</li>
+<li>找到target的右边界</li>
+</ol>
+<p>整个流程是：</p>
+<ol>
+<li>找到target在区间中的左右边界：用二分法</li>
+<li>对左右边界进行判断，决定最后输出情况</li>
+</ol>
+<hr>
+<p>核心：怎样找到 target 的左右边界，注意细节</p>
+<p>找左边界：</p>
+<ol>
+<li>left 取开头，right 取结尾，先把左边界的原始值设置为-2，如果根本就不需要进行下面的判断，左边界将为-2</li>
+<li>循环，条件是 left &lt;&#x3D; right<ol>
+<li>二分法，找中间位置 mid</li>
+<li>如果 mid 位置数值 小于 target【说明左边界在 mid 的右边】，那就<ol>
+<li>left 换到 mid+1 的位置</li>
+</ol>
+</li>
+<li>如果 mid 位置数值 大于等于 target【说明左边界在 mid 的左边，但是具体在哪还不确定】<ol>
+<li>right 换到 mid-1 的位置</li>
+<li>把 左边界 也移到 right 的位置</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>找右边界：【虽说左边和右边可以类比，但是细节真的还是不太一样】</p>
+<ol>
+<li>left 取开头，right 取结尾，先把右边界的原始值设置为-2，如果根本就不需要进行下面的判断，右边界将为-2【这一步基本相同】</li>
+<li>循环，条件是 left &lt;&#x3D; right<ol>
+<li>二分法，找中间位置 mid</li>
+<li>如果 mid 位置数值 大于 target【说明右边界在 mid 的左边】<ol>
+<li>right &#x3D; mid - 1</li>
+</ol>
+</li>
+<li>如果 mid 位置数值 小于等于 target【说明左边界在 mid 的右边，但是具体在哪还不确定】<ol>
+<li>先把left移过去，缩小区间，left &#x3D; mid + 1</li>
+<li>把右边界也移过去，rightBorder &#x3D; left</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>上面两个过程就把寻找左右边界的工作走完了，这样也比较清晰，但是里面到底是什么时候修改 left 或者 right，什么时候记录左右边界值，其实还是需要一点讲究的，需要注意一下！</p>
+<p>接下来是判断，会有几种情况：</p>
+<ol>
+<li>最简单的肯定是有target，那么左右边界之间应该是不太一样的，返回 [leftBorder+1, rightBorder-1]</li>
+<li>如果全部比 target 大，或者全部比 target 小呢？这个时候肯定会有一侧的边界为-2，就是没有变化过，所以也可以进行得出了【-1， -1】</li>
+<li>其他情况，【-1， -1】</li>
+</ol>
+<p>可能最不容易判断的情况是 [1], target&#x3D;1的情况，其实这个时候，leftBorder为-1，rightBorder为2，所以是可以得出结论的【0，0】</p>
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a><!-- ASCII --></h1><h2 id="804-唯一摩尔斯密码词"><a href="#804-唯一摩尔斯密码词" class="headerlink" title="804. 唯一摩尔斯密码词"></a>804. 唯一摩尔斯密码词</h2><p>这个问题是说，给了一个写有多个词的 list</p>
+<p>根据摩尔斯密码分别进行转化，然后判断这些词的摩尔斯密码中有没有相同的</p>
+<p>返回的是不相同的摩尔斯密码的数量</p>
+<hr>
+<p>补充知识：</p>
+<h3 id="python-与-ASCII码"><a href="#python-与-ASCII码" class="headerlink" title="python 与 ASCII码"></a>python 与 ASCII码</h3><p>这道题给的是小写字母</p>
+<p>密码本也是一个list，怎么样进行检索</p>
+<p>小写字母的 ASCII 码是 97-122</p>
+<p>大写字母的 ASCII 码是 65-90</p>
+<p>数字的 ASCII 码是 48-57</p>
+<p>可以使用 <code>ord(str)</code> 函数将字符转换为相应的 ASCII 码</p>
+<p>还可以使用 <code>chr(int)</code> 将 ASCII 码转换为相应的字符</p>
+<p>还可以直接使用 <code>ord(x) - ord(&#39;a&#39;)</code> ，这样即使不知道 a 的ASCII 码是多少也可以进行使用</p>
+<hr>
+<p>第一步，获得所有单词的摩尔斯密码串：</p>
+<p>本题使用就这样使用</p>
+<p><code>ord(str)-97</code> 就是这个小写字母在密码本中的索引值了</p>
+<p>获得摩尔斯密码串是比较容易的</p>
+<p>第二步，分析这些密码穿是不是又重复的：</p>
+<ul>
+<li>我用了 set() 集合，主要是存储和查询</li>
+<li>官方用了哈希表进行存储，其实差不多</li>
+</ul>
+<hr>
+<p>再补充知识：</p>
+<h3 id="python中的集合"><a href="#python中的集合" class="headerlink" title="python中的集合"></a>python中的集合</h3><p>创建一个集合，可以用</p>
+<p><code>B = &#123;a, b, &#39;c&#39;&#125;</code> 这样的形式</p>
+<p>但是如果创建 空集合，必须是 <code>A = set()</code>， 如果是 <code>&#123;&#125;</code> 就成了创建空的字典了</p>
+<p>增加元素：<code>add</code></p>
+<p>将元素拆分成一个一个字符再添加进集合：<code>update</code></p>
+<p>删除某个元素：</p>
+<ul>
+<li><code>remove</code>，不存在会报错</li>
+<li><code>discard</code>， 不存在也不报错</li>
+<li><code>pop</code>，删除并返回【注意是任意元素】</li>
+<li><code>clear</code>，清空集合</li>
+</ul>
+<p>集合与集合之间可以进行数学运算：交并包含等关系</p>
+<hr>
+<p>本期十题就到这里，接下来将会主攻 LeetCode Hot 100 问题！</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2021/03/29/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E4%B8%83/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ascii/" rel="tag">ascii</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hot100/" rel="tag">hot100</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" rel="tag">单调栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag">哈希表</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/04/17/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%85%AD/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            【统计学习方法】6-回归和最大熵
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/03/18/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E5%85%AD/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">LeetCode刷题笔记（六）</div>
+      </a>
+    
+  </nav>
+
+  
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2022
+        <i class="ri-heart-fill heart_icon"></i> Sun Yue
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="悦"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/246643413">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about-me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

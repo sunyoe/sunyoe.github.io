@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+  
+
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="思考，学习，生活" />
+       
+      <meta name="description" content="SJTU 研究僧" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>春招-笔试分享 |  悦</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="悦" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-春招-笔试分享"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  春招-笔试分享
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/04/26/%E6%98%A5%E6%8B%9B-%E7%AC%94%E8%AF%95%E5%88%86%E4%BA%AB/" class="article-date">
+  <time datetime="2021-04-26T02:42:49.000Z" itemprop="datePublished">2021-04-26</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">7 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>字节跳动的笔试记录是最详细的，但是也是唯一一个没有成功的。</p>
+<p>今天带来的一手笔试题目难度各异，分别来自美团、阿里和华为。总体来说，阿里的题目数据量大、用时紧张，很难完整得出结果；美团的题目较多，但上手也比较容易；华为题目虽然相对简单，但是输入输出的数据格式非常糟糕。</p>
+<p>下面对部分留下记录的题目进行简单分析：</p>
+<span id="more"></span>
+
+<h1 id="1-阿里笔试"><a href="#1-阿里笔试" class="headerlink" title="1. 阿里笔试"></a>1. 阿里笔试</h1><p>比较难，关键感受：测试用例非常完整，很难通过用例，一个测试用例都没有过。</p>
+<h2 id="1）牌游戏问题"><a href="#1）牌游戏问题" class="headerlink" title="1）牌游戏问题"></a>1）牌游戏问题</h2><p>题目描述：n副牌，每副有m张（就是1到m），每副牌中抽1张，问相加之和为k的抽取方案有多少种？</p>
+<p>给出的测试例会有T组，需要一下子给出他们的结果。</p>
+<p>这道题似乎在Leetcode上找到了近似的题目，ta的解决方法是<strong>概率</strong>的方法</p>
+<h2 id="2）-零件优化问题"><a href="#2）-零件优化问题" class="headerlink" title="2） 零件优化问题"></a>2） 零件优化问题</h2><p>题目描述：n个零件，对每个零件进行一次空间 或 时间优化（二选一，且必选），每种优化带来的不稳定值不同</p>
+<p>这些零件中，有的零件之间会有冲突，总计 m 条冲突，冲突零件不可组合</p>
+<p>请找到最佳组合方案，要求不稳定值最小。</p>
+<p>思路：这道题相比1）题其实可解性稍高，比如可以使用并查集的方式建立零件之间的联系（两种联系，一是冲突问题，二是不稳定值之和），然后寻找最小的不稳定值。</p>
+<h2 id="其他笔试"><a href="#其他笔试" class="headerlink" title="其他笔试"></a>其他笔试</h2><p>在早期的阿里云笔试中，题目是二叉树的中序遍历问题</p>
+<p>在一棵二叉搜索树中，找到第 k 小的数字</p>
+<h1 id="2-美团笔试"><a href="#2-美团笔试" class="headerlink" title="2. 美团笔试"></a>2. 美团笔试</h1><p>一共5道题，难度适中，可解性比较高。</p>
+<h2 id="1）积木问题"><a href="#1）积木问题" class="headerlink" title="1）积木问题"></a>1）积木问题</h2><p>题目描述：</p>
+<p>共有n块积木，每个积木上写了一个数字（0-9之间的数字）。</p>
+<p>可以任一将其中一块积木换成其他数字，希望更换后的数字串特点是：</p>
+<p>1）回文最好</p>
+<p>2）越小越好</p>
+<p>不能回文，就越小越好。</p>
+<p>输出：最佳的积木更换方案后的情况。</p>
+<p>思路：</p>
+<p>1）首先需要检查是不是回文，用双指针前后移动，观察到某一位是不是相同，如果不同，试图更换积木，看更换后是不是回文，仍然不是，那么特点1）无望，就换成更小的积木</p>
+<p>2）直接从最高位开始，不是0的那一位换成0，就是最小的</p>
+<p>现在看来，当时的解法有瑕疵，回文的检查做了两次，其实只需要一次就可以了，更换数字放在中间，然后继续检查就可以了</p>
+<p>这道题过了72%的样子。</p>
+<h2 id="2）打龙技能问题"><a href="#2）打龙技能问题" class="headerlink" title="2）打龙技能问题"></a>2）打龙技能问题</h2><p>题目描述：</p>
+<p>在一个游戏中要打龙，有两种技能 1和2，分别需要消耗 c1 和 c2 点体力，使用任意一种技能都可以打败龙。</p>
+<p>赢得游戏的要求是，不能连续输3局。</p>
+<p>现在给出一串字符串，T和F，表示不用技能的情况下每局的输赢情况。</p>
+<p>现在问，最少需要多少点体力，才能赢得游戏？</p>
+<p>思路：</p>
+<p>这道题的难度应该说很低了，贪心法。</p>
+<p>就是从头开始遍历，输的次数累计到3，自然就要用一次技能，计算需要使用技能的最少数量；</p>
+<p>两种技能中选择消耗体力比较少的那一种，就可以了。</p>
+<p>这道题似乎是全过了。</p>
+<h2 id="3）爬树问题"><a href="#3）爬树问题" class="headerlink" title="3）爬树问题"></a>3）爬树问题</h2><p>题目：有n棵树，高度分别为 $h_i$</p>
+<p>现在要选择一棵树，作为分界点：</p>
+<ul>
+<li>所有奇数树给一队</li>
+<li>所有偶数树给另一队</li>
+</ul>
+<p>注意：奇偶数是在去除选择的这棵树之后的顺序来计算的！！</p>
+<p>要求：找到合适的位置，使得两队的高度应该一致，无法一致就返回false</p>
+<p>思路：</p>
+<p>这道题我用了前缀和的方法，首先遍历一遍所有树，记录到每一棵树的位置，前面的所有树中奇数和偶数树的高度。</p>
+<p>然后遍历位置，以每个位置分界</p>
+<p>所有奇数树：该位置前的奇数树+该位置后的偶数树</p>
+<p>所有偶数树：该位置前的偶数树+该位置后的奇数树</p>
+<p>这个题就是这个索引比较头大，最后似乎通过了82%</p>
+<hr>
+<p>还有两道题，题目已经不太记得了，通过率均为18%，进入面试环节。</p>
+<h2 id="面试题目-大数加减法"><a href="#面试题目-大数加减法" class="headerlink" title="面试题目 - 大数加减法"></a>面试题目 - 大数加减法</h2><p>也就是计算器算法的实现</p>
+<h1 id="3-华为笔试"><a href="#3-华为笔试" class="headerlink" title="3. 华为笔试"></a>3. 华为笔试</h1><h2 id="1）-球赛积分问题"><a href="#1）-球赛积分问题" class="headerlink" title="1） 球赛积分问题"></a>1） 球赛积分问题</h2><p>足球小组赛中，通常是两两进行两次比赛，分别当一次主场，然后赢方积3分，平则各积1分</p>
+<p>给出一组比赛结果，记录了所有场次比赛的信息</p>
+<p>其中球队名称为 a-z 的字母，不会超过26支球队</p>
+<p>然后后面跟上比赛结果</p>
+<p>输出要求：按照积分高低输出球队名，同积分则按照字母顺序</p>
+<p>我的思路：</p>
+<ol>
+<li>本题用一个哈希表，或者字典就能很好解决积分计算的问题</li>
+<li>最关键的算法是字典的排序，要按照value大小进行排序</li>
+</ol>
+<p>问题：</p>
+<ol>
+<li>本题在牛客网上进行时，还有一个问题是输入输出的格式问题，不是很规范，需要进行很多转换</li>
+<li>字典的键的排序比较糟糕</li>
+</ol>
+<p>本题通过70%</p>
+<h2 id="2）帽子问题"><a href="#2）帽子问题" class="headerlink" title="2）帽子问题"></a>2）帽子问题</h2><p>每个人知道自己的帽子颜色，和在场所有人的帽子颜色</p>
+<p>现在给出一个数组，里面记录了部分人报告的数据，该数据表示在场人中帽子颜色和他相同的人的数量</p>
+<p>比如在场有4个人戴了蓝色帽子，那么其中任一人被问时，回答都会是 3：表示还有3个人的帽子和自己颜色相同。</p>
+<p>问：根据这个数组，在场最少有多少人。</p>
+<p>这个逻辑问题的关键是：比如两个颜色的帽子数量是相同的，那么这两个群体中所有人回答的数量都是一样的，如果这两个群体中的人并没有被全部提问，那么我们就可以少算几个人了！</p>
+<p>比如<code>2 2</code></p>
+<p>有可能是 两个人颜色并不一样，但我们完全可以认为他们是一样的，这样全场最少就是3个人。</p>
+<p>因此，本题的算法应该可以认为是贪心法，用数学方法解决：</p>
+<p>用一个哈希表记录相同数字的数量，比如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>: <span class="number">2</span>	<span class="comment"># 2个人答1</span></span><br><span class="line"><span class="number">2</span>: <span class="number">2</span>	<span class="comment"># 2个人答2</span></span><br><span class="line"><span class="number">3</span>: <span class="number">5</span>	<span class="comment"># 5个人答3</span></span><br></pre></td></tr></table></figure>
+
+<p>那么，相当于：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span>: <span class="number">2</span>	<span class="comment"># 二人同色，2人</span></span><br><span class="line"><span class="number">3</span>: <span class="number">2</span>	<span class="comment"># 三人同色，2人</span></span><br><span class="line"><span class="number">4</span>: <span class="number">5</span>	<span class="comment"># 四人同色，5人</span></span><br></pre></td></tr></table></figure>
+
+<p>最少的情况就是：</p>
+<p>$[\frac{记录数量}{同色人数}]_{取整}*同色人数$</p>
+<p>比如：$[\frac{5}{4}]_{取整}<em>4&#x3D;2</em>4&#x3D;8$，这里取整要向上取整</p>
+<p>本题全过。</p>
+<h2 id="3）最少步数找到字符串"><a href="#3）最少步数找到字符串" class="headerlink" title="3）最少步数找到字符串"></a>3）最少步数找到字符串</h2><p>给出：一个长字符串、一个短字符串、在长字符串中的起始位置</p>
+<p>要求：在长字符串的起始位置开始，可以向左或者向右开始找短字符串的头一个字符，然后按照顺序找下一个短字符串中的字符，找出总步数最少的那一种情况输出。</p>
+<p>本题还是有一点难度的，就是说我应该怎么找最短的路径，而且本题中的长字符串是可以循环的。</p>
+<p>结果：本题通过30%</p>
+<h2 id="面试题目"><a href="#面试题目" class="headerlink" title="面试题目"></a>面试题目</h2><p>LeetCode - 11 装水的最大容器问题</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>本文主要是作者个人知识积累和记录，以便后续查看，如果能够帮助其他同学，将不胜荣幸。希望能够继续努力，夯实基础，在职业生涯大放异彩！</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2021/04/26/%E6%98%A5%E6%8B%9B-%E7%AC%94%E8%AF%95%E5%88%86%E4%BA%AB/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AF%95/" rel="tag">笔试</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/05/12/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%85%AB/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            【统计学习方法】8-提升方法
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/04/24/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B8%83/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">【统计学习方法】7-SVM支持向量机</div>
+      </a>
+    
+  </nav>
+
+  
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2022
+        <i class="ri-heart-fill heart_icon"></i> Sun Yue
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="悦"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/246643413">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about-me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
